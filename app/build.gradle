@@ -43,7 +43,7 @@ dependencies {
 
 
     compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoVersion"
-  //  compile "com.google.guava:guava:$rootProject.guavaVersion"
+    compile "com.google.guava:guava:$rootProject.guavaVersion"
 
     // Dagger
     apt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
