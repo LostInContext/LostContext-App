@@ -39,4 +39,5 @@ ext {
     espressoVersion = '2.2.2'
     daggerVersion = '2.2'
     constraintLayoutVersion = '1.0.0-alpha2'
+    playServicesVersion = '9.2.0'
 }
