@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.android.gms.awareness.fence.FenceUpdateRequest;
+import com.google.android.gms.awareness.fence.HeadphoneFence;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.lostincontext.googleapi.Awareness;
@@ -22,7 +24,13 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
 
 
     @Override
-    public void start() { }
+    public void start() {
+        // POC test of how to register a fence
+        FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
+        builder.addFence("headphone", HeadphoneFence.pluggingIn(), view.getPendingIntent());
+
+        awareness.updateFences(builder.build());
+    }
 
     @Inject
     public MainScreenPresenter(MainScreenContract.View view,

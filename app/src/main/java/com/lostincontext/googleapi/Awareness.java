@@ -5,6 +5,8 @@ import android.app.Application;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.google.android.gms.awareness.fence.FenceQueryRequest;
+import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
@@ -34,8 +36,14 @@ public class Awareness {
         activity.getApplication().registerActivityLifecycleCallbacks(lifecycleCallback);
     }
 
-    public GoogleApiClient getGoogleApiClient() {
-        return googleApiClient;
+    public void updateFences(FenceUpdateRequest fenceUpdateRequest) {
+        com.google.android.gms.awareness.Awareness.FenceApi.updateFences(googleApiClient,
+                                                                         fenceUpdateRequest);
+    }
+
+    public void queryFences(FenceQueryRequest fenceQueryRequest) {
+        com.google.android.gms.awareness.Awareness.FenceApi.queryFences(googleApiClient,
+                                                                        fenceQueryRequest);
     }
 
     //region LifecycleCallbacks
