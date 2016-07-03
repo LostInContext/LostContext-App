@@ -28,6 +28,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBiEKKSbprkD3WQlSeR7Dd1mv6VsgRyIN0"/>
+
+        <service
+            android:name=".that.ThatService"
+            android:exported="false"/>
     </application>
 
 
