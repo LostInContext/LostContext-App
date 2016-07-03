@@ -5,10 +5,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.lostincontext.R;
-import com.lostincontext.googleapi.Awareness;
-import com.lostincontext.googleapi.DaggerAwarenessComponent;
-import com.lostincontext.googleapi.AwarenessComponent;
-import com.lostincontext.googleapi.AwarenessModule;
+import com.lostincontext.awareness.Awareness;
+import com.lostincontext.awareness.DaggerAwarenessComponent;
+import com.lostincontext.awareness.AwarenessComponent;
+import com.lostincontext.awareness.AwarenessModule;
 
 import javax.inject.Inject;
 

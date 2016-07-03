@@ -9,7 +9,7 @@ import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.awareness.fence.HeadphoneFence;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.lostincontext.googleapi.Awareness;
+import com.lostincontext.awareness.Awareness;
 
 import javax.inject.Inject;
 

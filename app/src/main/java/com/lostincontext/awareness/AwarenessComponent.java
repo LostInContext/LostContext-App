@@ -1,4 +1,4 @@
-package com.lostincontext.googleapi;
+package com.lostincontext.awareness;
 
 
 import dagger.Component;

@@ -1,7 +1,7 @@
 package com.lostincontext.mainscreen;
 
 import com.lostincontext.commons.FragmentScope;
-import com.lostincontext.googleapi.AwarenessComponent;
+import com.lostincontext.awareness.AwarenessComponent;
 
 import dagger.Component;
 

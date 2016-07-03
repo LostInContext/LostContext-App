@@ -1,4 +1,4 @@
-package com.lostincontext.googleapi;
+package com.lostincontext.awareness;
 
 import android.support.v4.app.FragmentActivity;
 
