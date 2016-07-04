@@ -40,4 +40,5 @@ ext {
     daggerVersion = '2.2'
     constraintLayoutVersion = '1.0.0-alpha3'
     playServicesVersion = '9.2.0'
+    glideVersion = '3.7.0'
 }
