@@ -1,30 +1,25 @@
 package com.lostincontext.awareness;
 
-import android.app.Activity;
-import android.app.Application;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.google.android.gms.awareness.fence.FenceQueryRequest;
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.common.base.Objects;
+import com.lostincontext.commons.BaseActivity;
 
 import javax.inject.Inject;
 
+
 public class Awareness {
 
-    GoogleApiClient googleApiClient;
+    private GoogleApiClient googleApiClient;
 
-    FragmentActivity activity;
 
     @Inject
-    public Awareness(GoogleApiClient googleApiClient,
-                     FragmentActivity activity) {
+    public Awareness(GoogleApiClient googleApiClient) {
         this.googleApiClient = googleApiClient;
-        this.activity = activity;
     }
 
 
@@ -33,7 +28,13 @@ public class Awareness {
         googleApiClient.registerConnectionCallbacks(connectionCallbacks);
         googleApiClient.registerConnectionFailedListener(connectionFailedListener);
         googleApiClient.connect();
-        activity.getApplication().registerActivityLifecycleCallbacks(lifecycleCallback);
+    }
+
+    @Inject
+    public void setup(BaseActivity activity) {
+        activity.registerListener(lifecycleCallbacks);
+        Log.d("fbl", "setup : " + this.hashCode()); // TODO DO NOT COMMIT
+
     }
 
     public void updateFences(FenceUpdateRequest fenceUpdateRequest) {
@@ -47,38 +48,33 @@ public class Awareness {
     }
 
     //region LifecycleCallbacks
-    private LifecycleCallback lifecycleCallback = new LifecycleCallback();
 
-    public class LifecycleCallback implements Application.ActivityLifecycleCallbacks {
+    private LifecycleCallbacks lifecycleCallbacks = new LifecycleCallbacks();
 
-        @Override public void onActivityCreated(Activity activity, Bundle bundle) { }
+    private class LifecycleCallbacks implements BaseActivity.ActivityLifecycleCallbacks {
 
-        @Override public void onActivityStarted(Activity activity) {
-            if (activity == null || !Objects.equal(Awareness.this.activity, activity)) return;
+        @Override public void onActivityCreated(BaseActivity activity) { }
+
+        @Override public void onActivityStarted(BaseActivity activity) {
             if (googleApiClient.isConnecting() || googleApiClient.isConnected()) return;
             googleApiClient.connect();
         }
 
-        @Override public void onActivityResumed(Activity activity) { }
+        @Override public void onActivityResumed(BaseActivity activity) { }
 
-        @Override public void onActivityPaused(Activity activity) { }
+        @Override public void onActivityPaused(BaseActivity activity) { }
 
-        @Override public void onActivityStopped(Activity activity) {
-            if (activity == null || !Objects.equal(Awareness.this.activity, activity)) return;
-
+        @Override public void onActivityStopped(BaseActivity activity) {
             if (googleApiClient.isConnected() || googleApiClient.isConnecting()) {
                 googleApiClient.disconnect();
             }
-
         }
 
-        @Override public void onActivitySaveInstanceState(Activity activity, Bundle bundle) { }
-
-        @Override public void onActivityDestroyed(Activity activity) {
-            activity.getApplication().unregisterActivityLifecycleCallbacks(this);
+        @Override public void onActivityDestroyed(BaseActivity activity) {
+            activity.unregisterListener(this);
         }
-
     }
+
     //endregion
 
 }

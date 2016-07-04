@@ -1,9 +1,8 @@
 package com.lostincontext.awareness;
 
-import android.support.v4.app.FragmentActivity;
-
 import com.google.android.gms.awareness.Awareness;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.lostincontext.commons.BaseActivity;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,9 +10,9 @@ import dagger.Provides;
 @Module
 public class AwarenessModule {
 
-    private FragmentActivity activity;
+    private BaseActivity activity;
 
-    public AwarenessModule(FragmentActivity activity) {
+    public AwarenessModule(BaseActivity activity) {
         this.activity = activity;
     }
 
@@ -25,7 +24,7 @@ public class AwarenessModule {
     }
 
     @Provides
-    FragmentActivity provideFragmentActivity(){
+    BaseActivity provideBaseActivity() {
         return activity;
     }
 }

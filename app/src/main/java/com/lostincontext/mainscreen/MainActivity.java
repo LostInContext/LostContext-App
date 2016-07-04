@@ -2,24 +2,21 @@ package com.lostincontext.mainscreen;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 
 import com.lostincontext.R;
-import com.lostincontext.awareness.Awareness;
 import com.lostincontext.awareness.AwarenessComponent;
 import com.lostincontext.awareness.AwarenessModule;
 import com.lostincontext.awareness.DaggerAwarenessComponent;
+import com.lostincontext.commons.BaseActivity;
 
 import javax.inject.Inject;
 
 import static com.lostincontext.utils.ActivityUtils.addFragmentToActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Inject MainScreenPresenter mainScreenPresenter;
-
-    @Inject Awareness awareness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Create the Google API client :
-        AwarenessComponent googleApiComponent = DaggerAwarenessComponent.builder()
+        AwarenessComponent awarenessComponent = DaggerAwarenessComponent.builder()
                 .awarenessModule(new AwarenessModule(this)).build();
 
         // Create the presenter
         DaggerMainScreenFragmentComponent.builder()
                 .mainScreenPresenterModule(new MainScreenPresenterModule(fragment))
-                .awarenessComponent(googleApiComponent)
+                .awarenessComponent(awarenessComponent)
                 .build()
                 .inject(this);
     }
