@@ -28,10 +28,25 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
     public MainScreenFragment() { }
 
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_mainscreen, container, false);
+
+        return root;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         presenter.start();
+    }
+
+    @Override
+    public void setPresenter(MainScreenContract.Presenter presenter) {
+        this.presenter = checkNotNull(presenter);
     }
 
     public PendingIntent getPendingIntent() {
@@ -41,23 +56,5 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
                                         intent,
                                         0);
     }
-
-    @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_mainscreen, container, false);
-
-        return root;
-    }
-
-    @Override
-    public void setPresenter(MainScreenContract.Presenter presenter) {
-        this.presenter = checkNotNull(presenter);
-    }
-
 
 }

@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
                 .awarenessModule(new AwarenessModule(this)).build();
 
         // Create the presenter
-        DaggerMainScreenFragmentComponent.builder()
+        DaggerMainScreenComponent.builder()
                 .mainScreenPresenterModule(new MainScreenPresenterModule(fragment))
                 .awarenessComponent(awarenessComponent)
                 .build()

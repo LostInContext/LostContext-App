@@ -22,16 +22,6 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
 
     private Awareness awareness;
 
-
-    @Override
-    public void start() {
-        // POC test of how to register a fence
-        FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
-        builder.addFence("headphone", HeadphoneFence.pluggingIn(), view.getPendingIntent());
-
-        awareness.updateFences(builder.build());
-    }
-
     @Inject
     public MainScreenPresenter(MainScreenContract.View view,
                                Awareness awareness) {
@@ -40,10 +30,19 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
     }
 
     @Inject
-    void setupListeners() {
+    void setup() {
         view.setPresenter(this);
         awareness.init(this,
                        this);
+    }
+
+    @Override
+    public void start() {
+        // POC test of how to register a fence
+        FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
+        builder.addFence("headphone", HeadphoneFence.pluggingIn(), view.getPendingIntent());
+
+        awareness.updateFences(builder.build());
     }
 
 

@@ -7,7 +7,7 @@ import dagger.Component;
 
 @FragmentScope
 @Component(dependencies = AwarenessComponent.class, modules = MainScreenPresenterModule.class)
-public interface MainScreenFragmentComponent {
+public interface MainScreenComponent {
 
     void inject(MainActivity activity);
 }
