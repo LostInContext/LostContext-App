@@ -5,20 +5,24 @@ import com.google.android.gms.awareness.fence.DetectedActivityFence;
 import com.google.android.gms.awareness.fence.HeadphoneFence;
 
 /**
- * Created by STrabelsi on 04/07/2016.
+ * Created by syrinetrabelsi on 04/07/2016.
  */
 
 public class Rule {
-
-    AwarenessFence fence;
-    Object playlist;
-    String name;
-
-    public Rule(AwarenessFence fence, Object playlist, String name) {
+    public Rule(AwarenessFence fence, String name) {
         this.fence = fence;
-        this.playlist = playlist;
         this.name = name;
+    }
 
-        AwarenessFence.and(HeadphoneFence.pluggingIn(), DetectedActivityFence.during(0));
+    private AwarenessFence fence;
+    private String name;
+
+
+    public AwarenessFence getFence() {
+        return fence;
+    }
+
+    public String getName() {
+        return name;
     }
 }
