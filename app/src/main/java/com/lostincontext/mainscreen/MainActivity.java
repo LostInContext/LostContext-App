@@ -6,9 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.lostincontext.R;
 import com.lostincontext.awareness.Awareness;
-import com.lostincontext.awareness.DaggerAwarenessComponent;
 import com.lostincontext.awareness.AwarenessComponent;
 import com.lostincontext.awareness.AwarenessModule;
+import com.lostincontext.awareness.DaggerAwarenessComponent;
 
 import javax.inject.Inject;
 
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+
 
         FragmentManager fm = getSupportFragmentManager();
         MainScreenFragment fragment = (MainScreenFragment) fm.findFragmentById(R.id.contentFrame);
