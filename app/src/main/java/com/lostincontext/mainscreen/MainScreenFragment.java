@@ -25,7 +25,8 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
     }
 
 
-    public MainScreenFragment() { }
+    public MainScreenFragment() {
+    }
 
 
     @Override
@@ -34,15 +35,17 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
         presenter.start();
     }
 
+    @Override
     public PendingIntent getPendingIntent() {
         Intent intent = new Intent(this.getContext(), ThatService.class);
         return PendingIntent.getService(this.getContext().getApplicationContext(),
-                                        0,
-                                        intent,
-                                        0);
+                0,
+                intent,
+                0);
     }
 
-    @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
