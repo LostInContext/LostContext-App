@@ -1,4 +1,4 @@
-package com.lostincontext;
+package com.lostincontext.rules;
 
 import com.google.android.gms.awareness.fence.AwarenessFence;
 import com.google.android.gms.awareness.fence.DetectedActivityFence;
