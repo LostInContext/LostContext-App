@@ -1,10 +1,12 @@
 package com.lostincontext.mainscreen;
 
+import com.lostincontext.awareness.AwarenessModule;
+
 import dagger.Module;
 import dagger.Provides;
 
 
-@Module
+@Module (includes = AwarenessModule.class)
 public class MainScreenPresenterModule {
 
     private final MainScreenContract.View view;

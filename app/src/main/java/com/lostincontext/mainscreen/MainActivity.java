@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import com.lostincontext.R;
-import com.lostincontext.awareness.AwarenessComponent;
 import com.lostincontext.awareness.AwarenessModule;
-import com.lostincontext.awareness.DaggerAwarenessComponent;
 import com.lostincontext.commons.BaseActivity;
 
 import javax.inject.Inject;
@@ -32,14 +30,10 @@ public class MainActivity extends BaseActivity {
             addFragmentToActivity(fm, fragment, R.id.contentFrame);
         }
 
-        // Create the Google API client :
-        AwarenessComponent awarenessComponent = DaggerAwarenessComponent.builder()
-                .awarenessModule(new AwarenessModule(this)).build();
-
         // Create the presenter
         DaggerMainScreenComponent.builder()
                 .mainScreenPresenterModule(new MainScreenPresenterModule(fragment))
-                .awarenessComponent(awarenessComponent)
+                .awarenessModule(new AwarenessModule(this))
                 .build()
                 .inject(this);
     }
