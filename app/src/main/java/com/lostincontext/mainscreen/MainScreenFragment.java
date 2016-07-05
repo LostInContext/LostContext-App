@@ -25,8 +25,7 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
     }
 
 
-    public MainScreenFragment() {
-    }
+    public MainScreenFragment() { }
 
 
     @Nullable
@@ -39,29 +38,22 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
         return root;
     }
 
-    @Override
-    public void onResume() {
+    @Override public void onResume() {
         super.onResume();
         presenter.start();
     }
 
-    @Override
-    public void setPresenter(MainScreenContract.Presenter presenter) {
+    @Override public void setPresenter(MainScreenContract.Presenter presenter) {
         this.presenter = checkNotNull(presenter);
     }
 
     public PendingIntent getPendingIntent() {
         Intent intent = new Intent(this.getContext(), ThatService.class);
         return PendingIntent.getService(this.getContext().getApplicationContext(),
-                0,
-                intent,
-                0);
+                                        0,
+                                        intent,
+                                        0);
     }
 
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
 
 }

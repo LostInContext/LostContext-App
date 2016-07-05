@@ -16,8 +16,8 @@ import javax.inject.Inject;
 
 
 public class MainScreenPresenter implements MainScreenContract.Presenter,
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+                                            GoogleApiClient.ConnectionCallbacks,
+                                            GoogleApiClient.OnConnectionFailedListener {
 
     private MainScreenContract.View view;
 
@@ -31,8 +31,8 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
 
 
         Rule headphone = RuleFactory.headPhone();
-      //  Rule running = RuleFactory.duringRunning();
-      //  Rule rule = RuleFactory.and(headphone, running);
+        //  Rule running = RuleFactory.duringRunning();
+        //  Rule rule = RuleFactory.and(headphone, running);
         builder.addFence(headphone.getName(), headphone.getFence(), view.getPendingIntent());
 
         awareness.updateFences(builder.build());
@@ -49,24 +49,15 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
     void setup() {
         view.setPresenter(this);
         awareness.init(this,
-                this);
+                       this);
     }
 
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
+    @Override public void onConnected(@Nullable Bundle bundle) { }
 
-    }
+    @Override public void onConnectionSuspended(int i) { }
 
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
+    @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) { }
 }
 
 

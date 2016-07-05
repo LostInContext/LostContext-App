@@ -9,7 +9,7 @@ import com.lostincontext.commons.BaseActivity;
 
 import javax.inject.Inject;
 
-import static com.lostincontext.utils.ActivityUtils.addFragmentToActivity;
+import static com.lostincontext.utils.Activities.addFragmentToActivity;
 
 
 public class PlaylistsActivity extends BaseActivity {

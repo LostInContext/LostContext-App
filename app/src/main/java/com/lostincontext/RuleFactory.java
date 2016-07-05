@@ -4,10 +4,6 @@ import com.google.android.gms.awareness.fence.AwarenessFence;
 import com.google.android.gms.awareness.fence.DetectedActivityFence;
 import com.google.android.gms.awareness.fence.HeadphoneFence;
 
-/**
- * Created by syrinetrabelsi on 04/07/2016.
- */
-
 public class RuleFactory {
 
     public static Rule headPhone(){

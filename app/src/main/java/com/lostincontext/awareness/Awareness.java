@@ -34,7 +34,6 @@ public class Awareness {
     public void setup(BaseActivity activity) {
         activity.registerListener(lifecycleCallbacks);
         Log.d("fbl", "setup : " + this.hashCode()); // TODO DO NOT COMMIT
-
     }
 
     public void updateFences(FenceUpdateRequest fenceUpdateRequest) {

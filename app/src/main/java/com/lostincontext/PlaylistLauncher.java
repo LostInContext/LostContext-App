@@ -5,10 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-/**
- * Created by syrinetrabelsi on 04/07/2016.
- */
-
 public class PlaylistLauncher {
     private static String TAG = PlaylistLauncher.class.getSimpleName();
 
