@@ -8,9 +8,11 @@ import android.support.annotation.Nullable;
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.lostincontext.Rule;
-import com.lostincontext.RuleFactory;
 import com.lostincontext.awareness.Awareness;
+import com.lostincontext.rules.HeadPhoneRuleDescription;
+import com.lostincontext.rules.Rule;
+import com.lostincontext.rules.RuleDescription;
+import com.lostincontext.rules.RuleFactory;
 
 import javax.inject.Inject;
 
@@ -28,13 +30,11 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
     public void start() {
         // POC test of how to register a fence
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
-
-
-        Rule headphone = RuleFactory.headPhone();
+        RuleDescription headPhoneDescription = new HeadPhoneRuleDescription(HeadPhoneRuleDescription.State.PLUGGED_IN);
+        Rule headphone = RuleFactory.buildRule(headPhoneDescription);
         //  Rule running = RuleFactory.duringRunning();
         //  Rule rule = RuleFactory.and(headphone, running);
         builder.addFence(headphone.getName(), headphone.getFence(), view.getPendingIntent());
-
         awareness.updateFences(builder.build());
     }
 
