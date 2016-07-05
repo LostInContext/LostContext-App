@@ -32,7 +32,7 @@ public class Awareness {
 
     @Inject
     public void setup(BaseActivity activity) {
-        activity.registerListener(lifecycleCallbacks);
+        activity.registerLifecycleCallbacks(lifecycleCallbacks);
         Log.d("fbl", "setup : " + this.hashCode()); // TODO DO NOT COMMIT
 
     }
@@ -71,7 +71,7 @@ public class Awareness {
         }
 
         @Override public void onActivityDestroyed(BaseActivity activity) {
-            activity.unregisterListener(this);
+            activity.unregisterLifecycleCallbacks(this);
         }
     }
 

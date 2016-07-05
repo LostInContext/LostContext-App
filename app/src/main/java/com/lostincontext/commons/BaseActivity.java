@@ -32,12 +32,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @MainThread
-    public void registerListener(ActivityLifecycleCallbacks listener) {
+    public void registerLifecycleCallbacks(ActivityLifecycleCallbacks listener) {
         lifecycleListeners.add(listener);
     }
 
     @MainThread
-    public void unregisterListener(ActivityLifecycleCallbacks listener) {
+    public void unregisterLifecycleCallbacks(ActivityLifecycleCallbacks listener) {
         lifecycleListeners.remove(listener);
     }
 
