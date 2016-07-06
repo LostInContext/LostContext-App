@@ -9,6 +9,7 @@ import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.lostincontext.awareness.Awareness;
+import com.lostincontext.config.RuleConfiguration;
 import com.lostincontext.rules.HeadPhoneRuleDescription;
 import com.lostincontext.rules.Rule;
 import com.lostincontext.rules.RuleBuilder;
@@ -36,6 +37,10 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         //  Rule rule = RuleBuilder.and(headphone, running);
         builder.addFence(headphone.getName(), headphone.getFence(), view.getPendingIntent());
         awareness.updateFences(builder.build());
+
+//        RuleConfiguration ruleConfiguration = view.getRuleConfiguration();
+//        ruleConfiguration.save(headPhoneDescription);
+//        ruleConfiguration.load("test");
     }
 
     @Inject

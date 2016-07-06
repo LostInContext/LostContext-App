@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
+import com.lostincontext.config.RuleConfiguration;
 import com.lostincontext.that.ThatService;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -33,9 +34,8 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_mainscreen, container, false);
 
-        return root;
+        return inflater.inflate(R.layout.fragment_mainscreen, container, false);
     }
 
     @Override public void onResume() {
@@ -53,6 +53,10 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
                                         0,
                                         intent,
                                         0);
+    }
+
+    public RuleConfiguration getRuleConfiguration() {
+        return new RuleConfiguration(this.getContext());
     }
 
 
