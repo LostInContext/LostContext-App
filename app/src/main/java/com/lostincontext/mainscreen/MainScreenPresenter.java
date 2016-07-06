@@ -57,7 +57,7 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
     //region callbacks
 
     @Override public void onFabClicked() {
-        Log.d("fbl", "onFabClicked : "); // TODO DO NOT COMMIT
+       view.openPlaylistsScreen();
         
     }
 

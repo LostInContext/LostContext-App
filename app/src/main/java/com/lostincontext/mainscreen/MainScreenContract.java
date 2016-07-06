@@ -12,6 +12,7 @@ public interface MainScreenContract {
 
         PendingIntent getPendingIntent();
 
+        void openPlaylistsScreen();
     }
 
     interface Presenter extends BasePresenter {
