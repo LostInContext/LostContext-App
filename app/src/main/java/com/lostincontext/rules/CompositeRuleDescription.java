@@ -6,9 +6,18 @@ import java.util.List;
  * Created by syrinetrabelsi on 05/07/2016.
  */
 
-public class CompositeRuleDescription extends RuleDescription {
+public class CompositeRuleDescription implements RuleDescription {
     private List<RuleDescription> ruleDescriptions;
     private Operator operator;
+
+    public CompositeRuleDescription(List<RuleDescription> ruleDescriptions, Operator operator) {
+        this.ruleDescriptions = ruleDescriptions;
+        this.operator = operator;
+    }
+
+    @Override
+    public void visit() {
+    }
 
     public enum Operator {
         AND,
@@ -23,5 +32,6 @@ public class CompositeRuleDescription extends RuleDescription {
     public Operator getOperator() {
         return operator;
     }
+
 
 }

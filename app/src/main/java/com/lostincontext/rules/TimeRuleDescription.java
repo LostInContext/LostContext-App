@@ -4,11 +4,16 @@ package com.lostincontext.rules;
  * Created by STrabelsi on 06/07/2016.
  */
 
-public class TimeRuleDescription extends RuleDescription {
+public class TimeRuleDescription implements RuleDescription {
     private State state;
 
     public TimeRuleDescription(State state) {
         this.state = state;
+    }
+
+    @Override
+    public void visit() {
+
     }
 
     public enum State {
