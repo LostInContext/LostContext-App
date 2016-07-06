@@ -4,6 +4,7 @@ package com.lostincontext.mainscreen;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.ConnectionResult;
@@ -51,6 +52,17 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         awareness.init(this,
                        this);
     }
+    
+    
+    //region callbacks
+
+    @Override public void onFabClicked() {
+        Log.d("fbl", "onFabClicked : "); // TODO DO NOT COMMIT
+        
+    }
+
+
+    //endregion
 
 
     @Override public void onConnected(@Nullable Bundle bundle) { }

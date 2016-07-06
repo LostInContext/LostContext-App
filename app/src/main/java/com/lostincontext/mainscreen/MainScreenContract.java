@@ -16,6 +16,7 @@ public interface MainScreenContract {
 
     interface Presenter extends BasePresenter {
 
+        void onFabClicked();
     }
 }
 

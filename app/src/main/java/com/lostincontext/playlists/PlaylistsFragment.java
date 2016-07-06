@@ -28,7 +28,7 @@ public class PlaylistsFragment extends Fragment implements PlaylistsContract.Vie
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_mainscreen, container, false); //TODO
+        View root = inflater.inflate(R.layout.fragment_main_screen, container, false); //TODO
 
         return root;
     }

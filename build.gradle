@@ -41,4 +41,5 @@ ext {
     constraintLayoutVersion = '1.0.0-alpha3'
     playServicesVersion = '9.2.0'
     glideVersion = '3.7.0'
+    butterKnifeVersion = '8.1.0'
 }
