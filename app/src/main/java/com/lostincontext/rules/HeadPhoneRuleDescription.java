@@ -5,7 +5,7 @@ package com.lostincontext.rules;
  */
 
 public class HeadPhoneRuleDescription implements RuleDescription {
-    private State state;
+    private final State state;
 
     public HeadPhoneRuleDescription(State state) {
         this.state = state;

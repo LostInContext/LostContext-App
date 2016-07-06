@@ -5,17 +5,23 @@ package com.lostincontext.rules;
  */
 
 public class TimeRuleDescription implements RuleDescription {
-    private State state;
+    private final State state;
+    private final long starting;
+    private final long ending;
 
-    public TimeRuleDescription(State state) {
+    public TimeRuleDescription(State state, long starting, long ending) {
         this.state = state;
+        this.starting = starting;
+        this.ending = ending;
     }
+
 
     @Override public Rule visit(RuleBuilder builder) {
         return builder.buildTimeRule(this);
     }
 
     public enum State {
+        IN_INTERVAL,
         IN_DAILY_INTERVAL,
         IN_SUNDAY_INTERVAL,
         IN_MONDAY_INTERVAL,
@@ -28,5 +34,13 @@ public class TimeRuleDescription implements RuleDescription {
 
     public State getState() {
         return state;
+    }
+
+    public long getStarting() {
+        return starting;
+    }
+
+    public long getEnding() {
+        return ending;
     }
 }

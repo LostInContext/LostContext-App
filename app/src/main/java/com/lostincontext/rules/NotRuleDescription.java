@@ -5,7 +5,7 @@ package com.lostincontext.rules;
  */
 
 public class NotRuleDescription implements RuleDescription {
-    private RuleDescription rule;
+    private final RuleDescription rule;
 
     public NotRuleDescription(RuleDescription rule) {
         this.rule = rule;

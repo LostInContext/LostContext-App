@@ -3,6 +3,7 @@ package com.lostincontext.rules;
 import com.google.android.gms.awareness.fence.AwarenessFence;
 import com.google.android.gms.awareness.fence.DetectedActivityFence;
 import com.google.android.gms.awareness.fence.HeadphoneFence;
+import com.google.android.gms.awareness.fence.LocationFence;
 import com.google.android.gms.awareness.fence.TimeFence;
 import com.google.android.gms.location.DetectedActivity;
 
@@ -11,34 +12,71 @@ import java.util.TimeZone;
 
 public class RuleBuilder {
 
-    private static long HOURS_IN_MILLIS = 3600000;
-
 
     public Rule buildRule(RuleDescription ruleDescription) {
         return ruleDescription.visit(this);
     }
 
-    public Rule buildTimeRule(TimeRuleDescription timeRuleDescription) {
-        switch (timeRuleDescription.getState()) {
+    public Rule buildLocationRule(LocationRuleDescription locationRuleDescription) {
+        //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        // TODO: Consider calling
+        //    ActivityCompat#requestPermissions
+        // here to request the missing permissions, and then overriding
+        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+        //                                          int[] grantResults)
+        // to handle the case where the user grants the permission. See the documentation
+        // for ActivityCompat#requestPermissions for more details.
+        // return TODO;
+        //}
 
-            case IN_DAILY_INTERVAL:
-                return new Rule(TimeFence.inDailyInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
-            case IN_SUNDAY_INTERVAL:
-                return new Rule(TimeFence.inSundayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
-            case IN_MONDAY_INTERVAL:
-                return new Rule(TimeFence.inMondayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
-            case IN_TUESDAY_INTERVAL:
-                return new Rule(TimeFence.inTuesdayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
-            case IN_WEDNESDAY_INTERVAL:
-                return new Rule(TimeFence.inWednesdayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
-            case IN_THURSDAY_INTERVAL:
-                return new Rule(TimeFence.inThursdayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
-            case IN_FRIDAY_INTERVAL:
-                return new Rule(TimeFence.inFridayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
-            case IN_SATURDAY_INTERVAL:
-                return new Rule(TimeFence.inSaturdayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
+        double latitude = locationRuleDescription.getLatitude();
+        double longitude = locationRuleDescription.getLongitude();
+        double radius = locationRuleDescription.getRadius();
+        long dwellTimeMillis = locationRuleDescription.getDwellTimeMillis();
+        LocationRuleDescription.State state = locationRuleDescription.getState();
+        String name = state.name();
+
+        switch (state) {
+
+            case IN:
+
+                return new Rule(LocationFence.in(latitude, longitude, radius, dwellTimeMillis), name);
+            case ENTERING:
+                return new Rule(LocationFence.entering(latitude, longitude, radius), name);
+            case EXITING:
+                return new Rule(LocationFence.exiting(latitude, longitude, radius), name);
         }
-        throw new RuntimeException("Unknown time state");
+        throw new RuntimeException("Unknown location state");
+
+    }
+
+    public Rule buildTimeRule(TimeRuleDescription timeRuleDescription) {
+        long startingTime = timeRuleDescription.getStarting();
+        long endingTime = timeRuleDescription.getEnding();
+        TimeRuleDescription.State state = timeRuleDescription.getState();
+        String name = state.name();
+
+        switch (state) {
+            case IN_INTERVAL:
+                return new Rule(TimeFence.inInterval(startingTime, endingTime), name);
+            case IN_DAILY_INTERVAL:
+                return new Rule(TimeFence.inDailyInterval(TimeZone.getDefault(), startingTime, endingTime), name);
+            case IN_SUNDAY_INTERVAL:
+                return new Rule(TimeFence.inSundayInterval(TimeZone.getDefault(), startingTime, endingTime), name);
+            case IN_MONDAY_INTERVAL:
+                return new Rule(TimeFence.inMondayInterval(TimeZone.getDefault(), startingTime, endingTime), name);
+            case IN_TUESDAY_INTERVAL:
+                return new Rule(TimeFence.inTuesdayInterval(TimeZone.getDefault(), startingTime, endingTime), name);
+            case IN_WEDNESDAY_INTERVAL:
+                return new Rule(TimeFence.inWednesdayInterval(TimeZone.getDefault(), startingTime, endingTime), name);
+            case IN_THURSDAY_INTERVAL:
+                return new Rule(TimeFence.inThursdayInterval(TimeZone.getDefault(), startingTime, endingTime), name);
+            case IN_FRIDAY_INTERVAL:
+                return new Rule(TimeFence.inFridayInterval(TimeZone.getDefault(), startingTime, endingTime), name);
+            case IN_SATURDAY_INTERVAL:
+                return new Rule(TimeFence.inSaturdayInterval(TimeZone.getDefault(), startingTime, endingTime), name);
+        }
+        throw new RuntimeException("Unknown time name");
     }
 
     public Rule buildHeadPhoneRule(HeadPhoneRuleDescription headPhoneRuleDescription) {

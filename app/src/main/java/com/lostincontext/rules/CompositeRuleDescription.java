@@ -7,8 +7,8 @@ import java.util.List;
  */
 
 public class CompositeRuleDescription implements RuleDescription {
-    private List<RuleDescription> ruleDescriptions;
-    private Operator operator;
+    private final List<RuleDescription> ruleDescriptions;
+    private final Operator operator;
 
     public CompositeRuleDescription(List<RuleDescription> ruleDescriptions, Operator operator) {
         this.ruleDescriptions = ruleDescriptions;
