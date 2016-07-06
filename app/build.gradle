@@ -62,6 +62,7 @@ dependencies {
     // Libraries
     compile "com.google.guava:guava:$rootProject.guavaVersion"
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    compile "com.google.code.gson:gson:$rootProject.gsonVersion"
 
 
 }
