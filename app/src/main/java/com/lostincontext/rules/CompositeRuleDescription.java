@@ -16,7 +16,8 @@ public class CompositeRuleDescription implements RuleDescription {
     }
 
     @Override
-    public void visit() {
+    public Rule visit(RuleBuilder builder) {
+        return builder.buildCompositeRule(this);
     }
 
     public enum Operator {

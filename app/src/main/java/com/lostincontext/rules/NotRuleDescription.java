@@ -15,8 +15,8 @@ public class NotRuleDescription implements RuleDescription {
         return rule;
     }
 
-    @Override
-    public void visit() {
 
+    @Override public Rule visit(RuleBuilder builder) {
+        return builder.buildRule(getRule());
     }
 }

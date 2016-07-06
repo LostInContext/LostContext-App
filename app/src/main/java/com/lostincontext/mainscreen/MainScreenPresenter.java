@@ -11,8 +11,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.lostincontext.awareness.Awareness;
 import com.lostincontext.rules.HeadPhoneRuleDescription;
 import com.lostincontext.rules.Rule;
+import com.lostincontext.rules.RuleBuilder;
 import com.lostincontext.rules.RuleDescription;
-import com.lostincontext.rules.RuleFactory;
 
 import javax.inject.Inject;
 
@@ -31,9 +31,9 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         // POC test of how to register a fence
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
         RuleDescription headPhoneDescription = new HeadPhoneRuleDescription(HeadPhoneRuleDescription.State.PLUGGED_IN);
-        Rule headphone = RuleFactory.buildRule(headPhoneDescription);
-        //  Rule running = RuleFactory.duringRunning();
-        //  Rule rule = RuleFactory.and(headphone, running);
+        Rule headphone = headPhoneDescription.visit(new RuleBuilder());
+        //  Rule running = RuleBuilder.duringRunning();
+        //  Rule rule = RuleBuilder.and(headphone, running);
         builder.addFence(headphone.getName(), headphone.getFence(), view.getPendingIntent());
         awareness.updateFences(builder.build());
     }

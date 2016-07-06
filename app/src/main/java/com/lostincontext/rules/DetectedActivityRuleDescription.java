@@ -14,8 +14,8 @@ public class DetectedActivityRuleDescription implements RuleDescription {
     }
 
     @Override
-    public void visit() {
-
+    public Rule visit(RuleBuilder builder) {
+        return builder.buildDetectedActivityRule(this);
     }
 
     public enum Type {

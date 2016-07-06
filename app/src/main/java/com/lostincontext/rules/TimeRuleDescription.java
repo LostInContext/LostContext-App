@@ -11,9 +11,8 @@ public class TimeRuleDescription implements RuleDescription {
         this.state = state;
     }
 
-    @Override
-    public void visit() {
-
+    @Override public Rule visit(RuleBuilder builder) {
+        return builder.buildTimeRule(this);
     }
 
     public enum State {

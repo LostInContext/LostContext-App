@@ -3,37 +3,45 @@ package com.lostincontext.rules;
 import com.google.android.gms.awareness.fence.AwarenessFence;
 import com.google.android.gms.awareness.fence.DetectedActivityFence;
 import com.google.android.gms.awareness.fence.HeadphoneFence;
+import com.google.android.gms.awareness.fence.TimeFence;
 import com.google.android.gms.location.DetectedActivity;
 
 import java.util.List;
+import java.util.TimeZone;
 
-public class RuleFactory {
+public class RuleBuilder {
+
+    private static long HOURS_IN_MILLIS = 3600000;
 
 
-    public static Rule buildRule(RuleDescription ruleDescription) {
-
-        if (ruleDescription instanceof CompositeRuleDescription) {
-            final CompositeRuleDescription compositeRuleDescription = (CompositeRuleDescription) ruleDescription;
-            return buildCompositeRule(compositeRuleDescription);
-        }
-        if (ruleDescription instanceof NotRuleDescription) {
-            final NotRuleDescription notRuleDescription = (NotRuleDescription) ruleDescription;
-            return not(buildRule(notRuleDescription.getRule()));
-        }
-        if (ruleDescription instanceof HeadPhoneRuleDescription) {
-            final HeadPhoneRuleDescription headPhoneRuleDescription = (HeadPhoneRuleDescription) ruleDescription;
-            return buildHeadPhoneRule(headPhoneRuleDescription);
-
-        }
-        if (ruleDescription instanceof DetectedActivityRuleDescription) {
-            final DetectedActivityRuleDescription detectedActivityRuleDescription = (DetectedActivityRuleDescription) ruleDescription;
-            return buildDetectedActivityRule(detectedActivityRuleDescription);
-
-        }
-        throw new RuntimeException("Unknown ruleDescription");
+    public Rule buildRule(RuleDescription ruleDescription) {
+        return ruleDescription.visit(this);
     }
 
-    private static Rule buildHeadPhoneRule(HeadPhoneRuleDescription headPhoneRuleDescription) {
+    public Rule buildTimeRule(TimeRuleDescription timeRuleDescription) {
+        switch (timeRuleDescription.getState()) {
+
+            case IN_DAILY_INTERVAL:
+                return new Rule(TimeFence.inDailyInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
+            case IN_SUNDAY_INTERVAL:
+                return new Rule(TimeFence.inSundayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
+            case IN_MONDAY_INTERVAL:
+                return new Rule(TimeFence.inMondayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
+            case IN_TUESDAY_INTERVAL:
+                return new Rule(TimeFence.inTuesdayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
+            case IN_WEDNESDAY_INTERVAL:
+                return new Rule(TimeFence.inWednesdayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
+            case IN_THURSDAY_INTERVAL:
+                return new Rule(TimeFence.inThursdayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
+            case IN_FRIDAY_INTERVAL:
+                return new Rule(TimeFence.inFridayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
+            case IN_SATURDAY_INTERVAL:
+                return new Rule(TimeFence.inSaturdayInterval(TimeZone.getDefault(), 10 * HOURS_IN_MILLIS, 10 * HOURS_IN_MILLIS), "everyday");
+        }
+        throw new RuntimeException("Unknown time state");
+    }
+
+    public Rule buildHeadPhoneRule(HeadPhoneRuleDescription headPhoneRuleDescription) {
         switch (headPhoneRuleDescription.getState()) {
             case PLUGGED_IN:
                 return new Rule(HeadphoneFence.pluggingIn(), "HeadPhone are plugged in");
@@ -43,11 +51,20 @@ public class RuleFactory {
         throw new RuntimeException("Unknown headphone state");
     }
 
-    private static Rule buildDetectedActivityRule(DetectedActivityRuleDescription detectedActivityRuleDescription) {
+    public Rule buildDetectedActivityRule(DetectedActivityRuleDescription detectedActivityRuleDescription) {
         int type;
         switch (detectedActivityRuleDescription.getType()) {
             case WALKING:
                 type = DetectedActivity.WALKING;
+                break;
+            case IN_VEHICLE:
+                type = DetectedActivity.IN_VEHICLE;
+                break;
+            case ON_BICYCLE:
+                type = DetectedActivity.ON_BICYCLE;
+                break;
+            case ON_FOOT:
+                type = DetectedActivity.ON_FOOT;
                 break;
             case RUNNING:
             default:
@@ -66,7 +83,7 @@ public class RuleFactory {
         throw new RuntimeException("Unknown DetectedActivity state");
     }
 
-    private static Rule buildCompositeRule(CompositeRuleDescription compositeRuleDescription) {
+    public Rule buildCompositeRule(CompositeRuleDescription compositeRuleDescription) {
         Rule resultRule;
         List<RuleDescription> ruleDescriptions = compositeRuleDescription.getRuleDescriptions();
         resultRule = buildRule(ruleDescriptions.get(0));
@@ -85,19 +102,19 @@ public class RuleFactory {
     }
 
 
-    public static Rule and(Rule rule1, Rule rule2) {
+    public Rule and(Rule rule1, Rule rule2) {
         AwarenessFence fence = AwarenessFence.and(rule1.getFence(), rule2.getFence());
         String name = rule1.getName() + " and " + rule2.getName();
         return new Rule(fence, name);
     }
 
-    public static Rule or(Rule rule1, Rule rule2) {
+    public Rule or(Rule rule1, Rule rule2) {
         AwarenessFence fence = AwarenessFence.or(rule1.getFence(), rule2.getFence());
         String name = rule1.getName() + " or " + rule2.getName();
         return new Rule(fence, name);
     }
 
-    public static Rule not(Rule rule) {
+    public Rule not(Rule rule) {
         AwarenessFence fence = AwarenessFence.not(rule.getFence());
         String name = "not " + rule.getName();
         return new Rule(fence, name);

@@ -12,9 +12,10 @@ public class HeadPhoneRuleDescription implements RuleDescription {
     }
 
     @Override
-    public void visit() {
-
+    public Rule visit(RuleBuilder builder) {
+        return builder.buildHeadPhoneRule(this);
     }
+
 
     public enum State {
         PLUGGED_IN,
