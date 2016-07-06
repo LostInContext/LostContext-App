@@ -4,16 +4,15 @@ package com.lostincontext.mainscreen;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.lostincontext.awareness.Awareness;
-import com.lostincontext.rules.HeadPhoneRuleDescription;
-import com.lostincontext.rules.Rule;
-import com.lostincontext.rules.RuleBuilder;
-import com.lostincontext.rules.RuleDescription;
+import com.lostincontext.model.rules.HeadPhoneRuleDescription;
+import com.lostincontext.model.rules.Rule;
+import com.lostincontext.model.rules.RuleBuilder;
+import com.lostincontext.model.rules.RuleDescription;
 
 import javax.inject.Inject;
 

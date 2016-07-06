@@ -1,4 +1,4 @@
-package com.lostincontext.rules;
+package com.lostincontext.model.rules;
 
 /**
  * Created by STrabelsi on 06/07/2016.

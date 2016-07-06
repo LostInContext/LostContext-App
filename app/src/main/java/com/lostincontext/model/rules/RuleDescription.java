@@ -1,6 +1,4 @@
-package com.lostincontext.rules;
-
-import com.google.android.gms.awareness.fence.AwarenessFence;
+package com.lostincontext.model.rules;
 
 /**
  * Created by syrinetrabelsi on 05/07/2016.
