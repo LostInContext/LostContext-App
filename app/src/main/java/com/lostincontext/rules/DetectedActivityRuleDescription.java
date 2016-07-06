@@ -5,8 +5,8 @@ package com.lostincontext.rules;
  */
 
 public class DetectedActivityRuleDescription implements RuleDescription {
-    private Type type;
-    private State state;
+    private final Type type;
+    private final State state;
 
     public DetectedActivityRuleDescription(Type type, State state) {
         this.type = type;
