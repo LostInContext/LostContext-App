@@ -1,5 +1,8 @@
 package com.lostincontext.rules;
 
+import com.google.gson.Gson;
+import com.lostincontext.model.DataSerializer;
+
 /**
  * Created by syrinetrabelsi on 05/07/2016.
  */
@@ -16,6 +19,14 @@ public class DetectedActivityRuleDescription implements RuleDescription {
     @Override
     public Rule visit(RuleBuilder builder) {
         return builder.buildDetectedActivityRule(this);
+    }
+
+    @Override public String serialize(Gson gson) {
+        return gson.toJson(this);
+    }
+
+    @Override public DetectedActivityRuleDescription deserialize(Gson gson, String json) {
+        return gson.fromJson(json, DetectedActivityRuleDescription.class);
     }
 
     public enum Type {

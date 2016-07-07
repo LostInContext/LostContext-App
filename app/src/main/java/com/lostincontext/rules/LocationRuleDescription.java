@@ -1,5 +1,8 @@
 package com.lostincontext.rules;
 
+import com.google.gson.Gson;
+import com.lostincontext.model.DataSerializer;
+
 /**
  * Created by syrinetrabelsi on 06/07/2016.
  */
@@ -19,6 +22,14 @@ public class LocationRuleDescription implements RuleDescription {
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
+    }
+
+    @Override public String serialize(Gson gson) {
+        return gson.toJson(this);
+    }
+
+    @Override public LocationRuleDescription deserialize(Gson gson, String json) {
+        return gson.fromJson(json, LocationRuleDescription.class);
     }
 
     public enum State {

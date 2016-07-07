@@ -1,5 +1,8 @@
 package com.lostincontext.rules;
 
+import com.google.gson.Gson;
+import com.lostincontext.model.DataSerializer;
+
 /**
  * Created by syrinetrabelsi on 05/07/2016.
  */
@@ -14,6 +17,14 @@ public class HeadPhoneRuleDescription implements RuleDescription {
     @Override
     public Rule visit(RuleBuilder builder) {
         return builder.buildHeadPhoneRule(this);
+    }
+
+    @Override public String serialize(Gson gson) {
+        return gson.toJson(this);
+    }
+
+    @Override public HeadPhoneRuleDescription deserialize(Gson gson, String json) {
+        return gson.fromJson(json, HeadPhoneRuleDescription.class);
     }
 
 

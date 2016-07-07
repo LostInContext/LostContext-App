@@ -1,5 +1,7 @@
 package com.lostincontext.rules;
 
+import com.google.gson.Gson;
+
 /**
  * Created by STrabelsi on 06/07/2016.
  */
@@ -18,6 +20,14 @@ public class TimeRuleDescription implements RuleDescription {
 
     @Override public Rule visit(RuleBuilder builder) {
         return builder.buildTimeRule(this);
+    }
+
+    @Override public String serialize(Gson gson) {
+        return gson.toJson(this);
+    }
+
+    @Override public TimeRuleDescription deserialize(Gson gson, String json) {
+        return gson.fromJson(json, TimeRuleDescription.class);
     }
 
     public enum State {

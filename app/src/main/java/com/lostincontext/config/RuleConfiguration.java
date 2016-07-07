@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.lostincontext.rules.RuleDescription;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -22,21 +22,35 @@ public class RuleConfiguration {
         preferences = context.getSharedPreferences(context.getPackageName(), MODE_PRIVATE);
     }
 
-    public void save(RuleDescription ruleDescription) {
+    public void save(String title, String json) {
         SharedPreferences.Editor editor = preferences.edit();
-        Gson gson = new Gson();
-        String toJson = gson.toJson(ruleDescription);
-        editor.putString("test", toJson);
+        editor.putString(title, json);
         editor.apply();
 
-        Log.i(TAG, "saving: " + toJson);
+        Log.i(TAG, "saving: " + json);
     }
 
-//    public RuleDescription load(String name) {
-//        Gson gson = new Gson();
-//        RuleDescription fromJson = gson.fromJson(preferences.getString(name, ""), RuleDescription.class);
-//        Log.i(TAG, "loading: " + fromJson);
-//
-//        return fromJson;
-//    }
+    public String load(String title) {
+        final String data = preferences.getString(title, "");
+        Log.i(TAG, "loading: " + data);
+        return data;
+    }
+
+    public Map<String, String> loadAll() {
+        Map<String, String> rules = new HashMap<>();
+        Map<String, ?> keys = preferences.getAll();
+
+        for (Map.Entry<String, ?> entry : keys.entrySet()) {
+            rules.put(entry.getKey(), entry.getValue().toString());
+            Log.d("map values", entry.getKey() + ": " +
+                    entry.getValue().toString());
+        }
+        return rules;
+    }
+
+    public void clearAll() {
+        preferences.edit()
+                .clear()
+                .apply();
+    }
 }
