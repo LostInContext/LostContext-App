@@ -1,4 +1,4 @@
-package com.lostincontext.rules;
+package com.lostincontext.model.rules;
 
 import com.google.gson.Gson;
 import com.lostincontext.model.DataSerializer;

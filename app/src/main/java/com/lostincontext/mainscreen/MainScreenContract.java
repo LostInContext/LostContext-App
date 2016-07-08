@@ -15,10 +15,12 @@ public interface MainScreenContract {
         PendingIntent getPendingIntent();
         RuleConfiguration getRuleConfiguration();
 
+        void openPlaylistsScreen();
     }
 
     interface Presenter extends BasePresenter {
 
+        void onFabClicked();
     }
 }
 
