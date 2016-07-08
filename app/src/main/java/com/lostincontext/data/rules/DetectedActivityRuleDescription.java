@@ -1,15 +1,12 @@
-package com.lostincontext.model.rules;
+package com.lostincontext.data.rules;
 
-/**
- * Created by syrinetrabelsi on 05/07/2016.
- */
 
-public class DetectedActivityRuleDescription extends RuleDescription {
+public class DetectedActivityRuleDescription implements RuleDescription {
+
     private Type type;
     private State state;
 
-    public DetectedActivityRuleDescription() {
-    }
+    private DetectedActivityRuleDescription() { }
 
     public DetectedActivityRuleDescription(Type type, State state) {
         this.type = type;

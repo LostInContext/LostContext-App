@@ -5,21 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.lostincontext.awareness.Awareness;
-import com.lostincontext.config.RuleConfiguration;
-import com.lostincontext.model.rules.CompositeRuleDescription;
-import com.lostincontext.model.rules.DetectedActivityRuleDescription;
-import com.lostincontext.model.rules.HeadPhoneRuleDescription;
-import com.lostincontext.model.rules.Rule;
-import com.lostincontext.model.rules.RuleBuilder;
-import com.lostincontext.model.rules.RuleDescription;
+import com.lostincontext.data.rules.repo.RulesRepository;
+import com.lostincontext.data.rules.CompositeRuleDescription;
+import com.lostincontext.data.rules.DetectedActivityRuleDescription;
+import com.lostincontext.data.rules.HeadPhoneRuleDescription;
+import com.lostincontext.data.rules.Rule;
+import com.lostincontext.data.rules.RuleBuilder;
+import com.lostincontext.data.rules.RuleDescription;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +30,8 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
     private MainScreenContract.View view;
 
     private Awareness awareness;
+
+    private RulesRepository rulesRepository;
 
 
     @Override
@@ -55,31 +54,21 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         builder.addFence(compositeRule.getName(), compositeRule.getFence(), view.getPendingIntent());
         awareness.updateFences(builder.build());
 
-        RuleConfiguration ruleConfiguration = view.getRuleConfiguration();
-        ruleConfiguration.clearAll();
+        rulesRepository.clearAllRules();
 
-        try {
-            ruleConfiguration.serializeAndSave("compositeRule", compositeRuleDescription);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        try {
-            final RuleDescription ruledescription = ruleConfiguration.loadAndDeserialize("compositeRule");
-//            RuleBuilder ruleBuilder = new RuleBuilder();
-//            final Rule rule = ruleBuilder.buildRule(ruledescription);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        rulesRepository.save("compositeRule", compositeRuleDescription);
+        final RuleDescription ruledescription = rulesRepository.load("compositeRule");
 
 
     }
 
     @Inject
     public MainScreenPresenter(MainScreenContract.View view,
-                               Awareness awareness) {
+                               Awareness awareness,
+                               RulesRepository rulesRepository) {
         this.view = view;
         this.awareness = awareness;
+        this.rulesRepository = rulesRepository;
     }
 
     @Inject

@@ -1,17 +1,13 @@
-package com.lostincontext.model.rules;
+package com.lostincontext.data.rules;
 
 import java.util.List;
 
-/**
- * Created by syrinetrabelsi on 05/07/2016.
- */
+public class CompositeRuleDescription implements RuleDescription {
 
-public class CompositeRuleDescription extends RuleDescription {
     private List<RuleDescription> ruleDescriptions;
     private Operator operator;
 
-    public CompositeRuleDescription() {
-    }
+    private CompositeRuleDescription() { }
 
     public CompositeRuleDescription(List<RuleDescription> ruleDescriptions, Operator operator) {
         this.ruleDescriptions = ruleDescriptions;

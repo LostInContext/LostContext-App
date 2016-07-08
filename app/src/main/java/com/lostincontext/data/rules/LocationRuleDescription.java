@@ -1,20 +1,16 @@
-package com.lostincontext.model.rules;
+package com.lostincontext.data.rules;
 
-/**
- * Created by syrinetrabelsi on 06/07/2016.
- */
+public class LocationRuleDescription implements RuleDescription {
 
-public class LocationRuleDescription extends RuleDescription {
-    private  State state;
-    private  double latitude;
-    private  double longitude;
-    private  double radius;
+    private State state;
+    private double latitude;
+    private double longitude;
+    private double radius;
 
     // TODO: 06/07/2016  make default value
     private long dwellTimeMillis;
 
-    public LocationRuleDescription() {
-    }
+    private LocationRuleDescription() { }
 
     public LocationRuleDescription(State state, double latitude, double longitude, double radius) {
         this.state = state;

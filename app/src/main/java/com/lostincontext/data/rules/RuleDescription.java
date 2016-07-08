@@ -1,11 +1,8 @@
-package com.lostincontext.model.rules;
+package com.lostincontext.data.rules;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-/**
- * Created by syrinetrabelsi on 05/07/2016.
- */
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,
@@ -18,22 +15,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = LocationRuleDescription.class, name = "location"),
         @JsonSubTypes.Type(value = TimeRuleDescription.class, name = "time")
 })
+public interface RuleDescription {
 
-
-public abstract class RuleDescription {
-    private String name;
-
-    public RuleDescription() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public abstract Rule visit(RuleBuilder builder);
+    Rule visit(RuleBuilder builder);
 
 }

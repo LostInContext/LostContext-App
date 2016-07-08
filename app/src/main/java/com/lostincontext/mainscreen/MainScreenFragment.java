@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
-import com.lostincontext.config.RuleConfiguration;
 import com.lostincontext.databinding.MainScreenFragmentBinding;
 import com.lostincontext.playlists.PlaylistsActivity;
 import com.lostincontext.that.ThatService;
@@ -59,9 +58,6 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
                                         0);
     }
 
-    @Override public RuleConfiguration getRuleConfiguration() {
-        return new RuleConfiguration(this.getContext());
-    }
 
     @Override public void openPlaylistsScreen() {
         Intent intent = new Intent(this.getContext(), PlaylistsActivity.class);

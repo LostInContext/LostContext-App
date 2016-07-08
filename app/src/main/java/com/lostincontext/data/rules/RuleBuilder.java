@@ -1,4 +1,4 @@
-package com.lostincontext.model.rules;
+package com.lostincontext.data.rules;
 
 import com.google.android.gms.awareness.fence.AwarenessFence;
 import com.google.android.gms.awareness.fence.DetectedActivityFence;
@@ -39,7 +39,6 @@ public class RuleBuilder {
         switch (state) {
 
             case IN:
-
                 return new Rule(LocationFence.in(latitude, longitude, radius, dwellTimeMillis), name);
             case ENTERING:
                 return new Rule(LocationFence.entering(latitude, longitude, radius), name);

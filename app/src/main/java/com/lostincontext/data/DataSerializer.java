@@ -1,4 +1,4 @@
-package com.lostincontext.model;
+package com.lostincontext.data;
 
 import com.google.gson.Gson;
 import com.google.gson.InstanceCreator;

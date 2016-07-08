@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.databinding.PlaylistsScreenFragmentBinding;
-import com.lostincontext.model.Playlist;
+import com.lostincontext.data.Playlist;
 
 import java.util.ArrayList;
 

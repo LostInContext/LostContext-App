@@ -1,14 +1,10 @@
-package com.lostincontext.model.rules;
+package com.lostincontext.data.rules;
 
-/**
- * Created by syrinetrabelsi on 05/07/2016.
- */
 
-public class NotRuleDescription extends RuleDescription {
-    private  RuleDescription rule;
+public class NotRuleDescription implements RuleDescription {
+    private RuleDescription rule;
 
-    public NotRuleDescription() {
-    }
+    private NotRuleDescription() { }
 
     public NotRuleDescription(RuleDescription rule) {
         this.rule = rule;

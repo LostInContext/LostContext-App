@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import com.lostincontext.R;
 import com.lostincontext.awareness.AwarenessModule;
 import com.lostincontext.commons.BaseActivity;
+import com.lostincontext.data.rules.repo.RulesRepositoryModule;
 
 import javax.inject.Inject;
 
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity {
         DaggerMainScreenComponent.builder()
                 .mainScreenPresenterModule(new MainScreenPresenterModule(fragment))
                 .awarenessModule(new AwarenessModule(this))
+                .rulesRepositoryModule(new RulesRepositoryModule(this))
                 .build()
                 .inject(this);
     }

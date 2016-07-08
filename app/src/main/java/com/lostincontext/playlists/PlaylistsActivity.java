@@ -19,7 +19,7 @@ public class PlaylistsActivity extends BaseActivity {
 
     @Override public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.main_screen); //todo
+        setContentView(R.layout.playlists_screen);
 
 
         FragmentManager fm = getSupportFragmentManager();

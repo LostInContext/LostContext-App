@@ -1,4 +1,4 @@
-package com.lostincontext.model;
+package com.lostincontext.data;
 
 
 public class Playlist {

@@ -1,16 +1,12 @@
-package com.lostincontext.model.rules;
+package com.lostincontext.data.rules;
 
-/**
- * Created by STrabelsi on 06/07/2016.
- */
 
-public class TimeRuleDescription extends RuleDescription {
+public class TimeRuleDescription implements RuleDescription {
     private State state;
     private long starting;
     private long ending;
 
-    public TimeRuleDescription() {
-    }
+    private TimeRuleDescription() { }
 
     public TimeRuleDescription(State state, long starting, long ending) {
         this.state = state;

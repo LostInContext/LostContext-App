@@ -1,8 +1,6 @@
 package com.lostincontext.awareness;
 
 
-import android.util.Log;
-
 import com.google.android.gms.awareness.fence.FenceQueryRequest;
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -34,7 +32,6 @@ public class Awareness {
     @Inject
     public void setup(BaseActivity activity) {
         activity.registerLifecycleCallbacks(lifecycleCallbacks);
-        Log.d("fbl", "setup : " + this.hashCode()); // TODO remove
     }
 
     public void updateFences(FenceUpdateRequest fenceUpdateRequest) {

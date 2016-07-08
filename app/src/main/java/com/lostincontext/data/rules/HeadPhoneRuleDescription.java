@@ -1,14 +1,11 @@
-package com.lostincontext.model.rules;
+package com.lostincontext.data.rules;
 
-/**
- * Created by syrinetrabelsi on 05/07/2016.
- */
 
-public class HeadPhoneRuleDescription extends RuleDescription {
-    private  State state;
+public class HeadPhoneRuleDescription implements RuleDescription {
 
-    public HeadPhoneRuleDescription() {
-    }
+    private State state;
+
+    private HeadPhoneRuleDescription() { }
 
     public HeadPhoneRuleDescription(State state) {
         this.state = state;
