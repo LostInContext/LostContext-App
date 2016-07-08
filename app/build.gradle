@@ -64,6 +64,7 @@ dependencies {
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     compile "com.google.code.gson:gson:$rootProject.gsonVersion"
 
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "$rootProject.jacksonVersion"
-
+    compile "com.fasterxml.jackson.core:jackson-databind:$rootProject.jacksonVersion"
+    compile "com.fasterxml.jackson.core:jackson-core:$rootProject.jacksonVersion"
+    compile "com.fasterxml.jackson.core:jackson-annotations:$rootProject.jacksonVersion"
 }

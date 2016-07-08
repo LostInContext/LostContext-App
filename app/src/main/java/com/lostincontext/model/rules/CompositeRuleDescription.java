@@ -1,18 +1,17 @@
 package com.lostincontext.model.rules;
 
-import com.google.gson.Gson;
-import com.lostincontext.model.DataSerializer;
-
-import java.lang.reflect.Type;
 import java.util.List;
 
 /**
  * Created by syrinetrabelsi on 05/07/2016.
  */
 
-public class CompositeRuleDescription implements RuleDescription<CompositeRuleDescription> {
-    private final List<RuleDescription> ruleDescriptions;
-    private final Operator operator;
+public class CompositeRuleDescription extends RuleDescription {
+    private List<RuleDescription> ruleDescriptions;
+    private Operator operator;
+
+    public CompositeRuleDescription() {
+    }
 
     public CompositeRuleDescription(List<RuleDescription> ruleDescriptions, Operator operator) {
         this.ruleDescriptions = ruleDescriptions;
@@ -22,21 +21,6 @@ public class CompositeRuleDescription implements RuleDescription<CompositeRuleDe
     @Override
     public Rule visit(RuleBuilder builder) {
         return builder.buildCompositeRule(this);
-    }
-
-    @Override
-    public String serialize(Gson gson) {
-        return gson.toJson(this);
-    }
-
-    @Override
-    public CompositeRuleDescription deserialize(Gson gson, String json) {
-        return gson.fromJson(json, CompositeRuleDescription.class);
-    }
-
-    @Override
-    public CompositeRuleDescription createInstance(Type type) {
-        return null;
     }
 
     public enum Operator {
@@ -53,5 +37,11 @@ public class CompositeRuleDescription implements RuleDescription<CompositeRuleDe
         return operator;
     }
 
+    public void setRuleDescriptions(List<RuleDescription> ruleDescriptions) {
+        this.ruleDescriptions = ruleDescriptions;
+    }
 
+    public void setOperator(Operator operator) {
+        this.operator = operator;
+    }
 }

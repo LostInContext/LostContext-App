@@ -1,15 +1,16 @@
 package com.lostincontext.model.rules;
 
-import com.google.gson.Gson;
-
 /**
  * Created by STrabelsi on 06/07/2016.
  */
 
-public class TimeRuleDescription implements RuleDescription {
-    private final State state;
-    private final long starting;
-    private final long ending;
+public class TimeRuleDescription extends RuleDescription {
+    private State state;
+    private long starting;
+    private long ending;
+
+    public TimeRuleDescription() {
+    }
 
     public TimeRuleDescription(State state, long starting, long ending) {
         this.state = state;
@@ -20,14 +21,6 @@ public class TimeRuleDescription implements RuleDescription {
 
     @Override public Rule visit(RuleBuilder builder) {
         return builder.buildTimeRule(this);
-    }
-
-    @Override public String serialize(Gson gson) {
-        return gson.toJson(this);
-    }
-
-    @Override public TimeRuleDescription deserialize(Gson gson, String json) {
-        return gson.fromJson(json, TimeRuleDescription.class);
     }
 
     public enum State {
@@ -52,5 +45,17 @@ public class TimeRuleDescription implements RuleDescription {
 
     public long getEnding() {
         return ending;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public void setStarting(long starting) {
+        this.starting = starting;
+    }
+
+    public void setEnding(long ending) {
+        this.ending = ending;
     }
 }

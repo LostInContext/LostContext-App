@@ -1,13 +1,14 @@
 package com.lostincontext.model.rules;
 
-import com.google.gson.Gson;
-
 /**
  * Created by syrinetrabelsi on 05/07/2016.
  */
 
-public class NotRuleDescription implements RuleDescription {
-    private final RuleDescription rule;
+public class NotRuleDescription extends RuleDescription {
+    private  RuleDescription rule;
+
+    public NotRuleDescription() {
+    }
 
     public NotRuleDescription(RuleDescription rule) {
         this.rule = rule;
@@ -22,11 +23,7 @@ public class NotRuleDescription implements RuleDescription {
         return builder.buildRule(getRule());
     }
 
-    @Override public String serialize(Gson gson) {
-        return gson.toJson(this);
-    }
-
-    @Override public NotRuleDescription deserialize(Gson gson, String json) {
-        return gson.fromJson(json, NotRuleDescription.class);
+    public void setRule(RuleDescription rule) {
+        this.rule = rule;
     }
 }

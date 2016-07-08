@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lostincontext.model.rules.RuleDescription;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,12 +22,24 @@ public class RuleConfiguration {
     private static final String TAG = RuleConfiguration.class.getSimpleName();
 
     private SharedPreferences preferences;
+    private ObjectMapper objectMapper;
 
     public RuleConfiguration(Context context) {
         preferences = context.getSharedPreferences(context.getPackageName(), MODE_PRIVATE);
+        objectMapper = new ObjectMapper();
     }
 
-    public void save(String title, String json) {
+    public void serializeAndSave(String name, RuleDescription ruleDescription) throws JsonProcessingException {
+        save(name, serialize(ruleDescription));
+    }
+
+    public RuleDescription loadAndDeserialize(String name) throws IOException {
+        return deserialize(load(name));
+
+    }
+
+
+    private void save(String title, String json) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(title, json);
         editor.apply();
@@ -30,7 +47,7 @@ public class RuleConfiguration {
         Log.i(TAG, "saving: " + json);
     }
 
-    public String load(String title) {
+    private String load(String title) {
         final String data = preferences.getString(title, "");
         Log.i(TAG, "loading: " + data);
         return data;
@@ -53,4 +70,20 @@ public class RuleConfiguration {
                 .clear()
                 .apply();
     }
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Serializer/deserialiser
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    private String serialize(RuleDescription ruleDescription) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(ruleDescription);
+
+    }
+
+    private RuleDescription deserialize(String json) throws IOException {
+        return objectMapper.readerFor(RuleDescription.class).readValue(json);
+    }
+
+
 }

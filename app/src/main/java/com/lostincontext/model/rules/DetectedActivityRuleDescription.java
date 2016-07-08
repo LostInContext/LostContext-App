@@ -1,15 +1,15 @@
 package com.lostincontext.model.rules;
 
-import com.google.gson.Gson;
-import com.lostincontext.model.DataSerializer;
-
 /**
  * Created by syrinetrabelsi on 05/07/2016.
  */
 
-public class DetectedActivityRuleDescription implements RuleDescription {
-    private final Type type;
-    private final State state;
+public class DetectedActivityRuleDescription extends RuleDescription {
+    private Type type;
+    private State state;
+
+    public DetectedActivityRuleDescription() {
+    }
 
     public DetectedActivityRuleDescription(Type type, State state) {
         this.type = type;
@@ -19,14 +19,6 @@ public class DetectedActivityRuleDescription implements RuleDescription {
     @Override
     public Rule visit(RuleBuilder builder) {
         return builder.buildDetectedActivityRule(this);
-    }
-
-    @Override public String serialize(Gson gson) {
-        return gson.toJson(this);
-    }
-
-    @Override public DetectedActivityRuleDescription deserialize(Gson gson, String json) {
-        return gson.fromJson(json, DetectedActivityRuleDescription.class);
     }
 
     public enum Type {
@@ -49,5 +41,13 @@ public class DetectedActivityRuleDescription implements RuleDescription {
 
     public State getState() {
         return state;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }
