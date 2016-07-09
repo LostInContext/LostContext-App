@@ -41,6 +41,5 @@ ext {
     constraintLayoutVersion = '1.0.0-alpha4'
     playServicesVersion = '9.2.0'
     glideVersion = '3.7.0'
-    gsonVersion='2.7'
     jacksonVersion='2.8.0'
 }

@@ -1,14 +1,17 @@
 package com.lostincontext.data;
 
-import com.google.gson.Gson;
+import android.util.Log;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by STrabelsi on 07/07/2016.
- */
 
 public class DataPlaylist {
+
+    private static final String TAG = DataPlaylist.class.getSimpleName();
 
     private List<Playlist> data;
 
@@ -20,10 +23,15 @@ public class DataPlaylist {
         this.data = data;
     }
 
-    public List<Playlist> deserialize(String data) {
-        Gson json = new Gson();
-        final DataPlaylist dataPlaylist = json.fromJson(data, DataPlaylist.class);
-        return dataPlaylist.getData();
+    public static List<Playlist> deserialize(String data) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            final DataPlaylist dataPlaylist = mapper.readValue(data, DataPlaylist.class);
+            return dataPlaylist.getData();
+        } catch (IOException e) {
+            Log.e(TAG, "exception occurred : ", e);
+        }
+        return Collections.emptyList();
     }
 
 }
