@@ -1,21 +1,27 @@
 package com.lostincontext.data.rules;
 
 
-public class DetectedActivityRuleDescription implements RuleDescription {
+import com.google.android.gms.awareness.fence.AwarenessFence;
+
+public class DetectedActivityFenceVM implements FenceVM {
 
     private Type type;
     private State state;
 
-    private DetectedActivityRuleDescription() { }
+    private DetectedActivityFenceVM() { }
 
-    public DetectedActivityRuleDescription(Type type, State state) {
+    public DetectedActivityFenceVM(Type type, State state) {
         this.type = type;
         this.state = state;
     }
 
     @Override
-    public Rule visit(RuleBuilder builder) {
-        return builder.buildDetectedActivityRule(this);
+    public AwarenessFence build(FenceBuilder builder) {
+        return builder.detectedActivity(this);
+    }
+
+    @Override public String describe(FenceDescriptor descriptor) {
+        return descriptor.detectedActivity(this);
     }
 
     public enum Type {

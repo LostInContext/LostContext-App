@@ -1,22 +1,28 @@
 package com.lostincontext.data.rules;
 
 
-public class TimeRuleDescription implements RuleDescription {
+import com.google.android.gms.awareness.fence.AwarenessFence;
+
+public class TimeFenceVM implements FenceVM {
     private State state;
     private long starting;
     private long ending;
 
-    private TimeRuleDescription() { }
+    private TimeFenceVM() { }
 
-    public TimeRuleDescription(State state, long starting, long ending) {
+    public TimeFenceVM(State state, long starting, long ending) {
         this.state = state;
         this.starting = starting;
         this.ending = ending;
     }
 
 
-    @Override public Rule visit(RuleBuilder builder) {
-        return builder.buildTimeRule(this);
+    @Override public AwarenessFence build(FenceBuilder builder) {
+        return builder.time(this);
+    }
+
+    @Override public String describe(FenceDescriptor descriptor) {
+        return descriptor.time(this);
     }
 
     public enum State {

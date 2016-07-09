@@ -9,13 +9,13 @@ import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.lostincontext.awareness.Awareness;
+import com.lostincontext.data.rules.CompositeFenceVM;
+import com.lostincontext.data.rules.DetectedActivityFenceVM;
+import com.lostincontext.data.rules.FenceVM;
+import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.data.rules.repo.RulesRepository;
-import com.lostincontext.data.rules.CompositeRuleDescription;
-import com.lostincontext.data.rules.DetectedActivityRuleDescription;
-import com.lostincontext.data.rules.HeadphoneRuleDescription;
 import com.lostincontext.data.rules.Rule;
-import com.lostincontext.data.rules.RuleBuilder;
-import com.lostincontext.data.rules.RuleDescription;
+import com.lostincontext.data.rules.FenceBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,25 +39,25 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         // POC test of how to register a fence
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
 
-        RuleDescription headPhoneDescription = new HeadphoneRuleDescription(HeadphoneRuleDescription.State.PLUGGED_IN);
-        RuleDescription runningDescription = new DetectedActivityRuleDescription(DetectedActivityRuleDescription.Type.IN_VEHICLE, DetectedActivityRuleDescription.State.DURING);
-        List<RuleDescription> rules = new ArrayList<>();
+        FenceVM headPhoneDescription = new HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_IN);
+        FenceVM runningDescription = new DetectedActivityFenceVM(DetectedActivityFenceVM.Type.IN_VEHICLE, DetectedActivityFenceVM.State.DURING);
+        List<FenceVM> rules = new ArrayList<>();
         rules.add(headPhoneDescription);
         rules.add(runningDescription);
 
-        RuleDescription compositeRuleDescription = new CompositeRuleDescription(rules, CompositeRuleDescription.Operator.AND);
+        FenceVM compositeFenceVM = new CompositeFenceVM(rules, CompositeFenceVM.Operator.AND);
 
 
-        Rule compositeRule = compositeRuleDescription.visit(new RuleBuilder());
+      //  Rule compositeRule = compositeFenceVM.build(new FenceBuilder());
 
 
-        builder.addFence(compositeRule.getName(), compositeRule.getFence(), view.getPendingIntent());
+      //  builder.addFence(compositeRule.getName(), compositeRule.getFence(), view.getPendingIntent());
         awareness.updateFences(builder.build());
 
         rulesRepository.clearAllRules();
 
-        rulesRepository.saveRule("compositeRule", compositeRuleDescription);
-        final RuleDescription ruledescription = rulesRepository.loadRule("compositeRule");
+        rulesRepository.saveRule("compositeRule", compositeFenceVM);
+        //final FenceVM ruledescription = rulesRepository.loadRule("compositeRule");
 
 
     }

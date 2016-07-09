@@ -1,6 +1,14 @@
 package com.lostincontext.data.rules;
 
-public class LocationRuleDescription implements RuleDescription {
+import com.google.android.gms.awareness.fence.AwarenessFence;
+
+public class LocationFenceVM implements FenceVM {
+
+    public enum State {
+        IN,
+        ENTERING,
+        EXITING
+    }
 
     private State state;
     private double latitude;
@@ -10,23 +18,23 @@ public class LocationRuleDescription implements RuleDescription {
     // TODO: 06/07/2016  make default value
     private long dwellTimeMillis;
 
-    private LocationRuleDescription() { }
+    private LocationFenceVM() { }
 
-    public LocationRuleDescription(State state, double latitude, double longitude, double radius) {
+    public LocationFenceVM(State state, double latitude, double longitude, double radius) {
         this.state = state;
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
     }
 
-    public enum State {
-        IN,
-        ENTERING,
-        EXITING
+
+
+    @Override public AwarenessFence build(FenceBuilder builder) {
+        return builder.location(this);
     }
 
-    @Override public Rule visit(RuleBuilder builder) {
-        return builder.buildLocationRule(this);
+    @Override public String describe(FenceDescriptor descriptor) {
+        return descriptor.location(this);
     }
 
     public State getState() {
