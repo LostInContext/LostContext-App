@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = CompositeRuleDescription.class, name = "composite"),
         @JsonSubTypes.Type(value = DetectedActivityRuleDescription.class, name = "activity"),
-        @JsonSubTypes.Type(value = HeadPhoneRuleDescription.class, name = "headphone"),
+        @JsonSubTypes.Type(value = HeadphoneRuleDescription.class, name = "headphone"),
         @JsonSubTypes.Type(value = NotRuleDescription.class, name = "notRule"),
         @JsonSubTypes.Type(value = LocationRuleDescription.class, name = "location"),
         @JsonSubTypes.Type(value = TimeRuleDescription.class, name = "time")

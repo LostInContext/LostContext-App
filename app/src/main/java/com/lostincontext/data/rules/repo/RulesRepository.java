@@ -40,7 +40,7 @@ public class RulesRepository {
         this.objectMapper = objectMapper;
     }
 
-    public void save(String name, RuleDescription ruleDescription) {
+    public void saveRule(String name, RuleDescription ruleDescription) {
         try {
             saveToPrefs(name, serialize(ruleDescription));
             addToRulesList(name);
@@ -48,6 +48,43 @@ public class RulesRepository {
             Log.e(TAG, "save: ", e);
         }
     }
+
+    private RuleDescription getRule(String name) throws IOException {
+        return deserialize(loadFromPrefs(name));
+    }
+
+
+    public void getRules(LoadTasksCallback callback) {
+        Set<String> rulesNames = getRulesNames();
+        List<RuleDescription> rules = new ArrayList<>(rulesNames.size());
+        try {
+            for (String ruleName : rulesNames) {
+                RuleDescription ruleDescription = null;
+
+                ruleDescription = getRule(ruleName);
+
+                rules.add(ruleDescription);
+            }
+            callback.onTasksLoaded(rules);
+        } catch (IOException e) {
+            Log.e(TAG, "exception occurred : ", e);
+            callback.onTasksLoadFailure();
+        }
+
+
+    }
+
+    public void clearAllRules() {
+        Set<String> rulesNames = getRulesNames();
+        SharedPreferences.Editor editor = preferences.edit();
+        for (String ruleName : rulesNames) {
+            editor.remove(ruleName);
+        }
+        editor.remove(RULES_KEY);
+        editor.apply();
+    }
+
+    //region rules manipulation
 
     private void addToRulesList(String name) {
         Set<String> rulesNames = getRulesNames();
@@ -69,37 +106,8 @@ public class RulesRepository {
         return rulesNames;
     }
 
-    public RuleDescription load(String name) {
-        try {
-            return deserialize(loadFromPrefs(name));
-        } catch (IOException e) {
-            Log.e(TAG, "exception occurred : ", e);
-        }
-        throw new RuntimeException("boom");
-    }
+    //endregion
 
-
-    public void loadAllRules(LoadTasksCallback callback) {
-        Set<String> rulesNames = getRulesNames();
-        List<RuleDescription> rules = new ArrayList<>(rulesNames.size());
-
-        for (String ruleName : rulesNames) {
-            RuleDescription ruleDescription = load(ruleName);
-            rules.add(ruleDescription);
-        }
-        callback.onTasksLoaded(rules);
-
-    }
-
-    public void clearAllRules() {
-        Set<String> rulesNames = getRulesNames();
-        SharedPreferences.Editor editor = preferences.edit();
-        for (String ruleName : rulesNames) {
-            editor.remove(ruleName);
-        }
-        editor.remove(RULES_KEY);
-        editor.apply();
-    }
 
     //region SharedPreferences editor
 

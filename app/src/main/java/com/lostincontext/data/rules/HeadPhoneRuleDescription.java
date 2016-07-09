@@ -1,19 +1,19 @@
 package com.lostincontext.data.rules;
 
 
-public class HeadPhoneRuleDescription implements RuleDescription {
+public class HeadphoneRuleDescription implements RuleDescription {
 
     private State state;
 
-    private HeadPhoneRuleDescription() { }
+    private HeadphoneRuleDescription() { }
 
-    public HeadPhoneRuleDescription(State state) {
+    public HeadphoneRuleDescription(State state) {
         this.state = state;
     }
 
     @Override
     public Rule visit(RuleBuilder builder) {
-        return builder.buildHeadPhoneRule(this);
+        return builder.buildHeadphoneRule(this);
     }
 
     public enum State {

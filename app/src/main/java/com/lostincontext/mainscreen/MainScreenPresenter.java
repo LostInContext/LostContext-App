@@ -12,7 +12,7 @@ import com.lostincontext.awareness.Awareness;
 import com.lostincontext.data.rules.repo.RulesRepository;
 import com.lostincontext.data.rules.CompositeRuleDescription;
 import com.lostincontext.data.rules.DetectedActivityRuleDescription;
-import com.lostincontext.data.rules.HeadPhoneRuleDescription;
+import com.lostincontext.data.rules.HeadphoneRuleDescription;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.data.rules.RuleBuilder;
 import com.lostincontext.data.rules.RuleDescription;
@@ -39,7 +39,7 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         // POC test of how to register a fence
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
 
-        RuleDescription headPhoneDescription = new HeadPhoneRuleDescription(HeadPhoneRuleDescription.State.PLUGGED_IN);
+        RuleDescription headPhoneDescription = new HeadphoneRuleDescription(HeadphoneRuleDescription.State.PLUGGED_IN);
         RuleDescription runningDescription = new DetectedActivityRuleDescription(DetectedActivityRuleDescription.Type.IN_VEHICLE, DetectedActivityRuleDescription.State.DURING);
         List<RuleDescription> rules = new ArrayList<>();
         rules.add(headPhoneDescription);
@@ -56,8 +56,8 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
 
         rulesRepository.clearAllRules();
 
-        rulesRepository.save("compositeRule", compositeRuleDescription);
-        final RuleDescription ruledescription = rulesRepository.load("compositeRule");
+        rulesRepository.saveRule("compositeRule", compositeRuleDescription);
+        final RuleDescription ruledescription = rulesRepository.loadRule("compositeRule");
 
 
     }

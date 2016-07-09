@@ -1,5 +1,7 @@
 package com.lostincontext.data.rules;
 
+import android.text.TextUtils;
+
 import com.google.android.gms.awareness.fence.AwarenessFence;
 import com.google.android.gms.awareness.fence.DetectedActivityFence;
 import com.google.android.gms.awareness.fence.HeadphoneFence;
@@ -7,15 +9,18 @@ import com.google.android.gms.awareness.fence.LocationFence;
 import com.google.android.gms.awareness.fence.TimeFence;
 import com.google.android.gms.location.DetectedActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
 public class RuleBuilder {
 
 
-    public Rule buildRule(RuleDescription ruleDescription) {
-        return ruleDescription.visit(this);
+    public Rule buildNotRule(RuleDescription ruleDescription) {
+        Rule rule = ruleDescription.visit(this);
+        return not(rule);
     }
+
 
     public Rule buildLocationRule(LocationRuleDescription locationRuleDescription) {
         //if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -78,8 +83,8 @@ public class RuleBuilder {
         throw new RuntimeException("Unknown time name");
     }
 
-    public Rule buildHeadPhoneRule(HeadPhoneRuleDescription headPhoneRuleDescription) {
-        switch (headPhoneRuleDescription.getState()) {
+    public Rule buildHeadphoneRule(HeadphoneRuleDescription headphoneRuleDescription) {
+        switch (headphoneRuleDescription.getState()) {
             case PLUGGED_IN:
                 return new Rule(HeadphoneFence.pluggingIn(), "HeadPhone are plugged in");
             case PLUGGED_OUT:
@@ -123,31 +128,51 @@ public class RuleBuilder {
     public Rule buildCompositeRule(CompositeRuleDescription compositeRuleDescription) {
         Rule resultRule;
         List<RuleDescription> ruleDescriptions = compositeRuleDescription.getRuleDescriptions();
-        resultRule = buildRule(ruleDescriptions.get(0));
-        for (int i = 1; i < ruleDescriptions.size(); i++) {
-            switch (compositeRuleDescription.getOperator()) {
 
-                case AND:
-                    resultRule = and(resultRule, buildRule(ruleDescriptions.get(i)));
-                    break;
-                case OR:
-                    resultRule = or(resultRule, buildRule(ruleDescriptions.get(i)));
-                    break;
-            }
+        Rule[] rules = new Rule[ruleDescriptions.size()];
+
+        for (int i = 0, count = ruleDescriptions.size(); i < count; i++) {
+            rules[i] = ruleDescriptions.get(i).visit(this);
+        }
+
+
+        switch (compositeRuleDescription.getOperator()) {
+
+            case AND:
+                resultRule = and(rules);
+                break;
+            case OR:
+            default:
+                resultRule = or(rules);
+                break;
         }
         return resultRule;
     }
 
 
-    public Rule and(Rule rule1, Rule rule2) {
-        AwarenessFence fence = AwarenessFence.and(rule1.getFence(), rule2.getFence());
-        String name = rule1.getName() + " and " + rule2.getName();
+    public Rule and(Rule... rules) {
+        List<AwarenessFence> fences = new ArrayList<>(rules.length);
+        String name = "";
+        for (Rule rule : rules) {
+            fences.add(rule.getFence());
+            if (!TextUtils.equals(name, "")) name += " and ";
+            name += rule.getName();
+        }
+
+        AwarenessFence fence = AwarenessFence.and(fences);
         return new Rule(fence, name);
     }
 
-    public Rule or(Rule rule1, Rule rule2) {
-        AwarenessFence fence = AwarenessFence.or(rule1.getFence(), rule2.getFence());
-        String name = rule1.getName() + " or " + rule2.getName();
+    public Rule or(Rule... rules) {
+        List<AwarenessFence> fences = new ArrayList<>(rules.length);
+        String name = "";
+        for (Rule rule : rules) {
+            fences.add(rule.getFence());
+            if (!TextUtils.equals(name, "")) name += " and ";
+            name += rule.getName();
+        }
+
+        AwarenessFence fence = AwarenessFence.or(fences);
         return new Rule(fence, name);
     }
 
