@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <attr name="fixedSize" format="enum">
+        <enum name="width" value="0" />
+        <enum name="height" value="1" />
+    </attr>
+
+    <declare-styleable name="SquareImageView">
+        <attr name="fixedSize" />
+    </declare-styleable>
+
+</resources>
