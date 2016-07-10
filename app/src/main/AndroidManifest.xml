@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.lostincontext">
+    package="com.lostincontext">
 
-    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +14,9 @@
 
         <activity android:name=".mainscreen.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".playlists.PlaylistsActivity"/>
@@ -24,15 +24,16 @@
 
         <meta-data
             android:name="com.google.android.awareness.API_KEY"
-            android:value="AIzaSyBiEKKSbprkD3WQlSeR7Dd1mv6VsgRyIN0"/>
+            android:value="AIzaSyBiEKKSbprkD3WQlSeR7Dd1mv6VsgRyIN0" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBiEKKSbprkD3WQlSeR7Dd1mv6VsgRyIN0"/>
+            android:value="AIzaSyBiEKKSbprkD3WQlSeR7Dd1mv6VsgRyIN0" />
 
         <service
             android:name=".that.ThatService"
-            android:exported="false"/>
+            android:exported="false" />
+
         <meta-data
             android:name="com.lostincontext.commons.images.LostContextGlideModule"
             android:value="GlideModule" />
