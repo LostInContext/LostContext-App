@@ -1,7 +1,7 @@
 package com.lostincontext.playlists;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 
 import com.lostincontext.R;
@@ -17,10 +17,11 @@ public class PlaylistsActivity extends BaseActivity {
 
     @Inject PlaylistsPresenter presenter;
 
-    @Override public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.playlists_screen);
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.playlists_screen);
 
         FragmentManager fm = getSupportFragmentManager();
         PlaylistsFragment fragment = (PlaylistsFragment) fm.findFragmentById(R.id.contentFrame);
