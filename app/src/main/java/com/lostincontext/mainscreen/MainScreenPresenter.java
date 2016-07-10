@@ -9,6 +9,8 @@ import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.lostincontext.awareness.Awareness;
+import com.lostincontext.data.DataPlaylist;
+import com.lostincontext.data.Playlist;
 import com.lostincontext.data.rules.CompositeFenceVM;
 import com.lostincontext.data.rules.DetectedActivityFenceVM;
 import com.lostincontext.data.rules.FenceVM;
@@ -55,6 +57,8 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         awareness.updateFences(builder.build());
 
         rulesRepository.clearAllRules();
+
+        List<Playlist> playlists = DataPlaylist.getPlaylists();
 
         rulesRepository.saveRule("compositeRule", compositeFenceVM);
         //final FenceVM ruledescription = rulesRepository.loadRule("compositeRule");

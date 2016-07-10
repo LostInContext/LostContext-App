@@ -42,7 +42,6 @@ public class PlaylistsFragment extends Fragment implements PlaylistsContract.Vie
         RecyclerView recyclerView = binding.recyclerView;
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-
         RecyclerView.Adapter adapter = new PlaylistsAdapter(new ArrayList<Playlist>()); //todo data
         recyclerView.setAdapter(adapter);
 
