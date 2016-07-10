@@ -87,7 +87,6 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
 
     @Override public void onFabClicked() {
         view.openPlaylistsScreen();
-
     }
 
 

@@ -1,14 +1,15 @@
-package com.lostincontext.data;
+package com.lostincontext.commons.images;
 
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
-import android.text.TextUtils;
 
 import com.bumptech.glide.request.target.Target;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import static android.text.TextUtils.isEmpty;
 
 
 public class DeezerImageUrlGenerator {
@@ -25,7 +26,7 @@ public class DeezerImageUrlGenerator {
     /**
      * <b>CAUTION !</b> This is the type to use for the full cover setted by the users.<br>
      * However, Playlists can also use a patchwork of album covers instead.<br>
-     * Use {@code Playlist.getCoverType()} in order to determine which type you need to use.
+     * Use {@code Playlist.getImageType()} in order to determine which type you need to use.
      */
     public final static int TYPE_PLAYLIST_CUSTOM_COVER = 3;
     public final static int TYPE_MISC = 4;
@@ -42,45 +43,29 @@ public class DeezerImageUrlGenerator {
     public final static String SUB_PATH_PLAYLIST = "playlist";
     public final static String SUB_PATH_MISC = "misc";
 
-    private final static String TAG__IMAGES_URL = "HOST_IMAGES";
-
-
-    @Retention(RetentionPolicy.SOURCE)
-    @StringDef({IMAGE_SPEC_JPG, IMAGE_SPEC_PNG})
-    public @interface DeezerImageSpec { }
-
     /**
      * image spec : background color - compression - mode - version .jpg
      */
     public static final String IMAGE_SPEC_JPG = "-000000-80-0-0.jpg";
 
-    /**
-     * image spec : background color - compression - mode - version .jpg<br>
-     * {@code none} = transparent for some reason
-     */
-    public static final String IMAGE_SPEC_PNG = "-none-100-0-0.png";
-
-    /**
-     * the image buckets provided by our API
-     */
     @SuppressWarnings("MagicNumber")
     private final static int[] IMAGE_BUCKETS = {60, 120, 200, 340, 400, 500, 720};
 
 
-    private static String imageUrlPrefix = "http://cdn-images.deezer.com/images/";
+    private final static String imageUrlPrefix = "http://cdn-images.deezer.com/images/";
 
 
     @Nullable
-    public static String buildStandardUrl(final @Nullable String md5,
-                                          final @DeezerImageType int type,
-                                          final int width,
-                                          final int height) {
+    public static String buildUrl(final @Nullable DeezerImage deezerImage,
+                                  final int width,
+                                  final int height) {
 
-        if (TextUtils.isEmpty(md5)) {
-            return null;
-        }
+        if (deezerImage == null) return null;
+        String coverMd5 = deezerImage.getCoverMd5();
+        if (isEmpty(coverMd5)) return null;
+
         @DeezerImageSubPath String subPath;
-        switch (type) {
+        switch (deezerImage.getImageType()) {
             case TYPE_COVER:
                 subPath = SUB_PATH_COVER;
                 break;
@@ -103,18 +88,19 @@ public class DeezerImageUrlGenerator {
                 break;
         }
 
-        final int size = getSquareImageBucket(width, height);
-        return imageUrlPrefix + subPath + "/" + md5 + "/" + size + "x" + size + IMAGE_SPEC_JPG;
+        int size = getSquareImageBucket(width, height);
+        return imageUrlPrefix + subPath + "/" + coverMd5 + "/" + size + "x" + size + IMAGE_SPEC_JPG;
     }
 
 
-    private static int getSquareImageBucket(int width, int height) {
+    private static int getSquareImageBucket(int width,
+                                            int height) {
         if (width == Target.SIZE_ORIGINAL) {
             // we provide the biggest bucket for this configuration :
             return IMAGE_BUCKETS[IMAGE_BUCKETS.length - 1];
         }
 
-        final int maxSide = Math.max(width, height);
+        int maxSide = Math.max(width, height);
 
         for (int bucket : IMAGE_BUCKETS) {
             if (bucket >= maxSide) {

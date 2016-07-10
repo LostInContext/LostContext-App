@@ -33,6 +33,10 @@
         <service
             android:name=".that.ThatService"
             android:exported="false"/>
+        <meta-data
+            android:name="com.lostincontext.commons.images.LostContextGlideModule"
+            android:value="GlideModule" />
+
     </application>
 
 

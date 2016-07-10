@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.lostincontext.commons.images.DeezerImageUrlGenerator;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -74,7 +75,7 @@ public class DataPlaylist {
             String coverMd5 = extractCoverMd5(node.get("picture_small").textValue());
             playlist.setCoverMd5(coverMd5);
             playlist.setTitle(node.get("title").textValue());
-            playlist.setCoverType(extractCoverType(coverMd5));
+            playlist.setImageType(extractCoverType(coverMd5));
             playlist.setId(node.get("id").asInt());
 
             return playlist;

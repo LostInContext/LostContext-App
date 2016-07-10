@@ -89,9 +89,9 @@ public abstract class StatefulAdapter extends RecyclerView.Adapter<ViewHolder> {
      * @param parent   the item's parent RecyclerView
      * @return ViewHolder to use in {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
      */
-    protected static ViewHolder buildDefaultLoadingViewHolder(@NonNull LayoutInflater inflater,
-                                                              @NonNull ViewGroup parent) {
-        return buildDefaultLoadingViewHolder(inflater, parent, 0);
+    protected static ViewHolder buildLoadingViewHolder(@NonNull LayoutInflater inflater,
+                                                       @NonNull ViewGroup parent) {
+        return buildLoadingViewHolder(inflater, parent, 0);
     }
 
     /**
@@ -104,9 +104,9 @@ public abstract class StatefulAdapter extends RecyclerView.Adapter<ViewHolder> {
      * @param negativeOffset offset to remove from the parent height in the computation of the item height
      * @return ViewHolder to use in {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
      */
-    protected static ViewHolder buildDefaultLoadingViewHolder(@NonNull LayoutInflater inflater,
-                                                              @NonNull ViewGroup parent,
-                                                              int negativeOffset) {
+    protected static ViewHolder buildLoadingViewHolder(@NonNull LayoutInflater inflater,
+                                                       @NonNull ViewGroup parent,
+                                                       int negativeOffset) {
         final View loadingView = inflater.inflate(R.layout.item_loading, parent, false);
         setItemHeight(parent, loadingView, negativeOffset);
         return new DummyViewHolder(loadingView);
@@ -122,10 +122,10 @@ public abstract class StatefulAdapter extends RecyclerView.Adapter<ViewHolder> {
      * @param callback callback for the placeholder's refresh button
      * @return ViewHolder to use in {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
      */
-    protected static ViewHolder buildDefaultErrorViewHolder(@NonNull LayoutInflater inflater,
-                                                            @NonNull ViewGroup parent,
-                                                            @NonNull EmptyListCallback callback) {
-        return buildDefaultErrorViewHolder(inflater, parent, callback, 0);
+    protected static ViewHolder buildErrorViewHolder(@NonNull LayoutInflater inflater,
+                                                     @NonNull ViewGroup parent,
+                                                     @NonNull EmptyListCallback callback) {
+        return buildErrorViewHolder(inflater, parent, callback, 0);
     }
 
     /**
@@ -139,10 +139,10 @@ public abstract class StatefulAdapter extends RecyclerView.Adapter<ViewHolder> {
      * @param callback       callback for the placeholder's refresh button
      * @return ViewHolder to use in {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
      */
-    protected static ViewHolder buildDefaultErrorViewHolder(@NonNull LayoutInflater inflater,
-                                                            @NonNull ViewGroup parent,
-                                                            @NonNull EmptyListCallback callback,
-                                                            final int negativeOffset) {
+    protected static ViewHolder buildErrorViewHolder(@NonNull LayoutInflater inflater,
+                                                     @NonNull ViewGroup parent,
+                                                     @NonNull EmptyListCallback callback,
+                                                     final int negativeOffset) {
         final View errorView = inflater.inflate(R.layout.item_error, parent, false);
         setItemHeight(parent, errorView, negativeOffset);
         return new ErrorPlaceholderViewHolder(errorView, callback);
@@ -157,9 +157,9 @@ public abstract class StatefulAdapter extends RecyclerView.Adapter<ViewHolder> {
      * @param parent   the item's parent RecyclerView
      * @return ViewHolder to use in {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
      */
-    protected static ViewHolder buildDefaultEmptyViewHolder(@NonNull LayoutInflater inflater,
-                                                            @NonNull ViewGroup parent) {
-        return buildDefaultEmptyViewHolder(inflater, parent, 0);
+    protected static ViewHolder buildEmptyViewHolder(@NonNull LayoutInflater inflater,
+                                                     @NonNull ViewGroup parent) {
+        return buildEmptyViewHolder(inflater, parent, 0);
     }
 
     /**
@@ -172,9 +172,9 @@ public abstract class StatefulAdapter extends RecyclerView.Adapter<ViewHolder> {
      * @param negativeOffset offset to remove from the parent height in the computation of the item height
      * @return ViewHolder to use in {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
      */
-    protected static ViewHolder buildDefaultEmptyViewHolder(@NonNull LayoutInflater inflater,
-                                                            @NonNull ViewGroup parent,
-                                                            final int negativeOffset) {
+    protected static ViewHolder buildEmptyViewHolder(@NonNull LayoutInflater inflater,
+                                                     @NonNull ViewGroup parent,
+                                                     final int negativeOffset) {
         final View emptyView = inflater.inflate(R.layout.item_empty_list, parent, false);
         setItemHeight(parent, emptyView, negativeOffset);
         return new DummyViewHolder(emptyView);
