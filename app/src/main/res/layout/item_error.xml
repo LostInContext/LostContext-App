@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="callback"
+            type="com.lostincontext.commons.list.EmptyListCallback" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/error_image"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/error_text"
+            app:layout_constraintLeft_toLeftOf="@+id/constraintLayout2"
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout2" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/error_text"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintLeft_toLeftOf="@+id/constraintLayout2"
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout2"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
+            tools:layout_constraintBottom_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:text="No Connexion" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/error_refresh_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{() -> callback.onRefreshButtonClick()}"
+            app:layout_constraintLeft_toLeftOf="@+id/constraintLayout2"
+            app:layout_constraintRight_toRightOf="@+id/constraintLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/error_text"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintTop_creator="1"
+            tools:text="Refresh" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

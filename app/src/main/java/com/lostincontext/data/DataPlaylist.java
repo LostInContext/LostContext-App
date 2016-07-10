@@ -30,6 +30,8 @@ public class DataPlaylist {
 
     public int total;
 
+    public String next;
+
     public void setData(List<Playlist> data) {
         this.data = data;
     }
