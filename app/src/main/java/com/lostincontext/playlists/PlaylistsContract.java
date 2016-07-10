@@ -2,6 +2,7 @@ package com.lostincontext.playlists;
 
 import com.lostincontext.commons.BasePresenter;
 import com.lostincontext.commons.BaseView;
+import com.lostincontext.commons.list.EmptyListCallback;
 
 
 public class PlaylistsContract {
@@ -11,7 +12,9 @@ public class PlaylistsContract {
 
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter, EmptyListCallback {
+
+        @Override void start();
 
     }
 }

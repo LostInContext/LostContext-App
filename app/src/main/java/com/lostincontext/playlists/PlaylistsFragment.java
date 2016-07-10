@@ -12,15 +12,13 @@ import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.databinding.PlaylistsScreenFragmentBinding;
-import com.lostincontext.data.Playlist;
-
-import java.util.ArrayList;
 
 
 public class PlaylistsFragment extends Fragment implements PlaylistsContract.View {
 
-
     private PlaylistsContract.Presenter presenter;
+
+    private PlaylistsAdapter adapter;
 
 
     public static PlaylistsFragment newInstance() {
@@ -40,11 +38,28 @@ public class PlaylistsFragment extends Fragment implements PlaylistsContract.Vie
                                                                          container,
                                                                          false);
         RecyclerView recyclerView = binding.recyclerView;
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerView.Adapter adapter = new PlaylistsAdapter(new ArrayList<Playlist>()); //todo data
-        recyclerView.setAdapter(adapter);
 
+        adapter = new PlaylistsAdapter(presenter);
+
+        recyclerView.setAdapter(adapter);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override public int getSpanSize(int position) {
+                switch (adapter.getCurrentState()) {
+                    case LOADING:
+                    case ERROR:
+                    case EMPTY:
+                        return 2;
+
+                    case CONTENT:
+                        return 1;
+
+                    default:
+                        throw new RuntimeException("invalid state");
+                }
+            }
+        });
         return binding.getRoot();
     }
 

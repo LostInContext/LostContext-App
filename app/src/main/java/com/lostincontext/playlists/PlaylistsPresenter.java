@@ -18,4 +18,8 @@ public class PlaylistsPresenter implements PlaylistsContract.Presenter {
 
     @Override public void start() {
     }
+
+    @Override public void onRefreshButtonClick() {
+
+    }
 }
