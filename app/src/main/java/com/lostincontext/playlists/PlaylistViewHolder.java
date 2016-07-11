@@ -2,17 +2,16 @@ package com.lostincontext.playlists;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
-import android.view.animation.Interpolator;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.graphics.Palette;
 import android.support.v7.graphics.Palette.Swatch;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Interpolator;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
@@ -119,6 +118,8 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
                     binding.itemTitle.setTextColor((Integer) valueAnimator.getAnimatedValue());
                 }
             });
+            textAnimator.start();
+
             ValueAnimator backgroundAnimator = ValueAnimator.ofArgb(defaultBackgroundColor,
                                                                     swatch.getRgb());
             backgroundAnimator.setDuration(animationDuration);

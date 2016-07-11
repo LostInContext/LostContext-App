@@ -33,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:lines="1"
+                android:fontFamily="sans-serif-medium"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
                 tools:text="artist name" />
