@@ -1,6 +1,11 @@
 package com.lostincontext.playlists;
 
 
+import com.lostincontext.data.DataPlaylist;
+import com.lostincontext.data.Playlist;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 public class PlaylistsPresenter implements PlaylistsContract.Presenter {
@@ -17,6 +22,8 @@ public class PlaylistsPresenter implements PlaylistsContract.Presenter {
     }
 
     @Override public void start() {
+        List<Playlist>  playlists = DataPlaylist.getPlaylists();
+        view.setPlaylists(playlists);
     }
 
     @Override public void onRefreshButtonClick() {

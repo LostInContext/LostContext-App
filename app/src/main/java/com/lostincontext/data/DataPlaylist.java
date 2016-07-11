@@ -1,5 +1,6 @@
 package com.lostincontext.data;
 
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.lostincontext.commons.images.DeezerImageUrlGenerator;
+import com.lostincontext.commons.images.DeezerImageUrlGenerator.DeezerImageType;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -64,6 +66,14 @@ public class DataPlaylist {
      */
     private static class PlaylistDeserializer extends JsonDeserializer<Playlist> {
 
+
+        private static class DataHolder {
+            public String coverMd5;
+            @DeezerImageType public int coverType;
+        }
+
+        DataHolder data = new DataHolder();
+
         @Override
         public Playlist deserialize(JsonParser p,
                                     DeserializationContext ctxt) throws IOException {
@@ -72,30 +82,32 @@ public class DataPlaylist {
 
 
             Playlist playlist = new Playlist();
-            String coverMd5 = extractCoverMd5(node.get("picture_small").textValue());
-            playlist.setCoverMd5(coverMd5);
+            extractCoverMd5(node.get("picture_small").textValue(), data);
+            playlist.setCoverMd5(data.coverMd5);
             playlist.setTitle(node.get("title").textValue());
-            playlist.setImageType(extractCoverType(coverMd5));
+            playlist.setImageType(data.coverType);
             playlist.setId(node.get("id").asInt());
+            playlist.setCreator(node.get("creator").get("name").textValue());
 
             return playlist;
         }
 
-        private static String extractCoverMd5(String cover) {
+        /**
+         * dirty hack around the fact that the API can't simply return the coverMd5
+         */
+        private static void extractCoverMd5(String cover, DataHolder data) {
             int beginning = cover.indexOf("/cover/") + 7;
-            if (beginning == 6) beginning = cover.indexOf("/playlist/") + 10;
-            int end = cover.indexOf("/", beginning);
-            return TextUtils.substring(cover, beginning, end);
-        }
-
-        private static int extractCoverType(String coverMd5) {
-
-            if (coverMd5.length() > (CHECKSUM_NORMAL_LENGTH * 2)) {
-                return (DeezerImageUrlGenerator.TYPE_COVER);
+            if (beginning == 6) {
+                beginning = cover.indexOf("/playlist/") + 10;
+                data.coverType = DeezerImageUrlGenerator.TYPE_PLAYLIST_CUSTOM_COVER;
             } else {
-                return (DeezerImageUrlGenerator.TYPE_PLAYLIST_CUSTOM_COVER);
+                data.coverType = DeezerImageUrlGenerator.TYPE_COVER;
             }
+            int end = cover.indexOf("/", beginning);
+            data.coverMd5 = TextUtils.substring(cover, beginning, end);
         }
+
+
     }
 
 

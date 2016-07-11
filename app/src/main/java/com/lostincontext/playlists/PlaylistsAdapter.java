@@ -1,6 +1,8 @@
 package com.lostincontext.playlists;
 
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import com.lostincontext.R;
 import com.lostincontext.commons.list.EmptyListCallback;
 import com.lostincontext.commons.list.StatefulAdapter;
 import com.lostincontext.data.Playlist;
+import com.lostincontext.databinding.ItemPlaylistBinding;
 
 import java.util.List;
 
@@ -31,8 +34,8 @@ public class PlaylistsAdapter extends StatefulAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case R.id.view_type_standard:
-                View view = layoutInflater.inflate(R.layout.item_playlist, parent, false);
-                return new PlaylistViewHolder(view);
+                ItemPlaylistBinding binding = ItemPlaylistBinding.inflate(layoutInflater, parent, false);
+                return new PlaylistViewHolder(binding);
 
             case R.id.view_type_loading:
                 return buildLoadingViewHolder(layoutInflater, parent);
@@ -51,6 +54,9 @@ public class PlaylistsAdapter extends StatefulAdapter {
     @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case R.id.view_type_standard:
+                PlaylistViewHolder viewHolder = (PlaylistViewHolder) holder;
+                viewHolder.setContent(playlists.get(position));
+                break;
 
 
             case R.id.view_type_loading:
@@ -70,7 +76,10 @@ public class PlaylistsAdapter extends StatefulAdapter {
         return playlists.size();
     }
 
+
     public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
+        if (playlists.size() == 0 ) setCurrentState(ContentState.EMPTY);
+        else setCurrentState(ContentState.CONTENT);
     }
 }

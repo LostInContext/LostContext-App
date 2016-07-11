@@ -1,5 +1,6 @@
 package com.lostincontext.playlists;
 
+import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
+import com.lostincontext.commons.list.SpacesItemDecoration;
+import com.lostincontext.data.Playlist;
 import com.lostincontext.databinding.PlaylistsScreenFragmentBinding;
+
+import java.util.List;
 
 
 public class PlaylistsFragment extends Fragment implements PlaylistsContract.View {
@@ -38,19 +43,22 @@ public class PlaylistsFragment extends Fragment implements PlaylistsContract.Vie
                                                                          container,
                                                                          false);
         RecyclerView recyclerView = binding.recyclerView;
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        Resources resources = getResources();
+        final int span = resources.getInteger(R.integer.grid_span);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), span);
         recyclerView.setLayoutManager(layoutManager);
+        int space = resources.getDimensionPixelSize(R.dimen.grid_spacing);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(space, span));
 
         adapter = new PlaylistsAdapter(presenter);
 
-        recyclerView.setAdapter(adapter);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override public int getSpanSize(int position) {
                 switch (adapter.getCurrentState()) {
                     case LOADING:
                     case ERROR:
                     case EMPTY:
-                        return 2;
+                        return span;
 
                     case CONTENT:
                         return 1;
@@ -60,6 +68,7 @@ public class PlaylistsFragment extends Fragment implements PlaylistsContract.Vie
                 }
             }
         });
+        recyclerView.setAdapter(adapter);
         return binding.getRoot();
     }
 
@@ -72,5 +81,9 @@ public class PlaylistsFragment extends Fragment implements PlaylistsContract.Vie
 
     @Override public void setPresenter(PlaylistsContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override public void setPlaylists(List<Playlist> playlists) {
+        adapter.setPlaylists(playlists);
     }
 }
