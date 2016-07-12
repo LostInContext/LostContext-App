@@ -16,8 +16,6 @@ import com.lostincontext.data.rules.DetectedActivityFenceVM;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.data.rules.repo.RulesRepository;
-import com.lostincontext.data.rules.Rule;
-import com.lostincontext.data.rules.FenceBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +48,10 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         FenceVM compositeFenceVM = new CompositeFenceVM(rules, CompositeFenceVM.Operator.AND);
 
 
-      //  Rule compositeRule = compositeFenceVM.build(new FenceBuilder());
+        //  Rule compositeRule = compositeFenceVM.build(new FenceBuilder());
 
 
-      //  builder.addFence(compositeRule.getName(), compositeRule.getFence(), view.getPendingIntent());
+        //  builder.addFence(compositeRule.getName(), compositeRule.getFence(), view.getPendingIntent());
         awareness.updateFences(builder.build());
 
         rulesRepository.clearAllRules();
@@ -63,6 +61,8 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         rulesRepository.saveRule("compositeRule", compositeFenceVM);
         //final FenceVM ruledescription = rulesRepository.loadRule("compositeRule");
 
+    //POC location
+        view.getLatLng();
 
     }
 
