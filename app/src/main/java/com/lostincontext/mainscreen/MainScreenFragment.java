@@ -66,6 +66,6 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
     }
 
     public void getLatLng() {
-        LocationUtils.getLocationFromAddress(this.getContext(), "9 rue joseph riviere");
+//        LocationUtils.getLocationFromAddress(this.getContext(), "9 rue joseph riviere");
     }
 }
