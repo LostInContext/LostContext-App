@@ -1,5 +1,6 @@
 package com.lostincontext.playlists;
 
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.ColorInt;
@@ -12,11 +13,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Interpolator;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.Target;
+import com.lostincontext.PlaylistLauncher;
 import com.lostincontext.R;
 import com.lostincontext.commons.images.palette.PaletteBitmap;
 import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder;
@@ -27,6 +30,11 @@ import com.lostincontext.databinding.ItemPlaylistBinding;
 import java.util.List;
 
 public class PlaylistViewHolder extends RecyclerView.ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
+
+
+    public interface Callback {
+        void onDeezerLogoClick(Playlist playlist);
+    }
 
 
     private final ItemPlaylistBinding binding;
@@ -64,11 +72,21 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
 
 
     public void setContent(Playlist playlist) {
+
+        binding.setPlaylist(playlist);
+
+        binding.setCallback(new Callback() {
+            @Override public void onDeezerLogoClick(Playlist playlist) {
+                PlaylistLauncher launcher = new PlaylistLauncher();
+                launcher.launchPlaylist(binding.getRoot().getContext(), playlist);
+            }
+        });
+
         binding.textBackground.setBackgroundColor(defaultBackgroundColor);
         binding.itemInfo.setTextColor(defaultTextColor);
         binding.itemTitle.setTextColor(defaultTextColor);
-        binding.itemTitle.setText(playlist.getTitle());
-        binding.itemInfo.setText(playlist.getCreator());
+        binding.deezerLogo.setColorFilter(defaultTextColor);
+
         Glide.with(binding.getRoot().getContext())
                 .load(playlist)
                 .asBitmap()
@@ -130,10 +148,21 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
                 }
             });
             backgroundAnimator.start();
+
+            ImageView deezerLogo = binding.deezerLogo;
+
+            ObjectAnimator color = ObjectAnimator.ofArgb(deezerLogo,
+                                                         "colorFilter",
+                                                         defaultTextColor,
+                                                         swatch.getTitleTextColor());
+            color.setDuration(animationDuration);
+            color.start();
+
         } else {
             binding.itemInfo.setTextColor(swatch.getTitleTextColor());
             binding.itemTitle.setTextColor(swatch.getTitleTextColor());
             binding.textBackground.setBackgroundColor(swatch.getRgb());
+            binding.deezerLogo.setColorFilter(swatch.getTitleTextColor());
         }
 
     }

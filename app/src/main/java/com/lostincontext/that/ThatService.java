@@ -27,7 +27,7 @@ public class ThatService extends IntentService {
         if (TextUtils.equals(fenceState.getFenceKey(), "HeadPhone are plugged in")) {
             switch (fenceState.getCurrentState()) {
                 case FenceState.TRUE:
-                    new PlaylistLauncher().launchPlaylist(this);
+                    //new PlaylistLauncher().launchPlaylist(this);
                     Log.i(TAG, "Headphones are plugged in.");
                     break;
 

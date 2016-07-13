@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="playlist"
+            type="com.lostincontext.data.Playlist" />
+
+        <variable
+            name="callback"
+            type="com.lostincontext.playlists.PlaylistViewHolder.Callback" />
+
+
+    </data>
+
     <LinearLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -14,43 +29,66 @@
         <com.lostincontext.commons.widget.SquareImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:layout_height="wrap_content" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/text_background"
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:background="@color/playlist_text_default_background"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:background="@color/playlist_text_default_background">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/item_title"
-                style="@style/itemTitle"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="1"
-                android:fontFamily="sans-serif-medium"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp"
-                tools:text="artist name" />
+                android:layout_height="68dp"
+                android:layout_toStartOf="@+id/deezer_logo"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/item_info"
-                style="@style/itemInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="1"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp"
-                tools:text="some comment" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/item_title"
+                    style="@style/itemTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:lines="1"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
+                    android:text="@{playlist.title}"
+                    tools:text="artist name" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/item_info"
+                    style="@style/itemInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
+                    android:text="@{playlist.creator}"
+                    tools:text="some comment" />
+
+            </LinearLayout>
 
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/deezer_logo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:onClick="@{() -> callback.onDeezerLogoClick(playlist)}"
+                android:padding="12dp"
+                app:srcCompat="@drawable/ic_deezer_logo_24" />
+
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 </layout>
