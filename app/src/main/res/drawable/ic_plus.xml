@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportHeight="@integer/viewport_height"
+    android:viewportWidth="@integer/viewport_width">
+
+    <group
+        android:name="@string/groupTickPlus"
+        android:pivotX="@integer/viewport_center_x"
+        android:pivotY="@integer/viewport_center_y"
+        android:rotation="45">
+
+        <path
+            android:name="@string/plus"
+            android:pathData="@string/path_plus"
+            android:strokeColor="@color/stroke_color"
+            android:strokeLineCap="square"
+            android:strokeWidth="@integer/stroke_width" />
+
+    </group>
+
+</vector>

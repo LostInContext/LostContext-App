@@ -16,4 +16,10 @@
     <style name="itemInfo" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textSize">14sp</item>
     </style>
+
+
+    <declare-styleable name="LostRadioButton">
+
+        <attr name="src" format="reference"/>
+    </declare-styleable>
 </resources>

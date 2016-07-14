@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_tick">
+
+    <target
+        android:name="@string/tick"
+        android:animation="@animator/tick_to_plus" />
+
+
+    <target
+        android:name="@string/groupTickplus"
+        android:animation="@animator/rotate_tick_to_plus" />
+
+</animated-vector>

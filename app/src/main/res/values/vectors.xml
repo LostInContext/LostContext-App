@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- tick <> plus -->
+    <integer name="viewport_width">24</integer>
+    <integer name="viewport_height">24</integer>
+    <integer name="viewport_center_x">12</integer>
+    <integer name="viewport_center_y">12</integer>
+    <string name="path_tick">M4.8,13.4 L9,17.6 M10.4,16.2 L19.6,7</string>
+    <string name="path_plus">M6.4,6.4 L17.6,17.6 M6.4,17.6 L17.6,6.4</string>
+    <integer name="stroke_width">2</integer>
+
+    <string name="tick">tick</string>
+    <string name="plus">plus</string>
+    <string name="groupTickPlus">groupTickPlus</string>
+    <color name="stroke_color">#999999</color>
+    <integer name="duration">400</integer>
+
+</resources>

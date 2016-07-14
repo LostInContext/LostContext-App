@@ -31,7 +31,9 @@ public class RulesCreationFragment extends Fragment implements RulesCreationCont
     public RulesCreationFragment() { }
 
     @Nullable @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         RulesCreationScreenFragmentBinding binding = DataBindingUtil.inflate(inflater,
                                                                              R.layout.rules_creation_screen_fragment,
                                                                              container,

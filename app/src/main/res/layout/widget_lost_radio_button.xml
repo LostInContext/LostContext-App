@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <merge
+        android:id="@+id/lost_radio_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@color/colorAccent"
+        android:clickable="true"
+        tools:context=".rulescreation.RulesCreationActivity">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bckg_lost_radio_button"
+            android:scaleType="center"
+            android:src="@drawable/ic_home_24"
+            android:tint="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/tick"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignBottom="@+id/imageView"
+            android:layout_alignEnd="@+id/imageView"
+            android:background="@drawable/bckg_lost_radio_button_tick"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_plus"
+            android:tint="@android:color/black" />
+
+    </merge>
+
+</layout>
