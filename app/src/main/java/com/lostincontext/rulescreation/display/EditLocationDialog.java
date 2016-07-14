@@ -20,14 +20,6 @@ public class EditLocationDialog extends DialogFragment {
     public static final int PLACE_PICKER_REQUEST_CODE = 9876;
     private EditText editText;
 
-    public interface EditLocationDialogListener {
-        void onFinishEditDialog(String inputText);
-
-        void doPositiveClick();
-
-        void doNegativeClick();
-    }
-
     public EditLocationDialog() {
     }
 
@@ -41,10 +33,8 @@ public class EditLocationDialog extends DialogFragment {
         alert.setView(dialogView);
 
         editText = (EditText) dialogView.findViewById(R.id.location_edittext);
-//        final EditLocationDialogListener activity = (EditLocationDialogListener) getActivity();
         alert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-//                activity.doPositiveClick();
             }
         });
 
