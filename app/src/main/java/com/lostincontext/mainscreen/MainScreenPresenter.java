@@ -60,10 +60,6 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
 
         rulesRepository.saveRule("compositeRule", compositeFenceVM);
         //final FenceVM ruledescription = rulesRepository.loadRule("compositeRule");
-
-    //POC location
-        view.getLatLng();
-
     }
 
     @Inject

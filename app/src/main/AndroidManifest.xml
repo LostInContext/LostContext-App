@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".playlists.PlaylistsActivity"/>
+        <activity android:name=".rulescreation.RulesCreationActivity" />
 
 
         <meta-data

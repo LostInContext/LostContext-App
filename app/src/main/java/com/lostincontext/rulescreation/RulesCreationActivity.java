@@ -1,5 +1,6 @@
 package com.lostincontext.rulescreation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -31,5 +32,11 @@ public class RulesCreationActivity extends BaseActivity {
                 .build()
                 .inject(this);
 
+    }
+
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        presenter.onActivityResult(requestCode, resultCode, data);
     }
 }

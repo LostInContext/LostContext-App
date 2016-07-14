@@ -12,9 +12,8 @@ import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.databinding.MainScreenFragmentBinding;
-import com.lostincontext.playlists.PlaylistsActivity;
+import com.lostincontext.rulescreation.RulesCreationActivity;
 import com.lostincontext.that.ThatService;
-import com.lostincontext.utils.LocationUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -61,11 +60,7 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
 
 
     @Override public void openPlaylistsScreen() {
-        Intent intent = new Intent(this.getContext(), PlaylistsActivity.class);
+        Intent intent = new Intent(this.getContext(), RulesCreationActivity.class);
         startActivity(intent);
-    }
-
-    public void getLatLng() {
-//        LocationUtils.getLocationFromAddress(this.getContext(), "9 rue joseph riviere");
     }
 }
