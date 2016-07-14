@@ -10,7 +10,7 @@
 
 
     <target
-        android:name="@string/groupTickplus"
+        android:name="@string/groupTickPlus"
         android:animation="@animator/rotate_tick_to_plus" />
 
 </animated-vector>
