@@ -6,4 +6,7 @@
 
 
     <color name="playlist_text_default_background">#9E9E9E</color>
+    <color name="deezer_logo_top">#FFFFFF</color>
+    <color name="deezer_logo_bottom">#cccccc</color>
+    <color name="playlist_icon_default_filter">#FFFFFF</color>
 </resources>

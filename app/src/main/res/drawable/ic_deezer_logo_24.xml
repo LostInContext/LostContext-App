@@ -4,104 +4,104 @@
     android:viewportHeight="301.0"
     android:viewportWidth="396.0">
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M0.19,300.5l71.98,0l0,-29.72l-71.98,0l0,29.72z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M0.19,261.87l71.98,0l0,-29.73l-71.98,0l0,29.73z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M0.19,223.24l71.98,0l0,-29.72l-71.98,0l0,29.72z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M80.9,300.5l71.98,0l0,-29.72l-71.98,0l0,29.72z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M80.9,261.87l71.98,0l0,-29.73l-71.98,0l0,29.73z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M80.9,223.24l71.98,0l0,-29.72l-71.98,0l0,29.72z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M161.61,300.5l71.98,0l0,-29.72l-71.98,0z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M161.61,261.87l71.98,0l0,-29.73l-71.98,0z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M161.61,223.24l71.98,0l0,-29.72l-71.98,0z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M242.31,300.5l71.98,0l0,-29.72l-71.98,0z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M242.31,261.87l71.98,0l0,-29.73l-71.98,0z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M242.31,223.24l71.98,0l0,-29.72l-71.98,0z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M323.02,300.5l71.98,0l0,-29.72l-71.98,0z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M323.02,261.87l71.98,0l0,-29.73l-71.98,0z" />
     <path
-        android:fillColor="#000000"
+        android:fillColor="@color/deezer_logo_bottom"
         android:pathData="M323.02,223.22l71.98,0l0,-29.73l-71.98,0z" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M161.61,184.6l71.98,0l0,-29.72l-71.98,0z" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M161.61,145.95l71.98,0l0,-29.71l-71.98,0z" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M161.61,107.32l71.98,0l0,-29.72l-71.98,0z" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M184.99,38.97l-23.38,0l0,29.72l71.98,0l0,-29.72l-48.6,0" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M242.31,184.6l71.98,0l0,-29.72l-71.98,0z" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M242.31,145.95l71.98,0l0,-29.71l-71.98,0z" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M323.02,184.6l71.98,0l0,-29.72l-71.98,0z" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M323.02,145.95l71.98,0l0,-29.72l-71.98,0z" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M323.02,107.32l71.98,0l0,-29.72l-71.98,0z" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M364.33,68.67l30.67,0l0,-29.72l-71.98,0l0,29.72l41.32,0" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M329.19,30.04L372.82,30.04" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M372.82,30.04l22.18,0l0,-29.73l-71.98,0l0,29.73l6.18,0" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M0.19,184.6l71.98,0l0,-29.72l-71.98,0l0,29.72z" />
     <path
 
-        android:fillColor="#E9E9E9"
+        android:fillColor="@color/deezer_logo_top"
         android:pathData="M0.19,145.95l71.98,0l0,-29.71l-71.98,0l0,29.71z" />
 </vector>
