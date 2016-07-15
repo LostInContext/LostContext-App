@@ -5,5 +5,7 @@
     <item name="view_type_error" type="id" />
     <item name="view_type_standard" type="id" />
     <item name="view_type_empty" type="id" />
+    <item name="view_type_rule_creator" type="id" />
+    <item name="view_type_section_header" type="id" />
 
 </resources>

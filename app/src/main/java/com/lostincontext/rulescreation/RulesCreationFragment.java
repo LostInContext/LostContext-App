@@ -2,11 +2,14 @@ package com.lostincontext.rulescreation;
 
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +18,20 @@ import android.widget.Toast;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.lostincontext.R;
+import com.lostincontext.commons.list.Section;
+import com.lostincontext.commons.list.SpacesItemDecoration;
+import com.lostincontext.data.FenceCreator;
 import com.lostincontext.databinding.RulesCreationScreenFragmentBinding;
 import com.lostincontext.rulescreation.display.EditLocationDialog;
+
+import java.util.List;
 
 public class RulesCreationFragment extends Fragment implements RulesCreationContract.View {
 
     private RulesCreationContract.Presenter presenter;
     private EditLocationDialog editPlaceDialog;
+
+    private RulesCreationAdapter adapter;
 
     public static RulesCreationFragment newInstance() {
         return new RulesCreationFragment();
@@ -38,6 +48,20 @@ public class RulesCreationFragment extends Fragment implements RulesCreationCont
                                                                              R.layout.rules_creation_screen_fragment,
                                                                              container,
                                                                              false);
+
+        RecyclerView recyclerView = binding.recyclerView;
+        Resources resources = getResources();
+        final int span = resources.getInteger(R.integer.grid_span);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), span);
+        recyclerView.setLayoutManager(layoutManager);
+        int space = resources.getDimensionPixelSize(R.dimen.grid_spacing);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(space, span));
+
+        adapter = new RulesCreationAdapter(presenter);
+
+
+        recyclerView.setAdapter(adapter);
+
         return binding.getRoot();
     }
 
@@ -50,6 +74,11 @@ public class RulesCreationFragment extends Fragment implements RulesCreationCont
     @Override
     public void setPresenter(RulesCreationContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void setSections(List<Section<FenceCreator>> sections) {
+        adapter.setSections(sections);
     }
 
     @Override public void showDialog() {

@@ -14,21 +14,19 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.lostincontext.R;
+import com.lostincontext.data.FenceCreator;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.databinding.WidgetLostRadioButtonBinding;
+import com.lostincontext.rulescreation.display.RuleCreatorViewHolder;
 
 
 public class LostRadioButton extends RelativeLayout implements View.OnClickListener {
 
 
     public static final float SCALE_SELECTED = 1.2f;
-    private FenceVM fence;
-    private Callback callback;
+    private FenceCreator fence;
+    private RuleCreatorViewHolder.RuleCreationItemCallback callback;
 
-
-    public interface Callback {
-        void onLostRadioButtonClick(FenceVM fence, boolean selected);
-    }
 
     private boolean selected;
 
@@ -91,8 +89,8 @@ public class LostRadioButton extends RelativeLayout implements View.OnClickListe
         }
     }
 
-    public void setContent(FenceVM fence,
-                           Callback callback,
+    public void setContent(FenceCreator fence,
+                           RuleCreatorViewHolder.RuleCreationItemCallback callback,
                            boolean selected) {
         this.fence = fence;
         this.callback = callback;
@@ -104,7 +102,7 @@ public class LostRadioButton extends RelativeLayout implements View.OnClickListe
         if (selected) setUnSelected();
         else setSelected();
         selected = !selected;
-        if (callback != null) callback.onLostRadioButtonClick(fence, selected);
+        if (callback != null) callback.onRuleCreationItemClick(fence);
     }
 
     private void setSelected() {
