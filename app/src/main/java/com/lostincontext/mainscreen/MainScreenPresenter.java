@@ -15,8 +15,10 @@ import com.lostincontext.data.rules.CompositeFenceVM;
 import com.lostincontext.data.rules.DetectedActivityFenceVM;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
+import com.lostincontext.data.rules.Rule;
 import com.lostincontext.data.rules.repo.RulesRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +60,12 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
 
         List<Playlist> playlists = DataPlaylist.getPlaylists();
 
-        rulesRepository.saveRule("compositeRule", compositeFenceVM);
-        //final FenceVM ruledescription = rulesRepository.loadRule("compositeRule");
+        rulesRepository.saveRule(new Rule("test", compositeFenceVM, playlists.get(0)));
+        try {
+            final Rule ruledescription = rulesRepository.getRule("test");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Inject

@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lostincontext.data.rules.FenceVM;
+import com.lostincontext.data.rules.Rule;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class RulesRepository {
 
     interface LoadTasksCallback {
 
-        void onTasksLoaded(List<FenceVM> rules);
+        void onTasksLoaded(List<Rule> rules);
 
         void onTasksLoadFailure();
     }
@@ -40,30 +40,31 @@ public class RulesRepository {
         this.objectMapper = objectMapper;
     }
 
-    public void saveRule(String name, FenceVM fenceVM) {
+    public void saveRule(Rule rule) {
         try {
-            saveToPrefs(name, serialize(fenceVM));
+            String name = rule.getName();
+            saveToPrefs(name, serialize(rule));
             addToRulesList(name);
         } catch (JsonProcessingException e) {
             Log.e(TAG, "save: ", e);
         }
     }
 
-    private FenceVM getRule(String name) throws IOException {
+    public Rule getRule(String name) throws IOException {
         return deserialize(loadFromPrefs(name));
     }
 
 
     public void getRules(LoadTasksCallback callback) {
         Set<String> rulesNames = getRulesNames();
-        List<FenceVM> rules = new ArrayList<>(rulesNames.size());
+        List<Rule> rules = new ArrayList<>(rulesNames.size());
         try {
             for (String ruleName : rulesNames) {
-                FenceVM fenceVM = null;
+                Rule rule;
 
-                fenceVM = getRule(ruleName);
+                rule = getRule(ruleName);
 
-                rules.add(fenceVM);
+                rules.add(rule);
             }
             callback.onTasksLoaded(rules);
         } catch (IOException e) {
@@ -129,13 +130,13 @@ public class RulesRepository {
 
     //region Serializer / deserializer
 
-    private String serialize(FenceVM fenceVM) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(fenceVM);
+    private String serialize(Rule rule) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(rule);
 
     }
 
-    private FenceVM deserialize(String json) throws IOException {
-        return objectMapper.readerFor(FenceVM.class).readValue(json);
+    private Rule deserialize(String json) throws IOException {
+        return objectMapper.readerFor(Rule.class).readValue(json);
     }
     //endregion
 
