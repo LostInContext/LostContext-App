@@ -21,7 +21,7 @@ public class RulesRepository {
     private final static String RULES_KEY = "rules_Key_prefs";
 
 
-    interface LoadTasksCallback {
+    public interface LoadTasksCallback {
 
         void onTasksLoaded(List<Rule> rules);
 

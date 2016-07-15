@@ -2,18 +2,25 @@ package com.lostincontext.mainscreen;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
+import com.lostincontext.commons.list.SpacesItemDecoration;
+import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.MainScreenFragmentBinding;
-import com.lostincontext.rulescreation.RulesCreationActivity;
+import com.lostincontext.playlists.PlaylistsActivity;
 import com.lostincontext.that.ThatService;
+
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -21,6 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class MainScreenFragment extends Fragment implements MainScreenContract.View {
 
     private MainScreenContract.Presenter presenter;
+    private MainScreenAdapter adapter;
 
 
     public static MainScreenFragment newInstance() {
@@ -38,6 +46,35 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
                              @Nullable Bundle savedInstanceState) {
         MainScreenFragmentBinding binding = DataBindingUtil.inflate(inflater, R.layout.main_screen_fragment, container, false);
         binding.setPresenter(presenter);
+
+
+        RecyclerView recyclerView = binding.recyclerView;
+        Resources resources = getResources();
+        final int span = resources.getInteger(R.integer.list_span);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), span);
+        recyclerView.setLayoutManager(layoutManager);
+        int space = resources.getDimensionPixelSize(R.dimen.grid_spacing);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(space, span));
+
+        adapter = new MainScreenAdapter(presenter);
+
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override public int getSpanSize(int position) {
+                switch (adapter.getCurrentState()) {
+                    case LOADING:
+                    case ERROR:
+                    case EMPTY:
+                        return span;
+
+                    case CONTENT:
+                        return 1;
+
+                    default:
+                        throw new RuntimeException("invalid state");
+                }
+            }
+        });
+        recyclerView.setAdapter(adapter);
         return binding.getRoot();
     }
 
@@ -60,7 +97,12 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
 
 
     @Override public void openPlaylistsScreen() {
-        Intent intent = new Intent(this.getContext(), RulesCreationActivity.class);
+        Intent intent = new Intent(this.getContext(), PlaylistsActivity.class);
         startActivity(intent);
     }
+
+    @Override public void setRules(List<Rule> rules) {
+        adapter.setRules(rules);
+    }
+
 }

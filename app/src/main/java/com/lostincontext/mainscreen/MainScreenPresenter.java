@@ -18,7 +18,6 @@ import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.data.rules.repo.RulesRepository;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,16 +55,22 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         //  builder.addFence(compositeRule.getName(), compositeRule.getFence(), view.getPendingIntent());
         awareness.updateFences(builder.build());
 
-        rulesRepository.clearAllRules();
+//        rulesRepository.clearAllRules();
 
         List<Playlist> playlists = DataPlaylist.getPlaylists();
 
         rulesRepository.saveRule(new Rule("test", compositeFenceVM, playlists.get(0)));
-        try {
-            final Rule ruledescription = rulesRepository.getRule("test");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        rulesRepository.saveRule(new Rule("test2", compositeFenceVM, playlists.get(1)));
+
+        rulesRepository.getRules(new RulesRepository.LoadTasksCallback() {
+            @Override public void onTasksLoaded(List<Rule> rules) {
+                view.setRules(rules);
+            }
+
+            @Override public void onTasksLoadFailure() {
+
+            }
+        });
     }
 
     @Inject
@@ -100,6 +105,10 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
     @Override public void onConnectionSuspended(int i) { }
 
     @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) { }
+
+    @Override public void onRefreshButtonClick() {
+
+    }
 }
 
 

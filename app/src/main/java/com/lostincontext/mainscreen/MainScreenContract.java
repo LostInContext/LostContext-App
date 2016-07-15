@@ -4,6 +4,10 @@ import android.app.PendingIntent;
 
 import com.lostincontext.commons.BasePresenter;
 import com.lostincontext.commons.BaseView;
+import com.lostincontext.commons.list.EmptyListCallback;
+import com.lostincontext.data.rules.Rule;
+
+import java.util.List;
 
 
 public interface MainScreenContract {
@@ -13,9 +17,11 @@ public interface MainScreenContract {
         PendingIntent getPendingIntent();
 
         void openPlaylistsScreen();
+
+        void setRules(List<Rule> rules);
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter, EmptyListCallback {
 
         void onFabClicked();
     }
