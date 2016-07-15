@@ -3,6 +3,7 @@ package com.lostincontext.data.rules;
 import android.support.annotation.StringDef;
 
 import com.google.android.gms.awareness.fence.AwarenessFence;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -33,16 +34,15 @@ public class LocationFenceVM implements FenceVM {
     private double radius;
     @LocationName private String name;
 
-    // TODO: 06/07/2016  make default value
-    private long dwellTimeMillis;
+    private long dwellTimeMillis=10000; //10 seconds
 
     private LocationFenceVM() { }
 
-    public LocationFenceVM(State state, double latitude, double longitude, double radius) {
+    public LocationFenceVM(State state, LatLng latLng) {
         this.state = state;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.radius = radius;
+        this.latitude = latLng.latitude;
+        this.longitude = latLng.longitude;
+        this.radius = 10;//in meters
     }
 
 
@@ -74,9 +74,6 @@ public class LocationFenceVM implements FenceVM {
         return radius;
     }
 
-    public long getDwellTimeMillis() {
-        return dwellTimeMillis;
-    }
 
     public void setState(State state) {
         this.state = state;
@@ -96,6 +93,10 @@ public class LocationFenceVM implements FenceVM {
 
     public void setDwellTimeMillis(long dwellTimeMillis) {
         this.dwellTimeMillis = dwellTimeMillis;
+    }
+
+    public long getDwellTimeMillis() {
+        return dwellTimeMillis;
     }
 
     @LocationName public String getName() {
