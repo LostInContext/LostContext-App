@@ -93,7 +93,7 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
     //region callbacks
 
     @Override public void onFabClicked() {
-        view.openPlaylistsScreen();
+        view.openRuleCreationScreen();
     }
 
 
