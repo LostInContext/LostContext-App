@@ -84,7 +84,7 @@
                 android:clickable="true"
                 android:onClick="@{() -> callback.onDeezerLogoClick(playlist)}"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_deezer_logo_24" />
+                app:srcCompat="@drawable/ic_play_24" />
 
 
         </RelativeLayout>

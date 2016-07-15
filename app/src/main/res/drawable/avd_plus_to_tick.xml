@@ -2,7 +2,7 @@
 
 <animated-vector
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/ic_plus">
+    android:drawable="@drawable/ic_plus_16">
 
     <target
         android:name="@string/plus"

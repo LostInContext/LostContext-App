@@ -29,7 +29,7 @@
             android:layout_alignEnd="@+id/imageView"
             android:background="@drawable/bckg_lost_radio_button_tick"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_plus"
+            android:src="@drawable/ic_plus_16"
             android:tint="@android:color/black" />
 
     </merge>
