@@ -20,6 +20,7 @@
 
     <declare-styleable name="LostRadioButton">
 
-        <attr name="src" format="reference"/>
+        <attr name="src" format="reference" />
+        <attr name="selected_color" format="color" />
     </declare-styleable>
 </resources>

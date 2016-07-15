@@ -5,33 +5,32 @@
     <merge
         android:id="@+id/lost_radio_button"
         android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
         android:clickable="true"
         tools:context=".rulescreation.RulesCreationActivity">
 
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
             android:background="@drawable/bckg_lost_radio_button"
             android:scaleType="center"
             android:src="@drawable/ic_home_24"
-            android:tint="@android:color/black" />
+            android:tint="@android:color/black"
+            android:foreground="@drawable/round_ripple"/>
 
-        <ImageView
-            android:id="@+id/tick"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_alignBottom="@+id/imageView"
-            android:layout_alignEnd="@+id/imageView"
-            android:background="@drawable/bckg_lost_radio_button_tick"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_plus_16"
-            android:tint="@android:color/black" />
-
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:text="text"
+            tools:text="text" />
     </merge>
 
 </layout>
