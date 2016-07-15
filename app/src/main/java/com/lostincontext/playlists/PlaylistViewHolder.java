@@ -31,7 +31,7 @@ import java.util.List;
 public class PlaylistViewHolder extends RecyclerView.ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
 
 
-    public static final PorterDuff.Mode MODE = PorterDuff.Mode.MULTIPLY;
+    public static final PorterDuff.Mode MODE = PorterDuff.Mode.SRC_ATOP;
 
     public interface Callback {
         void onDeezerLogoClick(Playlist playlist);
@@ -146,7 +146,7 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
 
 
             ValueAnimator iconAnimator = ValueAnimator.ofArgb(defaultIconColor,
-                                                              swatch.getBodyTextColor());
+                                                              swatch.getTitleTextColor());
 
             iconAnimator.setDuration(animationDuration);
             iconAnimator.setInterpolator(interpolator);
@@ -173,7 +173,7 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
             binding.itemInfo.setTextColor(swatch.getTitleTextColor());
             binding.itemTitle.setTextColor(swatch.getTitleTextColor());
             binding.textBackground.setBackgroundColor(swatch.getRgb());
-            binding.deezerLogo.setColorFilter(swatch.getBodyTextColor(), MODE);
+            binding.deezerLogo.setColorFilter(swatch.getTitleTextColor(), MODE);
         }
 
     }
