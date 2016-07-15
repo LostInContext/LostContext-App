@@ -1,12 +1,9 @@
 package com.lostincontext.playlists;
 
 
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
@@ -79,7 +76,7 @@ public class PlaylistsAdapter extends StatefulAdapter {
 
     public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
-        if (playlists.size() == 0 ) setCurrentState(ContentState.EMPTY);
+        if (playlists.size() == 0) setCurrentState(ContentState.EMPTY);
         else setCurrentState(ContentState.CONTENT);
     }
 }

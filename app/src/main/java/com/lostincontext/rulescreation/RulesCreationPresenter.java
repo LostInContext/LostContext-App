@@ -2,6 +2,7 @@ package com.lostincontext.rulescreation;
 
 import android.content.Intent;
 
+import com.lostincontext.data.FenceCreator;
 import com.lostincontext.data.location.repo.LocationRepository;
 import com.lostincontext.rulescreation.display.EditLocationDialog;
 
@@ -17,7 +18,7 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
 
     @Override public void start() {
 
-        view.showDialog();
+       // view.showDialog();
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -26,6 +27,12 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
                 view.setPlace(data);
             }
         }
+    }
+
+
+
+    @Override public void onRuleCreationItemClick(FenceCreator fence) {
+
     }
 
     @Inject
