@@ -59,7 +59,7 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
     }
 
 
-    @Override public void openPlaylistsScreen() {
+    @Override public void openRuleCreationScreen() {
         Intent intent = new Intent(this.getContext(), RulesCreationActivity.class);
         startActivity(intent);
     }
