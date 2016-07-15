@@ -10,7 +10,7 @@
 
         <com.lostincontext.commons.widget.LostRadioButton
             android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_height="wrap_content" />
 
 
     </android.support.design.widget.CoordinatorLayout>
