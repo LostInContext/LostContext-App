@@ -3,6 +3,8 @@ package com.lostincontext.data.rules;
 
 import com.google.android.gms.awareness.fence.AwarenessFence;
 
+import java.util.List;
+
 public class TimeFenceVM implements FenceVM {
     private State state;
     private long starting;
@@ -23,6 +25,10 @@ public class TimeFenceVM implements FenceVM {
 
     @Override public String describe(FenceDescriptor descriptor) {
         return descriptor.time(this);
+    }
+
+    @Override public List<Integer> giveIcon(FenceIconGiver iconGiver) {
+        return null;
     }
 
     public enum State {

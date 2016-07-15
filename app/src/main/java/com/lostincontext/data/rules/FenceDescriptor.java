@@ -34,8 +34,7 @@ public class FenceDescriptor {
     }
 
     public String location(LocationFenceVM fence) {
-        //todo register name for location ?
-        return "in " + fence.getLatitude() + " : " + fence.getLongitude();
+        return "at " + fence.getName();
     }
 
 

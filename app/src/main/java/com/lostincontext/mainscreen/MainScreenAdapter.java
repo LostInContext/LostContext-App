@@ -10,7 +10,6 @@ import com.lostincontext.commons.list.EmptyListCallback;
 import com.lostincontext.commons.list.StatefulAdapter;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.ItemRuleBinding;
-import com.lostincontext.playlists.PlaylistViewHolder;
 
 import java.util.List;
 

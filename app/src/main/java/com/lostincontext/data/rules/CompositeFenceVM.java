@@ -30,6 +30,10 @@ public class CompositeFenceVM implements FenceVM {
         return descriptor.composite(this);
     }
 
+    @Override public List<Integer> giveIcon(FenceIconGiver iconGiver) {
+        return iconGiver.composite(this);
+    }
+
     public List<FenceVM> getFenceVMs() {
         return fenceVMs;
     }

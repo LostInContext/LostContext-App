@@ -3,6 +3,8 @@ package com.lostincontext.data.rules;
 
 import com.google.android.gms.awareness.fence.AwarenessFence;
 
+import java.util.List;
+
 public class NotFenceVM implements FenceVM {
 
     private FenceVM fenceVM;
@@ -24,6 +26,10 @@ public class NotFenceVM implements FenceVM {
 
     @Override public String describe(FenceDescriptor descriptor) {
         return descriptor.not(this);
+    }
+
+    @Override public List<Integer> giveIcon(FenceIconGiver iconGiver) {
+        return null;
     }
 
     public void setFenceVM(FenceVM fenceVM) {

@@ -1,6 +1,12 @@
 package com.lostincontext.data.rules;
 
+import android.support.annotation.StringDef;
+
 import com.google.android.gms.awareness.fence.AwarenessFence;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.util.List;
 
 public class LocationFenceVM implements FenceVM {
 
@@ -10,10 +16,22 @@ public class LocationFenceVM implements FenceVM {
         EXITING
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({
+            HOME,
+            WORK
+    })
+    public @interface LocationName { }
+
+    public static final String HOME = "home";
+    public static final String WORK = "work";
+
+
     private State state;
     private double latitude;
     private double longitude;
     private double radius;
+    @LocationName private String name;
 
     // TODO: 06/07/2016  make default value
     private long dwellTimeMillis;
@@ -28,13 +46,16 @@ public class LocationFenceVM implements FenceVM {
     }
 
 
-
     @Override public AwarenessFence build(FenceBuilder builder) {
         return builder.location(this);
     }
 
     @Override public String describe(FenceDescriptor descriptor) {
         return descriptor.location(this);
+    }
+
+    @Override public List<Integer> giveIcon(FenceIconGiver iconGiver) {
+        return iconGiver.location(this);
     }
 
     public State getState() {
@@ -75,5 +96,13 @@ public class LocationFenceVM implements FenceVM {
 
     public void setDwellTimeMillis(long dwellTimeMillis) {
         this.dwellTimeMillis = dwellTimeMillis;
+    }
+
+    @LocationName public String getName() {
+        return name;
+    }
+
+    public void setName(@LocationName String name) {
+        this.name = name;
     }
 }

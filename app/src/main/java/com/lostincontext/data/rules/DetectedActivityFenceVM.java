@@ -3,6 +3,8 @@ package com.lostincontext.data.rules;
 
 import com.google.android.gms.awareness.fence.AwarenessFence;
 
+import java.util.List;
+
 public class DetectedActivityFenceVM implements FenceVM {
 
     private Type type;
@@ -22,6 +24,10 @@ public class DetectedActivityFenceVM implements FenceVM {
 
     @Override public String describe(FenceDescriptor descriptor) {
         return descriptor.detectedActivity(this);
+    }
+
+    @Override public List<Integer> giveIcon(FenceIconGiver iconGiver) {
+        return iconGiver.detectedActivity(this);
     }
 
     public enum Type {

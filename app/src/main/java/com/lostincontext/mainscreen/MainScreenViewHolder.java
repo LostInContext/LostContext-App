@@ -2,7 +2,6 @@ package com.lostincontext.mainscreen;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +22,7 @@ import com.lostincontext.commons.images.palette.PaletteBitmap;
 import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder;
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget;
 import com.lostincontext.data.Playlist;
+import com.lostincontext.data.rules.FenceIconGiver;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.ItemRuleBinding;
 
@@ -33,6 +33,7 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
     public interface Callback {
         void onPlaylistCoverClick(Playlist playlist);
     }
+
     private final ItemRuleBinding binding;
     private final PaletteImageViewTarget target;
     private PaletteBitmapTranscoder transcoder;
@@ -53,6 +54,7 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
             view.startAnimation(animation);
         }
     };
+
     public MainScreenViewHolder(final ItemRuleBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
@@ -91,6 +93,17 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
                 .listener(this)
                 .into(target);
 
+        List<Integer> icons = rule.getFenceVM().giveIcon(new FenceIconGiver());
+        if (icons != null && !icons.isEmpty()) {
+            if (icons.size() >= 3) {
+                binding.ic3.setImageResource(icons.get(2));
+            }
+            if (icons.size() >= 2) {
+                binding.ic2.setImageResource(icons.get(1));
+            }
+            binding.ic1.setImageResource(icons.get(0));
+
+        }
     }
 
     //region requestListener

@@ -1,8 +1,12 @@
 package com.lostincontext.data.rules;
 
+import android.support.annotation.DrawableRes;
+
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.google.android.gms.awareness.fence.AwarenessFence;
+
+import java.util.List;
 
 /**
  * Representation of an {@link com.google.android.gms.awareness.fence.AwarenessFence}. <p>
@@ -26,4 +30,6 @@ public interface FenceVM {
     AwarenessFence build(FenceBuilder builder);
 
     String describe(FenceDescriptor descriptor);
+
+    List<Integer> giveIcon(FenceIconGiver iconGiver);
 }

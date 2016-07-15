@@ -3,6 +3,8 @@ package com.lostincontext.data.rules;
 
 import com.google.android.gms.awareness.fence.AwarenessFence;
 
+import java.util.List;
+
 public class HeadphoneFenceVM implements FenceVM {
 
     public enum State {
@@ -25,6 +27,10 @@ public class HeadphoneFenceVM implements FenceVM {
 
     @Override public String describe(FenceDescriptor descriptor) {
         return descriptor.headphone(this);
+    }
+
+    @Override public List<Integer> giveIcon(FenceIconGiver iconGiver) {
+        return iconGiver.headphone(this);
     }
 
     public State getState() {
