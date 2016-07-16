@@ -25,14 +25,16 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
 
     @Override public void start() {
 
-       // view.showDialog();
+        // view.showDialog();
 
         List<FenceCreator> activities = new ArrayList<>();
-        activities.add(new FenceCreator("running", R.drawable.ic_home_24, Color.RED) );
-        activities.add(new FenceCreator("running", R.drawable.ic_home_24, Color.RED) );
-        activities.add(new FenceCreator("running", R.drawable.ic_home_24, Color.RED) );
+        activities.add(new FenceCreator("Walking", R.drawable.ic_walk_24, Color.RED));
+        activities.add(new FenceCreator("Running", R.drawable.ic_run_24, Color.RED));
+        activities.add(new FenceCreator("On bicycle", R.drawable.ic_bike_24, Color.RED));
+        activities.add(new FenceCreator("In vehicle", R.drawable.ic_car_24, Color.RED));
 
-        Section<FenceCreator> fenceCreatorSection = new Section<>("Activity", activities );
+
+        Section<FenceCreator> fenceCreatorSection = new Section<>("Activity", activities);
 
 
         view.setSections(Arrays.asList(fenceCreatorSection));
@@ -45,7 +47,6 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
             }
         }
     }
-
 
 
     @Override public void onRuleCreationItemClick(FenceCreator fence) {
