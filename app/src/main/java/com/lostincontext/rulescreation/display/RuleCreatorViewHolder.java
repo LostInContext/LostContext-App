@@ -17,7 +17,7 @@ import com.lostincontext.databinding.ItemSectionItemRuleCreationBinding;
 public class RuleCreatorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-    private static final float SCALE_SELECTED = 1.1f;
+    private static final float SCALE_SELECTED = 1f;
 
     private final int elevationTarget;
     @ColorInt private int selectedColor;
@@ -57,21 +57,28 @@ public class RuleCreatorViewHolder extends RecyclerView.ViewHolder implements Vi
         binding.setItem(fenceCreator);
         selectedColor = fenceCreator.selectedColor;
         setState(fenceCreator.selected);
-
-
     }
 
     private void setState(boolean selected) {
-        if (selected) {
-            binding.icon.setScaleX(SCALE_SELECTED);
-            binding.icon.setScaleY(SCALE_SELECTED);
-            binding.icon.setElevation(elevationTarget);
+        float scale;
+        float elevation;
+        @ColorInt int color;
 
+        if (selected) {
+            scale = SCALE_SELECTED;
+            elevation = elevationTarget;
+            color = selectedColor;
         } else {
-            binding.icon.setScaleX(0);
-            binding.icon.setScaleY(0);
-            binding.icon.setElevation(0);
+            scale = 1f;
+            elevation = 0f;
+            color = defaultColor;
         }
+
+        binding.icon.setScaleX(scale);
+        binding.icon.setScaleY(scale);
+        binding.icon.setElevation(elevation);
+        final GradientDrawable shapeDrawable = (GradientDrawable) binding.icon.getBackground();
+        shapeDrawable.setColor(color);
     }
 
     private void toggle() {
@@ -96,16 +103,16 @@ public class RuleCreatorViewHolder extends RecyclerView.ViewHolder implements Vi
                 .scaleY(targetScale)
                 .z(elevationTarget);
         final GradientDrawable shapeDrawable = (GradientDrawable) binding.icon.getBackground();
-        ValueAnimator textAnimator = ValueAnimator.ofArgb(fromColor,
-                                                          toColor);
-        textAnimator.setDuration(500);
-        textAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        ValueAnimator bckgColorAnimator = ValueAnimator.ofArgb(fromColor,
+                                                               toColor);
+        bckgColorAnimator.setDuration(500);
+        bckgColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 int animatedValue = (Integer) valueAnimator.getAnimatedValue();
                 shapeDrawable.setColor(animatedValue);
             }
         });
-        textAnimator.start();
+        bckgColorAnimator.start();
     }
 
     @Override public void onClick(View view) {

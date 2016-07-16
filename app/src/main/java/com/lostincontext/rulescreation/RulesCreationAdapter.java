@@ -1,6 +1,7 @@
 package com.lostincontext.rulescreation;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final String TAG = RulesCreationAdapter.class.getSimpleName();
 
     private RuleCreationItemCallback callback;
     int count;
@@ -61,12 +63,49 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
             if (position == 0) {
                 //noinspection ConstantConditions
                 ((SectionViewHolder) holder).setContent(section);
-                break;
+                return;
             }
+            position--;
             ((RuleCreatorViewHolder) holder).setContent(section.get(position), callback);
-            break;
+            return;
         }
 
+        Log.e(TAG, "onBindViewHolder: ,  position not found ! " + position);
+
+    }
+
+    @Override public int getItemViewType(int position) {
+        Section<FenceCreator> section;
+        int sectionSize;
+        for (int i = 0, sectionsCount = sections.size(); i < sectionsCount; i++) {
+            section = sections.get(i);
+            sectionSize = section.size();
+            if (position > sectionSize) {
+                position -= sectionSize;
+                continue;
+            }
+            if (position == 0) {
+                return R.id.view_type_section_header;
+            }
+            return R.id.view_type_rule_creator;
+        }
+
+        throw new RuntimeException("position not found !");
+    }
+
+    private Section<FenceCreator> getSectionForPosition(int position) {
+        Section<FenceCreator> section;
+        int sectionSize;
+        for (int i = 0, sectionsCount = sections.size(); i < sectionsCount; i++) {
+            section = sections.get(i);
+            sectionSize = section.size();
+            if (position > sectionSize) {
+                position -= sectionSize;
+                continue;
+            }
+            return section;
+        }
+        return null;
     }
 
     @Override public int getItemCount() {
@@ -80,10 +119,8 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void count() {
-        if (sections == null) {
-            this.count = 0;
-            return;
-        }
+        count = 0;
+        if (sections == null) return;
         for (int i = 0, size = sections.size(); i < size; i++) {
             count += sections.get(i).size();
         }

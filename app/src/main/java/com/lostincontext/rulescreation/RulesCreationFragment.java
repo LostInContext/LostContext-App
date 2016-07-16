@@ -51,13 +51,23 @@ public class RulesCreationFragment extends Fragment implements RulesCreationCont
 
         RecyclerView recyclerView = binding.recyclerView;
         Resources resources = getResources();
-        final int span = resources.getInteger(R.integer.grid_span);
+        final int span = 3;
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), span);
         recyclerView.setLayoutManager(layoutManager);
         int space = resources.getDimensionPixelSize(R.dimen.grid_spacing);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(space, span));
-
         adapter = new RulesCreationAdapter(presenter);
+
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override public int getSpanSize(int position) {
+                switch (adapter.getItemViewType(position)) {
+                    case R.id.view_type_section_header:
+                        return span;
+                    case R.id.view_type_rule_creator:
+                        return 1;
+                }
+                throw new RuntimeException("unhandled view type");
+            }
+        });
 
 
         recyclerView.setAdapter(adapter);
