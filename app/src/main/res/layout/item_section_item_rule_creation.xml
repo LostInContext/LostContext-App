@@ -29,6 +29,7 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/bckg_lost_radio_button"
             android:foreground="@drawable/round_ripple"
+            android:outlineProvider="background"
             android:scaleType="center"
             android:tint="#666666"
             app:resource="@{item.drawableRes}" />

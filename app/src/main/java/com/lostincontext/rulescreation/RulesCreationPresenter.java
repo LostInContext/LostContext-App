@@ -27,17 +27,35 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
 
         // view.showDialog();
 
-        List<FenceCreator> activities = new ArrayList<>();
+        List<FenceCreator> activities = new ArrayList<>(4);
         activities.add(new FenceCreator("Walking", R.drawable.ic_walk_24, Color.RED));
         activities.add(new FenceCreator("Running", R.drawable.ic_run_24, Color.RED));
         activities.add(new FenceCreator("On bicycle", R.drawable.ic_bike_24, Color.RED));
         activities.add(new FenceCreator("In vehicle", R.drawable.ic_car_24, Color.RED));
 
+        Section<FenceCreator> activitiesSection = new Section<>("Activity", activities);
 
-        Section<FenceCreator> fenceCreatorSection = new Section<>("Activity", activities);
+
+        List<FenceCreator> headphones = new ArrayList<>(2);
+
+        headphones.add(new FenceCreator("Plugged in", R.drawable.ic_headset_24, Color.RED));
+        headphones.add(new FenceCreator("Plugged out", R.drawable.ic_headset_24, Color.RED));
+
+        Section<FenceCreator> headphonesSection = new Section<>("Headphones", headphones);
+
+        List<FenceCreator> locations = new ArrayList<>(2);
 
 
-        view.setSections(Arrays.asList(fenceCreatorSection));
+        locations.add(new FenceCreator("Home", R.drawable.ic_home_24, Color.RED));
+        locations.add(new FenceCreator("Work", R.drawable.ic_work_24, Color.RED));
+
+        Section<FenceCreator> locationSection = new Section<>("Location", locations);
+
+        List<FenceCreator> times = new ArrayList<>(5);
+
+        view.setSections(Arrays.asList(activitiesSection,
+                                       headphonesSection,
+                                       locationSection));
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {

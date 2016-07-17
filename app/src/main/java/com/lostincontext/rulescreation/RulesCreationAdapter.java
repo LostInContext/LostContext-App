@@ -56,7 +56,7 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
         for (int i = 0, sectionsCount = sections.size(); i < sectionsCount; i++) {
             section = sections.get(i);
             sectionSize = section.size();
-            if (position > sectionSize) {
+            if (position >= sectionSize) {
                 position -= sectionSize;
                 continue;
             }
@@ -80,7 +80,7 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
         for (int i = 0, sectionsCount = sections.size(); i < sectionsCount; i++) {
             section = sections.get(i);
             sectionSize = section.size();
-            if (position > sectionSize) {
+            if (position >= sectionSize) {
                 position -= sectionSize;
                 continue;
             }
@@ -93,20 +93,6 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
         throw new RuntimeException("position not found !");
     }
 
-    private Section<FenceCreator> getSectionForPosition(int position) {
-        Section<FenceCreator> section;
-        int sectionSize;
-        for (int i = 0, sectionsCount = sections.size(); i < sectionsCount; i++) {
-            section = sections.get(i);
-            sectionSize = section.size();
-            if (position > sectionSize) {
-                position -= sectionSize;
-                continue;
-            }
-            return section;
-        }
-        return null;
-    }
 
     @Override public int getItemCount() {
         return count;
