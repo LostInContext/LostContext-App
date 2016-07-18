@@ -19,8 +19,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
-import com.lostincontext.commons.list.SpacesItemDecoration;
-import com.lostincontext.data.FenceCreator;
 import com.lostincontext.databinding.RulesCreationScreenFragmentBinding;
 import com.lostincontext.rulescreation.display.EditLocationDialog;
 
@@ -61,6 +59,7 @@ public class RulesCreationFragment extends Fragment implements RulesCreationCont
             @Override public int getSpanSize(int position) {
                 switch (adapter.getItemViewType(position)) {
                     case R.id.view_type_section_header:
+                    case R.id.view_type_playlist_picker:
                         return span;
                     case R.id.view_type_rule_creator:
                         return 1;
@@ -87,7 +86,7 @@ public class RulesCreationFragment extends Fragment implements RulesCreationCont
     }
 
     @Override
-    public void setSections(List<Section<FenceCreator>> sections) {
+    public void setSections(List<Section> sections) {
         adapter.setSections(sections);
     }
 

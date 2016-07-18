@@ -7,7 +7,7 @@
 
         <variable
             name="callback"
-            type="com.lostincontext.rulescreation.display.RuleCreatorViewHolder.RuleCreationItemCallback" />
+            type="com.lostincontext.rulescreation.display.RuleCreationItemCallback" />
 
         <variable
             name="item"
