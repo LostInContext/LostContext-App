@@ -20,6 +20,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.databinding.RulesCreationScreenFragmentBinding;
+import com.lostincontext.playlists.PlaylistsActivity;
 import com.lostincontext.rulescreation.display.EditLocationDialog;
 
 import java.util.List;
@@ -88,6 +89,11 @@ public class RulesCreationFragment extends Fragment implements RulesCreationCont
     @Override
     public void setSections(List<Section> sections) {
         adapter.setSections(sections);
+    }
+
+    @Override public void onPlaylistPickerClick() {
+        Intent intent = new Intent(this.getContext(), PlaylistsActivity.class);
+        startActivity(intent);
     }
 
     @Override public void showDialog() {

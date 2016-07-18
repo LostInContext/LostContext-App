@@ -82,7 +82,7 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
     }
 
     @Override public void onPlaylistPickerClick() {
-
+        view.onPlaylistPickerClick();
     }
 
     @Inject

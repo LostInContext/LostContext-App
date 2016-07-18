@@ -55,7 +55,7 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         //  builder.addFence(compositeRule.getName(), compositeRule.getFence(), view.getPendingIntent());
         awareness.updateFences(builder.build());
 
-//        rulesRepository.clearAllRules();
+        rulesRepository.clearAllRules();
 
         List<Playlist> playlists = DataPlaylist.getPlaylists();
 

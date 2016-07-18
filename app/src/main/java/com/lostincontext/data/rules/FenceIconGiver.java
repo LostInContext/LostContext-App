@@ -31,7 +31,7 @@ public class FenceIconGiver {
 
     public List<Integer> headphone(HeadphoneFenceVM fence) {
         List<Integer> iconList = new ArrayList<>();
-        iconList.add(R.drawable.ic_deezer_logo_24);
+        iconList.add(R.drawable.ic_headset_24);
         return iconList;
     }
 
@@ -40,12 +40,12 @@ public class FenceIconGiver {
         List<Integer> iconList = new ArrayList<>();
         switch (fence.getType()) {
             case IN_VEHICLE:
-                iconList.add(R.drawable.ic_add_24);
+                iconList.add(R.drawable.ic_car_24);
             case RUNNING:
-                iconList.add(R.drawable.ic_plus);
+                iconList.add(R.drawable.ic_run_24);
             case WALKING:
             default:
-                iconList.add(R.drawable.ic_plus);
+                iconList.add(R.drawable.ic_walk_24);
         }
         return iconList;
     }

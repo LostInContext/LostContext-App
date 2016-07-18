@@ -19,6 +19,8 @@ public class RulesCreationContract {
 
         void setSections(List<Section> sections);
 
+        void onPlaylistPickerClick();
+
     }
 
 

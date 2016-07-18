@@ -17,7 +17,7 @@ import com.lostincontext.R;
 import com.lostincontext.commons.list.SpacesItemDecoration;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.MainScreenFragmentBinding;
-import com.lostincontext.playlists.PlaylistsActivity;
+import com.lostincontext.rulescreation.RulesCreationActivity;
 import com.lostincontext.that.ThatService;
 
 import java.util.List;
@@ -96,8 +96,8 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
     }
 
 
-    @Override public void openPlaylistsScreen() {
-        Intent intent = new Intent(this.getContext(), PlaylistsActivity.class);
+    @Override public void openRuleCreationScreen() {
+        Intent intent = new Intent(this.getContext(), RulesCreationActivity.class);
         startActivity(intent);
     }
 

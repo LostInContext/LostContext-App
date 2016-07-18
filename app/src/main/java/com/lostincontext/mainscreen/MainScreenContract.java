@@ -16,7 +16,7 @@ public interface MainScreenContract {
 
         PendingIntent getPendingIntent();
 
-        void openPlaylistsScreen();
+        void openRuleCreationScreen();
 
         void setRules(List<Rule> rules);
     }
