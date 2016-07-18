@@ -6,7 +6,7 @@ import com.lostincontext.commons.BasePresenter;
 import com.lostincontext.commons.BaseView;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.FenceCreator;
-import com.lostincontext.rulescreation.display.RuleCreatorViewHolder;
+import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
 
 import java.util.List;
 
@@ -17,12 +17,12 @@ public class RulesCreationContract {
 
         void setPlace(Intent place);
 
-        void setSections(List<Section<FenceCreator>> sections);
+        void setSections(List<Section> sections);
 
     }
 
 
-    interface Presenter extends BasePresenter, RuleCreatorViewHolder.RuleCreationItemCallback {
+    interface Presenter extends BasePresenter, RuleCreationItemCallback {
 
         void onActivityResult(int requestCode, int resultCode, Intent data);
 

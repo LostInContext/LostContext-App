@@ -7,11 +7,12 @@ import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
-import com.lostincontext.data.FenceCreator;
 import com.lostincontext.databinding.ItemSectionHeaderBinding;
 import com.lostincontext.databinding.ItemSectionItemRuleCreationBinding;
+import com.lostincontext.databinding.ItemSectionPlaylistPickBinding;
+import com.lostincontext.rulescreation.display.PlaylistPickViewHolder;
+import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
 import com.lostincontext.rulescreation.display.RuleCreatorViewHolder;
-import com.lostincontext.rulescreation.display.RuleCreatorViewHolder.RuleCreationItemCallback;
 import com.lostincontext.rulescreation.display.SectionViewHolder;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
     private RuleCreationItemCallback callback;
     int count;
 
-    private List<Section<FenceCreator>> sections;
+    private List<Section> sections;
 
     public RulesCreationAdapter(RuleCreationItemCallback callback) {
 
@@ -40,18 +41,29 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
                                                                                           false);
                 return new SectionViewHolder(headerBinding);
 
-            case R.id.view_type_rule_creator:
+            case R.id.view_type_rule_creator: {
                 ItemSectionItemRuleCreationBinding itemBinding = ItemSectionItemRuleCreationBinding.inflate(layoutInflater,
                                                                                                             parent,
                                                                                                             false);
-                return new RuleCreatorViewHolder(itemBinding);
+                return new RuleCreatorViewHolder(itemBinding, callback);
+            }
+
+
+            case R.id.view_type_playlist_picker: {
+
+                ItemSectionPlaylistPickBinding itemBinding = ItemSectionPlaylistPickBinding.inflate(layoutInflater,
+                                                                                                    parent,
+                                                                                                    false);
+                return new PlaylistPickViewHolder(itemBinding, callback);
+
+            }
         }
 
         return null;
     }
 
     @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Section<FenceCreator> section;
+        Section section;
         int sectionSize;
         for (int i = 0, sectionsCount = sections.size(); i < sectionsCount; i++) {
             section = sections.get(i);
@@ -60,13 +72,7 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
                 position -= sectionSize;
                 continue;
             }
-            if (position == 0) {
-                //noinspection ConstantConditions
-                ((SectionViewHolder) holder).setContent(section);
-                return;
-            }
-            position--;
-            ((RuleCreatorViewHolder) holder).setContent(section.get(position), callback);
+            section.onBindViewHolder(holder, position);
             return;
         }
 
@@ -75,7 +81,7 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override public int getItemViewType(int position) {
-        Section<FenceCreator> section;
+        Section section;
         int sectionSize;
         for (int i = 0, sectionsCount = sections.size(); i < sectionsCount; i++) {
             section = sections.get(i);
@@ -84,10 +90,8 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
                 position -= sectionSize;
                 continue;
             }
-            if (position == 0) {
-                return R.id.view_type_section_header;
-            }
-            return R.id.view_type_rule_creator;
+            if (position == 0) return section.getHeaderViewType();
+            return section.getItemViewType();
         }
 
         throw new RuntimeException("position not found !");
@@ -98,7 +102,7 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
         return count;
     }
 
-    public void setSections(List<Section<FenceCreator>> sections) {
+    public void setSections(List<Section> sections) {
         this.sections = sections;
         count();
         notifyDataSetChanged();

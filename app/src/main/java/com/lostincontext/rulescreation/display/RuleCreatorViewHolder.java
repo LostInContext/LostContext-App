@@ -23,19 +23,18 @@ public class RuleCreatorViewHolder extends RecyclerView.ViewHolder implements Vi
     @ColorInt private int selectedColor;
     @ColorInt private final int defaultColor;
 
-    public interface RuleCreationItemCallback {
-        void onRuleCreationItemClick(FenceCreator fence);
-    }
-
     private FenceCreator fenceCreator;
     private RuleCreationItemCallback callback;
 
 
     private ItemSectionItemRuleCreationBinding binding;
 
-    public RuleCreatorViewHolder(ItemSectionItemRuleCreationBinding binding) {
+    public RuleCreatorViewHolder(ItemSectionItemRuleCreationBinding binding,
+                                 RuleCreationItemCallback callback) {
         super(binding.getRoot());
         this.binding = binding;
+        this.callback = callback;
+        binding.setCallback(callback);
         View root = binding.getRoot();
         root.setOnClickListener(this);
 
@@ -48,12 +47,9 @@ public class RuleCreatorViewHolder extends RecyclerView.ViewHolder implements Vi
 
     }
 
-    public void setContent(FenceCreator fenceCreator,
-                           RuleCreationItemCallback callback) {
+    public void setContent(FenceCreator fenceCreator) {
 
         this.fenceCreator = fenceCreator;
-        this.callback = callback;
-        binding.setCallback(callback);
         binding.setItem(fenceCreator);
         selectedColor = fenceCreator.selectedColor;
         setState(fenceCreator.selected);

@@ -6,8 +6,11 @@ import android.graphics.Color;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.FenceCreator;
+import com.lostincontext.data.PlaylistPicker;
 import com.lostincontext.data.location.repo.LocationRepository;
 import com.lostincontext.rulescreation.display.EditLocationDialog;
+import com.lostincontext.rulescreation.display.FenceCreatorSection;
+import com.lostincontext.rulescreation.display.PlaylistPickSection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +36,7 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
         activities.add(new FenceCreator("On bicycle", R.drawable.ic_bike_24, Color.RED));
         activities.add(new FenceCreator("In vehicle", R.drawable.ic_car_24, Color.RED));
 
-        Section<FenceCreator> activitiesSection = new Section<>("Activity", activities);
+        FenceCreatorSection activitiesSection = new FenceCreatorSection("Activity", activities, R.id.view_type_rule_creator);
 
 
         List<FenceCreator> headphones = new ArrayList<>(2);
@@ -41,7 +44,7 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
         headphones.add(new FenceCreator("Plugged in", R.drawable.ic_headset_24, Color.RED));
         headphones.add(new FenceCreator("Plugged out", R.drawable.ic_headset_24, Color.RED));
 
-        Section<FenceCreator> headphonesSection = new Section<>("Headphones", headphones);
+        FenceCreatorSection headphonesSection = new FenceCreatorSection("Headphones", headphones, R.id.view_type_rule_creator);
 
         List<FenceCreator> locations = new ArrayList<>(2);
 
@@ -49,13 +52,20 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
         locations.add(new FenceCreator("Home", R.drawable.ic_home_24, Color.RED));
         locations.add(new FenceCreator("Work", R.drawable.ic_work_24, Color.RED));
 
-        Section<FenceCreator> locationSection = new Section<>("Location", locations);
+        FenceCreatorSection locationSection = new FenceCreatorSection("Location", locations, R.id.view_type_rule_creator);
 
-        List<FenceCreator> times = new ArrayList<>(5);
 
-        view.setSections(Arrays.asList(activitiesSection,
-                                       headphonesSection,
-                                       locationSection));
+        List<PlaylistPicker> playlistPickers = new ArrayList<>(1);
+
+        playlistPickers.add(new PlaylistPicker(null));
+
+        PlaylistPickSection playlistPickerSection = new PlaylistPickSection("pick a playlist", playlistPickers);
+
+        List<Section> sections = Arrays.<Section>asList(activitiesSection,
+                                                        headphonesSection,
+                                                        locationSection,
+                                                        playlistPickerSection);
+        view.setSections(sections);
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -68,6 +78,10 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
 
 
     @Override public void onRuleCreationItemClick(FenceCreator fence) {
+
+    }
+
+    @Override public void onPlaylistPickerClick() {
 
     }
 
