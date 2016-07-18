@@ -41,11 +41,14 @@ public class FenceIconGiver {
         switch (fence.getType()) {
             case IN_VEHICLE:
                 iconList.add(R.drawable.ic_car_24);
+                break;
             case RUNNING:
                 iconList.add(R.drawable.ic_run_24);
+                break;
             case WALKING:
             default:
                 iconList.add(R.drawable.ic_walk_24);
+                break;
         }
         return iconList;
     }
