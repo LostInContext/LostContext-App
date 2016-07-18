@@ -41,7 +41,7 @@ public class LocationRepository {
         }
     }
 
-    private LocationModel getLocation(String name) throws IOException {
+    public LocationModel getLocation(String name) throws IOException {
         return deserialize(loadFromPrefs(name));
     }
 

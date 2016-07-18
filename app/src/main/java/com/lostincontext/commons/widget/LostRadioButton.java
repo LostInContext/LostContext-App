@@ -17,7 +17,6 @@ import com.lostincontext.R;
 import com.lostincontext.data.FenceCreator;
 import com.lostincontext.databinding.WidgetLostRadioButtonBinding;
 import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
-import com.lostincontext.rulescreation.display.RuleCreatorViewHolder;
 
 
 public class LostRadioButton extends RelativeLayout implements View.OnClickListener {

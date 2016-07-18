@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,22 +14,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
+import com.lostincontext.data.location.LocationModel;
 import com.lostincontext.databinding.RulesCreationScreenFragmentBinding;
 import com.lostincontext.playlists.PlaylistsActivity;
-import com.lostincontext.rulescreation.display.EditLocationDialog;
 
 import java.util.List;
 
+
 public class RulesCreationFragment extends Fragment implements RulesCreationContract.View {
+    public static final int PLACE_PICKER_REQUEST_CODE = 9876;
 
     private RulesCreationContract.Presenter presenter;
-    private EditLocationDialog editPlaceDialog;
 
     private RulesCreationAdapter adapter;
+
+    private String locationFenceName;
 
     public static RulesCreationFragment newInstance() {
         return new RulesCreationFragment();
@@ -96,18 +101,24 @@ public class RulesCreationFragment extends Fragment implements RulesCreationCont
         startActivity(intent);
     }
 
-    @Override public void showDialog() {
-        FragmentManager fm = this.getActivity().getSupportFragmentManager();
-        editPlaceDialog = new EditLocationDialog();
-        editPlaceDialog.show(fm, "fragment_edit_location");
+    @Override public void showToast(String string) {
+        Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override public void showLocationPicker(String fenceName) {
+        locationFenceName = fenceName;
+        try {
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+            getActivity().startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
+        }
     }
 
     @Override public void setPlace(Intent data) {
         Place place = PlacePicker.getPlace(getActivity(), data);
-        String toastMsg = String.format("Place: %s", place.getName());
-        Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_LONG).show();
-        if (editPlaceDialog != null) {
-            editPlaceDialog.setTextPlace(place.getAddress());
-        }
+        LatLng latLng = place.getLatLng();
+        presenter.getLocationRepository().saveLocation(locationFenceName, new LocationModel(place.getName().toString(), latLng.latitude, latLng.longitude));
+
     }
 }

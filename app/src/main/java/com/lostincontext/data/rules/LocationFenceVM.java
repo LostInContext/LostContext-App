@@ -34,15 +34,16 @@ public class LocationFenceVM implements FenceVM {
     private double radius;
     @LocationName private String name;
 
-    private long dwellTimeMillis=10000; //10 seconds
+    private long dwellTimeMillis = 10000; //10 seconds
 
     private LocationFenceVM() { }
 
-    public LocationFenceVM(State state, LatLng latLng) {
-        this.state = state;
+    public LocationFenceVM(@LocationName String locationName, LatLng latLng) {
+        this.state = State.IN;
         this.latitude = latLng.latitude;
         this.longitude = latLng.longitude;
         this.radius = 10;//in meters
+        this.name = locationName;
     }
 
 

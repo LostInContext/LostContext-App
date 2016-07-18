@@ -7,11 +7,13 @@ import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.FenceCreator;
 import com.lostincontext.data.PlaylistPicker;
+import com.lostincontext.data.location.LocationModel;
 import com.lostincontext.data.location.repo.LocationRepository;
-import com.lostincontext.rulescreation.display.EditLocationDialog;
+import com.lostincontext.data.rules.LocationFenceVM;
 import com.lostincontext.rulescreation.display.FenceCreatorSection;
 import com.lostincontext.rulescreation.display.PlaylistPickSection;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,16 +21,16 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static android.app.Activity.RESULT_OK;
+import static com.lostincontext.rulescreation.RulesCreationFragment.PLACE_PICKER_REQUEST_CODE;
 
 public class RulesCreationPresenter implements RulesCreationContract.Presenter {
 
     private RulesCreationContract.View view;
     private LocationRepository locationRepository;
+    private String currentFenceName;
 
 
     @Override public void start() {
-
-        // view.showDialog();
 
         List<FenceCreator> activities = new ArrayList<>(4);
         activities.add(new FenceCreator("Walking", R.drawable.ic_walk_24, Color.RED));
@@ -49,8 +51,8 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
         List<FenceCreator> locations = new ArrayList<>(2);
 
 
-        locations.add(new FenceCreator("Home", R.drawable.ic_home_24, Color.RED));
-        locations.add(new FenceCreator("Work", R.drawable.ic_work_24, Color.RED));
+        locations.add(new FenceCreator(LocationFenceVM.HOME, R.drawable.ic_home_24, Color.RED));
+        locations.add(new FenceCreator(LocationFenceVM.WORK, R.drawable.ic_work_24, Color.RED));
 
         FenceCreatorSection locationSection = new FenceCreatorSection("Location", locations, R.id.view_type_rule_creator);
 
@@ -69,7 +71,7 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == EditLocationDialog.PLACE_PICKER_REQUEST_CODE) {
+        if (requestCode == PLACE_PICKER_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 view.setPlace(data);
             }
@@ -78,7 +80,35 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
 
 
     @Override public void onRuleCreationItemClick(FenceCreator fence) {
+        currentFenceName = fence.name;
+        switch (fence.name) {
+            case LocationFenceVM.HOME:
+            case LocationFenceVM.WORK:
+                LocationModel locationModel = getLocation(fence.name);
+                if (locationModel == null) {
+                    view.showLocationPicker(fence.name);
+//                    LocationFenceVM locationFenceVM = new LocationFenceVM(LocationFenceVM.HOME, locationModel.getLatLng());
+                } else {
+                    view.showToast(locationModel.getPlaceName());
+//                    LocationFenceVM locationFenceVM = new LocationFenceVM(fence.name, locationModel.getLatLng());
+                }
+                break;
 
+        }
+    }
+
+    @Override public LocationRepository getLocationRepository() {
+        return locationRepository;
+    }
+
+    private LocationModel getLocation(String locationName) {
+        LocationModel location = null;
+        try {
+            location = locationRepository.getLocation(locationName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return location;
     }
 
     @Override public void onPlaylistPickerClick() {
