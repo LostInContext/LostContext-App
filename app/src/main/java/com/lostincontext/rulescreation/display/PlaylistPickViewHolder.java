@@ -23,10 +23,11 @@ public class PlaylistPickViewHolder extends RecyclerView.ViewHolder implements V
 
     public void setContent(@Nullable Playlist playlist) {
         if (playlist == null) {
-            binding.pickPlaylistText.setText("Pick a playlist to play !");
+            binding.pickPlaylistText.setText(R.string.pick_playlist);
             binding.icon.setImageResource(R.drawable.ic_plus_16);
         } else {
-            binding.pickPlaylistText.setText("play" + playlist.getTitle());
+            String text = binding.getRoot().getResources().getString(R.string.play_playlist, playlist.getTitle());
+            binding.pickPlaylistText.setText(text);
         }
     }
 
