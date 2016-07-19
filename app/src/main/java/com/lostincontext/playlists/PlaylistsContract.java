@@ -3,7 +3,7 @@ package com.lostincontext.playlists;
 import com.lostincontext.commons.BasePresenter;
 import com.lostincontext.commons.BaseView;
 import com.lostincontext.commons.list.EmptyListCallback;
-import com.lostincontext.data.Playlist;
+import com.lostincontext.data.playlist.Playlist;
 
 import java.util.List;
 

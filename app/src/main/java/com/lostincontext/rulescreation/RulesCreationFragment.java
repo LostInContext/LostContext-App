@@ -30,6 +30,7 @@ import java.util.List;
 
 public class RulesCreationFragment extends Fragment implements RulesCreationContract.View {
     public static final int PLACE_PICKER_REQUEST_CODE = 9876;
+    public static final int PLAYLIST_PICKER_REQUEST_CODE = 9877;
 
     private RulesCreationContract.Presenter presenter;
 
@@ -98,12 +99,13 @@ public class RulesCreationFragment extends Fragment implements RulesCreationCont
 
     @Override public void onPlaylistPickerClick() {
         Intent intent = new Intent(this.getContext(), PlaylistsActivity.class);
-        startActivity(intent);
+        getActivity().startActivityForResult(intent,PLAYLIST_PICKER_REQUEST_CODE);
     }
 
     @Override public void showToast(String string) {
         Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
     }
+
 
     @Override public void showLocationPicker(String fenceName) {
         locationFenceName = fenceName;

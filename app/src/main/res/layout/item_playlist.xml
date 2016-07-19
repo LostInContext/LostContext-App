@@ -24,7 +24,9 @@
         android:foreground="?attr/selectableItemBackground"
         android:orientation="vertical"
         android:outlineProvider="bounds"
-        android:stateListAnimator="@animator/lift_on_touch">
+        android:stateListAnimator="@animator/lift_on_touch"
+        android:onClick="@{() -> callback.onItemClick(playlist)}"
+        >
 
         <com.lostincontext.commons.widget.SquareImageView
             android:id="@+id/image"

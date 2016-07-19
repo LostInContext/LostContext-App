@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
-import com.lostincontext.data.PlaylistPicker;
+import com.lostincontext.data.playlist.PlaylistPicker;
 
 import java.util.List;
 

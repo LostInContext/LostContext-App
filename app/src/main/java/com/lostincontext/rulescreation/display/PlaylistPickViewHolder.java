@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lostincontext.R;
-import com.lostincontext.data.Playlist;
+import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.ItemSectionPlaylistPickBinding;
 
 public class PlaylistPickViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

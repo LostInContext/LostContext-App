@@ -1,7 +1,7 @@
 package com.lostincontext.data.rules;
 
 
-import com.lostincontext.data.Playlist;
+import com.lostincontext.data.playlist.Playlist;
 
 public class Rule {
 

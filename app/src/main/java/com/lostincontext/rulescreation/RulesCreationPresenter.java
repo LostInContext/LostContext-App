@@ -6,7 +6,7 @@ import android.graphics.Color;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.FenceCreator;
-import com.lostincontext.data.PlaylistPicker;
+import com.lostincontext.data.playlist.PlaylistPicker;
 import com.lostincontext.data.location.LocationModel;
 import com.lostincontext.data.location.repo.LocationRepository;
 import com.lostincontext.data.rules.LocationFenceVM;

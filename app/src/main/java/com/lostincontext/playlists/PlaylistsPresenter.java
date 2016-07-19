@@ -1,8 +1,8 @@
 package com.lostincontext.playlists;
 
 
-import com.lostincontext.data.DataPlaylist;
-import com.lostincontext.data.Playlist;
+import com.lostincontext.data.playlist.DataPlaylist;
+import com.lostincontext.data.playlist.Playlist;
 
 import java.util.List;
 

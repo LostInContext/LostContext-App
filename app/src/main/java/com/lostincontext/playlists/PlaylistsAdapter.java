@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.EmptyListCallback;
 import com.lostincontext.commons.list.StatefulAdapter;
-import com.lostincontext.data.Playlist;
+import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.ItemPlaylistBinding;
 
 import java.util.List;
