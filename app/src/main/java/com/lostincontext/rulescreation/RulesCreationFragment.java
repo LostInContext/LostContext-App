@@ -99,11 +99,16 @@ public class RulesCreationFragment extends Fragment implements RulesCreationCont
 
     @Override public void onPlaylistPickerClick() {
         Intent intent = new Intent(this.getContext(), PlaylistsActivity.class);
-        getActivity().startActivityForResult(intent,PLAYLIST_PICKER_REQUEST_CODE);
+        getActivity().startActivityForResult(intent, PLAYLIST_PICKER_REQUEST_CODE);
     }
 
     @Override public void showToast(String string) {
         Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override public void setPlayList(Intent playlist) {
+        presenter.getPlayList(playlist);
+
     }
 
 

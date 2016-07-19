@@ -20,12 +20,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.Target;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lostincontext.PlaylistLauncher;
 import com.lostincontext.R;
 import com.lostincontext.commons.images.palette.PaletteBitmap;
 import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder;
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget;
 import com.lostincontext.data.playlist.Playlist;
+import com.lostincontext.data.playlist.PlaylistPicker;
 import com.lostincontext.databinding.ItemPlaylistBinding;
 
 import java.util.List;
@@ -92,10 +94,15 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
 
             @Override public void onItemClick(Playlist playlist) {
 
-                Intent returnIntent = new Intent();
-//                returnIntent.putExtra("playlist",Ja);
-                ((Activity)binding.getRoot().getContext()).setResult(Activity.RESULT_OK, returnIntent);
-                ((Activity)binding.getRoot().getContext()).finish();
+                try {
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("playlist",new PlaylistPicker(playlist).serialize());
+                    ((Activity)binding.getRoot().getContext()).setResult(Activity.RESULT_OK, returnIntent);
+                    ((Activity)binding.getRoot().getContext()).finish();
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 

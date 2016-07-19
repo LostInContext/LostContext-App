@@ -6,9 +6,10 @@ import android.graphics.Color;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.FenceCreator;
-import com.lostincontext.data.playlist.PlaylistPicker;
 import com.lostincontext.data.location.LocationModel;
 import com.lostincontext.data.location.repo.LocationRepository;
+import com.lostincontext.data.playlist.Playlist;
+import com.lostincontext.data.playlist.PlaylistPicker;
 import com.lostincontext.data.rules.LocationFenceVM;
 import com.lostincontext.rulescreation.display.FenceCreatorSection;
 import com.lostincontext.rulescreation.display.PlaylistPickSection;
@@ -22,6 +23,7 @@ import javax.inject.Inject;
 
 import static android.app.Activity.RESULT_OK;
 import static com.lostincontext.rulescreation.RulesCreationFragment.PLACE_PICKER_REQUEST_CODE;
+import static com.lostincontext.rulescreation.RulesCreationFragment.PLAYLIST_PICKER_REQUEST_CODE;
 
 public class RulesCreationPresenter implements RulesCreationContract.Presenter {
 
@@ -76,6 +78,11 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
                 view.setPlace(data);
             }
         }
+        if (requestCode == PLAYLIST_PICKER_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                view.setPlayList(data);
+            }
+        }
     }
 
 
@@ -100,6 +107,19 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
     @Override public LocationRepository getLocationRepository() {
         return locationRepository;
     }
+
+    @Override public void getPlayList(Intent intent) {
+        if(intent.getExtras()!=null) {
+            String playlist1 = intent.getExtras().getString("playlist");
+            try {
+                PlaylistPicker playlistPicker = PlaylistPicker.deserialize(playlist1);
+                Playlist playlist = playlistPicker.getPlaylist();//TODO there it is
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     private LocationModel getLocation(String locationName) {
         LocationModel location = null;
