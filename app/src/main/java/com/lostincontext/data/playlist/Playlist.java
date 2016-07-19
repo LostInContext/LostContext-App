@@ -1,4 +1,4 @@
-package com.lostincontext.data;
+package com.lostincontext.data.playlist;
 
 
 import com.lostincontext.commons.images.DeezerImage;

@@ -1,4 +1,4 @@
-package com.lostincontext.data;
+package com.lostincontext.data.playlist;
 
 import android.text.TextUtils;
 import android.util.Log;

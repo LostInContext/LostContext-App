@@ -1,5 +1,7 @@
-package com.lostincontext.data;
+package com.lostincontext.data.playlist;
 
+
+import com.lostincontext.data.playlist.Playlist;
 
 public class PlaylistPicker {
 

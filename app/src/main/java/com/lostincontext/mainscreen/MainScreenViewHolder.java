@@ -21,7 +21,7 @@ import com.lostincontext.R;
 import com.lostincontext.commons.images.palette.PaletteBitmap;
 import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder;
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget;
-import com.lostincontext.data.Playlist;
+import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.FenceIconGiver;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.ItemRuleBinding;

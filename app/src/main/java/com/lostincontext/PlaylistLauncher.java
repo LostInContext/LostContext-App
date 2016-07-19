@@ -7,7 +7,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.util.Log;
 
-import com.lostincontext.data.Playlist;
+import com.lostincontext.data.playlist.Playlist;
 
 import java.util.List;
 

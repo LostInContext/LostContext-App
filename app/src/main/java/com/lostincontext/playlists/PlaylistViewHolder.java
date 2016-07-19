@@ -1,7 +1,9 @@
 package com.lostincontext.playlists;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
@@ -23,7 +25,7 @@ import com.lostincontext.R;
 import com.lostincontext.commons.images.palette.PaletteBitmap;
 import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder;
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget;
-import com.lostincontext.data.Playlist;
+import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.ItemPlaylistBinding;
 
 import java.util.List;
@@ -35,6 +37,8 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
 
     public interface Callback {
         void onDeezerLogoClick(Playlist playlist);
+
+        void onItemClick(Playlist playlist);
     }
 
 
@@ -84,6 +88,14 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
             @Override public void onDeezerLogoClick(Playlist playlist) {
                 PlaylistLauncher launcher = new PlaylistLauncher();
                 launcher.launchPlaylist(binding.getRoot().getContext(), playlist);
+            }
+
+            @Override public void onItemClick(Playlist playlist) {
+
+                Intent returnIntent = new Intent();
+//                returnIntent.putExtra("playlist",Ja);
+                ((Activity)binding.getRoot().getContext()).setResult(Activity.RESULT_OK, returnIntent);
+                ((Activity)binding.getRoot().getContext()).finish();
             }
         });
 
