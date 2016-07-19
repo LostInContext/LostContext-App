@@ -24,6 +24,8 @@ public class RulesCreationContract {
 
         void showToast(String string);
 
+        void setPlayList(Intent playlist);
+
     }
 
 
@@ -34,5 +36,8 @@ public class RulesCreationContract {
         @Override void onRuleCreationItemClick(FenceCreator fence);
 
         LocationRepository getLocationRepository();
+
+        void getPlayList(Intent playlist);
+
     }
 }
