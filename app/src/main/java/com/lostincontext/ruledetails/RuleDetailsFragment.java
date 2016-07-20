@@ -1,5 +1,6 @@
 package com.lostincontext.ruledetails;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
+import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;
 
 import java.util.List;
 
@@ -25,7 +28,12 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        RuleDetailsScreenFragmentBinding binding = DataBindingUtil.inflate(inflater,
+                                                                           R.layout.rule_details_screen_fragment,
+                                                                           container,
+                                                                           false);
+
+        return binding.getRoot();
     }
 
 
