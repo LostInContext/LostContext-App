@@ -1,5 +1,7 @@
 package com.lostincontext.ruledetails;
 
+import com.lostincontext.data.FenceCreator;
+
 import javax.inject.Inject;
 
 public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
@@ -17,6 +19,14 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
 
 
     @Override public void start() {
+
+    }
+
+    @Override public void onRuleCreationItemClick(FenceCreator fence) {
+
+    }
+
+    @Override public void onPlaylistPickerClick() {
 
     }
 }
