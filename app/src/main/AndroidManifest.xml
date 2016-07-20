@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".playlists.PlaylistsActivity"/>
         <activity android:name=".rulescreation.RulesCreationActivity" />
+        <activity android:name=".ruledetails.RuleDetailsActivity" />
 
 
         <meta-data

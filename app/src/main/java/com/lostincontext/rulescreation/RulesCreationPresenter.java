@@ -109,7 +109,7 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
     }
 
     @Override public void getPlayList(Intent intent) {
-        if(intent.getExtras()!=null) {
+        if (intent.getExtras() != null) {
             String playlist1 = intent.getExtras().getString("playlist");
             try {
                 PlaylistPicker playlistPicker = PlaylistPicker.deserialize(playlist1);
@@ -135,8 +135,8 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
         view.onPlaylistPickerClick();
     }
 
-    @Inject
-    RulesCreationPresenter(RulesCreationContract.View view, LocationRepository locationRepository) {
+    @Inject RulesCreationPresenter(RulesCreationContract.View view,
+                                   LocationRepository locationRepository) {
         this.view = view;
         this.locationRepository = locationRepository;
     }
