@@ -8,5 +8,6 @@
     <item name="view_type_section_header" type="id" />
     <item name="view_type_rule_creator" type="id" />
     <item name="view_type_playlist_picker" type="id" />
+    <item name="view_type_plus" type="id" />
 
 </resources>
