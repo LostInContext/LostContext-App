@@ -1,6 +1,7 @@
 package com.lostincontext.data.location;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.android.gms.maps.model.LatLng;
 
 public class LocationModel {
@@ -8,7 +9,8 @@ public class LocationModel {
     public double latitude;
     public double longitude;
     public String placeName;
-    private LatLng latLng;
+
+    @JsonIgnore private LatLng latLng;
 
     public LocationModel() {
     }
