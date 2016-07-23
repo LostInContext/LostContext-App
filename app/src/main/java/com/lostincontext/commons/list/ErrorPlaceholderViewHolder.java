@@ -2,12 +2,11 @@ package com.lostincontext.commons.list;
 
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lostincontext.databinding.ItemErrorBinding;
 
-public class ErrorPlaceholderViewHolder extends RecyclerView.ViewHolder {
+public class ErrorPlaceholderViewHolder extends ViewHolder {
 
     private final ItemErrorBinding binding;
 

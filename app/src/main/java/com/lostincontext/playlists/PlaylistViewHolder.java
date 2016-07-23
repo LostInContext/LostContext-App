@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.graphics.Palette;
 import android.support.v7.graphics.Palette.Swatch;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,13 +26,14 @@ import com.lostincontext.R;
 import com.lostincontext.commons.images.palette.PaletteBitmap;
 import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder;
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget;
+import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.playlist.PlaylistPicker;
 import com.lostincontext.databinding.ItemPlaylistBinding;
 
 import java.util.List;
 
-public class PlaylistViewHolder extends RecyclerView.ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
+public class PlaylistViewHolder extends ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
 
 
     public static final PorterDuff.Mode MODE = PorterDuff.Mode.SRC_ATOP;
@@ -218,4 +218,13 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
         return swatch;
     }
 
+
+    @Override public boolean onFailedToRecycleView() {
+        binding.image.clearAnimation();
+        binding.deezerLogo.clearAnimation();
+        binding.textBackground.clearAnimation();
+        binding.itemTitle.clearAnimation();
+        binding.itemInfo.clearAnimation();
+        return true;
+    }
 }

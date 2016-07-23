@@ -19,7 +19,6 @@ import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.MainScreenFragmentBinding;
 import com.lostincontext.playlists.PlaylistsActivity;
 import com.lostincontext.ruledetails.RuleDetailsActivity;
-import com.lostincontext.rulescreation.RulesCreationActivity;
 import com.lostincontext.that.ThatService;
 
 import java.util.List;

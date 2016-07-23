@@ -7,8 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.graphics.Palette;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +21,7 @@ import com.lostincontext.R;
 import com.lostincontext.commons.images.palette.PaletteBitmap;
 import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder;
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget;
+import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.FenceIconGiver;
 import com.lostincontext.data.rules.Rule;
@@ -27,7 +29,7 @@ import com.lostincontext.databinding.ItemRuleBinding;
 
 import java.util.List;
 
-public class MainScreenViewHolder extends RecyclerView.ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
+public class MainScreenViewHolder extends ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
 
     public interface Callback {
         void onPlaylistCoverClick(Playlist playlist);
@@ -56,6 +58,12 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
                     .start();
         }
     };
+
+    public static MainScreenViewHolder create(LayoutInflater layoutInflater,
+                                              ViewGroup parent) {
+        ItemRuleBinding binding = ItemRuleBinding.inflate(layoutInflater, parent, false);
+        return new MainScreenViewHolder(binding);
+    }
 
     public MainScreenViewHolder(final ItemRuleBinding binding) {
         super(binding.getRoot());
@@ -180,5 +188,12 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
             if (swatches.size() != 0) swatch = swatches.get(0);
         }
         return swatch;
+    }
+
+    @Override public boolean onFailedToRecycleView() {
+        binding.image.clearAnimation();
+        binding.textBackground.clearAnimation();
+        binding.itemTitle.clearAnimation();
+        return true;
     }
 }

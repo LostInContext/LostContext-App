@@ -1,15 +1,14 @@
 package com.lostincontext.mainscreen;
 
 import android.support.annotation.IdRes;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.commons.list.EmptyListCallback;
 import com.lostincontext.commons.list.StatefulAdapter;
+import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.data.rules.Rule;
-import com.lostincontext.databinding.ItemRuleBinding;
 
 import java.util.List;
 
@@ -26,12 +25,11 @@ public class MainScreenAdapter extends StatefulAdapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, @IdRes int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, @IdRes int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case R.id.view_type_standard:
-                ItemRuleBinding binding = ItemRuleBinding.inflate(layoutInflater, parent, false);
-                return new MainScreenViewHolder(binding);
+                return MainScreenViewHolder.create(layoutInflater, parent);
 
             case R.id.view_type_loading:
                 return buildLoadingViewHolder(layoutInflater, parent);
@@ -47,7 +45,7 @@ public class MainScreenAdapter extends StatefulAdapter {
         }
     }
 
-    @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    @Override public void onBindViewHolder(ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case R.id.view_type_standard:
                 MainScreenViewHolder viewHolder = (MainScreenViewHolder) holder;
