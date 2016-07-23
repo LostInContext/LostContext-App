@@ -9,7 +9,6 @@ import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Interpolator;
 
 import com.bumptech.glide.Glide;
@@ -45,13 +44,16 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
     private final int animationDuration;
     private final Interpolator interpolator;
 
-    ViewPropertyAnimation.Animator AlphaAnimator = new ViewPropertyAnimation.Animator() {
+    ViewPropertyAnimation.Animator alphaAnimator = new ViewPropertyAnimation.Animator() {
         @Override
         public void animate(View view) {
-            AlphaAnimation animation = new AlphaAnimation(0f, 1f);
-            animation.setDuration(animationDuration);
-            animation.setInterpolator(interpolator);
-            view.startAnimation(animation);
+            view.setAlpha(0f);
+            view.animate()
+                    .withLayer()
+                    .alpha(1f)
+                    .setDuration(animationDuration)
+                    .setInterpolator(interpolator)
+                    .start();
         }
     };
 
@@ -71,7 +73,7 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
         this.interpolator = new LinearOutSlowInInterpolator();
     }
 
-    public void setContent(Rule rule) {
+    public void bindTo(Rule rule) {
 
         binding.setRule(rule);
 
@@ -89,7 +91,7 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
                 .load(rule.getPlaylist())
                 .asBitmap()
                 .transcode(transcoder, PaletteBitmap.class)
-                .animate(AlphaAnimator)
+                .animate(alphaAnimator)
                 .listener(this)
                 .into(target);
 

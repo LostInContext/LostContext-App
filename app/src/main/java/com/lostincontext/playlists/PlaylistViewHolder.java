@@ -12,8 +12,9 @@ import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.graphics.Palette;
 import android.support.v7.graphics.Palette.Swatch;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
+import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 
 import com.bumptech.glide.Glide;
@@ -55,15 +56,23 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
     private final int animationDuration;
     private final Interpolator interpolator;
 
-    ViewPropertyAnimation.Animator AlphaAnimator = new ViewPropertyAnimation.Animator() {
+    ViewPropertyAnimation.Animator alphaAnimator = new ViewPropertyAnimation.Animator() {
         @Override
         public void animate(View view) {
-            AlphaAnimation animation = new AlphaAnimation(0f, 1f);
-            animation.setDuration(animationDuration);
-            animation.setInterpolator(interpolator);
-            view.startAnimation(animation);
+            view.setAlpha(0f);
+            view.animate()
+                    .withLayer()
+                    .alpha(1f)
+                    .setDuration(animationDuration)
+                    .setInterpolator(interpolator)
+                    .start();
         }
     };
+
+    public static PlaylistViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
+        ItemPlaylistBinding binding = ItemPlaylistBinding.inflate(layoutInflater, parent, false);
+        return new PlaylistViewHolder(binding);
+    }
 
     public PlaylistViewHolder(final ItemPlaylistBinding binding) {
         super(binding.getRoot());
@@ -82,7 +91,7 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
     }
 
 
-    public void setContent(Playlist playlist) {
+    public void bindTo(Playlist playlist) {
 
         binding.setPlaylist(playlist);
 
@@ -96,9 +105,9 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
 
                 try {
                     Intent returnIntent = new Intent();
-                    returnIntent.putExtra("playlist",new PlaylistPicker(playlist).serialize());
-                    ((Activity)binding.getRoot().getContext()).setResult(Activity.RESULT_OK, returnIntent);
-                    ((Activity)binding.getRoot().getContext()).finish();
+                    returnIntent.putExtra("playlist", new PlaylistPicker(playlist).serialize());
+                    ((Activity) binding.getRoot().getContext()).setResult(Activity.RESULT_OK, returnIntent);
+                    ((Activity) binding.getRoot().getContext()).finish();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
@@ -115,7 +124,7 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder implements Reque
                 .load(playlist)
                 .asBitmap()
                 .transcode(transcoder, PaletteBitmap.class)
-                .animate(AlphaAnimator)
+                .animate(alphaAnimator)
                 .listener(this)
                 .into(target);
 

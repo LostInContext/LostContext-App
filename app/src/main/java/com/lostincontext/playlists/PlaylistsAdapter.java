@@ -10,7 +10,6 @@ import com.lostincontext.R;
 import com.lostincontext.commons.list.EmptyListCallback;
 import com.lostincontext.commons.list.StatefulAdapter;
 import com.lostincontext.data.playlist.Playlist;
-import com.lostincontext.databinding.ItemPlaylistBinding;
 
 import java.util.List;
 
@@ -31,8 +30,7 @@ public class PlaylistsAdapter extends StatefulAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case R.id.view_type_standard:
-                ItemPlaylistBinding binding = ItemPlaylistBinding.inflate(layoutInflater, parent, false);
-                return new PlaylistViewHolder(binding);
+                return PlaylistViewHolder.create(layoutInflater, parent);
 
             case R.id.view_type_loading:
                 return buildLoadingViewHolder(layoutInflater, parent);
@@ -52,7 +50,7 @@ public class PlaylistsAdapter extends StatefulAdapter {
         switch (holder.getItemViewType()) {
             case R.id.view_type_standard:
                 PlaylistViewHolder viewHolder = (PlaylistViewHolder) holder;
-                viewHolder.setContent(playlists.get(position));
+                viewHolder.bindTo(playlists.get(position));
                 break;
 
 

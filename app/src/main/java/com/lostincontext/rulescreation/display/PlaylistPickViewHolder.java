@@ -3,7 +3,9 @@ package com.lostincontext.rulescreation.display;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.data.playlist.Playlist;
@@ -14,6 +16,15 @@ public class PlaylistPickViewHolder extends RecyclerView.ViewHolder implements V
 
     private ItemSectionPlaylistPickBinding binding;
 
+    public static PlaylistPickViewHolder create(LayoutInflater layoutInflater,
+                                                ViewGroup parent, RuleCreationItemCallback callback) {
+
+        ItemSectionPlaylistPickBinding itemBinding = ItemSectionPlaylistPickBinding.inflate(layoutInflater,
+                                                                                            parent,
+                                                                                            false);
+        return new PlaylistPickViewHolder(itemBinding, callback);
+    }
+
     public PlaylistPickViewHolder(ItemSectionPlaylistPickBinding binding, RuleCreationItemCallback callback) {
         super(binding.getRoot());
         this.binding = binding;
@@ -21,7 +32,7 @@ public class PlaylistPickViewHolder extends RecyclerView.ViewHolder implements V
     }
 
 
-    public void setContent(@Nullable Playlist playlist) {
+    public void bindTo(@Nullable Playlist playlist) {
         if (playlist == null) {
             binding.pickPlaylistText.setText(R.string.pick_playlist);
             binding.icon.setImageResource(R.drawable.ic_plus_16);

@@ -18,10 +18,10 @@ public class ErrorPlaceholderViewHolder extends RecyclerView.ViewHolder {
         binding.setCallback(callBack);
     }
 
-    private void setContent(@DrawableRes int errorDrawableRes,
-                            CharSequence errorText,
-                            CharSequence buttonText,
-                            @DrawableRes int buttonIcon) {
+    private void bindTo(@DrawableRes int errorDrawableRes,
+                        CharSequence errorText,
+                        CharSequence buttonText,
+                        @DrawableRes int buttonIcon) {
 
         binding.errorImage.setImageResource(errorDrawableRes);
         binding.errorText.setText(errorText);

@@ -5,8 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
-import com.lostincontext.databinding.ItemPlusButtonBinding;
-import com.lostincontext.databinding.ItemSectionItemRuleCreationBinding;
+import com.lostincontext.data.FenceCreator;
 import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
 import com.lostincontext.rulescreation.display.RuleCreatorViewHolder;
 
@@ -31,22 +30,16 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (viewType) {
             case R.id.view_type_rule_creator:
-                ItemSectionItemRuleCreationBinding itemBinding = ItemSectionItemRuleCreationBinding.inflate(layoutInflater,
-                                                                                                            parent,
-                                                                                                            false);
-                return new RuleCreatorViewHolder(itemBinding, callback);
+                return RuleCreatorViewHolder.create(layoutInflater, parent, callback);
 
             case R.id.view_type_plus:
-
-                ItemPlusButtonBinding plusButtonBinding = ItemPlusButtonBinding.inflate(layoutInflater,
-                                                                                        parent,
-                                                                                        false);
-                return new PlusButtonViewHolder(plusButtonBinding, callback);
+                return PlusButtonViewHolder.create(layoutInflater, parent, callback);
 
         }
 
         throw new RuntimeException("unknown viewType");
     }
+
 
     @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
@@ -56,7 +49,8 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case R.id.view_type_plus:
                 break;
             case R.id.view_type_rule_creator:
-                ((RuleCreatorViewHolder) holder).setContent(item);
+                ((RuleCreatorViewHolder) holder).bindTo((FenceCreator) item);
+                break;
 
         }
 

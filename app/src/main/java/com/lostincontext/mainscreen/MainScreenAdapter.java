@@ -51,7 +51,7 @@ public class MainScreenAdapter extends StatefulAdapter {
         switch (holder.getItemViewType()) {
             case R.id.view_type_standard:
                 MainScreenViewHolder viewHolder = (MainScreenViewHolder) holder;
-                viewHolder.setContent(rules.get(position));
+                viewHolder.bindTo(rules.get(position));
                 break;
 
 

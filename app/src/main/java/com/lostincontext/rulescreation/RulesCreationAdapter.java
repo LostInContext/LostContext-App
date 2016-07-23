@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
-import com.lostincontext.databinding.ItemSectionHeaderBinding;
-import com.lostincontext.databinding.ItemSectionItemRuleCreationBinding;
-import com.lostincontext.databinding.ItemSectionPlaylistPickBinding;
 import com.lostincontext.rulescreation.display.PlaylistPickViewHolder;
 import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
 import com.lostincontext.rulescreation.display.RuleCreatorViewHolder;
@@ -36,26 +33,13 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         switch (viewType) {
             case R.id.view_type_section_header:
-                ItemSectionHeaderBinding headerBinding = ItemSectionHeaderBinding.inflate(layoutInflater,
-                                                                                          parent,
-                                                                                          false);
-                return new SectionViewHolder(headerBinding);
+                return SectionViewHolder.create(layoutInflater, parent);
 
-            case R.id.view_type_rule_creator: {
-                ItemSectionItemRuleCreationBinding itemBinding = ItemSectionItemRuleCreationBinding.inflate(layoutInflater,
-                                                                                                            parent,
-                                                                                                            false);
-                return new RuleCreatorViewHolder(itemBinding, callback);
-            }
-
+            case R.id.view_type_rule_creator:
+                return RuleCreatorViewHolder.create(layoutInflater, parent, callback);
 
             case R.id.view_type_playlist_picker: {
-
-                ItemSectionPlaylistPickBinding itemBinding = ItemSectionPlaylistPickBinding.inflate(layoutInflater,
-                                                                                                    parent,
-                                                                                                    false);
-                return new PlaylistPickViewHolder(itemBinding, callback);
-
+                return PlaylistPickViewHolder.create(layoutInflater, parent, callback);
             }
         }
 

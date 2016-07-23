@@ -17,6 +17,7 @@ import com.lostincontext.R;
 import com.lostincontext.commons.list.SpacesItemDecoration;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.MainScreenFragmentBinding;
+import com.lostincontext.playlists.PlaylistsActivity;
 import com.lostincontext.ruledetails.RuleDetailsActivity;
 import com.lostincontext.rulescreation.RulesCreationActivity;
 import com.lostincontext.that.ThatService;
@@ -98,7 +99,7 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
 
 
     @Override public void openRuleCreationScreen() {
-        Intent intent = new Intent(this.getContext(), RuleDetailsActivity.class);
+        Intent intent = new Intent(this.getContext(), PlaylistsActivity.class);
         startActivity(intent);
     }
 
