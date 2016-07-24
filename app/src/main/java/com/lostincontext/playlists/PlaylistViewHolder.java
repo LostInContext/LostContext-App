@@ -1,6 +1,5 @@
 package com.lostincontext.playlists;
 
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +31,8 @@ import com.lostincontext.data.playlist.PlaylistPicker;
 import com.lostincontext.databinding.ItemPlaylistBinding;
 
 import java.util.List;
+
+import static com.lostincontext.utils.Colors.animateColor;
 
 public class PlaylistViewHolder extends ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
 
@@ -159,43 +160,26 @@ public class PlaylistViewHolder extends ViewHolder implements RequestListener<Pl
         Swatch swatch = getSwatch(palette);
         if (swatch == null) return;
         if (shouldAnimate) {
-            ValueAnimator textAnimator = ValueAnimator.ofArgb(binding.itemTitle.getCurrentTextColor(),
-                                                              swatch.getTitleTextColor());
-            textAnimator.setDuration(animationDuration);
-            textAnimator.setInterpolator(interpolator);
-            textAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    int animatedValue = (Integer) valueAnimator.getAnimatedValue();
-                    binding.itemInfo.setTextColor(animatedValue);
-                    binding.itemTitle.setTextColor(animatedValue);
-                }
-            });
-            textAnimator.start();
 
+            animateColor(binding.itemInfo,
+                         binding.itemInfo.getCurrentTextColor(),
+                         swatch.getTitleTextColor(),
+                         animationDuration,
+                         interpolator);
 
-            ValueAnimator iconAnimator = ValueAnimator.ofArgb(defaultIconColor,
-                                                              swatch.getTitleTextColor());
+            animateColor(binding.itemTitle,
+                         binding.itemTitle.getCurrentTextColor(),
+                         swatch.getTitleTextColor(),
+                         animationDuration,
+                         interpolator);
 
-            iconAnimator.setDuration(animationDuration);
-            iconAnimator.setInterpolator(interpolator);
-            iconAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    binding.deezerLogo.setColorFilter((Integer) valueAnimator.getAnimatedValue(),
-                                                      MODE);
-                }
-            });
-            iconAnimator.start();
+            binding.deezerLogo.setColorFilter(swatch.getTitleTextColor(), MODE);
 
-            ValueAnimator backgroundAnimator = ValueAnimator.ofArgb(defaultBackgroundColor,
-                                                                    swatch.getRgb());
-            backgroundAnimator.setDuration(animationDuration);
-            backgroundAnimator.setInterpolator(interpolator);
-            backgroundAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    binding.textBackground.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
-                }
-            });
-            backgroundAnimator.start();
+            animateColor(binding.textBackground,
+                         defaultBackgroundColor,
+                         swatch.getRgb(),
+                         animationDuration,
+                         interpolator);
 
         } else {
             binding.itemInfo.setTextColor(swatch.getTitleTextColor());

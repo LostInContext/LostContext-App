@@ -1,6 +1,5 @@
 package com.lostincontext.mainscreen;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
@@ -28,6 +27,8 @@ import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.ItemRuleBinding;
 
 import java.util.List;
+
+import static com.lostincontext.utils.Colors.animateColor;
 
 public class MainScreenViewHolder extends ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
 
@@ -118,12 +119,19 @@ public class MainScreenViewHolder extends ViewHolder implements RequestListener<
 
     //region requestListener
     @Override
-    public boolean onException(Exception e, Playlist model, Target<PaletteBitmap> target, boolean isFirstResource) {
+    public boolean onException(Exception e,
+                               Playlist model,
+                               Target<PaletteBitmap> target,
+                               boolean isFirstResource) {
         return false;
     }
 
     @Override
-    public boolean onResourceReady(PaletteBitmap resource, Playlist model, Target<PaletteBitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+    public boolean onResourceReady(PaletteBitmap resource,
+                                   Playlist model,
+                                   Target<PaletteBitmap> target,
+                                   boolean isFromMemoryCache,
+                                   boolean isFirstResource) {
         applyPalette(resource, !isFromMemoryCache);
         return false;
     }
@@ -135,41 +143,18 @@ public class MainScreenViewHolder extends ViewHolder implements RequestListener<
         Palette.Swatch swatch = getSwatch(palette);
         if (swatch == null) return;
         if (shouldAnimate) {
-            ValueAnimator textAnimator = ValueAnimator.ofArgb(binding.itemTitle.getCurrentTextColor(),
-                                                              swatch.getTitleTextColor());
-            textAnimator.setDuration(animationDuration);
-            textAnimator.setInterpolator(interpolator);
-            textAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    int animatedValue = (Integer) valueAnimator.getAnimatedValue();
-                    binding.itemTitle.setTextColor(animatedValue);
-                }
-            });
-            textAnimator.start();
 
+            animateColor(binding.itemTitle,
+                         binding.itemTitle.getCurrentTextColor(),
+                         swatch.getTitleTextColor(),
+                         animationDuration,
+                         interpolator);
 
-            ValueAnimator iconAnimator = ValueAnimator.ofArgb(defaultIconColor,
-                                                              swatch.getBodyTextColor());
-
-            iconAnimator.setDuration(animationDuration);
-            iconAnimator.setInterpolator(interpolator);
-            iconAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-
-                }
-            });
-            iconAnimator.start();
-
-            ValueAnimator backgroundAnimator = ValueAnimator.ofArgb(defaultBackgroundColor,
-                                                                    swatch.getRgb());
-            backgroundAnimator.setDuration(animationDuration);
-            backgroundAnimator.setInterpolator(interpolator);
-            backgroundAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    binding.textBackground.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
-                }
-            });
-            backgroundAnimator.start();
+            animateColor(binding.textBackground,
+                         defaultBackgroundColor,
+                         swatch.getRgb(),
+                         animationDuration,
+                         interpolator);
 
         } else {
             binding.itemTitle.setTextColor(swatch.getTitleTextColor());
