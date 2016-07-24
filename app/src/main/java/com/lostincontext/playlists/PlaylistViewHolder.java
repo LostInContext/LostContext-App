@@ -181,6 +181,12 @@ public class PlaylistViewHolder extends ViewHolder implements RequestListener<Pl
                          animationDuration,
                          interpolator);
 
+            animateColor(binding.deezerLogo.getDrawable(),
+                         defaultBackgroundColor,
+                         swatch.getRgb(),
+                         animationDuration,
+                         interpolator);
+
         } else {
             binding.itemInfo.setTextColor(swatch.getTitleTextColor());
             binding.itemTitle.setTextColor(swatch.getTitleTextColor());

@@ -20,13 +20,11 @@ public class Colors {
                                     final @ColorInt int to,
                                     long duration,
                                     @Nullable Interpolator interpolator) {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
+
+        ValueAnimator valueAnimator = ValueAnimator.ofArgb(from, to);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float fraction = valueAnimator.getAnimatedFraction();
-                @ColorInt int blendedColor;
-                blendedColor = blendColors(from, to, fraction);
-                view.setBackgroundColor(blendedColor);
+                view.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
             }
         });
         startAnimateColor(valueAnimator, duration, interpolator);
@@ -38,13 +36,10 @@ public class Colors {
                                     final @ColorInt int to,
                                     long duration,
                                     @Nullable Interpolator interpolator) {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
+        ValueAnimator valueAnimator = ValueAnimator.ofArgb(from, to);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float fraction = valueAnimator.getAnimatedFraction();
-                @ColorInt int blendedColor;
-                blendedColor = blendColors(from, to, fraction);
-                textView.setTextColor(blendedColor);
+                textView.setTextColor((Integer) valueAnimator.getAnimatedValue());
             }
         });
         startAnimateColor(valueAnimator, duration, interpolator);
@@ -56,13 +51,10 @@ public class Colors {
                                     long duration,
                                     @Nullable Interpolator interpolator) {
 
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
+        ValueAnimator valueAnimator = ValueAnimator.ofArgb(from, to);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float fraction = valueAnimator.getAnimatedFraction();
-                @ColorInt int blendedColor;
-                blendedColor = blendColors(from, to, fraction);
-                imageView.setImageTintList(ColorStateList.valueOf(blendedColor));
+                imageView.setImageTintList(ColorStateList.valueOf((Integer) valueAnimator.getAnimatedValue()));
             }
         });
         startAnimateColor(valueAnimator, duration, interpolator);
@@ -73,13 +65,10 @@ public class Colors {
                                     final @ColorInt int to,
                                     long duration,
                                     @Nullable Interpolator interpolator) {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1);
+        ValueAnimator valueAnimator = ValueAnimator.ofArgb(from, to);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float fraction = valueAnimator.getAnimatedFraction();
-                @ColorInt int blendedColor;
-                blendedColor = blendColors(from, to, fraction);
-                drawable.setTint(blendedColor);
+                drawable.setTint((Integer) valueAnimator.getAnimatedValue());
             }
         });
         startAnimateColor(valueAnimator, duration, interpolator);
