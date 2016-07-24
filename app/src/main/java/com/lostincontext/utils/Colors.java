@@ -15,11 +15,11 @@ import android.widget.TextView;
 public class Colors {
 
 
-    public static void animateColor(final View view,
-                                    final @ColorInt int from,
-                                    final @ColorInt int to,
-                                    long duration,
-                                    @Nullable Interpolator interpolator) {
+    public static void animateBackgroundColor(final View view,
+                                              final @ColorInt int from,
+                                              final @ColorInt int to,
+                                              long duration,
+                                              @Nullable Interpolator interpolator) {
 
         ValueAnimator valueAnimator = ValueAnimator.ofArgb(from, to);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -31,11 +31,11 @@ public class Colors {
     }
 
 
-    public static void animateColor(final TextView textView,
-                                    final @ColorInt int from,
-                                    final @ColorInt int to,
-                                    long duration,
-                                    @Nullable Interpolator interpolator) {
+    public static void animateTextColor(final TextView textView,
+                                        final @ColorInt int from,
+                                        final @ColorInt int to,
+                                        long duration,
+                                        @Nullable Interpolator interpolator) {
         ValueAnimator valueAnimator = ValueAnimator.ofArgb(from, to);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -45,11 +45,11 @@ public class Colors {
         startAnimateColor(valueAnimator, duration, interpolator);
     }
 
-    public static void animateColor(final ImageView imageView,
-                                    final @ColorInt int from,
-                                    final @ColorInt int to,
-                                    long duration,
-                                    @Nullable Interpolator interpolator) {
+    public static void animateImageTint(final ImageView imageView,
+                                        final @ColorInt int from,
+                                        final @ColorInt int to,
+                                        long duration,
+                                        @Nullable Interpolator interpolator) {
 
         ValueAnimator valueAnimator = ValueAnimator.ofArgb(from, to);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -60,11 +60,11 @@ public class Colors {
         startAnimateColor(valueAnimator, duration, interpolator);
     }
 
-    public static void animateColor(final Drawable drawable,
-                                    final @ColorInt int from,
-                                    final @ColorInt int to,
-                                    long duration,
-                                    @Nullable Interpolator interpolator) {
+    public static void animateDrawableTint(final Drawable drawable,
+                                           final @ColorInt int from,
+                                           final @ColorInt int to,
+                                           long duration,
+                                           @Nullable Interpolator interpolator) {
         ValueAnimator valueAnimator = ValueAnimator.ofArgb(from, to);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {

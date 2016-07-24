@@ -3,7 +3,6 @@ package com.lostincontext.mainscreen;
 import android.content.Context;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.graphics.Palette;
 import android.view.LayoutInflater;
@@ -28,7 +27,9 @@ import com.lostincontext.databinding.ItemRuleBinding;
 
 import java.util.List;
 
-import static com.lostincontext.utils.Colors.animateColor;
+import static android.support.v4.content.ContextCompat.getColor;
+import static com.lostincontext.utils.Colors.animateBackgroundColor;
+import static com.lostincontext.utils.Colors.animateTextColor;
 
 public class MainScreenViewHolder extends ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
 
@@ -72,10 +73,10 @@ public class MainScreenViewHolder extends ViewHolder implements RequestListener<
         this.target = new PaletteImageViewTarget(binding.image);
         this.defaultTextColor = binding.itemTitle.getCurrentTextColor();
         Context context = binding.getRoot().getContext();
-        this.defaultBackgroundColor = ContextCompat.getColor(context,
-                                                             R.color.playlist_text_default_background);
-        this.defaultIconColor = ContextCompat.getColor(context,
-                                                       R.color.playlist_icon_default_filter);
+        this.defaultBackgroundColor = getColor(context,
+                                               R.color.playlist_text_default_background);
+        this.defaultIconColor = getColor(context,
+                                         R.color.playlist_icon_default_color);
 
         this.transcoder = new PaletteBitmapTranscoder(context);
         this.animationDuration = context.getResources().getInteger(android.R.integer.config_longAnimTime);
@@ -144,17 +145,17 @@ public class MainScreenViewHolder extends ViewHolder implements RequestListener<
         if (swatch == null) return;
         if (shouldAnimate) {
 
-            animateColor(binding.itemTitle,
-                         binding.itemTitle.getCurrentTextColor(),
-                         swatch.getTitleTextColor(),
-                         animationDuration,
-                         interpolator);
+            animateTextColor(binding.itemTitle,
+                             binding.itemTitle.getCurrentTextColor(),
+                             swatch.getTitleTextColor(),
+                             animationDuration,
+                             interpolator);
 
-            animateColor(binding.textBackground,
-                         defaultBackgroundColor,
-                         swatch.getRgb(),
-                         animationDuration,
-                         interpolator);
+            animateBackgroundColor(binding.textBackground,
+                                   defaultBackgroundColor,
+                                   swatch.getRgb(),
+                                   animationDuration,
+                                   interpolator);
 
         } else {
             binding.itemTitle.setTextColor(swatch.getTitleTextColor());

@@ -3,10 +3,9 @@ package com.lostincontext.playlists;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
+import android.content.res.ColorStateList;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.graphics.Palette;
 import android.support.v7.graphics.Palette.Swatch;
@@ -32,12 +31,13 @@ import com.lostincontext.databinding.ItemPlaylistBinding;
 
 import java.util.List;
 
-import static com.lostincontext.utils.Colors.animateColor;
+import static android.support.v4.content.ContextCompat.getColor;
+import static com.lostincontext.utils.Colors.animateBackgroundColor;
+import static com.lostincontext.utils.Colors.animateDrawableTint;
+import static com.lostincontext.utils.Colors.animateTextColor;
 
 public class PlaylistViewHolder extends ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
 
-
-    public static final PorterDuff.Mode MODE = PorterDuff.Mode.SRC_ATOP;
 
     public interface Callback {
         void onDeezerLogoClick(Playlist playlist);
@@ -81,10 +81,10 @@ public class PlaylistViewHolder extends ViewHolder implements RequestListener<Pl
         this.target = new PaletteImageViewTarget(binding.image);
         this.defaultTextColor = binding.itemTitle.getCurrentTextColor();
         Context context = binding.getRoot().getContext();
-        this.defaultBackgroundColor = ContextCompat.getColor(context,
-                                                             R.color.playlist_text_default_background);
-        this.defaultIconColor = ContextCompat.getColor(context,
-                                                       R.color.playlist_icon_default_filter);
+        this.defaultBackgroundColor = getColor(context,
+                                               R.color.playlist_text_default_background);
+        this.defaultIconColor = getColor(context,
+                                         R.color.playlist_icon_default_color);
 
         this.transcoder = new PaletteBitmapTranscoder(context);
         this.animationDuration = context.getResources().getInteger(android.R.integer.config_longAnimTime);
@@ -119,7 +119,7 @@ public class PlaylistViewHolder extends ViewHolder implements RequestListener<Pl
         binding.textBackground.setBackgroundColor(defaultBackgroundColor);
         binding.itemInfo.setTextColor(defaultTextColor);
         binding.itemTitle.setTextColor(defaultTextColor);
-        binding.deezerLogo.setColorFilter(defaultIconColor, MODE);
+        binding.deezerLogo.setImageTintList(ColorStateList.valueOf(defaultIconColor));
 
         Glide.with(binding.getRoot().getContext())
                 .load(playlist)
@@ -161,37 +161,35 @@ public class PlaylistViewHolder extends ViewHolder implements RequestListener<Pl
         if (swatch == null) return;
         if (shouldAnimate) {
 
-            animateColor(binding.itemInfo,
-                         binding.itemInfo.getCurrentTextColor(),
-                         swatch.getTitleTextColor(),
-                         animationDuration,
-                         interpolator);
+            animateTextColor(binding.itemInfo,
+                             binding.itemInfo.getCurrentTextColor(),
+                             swatch.getTitleTextColor(),
+                             animationDuration,
+                             interpolator);
 
-            animateColor(binding.itemTitle,
-                         binding.itemTitle.getCurrentTextColor(),
-                         swatch.getTitleTextColor(),
-                         animationDuration,
-                         interpolator);
+            animateTextColor(binding.itemTitle,
+                             binding.itemTitle.getCurrentTextColor(),
+                             swatch.getTitleTextColor(),
+                             animationDuration,
+                             interpolator);
 
-            binding.deezerLogo.setColorFilter(swatch.getTitleTextColor(), MODE);
+            animateBackgroundColor(binding.textBackground,
+                                   defaultBackgroundColor,
+                                   swatch.getRgb(),
+                                   animationDuration,
+                                   interpolator);
 
-            animateColor(binding.textBackground,
-                         defaultBackgroundColor,
-                         swatch.getRgb(),
-                         animationDuration,
-                         interpolator);
-
-            animateColor(binding.deezerLogo.getDrawable(),
-                         defaultBackgroundColor,
-                         swatch.getRgb(),
-                         animationDuration,
-                         interpolator);
+            animateDrawableTint(binding.deezerLogo.getDrawable(),
+                                defaultBackgroundColor,
+                                swatch.getBodyTextColor(),
+                                animationDuration,
+                                interpolator);
 
         } else {
             binding.itemInfo.setTextColor(swatch.getTitleTextColor());
             binding.itemTitle.setTextColor(swatch.getTitleTextColor());
             binding.textBackground.setBackgroundColor(swatch.getRgb());
-            binding.deezerLogo.setColorFilter(swatch.getTitleTextColor(), MODE);
+            binding.deezerLogo.setImageTintList(ColorStateList.valueOf(swatch.getBodyTextColor()));
         }
 
     }
