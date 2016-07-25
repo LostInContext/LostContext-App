@@ -11,13 +11,20 @@ import java.util.List;
 public class PlaylistsContract {
 
 
+    public static final String EXTRA_PLAYLIST = "playlist";
+
     interface View extends BaseView<PlaylistsContract.Presenter> {
 
         void setPlaylists(List<Playlist> playlists);
 
+        void openDeezerFor(Playlist playlist);
+
+        void returnResult(Playlist playlist);
     }
 
-    interface Presenter extends BasePresenter, EmptyListCallback {
+    interface Presenter extends BasePresenter,
+                                EmptyListCallback,
+                                PlaylistViewHolder.Callback {
 
         @Override void start();
 

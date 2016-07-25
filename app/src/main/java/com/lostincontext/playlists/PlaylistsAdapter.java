@@ -17,10 +17,13 @@ public class PlaylistsAdapter extends StatefulAdapter {
 
     private List<Playlist> playlists;
 
+    private PlaylistViewHolder.Callback itemCallback;
     private EmptyListCallback emptyListCallback;
 
-    public PlaylistsAdapter(EmptyListCallback emptyListCallback) {
+    public PlaylistsAdapter(PlaylistViewHolder.Callback itemCallback,
+                            EmptyListCallback emptyListCallback) {
         super(ContentState.LOADING);
+        this.itemCallback = itemCallback;
         this.emptyListCallback = emptyListCallback;
     }
 
@@ -29,7 +32,7 @@ public class PlaylistsAdapter extends StatefulAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case R.id.view_type_standard:
-                return PlaylistViewHolder.create(layoutInflater, parent);
+                return PlaylistViewHolder.create(layoutInflater, parent, itemCallback);
 
             case R.id.view_type_loading:
                 return buildLoadingViewHolder(layoutInflater, parent);

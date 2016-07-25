@@ -1,8 +1,6 @@
 package com.lostincontext.playlists;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
@@ -18,15 +16,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.Target;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.lostincontext.PlaylistLauncher;
 import com.lostincontext.R;
 import com.lostincontext.commons.images.palette.PaletteBitmap;
 import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder;
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget;
 import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.data.playlist.Playlist;
-import com.lostincontext.data.playlist.PlaylistPicker;
 import com.lostincontext.databinding.ItemPlaylistBinding;
 
 import java.util.List;
@@ -70,14 +65,16 @@ public class PlaylistViewHolder extends ViewHolder implements RequestListener<Pl
         }
     };
 
-    public static PlaylistViewHolder create(LayoutInflater layoutInflater, ViewGroup parent) {
+    public static PlaylistViewHolder create(LayoutInflater layoutInflater, ViewGroup parent, Callback itemCallback) {
         ItemPlaylistBinding binding = ItemPlaylistBinding.inflate(layoutInflater, parent, false);
-        return new PlaylistViewHolder(binding);
+        return new PlaylistViewHolder(binding, itemCallback);
     }
 
-    public PlaylistViewHolder(final ItemPlaylistBinding binding) {
+    public PlaylistViewHolder(final ItemPlaylistBinding binding,
+                              Callback itemCallback) {
         super(binding.getRoot());
         this.binding = binding;
+        binding.setCallback(itemCallback);
         this.target = new PaletteImageViewTarget(binding.image);
         this.defaultTextColor = binding.itemTitle.getCurrentTextColor();
         Context context = binding.getRoot().getContext();
@@ -95,26 +92,6 @@ public class PlaylistViewHolder extends ViewHolder implements RequestListener<Pl
     public void bindTo(Playlist playlist) {
 
         binding.setPlaylist(playlist);
-
-        binding.setCallback(new Callback() {
-            @Override public void onDeezerLogoClick(Playlist playlist) {
-                PlaylistLauncher launcher = new PlaylistLauncher();
-                launcher.launchPlaylist(binding.getRoot().getContext(), playlist);
-            }
-
-            @Override public void onItemClick(Playlist playlist) {
-
-                try {
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("playlist", new PlaylistPicker(playlist).serialize());
-                    ((Activity) binding.getRoot().getContext()).setResult(Activity.RESULT_OK, returnIntent);
-                    ((Activity) binding.getRoot().getContext()).finish();
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
 
         binding.textBackground.setBackgroundColor(defaultBackgroundColor);
         binding.itemInfo.setTextColor(defaultTextColor);

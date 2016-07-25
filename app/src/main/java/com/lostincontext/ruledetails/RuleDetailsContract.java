@@ -16,6 +16,9 @@ public class RuleDetailsContract {
 
         void displayFenceChoice();
 
+        void notifyItemAdded(int position);
+
+        void pickAPlaylist();
     }
 
 

@@ -29,4 +29,12 @@ public class PlaylistsPresenter implements PlaylistsContract.Presenter {
     @Override public void onRefreshButtonClick() {
 
     }
+
+    @Override public void onDeezerLogoClick(Playlist playlist) {
+        view.openDeezerFor(playlist);
+    }
+
+    @Override public void onItemClick(Playlist playlist) {
+        view.returnResult(playlist);
+    }
 }

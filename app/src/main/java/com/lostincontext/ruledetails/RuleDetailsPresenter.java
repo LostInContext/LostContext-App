@@ -1,11 +1,13 @@
 package com.lostincontext.ruledetails;
 
-import android.util.Log;
-
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.FenceCreator;
 import com.lostincontext.data.GridBottomSheetItem;
+import com.lostincontext.data.rules.DetectedActivityFenceVM;
+import com.lostincontext.data.rules.FenceVM;
+import com.lostincontext.data.rules.HeadphoneFenceVM;
+import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.pick.BottomSheetItemSection;
 
 import java.util.ArrayList;
@@ -106,26 +108,52 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
     }
 
     @Override public void onGridBottomSheetItemClick(GridBottomSheetItem item) {
-       switch (item.picker) {
+        switch (item.picker) {
 
-           case WALK:
-               break;
-           case RUN:
-               break;
-           case BIKE:
-               break;
-           case CAR:
-               break;
-           case PLUG_IN:
-               break;
-           case PLUG_OUT:
-               break;
-           case HOME:
-               break;
-           case WORK:
-               break;
-           case PLAYLIST:
-               break;
-       }
+            case WALK:
+            case RUN:
+            case BIKE:
+            case CAR:
+            case PLUG_IN:
+            case PLUG_OUT:
+                FenceItem fenceItem = FenceItem.createFromPick(item, getFenceVMForPick(item));
+                items.add(fenceItem);
+                view.notifyItemAdded(items.indexOf(fenceItem));
+
+                break;
+            case HOME:
+                break;
+            case WORK:
+                break;
+            case PLAYLIST:
+                view.pickAPlaylist();
+                break;
+        }
+    }
+
+    private FenceVM getFenceVMForPick(GridBottomSheetItem pick) {
+        switch (pick.picker) {
+
+            case WALK:
+                return new DetectedActivityFenceVM(DetectedActivityFenceVM.Type.WALKING,
+                                                   DetectedActivityFenceVM.State.DURING);
+
+            case RUN:
+                return new DetectedActivityFenceVM(DetectedActivityFenceVM.Type.RUNNING,
+                                                   DetectedActivityFenceVM.State.DURING);
+            case BIKE:
+                return new DetectedActivityFenceVM(DetectedActivityFenceVM.Type.ON_BICYCLE,
+                                                   DetectedActivityFenceVM.State.DURING);
+            case CAR:
+                return new DetectedActivityFenceVM(DetectedActivityFenceVM.Type.IN_VEHICLE,
+                                                   DetectedActivityFenceVM.State.DURING);
+
+            case PLUG_IN:
+                return new HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_IN);
+
+            case PLUG_OUT:
+                return new HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_OUT);
+        }
+        throw new RuntimeException("surprise !");
     }
 }
