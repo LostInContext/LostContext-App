@@ -19,6 +19,7 @@ import com.lostincontext.playlists.PlaylistsActivity;
 
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 import static com.lostincontext.playlists.PlaylistsContract.EXTRA_PLAYLIST;
 
@@ -92,8 +93,10 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Playlist playlist = data.getParcelableExtra(EXTRA_PLAYLIST);
-        Log.d(TAG, "onActivityResult: playlist : " + playlist);
-        Log.d(TAG, "onActivityResult() called with: " + "requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
+        if (requestCode == PLAYLIST_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
+            Playlist playlist = data.getParcelableExtra(EXTRA_PLAYLIST);
+            presenter.onPlaylistPicked(playlist);
+        }
+
     }
 }

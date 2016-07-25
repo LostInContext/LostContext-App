@@ -4,6 +4,7 @@ import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.FenceCreator;
 import com.lostincontext.data.GridBottomSheetItem;
+import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.DetectedActivityFenceVM;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
@@ -107,6 +108,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
                                       mediaPickSection);
     }
 
+
     @Override public void onGridBottomSheetItemClick(GridBottomSheetItem item) {
         switch (item.picker) {
 
@@ -155,5 +157,9 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
                 return new HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_OUT);
         }
         throw new RuntimeException("surprise !");
+    }
+
+    @Override public void onPlaylistPicked(Playlist playlist) {
+        
     }
 }
