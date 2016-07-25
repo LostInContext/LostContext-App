@@ -7,7 +7,7 @@
 
         <variable
             name="callback"
-            type="com.lostincontext.rulescreation.display.RuleCreationItemCallback" />
+            type="com.lostincontext.ruledetails.pick.PickerDialogCallback" />
 
         <variable
             name="item"

@@ -16,7 +16,7 @@ public class BottomSheetGridItemViewHolder extends ViewHolder {
 
     public static BottomSheetGridItemViewHolder create(LayoutInflater inflater,
                                                        ViewGroup parent,
-                                                       RuleCreationItemCallback callback) {
+                                                       PickerDialogCallback callback) {
         ItemBottomSheetGridBinding itemBinding = ItemBottomSheetGridBinding.inflate(inflater,
                                                                                     parent,
                                                                                     false);
@@ -25,7 +25,7 @@ public class BottomSheetGridItemViewHolder extends ViewHolder {
 
 
     public BottomSheetGridItemViewHolder(ItemBottomSheetGridBinding binding,
-                                         RuleCreationItemCallback callback) {
+                                         PickerDialogCallback callback) {
         super(binding.getRoot());
         this.binding = binding;
         binding.setCallback(callback);

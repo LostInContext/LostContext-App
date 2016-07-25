@@ -1,7 +1,6 @@
 package com.lostincontext.ruledetails.pick;
 
 
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import com.lostincontext.R;
 import com.lostincontext.commons.list.Adapter;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.commons.list.ViewHolder;
-import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
 import com.lostincontext.rulescreation.display.SectionViewHolder;
 
 import java.util.List;
@@ -19,13 +17,12 @@ public class RulePickAdapter extends Adapter<ViewHolder> {
 
     private static final String TAG = RulePickAdapter.class.getSimpleName();
 
-
-    private RuleCreationItemCallback callback;
+    private PickerDialogCallback callback;
     int count;
 
     private List<Section> sections;
 
-    public RulePickAdapter(RuleCreationItemCallback callback) {
+    public RulePickAdapter(PickerDialogCallback callback) {
 
         this.callback = callback;
     }

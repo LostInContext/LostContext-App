@@ -1,11 +1,9 @@
 package com.lostincontext.ruledetails;
 
 
-import android.app.Dialog;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,12 +14,17 @@ import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
+import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.databinding.RuleDetailsBottomSheetBinding;
+import com.lostincontext.ruledetails.pick.PickerDialogCallback;
 import com.lostincontext.ruledetails.pick.RulePickAdapter;
 
 import java.util.List;
 
-public class PickerDialogFragment extends BottomSheetDialogFragment {
+
+// todo handle rotations
+public class PickerDialogFragment extends BottomSheetDialogFragment implements PickerDialogCallback {
+
 
 
     public static PickerDialogFragment newInstance() {
@@ -32,10 +35,6 @@ public class PickerDialogFragment extends BottomSheetDialogFragment {
     private RulePickAdapter adapter;
 
     RuleDetailsContract.Presenter callback;
-
-    @NonNull @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
-    }
 
 
     @Nullable @Override
@@ -53,7 +52,7 @@ public class PickerDialogFragment extends BottomSheetDialogFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), span);
         recyclerView.setLayoutManager(layoutManager);
         int space = resources.getDimensionPixelSize(R.dimen.grid_spacing);
-        adapter = new RulePickAdapter(callback);
+        adapter = new RulePickAdapter(this);
 
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override public int getSpanSize(int position) {
@@ -74,11 +73,15 @@ public class PickerDialogFragment extends BottomSheetDialogFragment {
         adapter.setSections(sections);
 
         return binding.getRoot();
-
     }
 
     public void registerCallback(RuleDetailsContract.Presenter callback) {
         this.callback = callback;
+    }
+
+    @Override public void onGridBottomSheetItemClick(GridBottomSheetItem item) {
+        dismiss();
+        callback.onGridBottomSheetItemClick(item);
     }
 
 }
