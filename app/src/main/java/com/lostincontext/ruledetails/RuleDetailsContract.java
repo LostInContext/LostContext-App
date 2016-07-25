@@ -12,12 +12,15 @@ public class RuleDetailsContract {
 
     interface View extends BaseView<Presenter> {
 
-        void setSections(List<Section> sections);
+        void setItems(List<RuleDetailsItem> items);
+
+        void displayFenceChoice();
 
     }
 
 
     interface Presenter extends BasePresenter, RuleCreationItemCallback {
 
+        List<Section>  provideFenceChoices();
     }
 }

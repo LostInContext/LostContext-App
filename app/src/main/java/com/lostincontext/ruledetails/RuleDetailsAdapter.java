@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.data.FenceCreator;
+import com.lostincontext.ruledetails.items.PlaylistPicker;
+import com.lostincontext.rulescreation.display.PlaylistPickViewHolder;
 import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
 import com.lostincontext.rulescreation.display.RuleCreatorViewHolder;
 
@@ -35,6 +37,9 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case R.id.view_type_plus:
                 return PlusButtonViewHolder.create(layoutInflater, parent, callback);
 
+            case R.id.view_type_playlist_picker:
+                return PlaylistPickViewHolder.create(layoutInflater, parent, callback);
+
         }
 
         throw new RuntimeException("unknown viewType");
@@ -49,8 +54,12 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case R.id.view_type_plus:
                 break;
             case R.id.view_type_rule_creator:
-                ((RuleCreatorViewHolder) holder).bindTo((FenceCreator) item);
+                ((RuleCreatorViewHolder) holder).bindTo((FenceCreator) item); // todo remove ?
                 break;
+            case R.id.view_type_playlist_picker:
+                ((PlaylistPickViewHolder) holder).bindTo((PlaylistPicker) item);
+                break;
+
 
         }
 

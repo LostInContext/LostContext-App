@@ -33,7 +33,7 @@ import java.util.List;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.lostincontext.utils.Colors.animateBackgroundColor;
-import static com.lostincontext.utils.Colors.animateDrawableTint;
+import static com.lostincontext.utils.Colors.animateImageTint;
 import static com.lostincontext.utils.Colors.animateTextColor;
 
 public class PlaylistViewHolder extends ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
@@ -179,11 +179,11 @@ public class PlaylistViewHolder extends ViewHolder implements RequestListener<Pl
                                    animationDuration,
                                    interpolator);
 
-            animateDrawableTint(binding.deezerLogo.getDrawable(),
-                                defaultBackgroundColor,
-                                swatch.getBodyTextColor(),
-                                animationDuration,
-                                interpolator);
+            animateImageTint(binding.deezerLogo,
+                             defaultBackgroundColor,
+                             swatch.getBodyTextColor(),
+                             animationDuration,
+                             interpolator);
 
         } else {
             binding.itemInfo.setTextColor(swatch.getTitleTextColor());

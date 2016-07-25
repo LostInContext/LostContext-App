@@ -9,5 +9,6 @@
     <item name="view_type_rule_creator" type="id" />
     <item name="view_type_playlist_picker" type="id" />
     <item name="view_type_plus" type="id" />
+    <item name="view_type_grid_bottom_sheet_item" type="id" />
 
 </resources>

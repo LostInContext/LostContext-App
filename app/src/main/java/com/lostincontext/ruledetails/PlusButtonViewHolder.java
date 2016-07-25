@@ -24,7 +24,7 @@ public class PlusButtonViewHolder extends RecyclerView.ViewHolder {
     private PlusButtonViewHolder(ItemPlusButtonBinding itemBinding,
                                  RuleCreationItemCallback callback) {
         super(itemBinding.getRoot());
-        // itemBinding.setCallback(callback);
+        itemBinding.setCallback(callback);
         this.itemBinding = itemBinding;
     }
 

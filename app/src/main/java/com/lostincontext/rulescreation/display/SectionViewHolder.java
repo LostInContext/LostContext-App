@@ -1,14 +1,14 @@
 package com.lostincontext.rulescreation.display;
 
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.lostincontext.commons.list.Section;
+import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.databinding.ItemSectionHeaderBinding;
 
-public class SectionViewHolder extends RecyclerView.ViewHolder {
+public class SectionViewHolder extends ViewHolder {
 
 
     private ItemSectionHeaderBinding binding;
