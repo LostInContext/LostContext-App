@@ -11,5 +11,7 @@
     <item name="view_type_plus" type="id" />
     <item name="view_type_grid_bottom_sheet_item" type="id" />
     <item name="view_type_fence_item" type="id" />
+    <item name="view_type_if" type="id" />
+    <item name="view_type_link" type="id" />
 
 </resources>

@@ -20,12 +20,18 @@ public class RuleDetailsContract {
         void notifyItemAdded(int position);
 
         void pickAPlaylist();
+
+        void notifyItemChanged(int position);
+
+        void showPlaylist(Playlist playlist);
+
+        void notifyItemRangeInserted(int positionStart, int itemCount);
     }
 
 
     interface Presenter extends BasePresenter, RuleCreationItemCallback {
 
-        List<Section>  provideFenceChoices();
+        List<Section> provideFenceChoices();
 
         void onPlaylistPicked(Playlist playlist);
     }

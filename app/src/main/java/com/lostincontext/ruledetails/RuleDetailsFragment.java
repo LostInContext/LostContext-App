@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.lostincontext.playlists.PlaylistsActivity;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.ContentValues.TAG;
 import static com.lostincontext.playlists.PlaylistsContract.EXTRA_PLAYLIST;
 
 
@@ -79,8 +77,19 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         adapter.notifyItemInserted(position);
     }
 
-    @Override public void displayFenceChoice() {
+    @Override public void notifyItemChanged(int position) {
+        adapter.notifyItemChanged(position);
+    }
 
+    @Override public void showPlaylist(Playlist playlist) {
+        adapter.setPlaylist(playlist);
+    }
+
+    @Override public void notifyItemRangeInserted(int positionStart, int itemCount) {
+        adapter.notifyItemRangeInserted(positionStart, itemCount);
+    }
+
+    @Override public void displayFenceChoice() {
         PickerDialogFragment picker = PickerDialogFragment.newInstance();
         picker.registerCallback(presenter);
         picker.show(getFragmentManager(), "PickerDialogFragment");
