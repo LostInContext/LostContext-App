@@ -9,6 +9,7 @@ import com.lostincontext.data.rules.DetectedActivityFenceVM;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.ruledetails.items.FenceItem;
+import com.lostincontext.ruledetails.items.PlaylistPicker;
 import com.lostincontext.ruledetails.pick.BottomSheetItemSection;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
     private final RuleDetailsContract.View view;
 
     private List<RuleDetailsItem> items = new ArrayList<>();
+
+    private Playlist playlist;
 
 
     @Inject RuleDetailsPresenter(RuleDetailsContract.View view) {
@@ -102,7 +105,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
                                                                                          R.drawable.ic_music_note_24,
                                                                                          Picker.PLAYLIST));
 
-        BottomSheetItemSection mediaPickSection = new BottomSheetItemSection("pick a playlist", playlistPickers);
+        BottomSheetItemSection mediaPickSection = new BottomSheetItemSection("Pick a playlist", playlistPickers);
 
         return Arrays.<Section>asList(fencesSection,
                                       mediaPickSection);
@@ -124,7 +127,6 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
 
                 break;
             case HOME:
-                break;
             case WORK:
                 break;
             case PLAYLIST:
@@ -160,6 +162,19 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
     }
 
     @Override public void onPlaylistPicked(Playlist playlist) {
-        
+        PlaylistPicker picker = new PlaylistPicker(playlist);
+
+        if (this.playlist == null) {
+            items.add(picker);
+            view.notifyItemAdded(items.indexOf(picker));
+        } else if (this.playlist == playlist) {
+            return;
+        } else {
+            items.set(items.size() - 1, picker);
+            view.notifyItemChanged(items.indexOf(picker));
+        }
+        this.playlist = playlist;
+
+
     }
 }

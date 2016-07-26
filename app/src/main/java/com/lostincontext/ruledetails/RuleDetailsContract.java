@@ -20,6 +20,8 @@ public class RuleDetailsContract {
         void notifyItemAdded(int position);
 
         void pickAPlaylist();
+
+        void notifyItemChanged(int position);
     }
 
 

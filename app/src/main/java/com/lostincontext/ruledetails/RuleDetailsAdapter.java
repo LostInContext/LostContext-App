@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import com.lostincontext.R;
 import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.items.FenceItemViewHolder;
+import com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder;
+import com.lostincontext.ruledetails.items.PlaylistPicker;
 import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
 
 import java.util.List;
@@ -30,6 +32,8 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         switch (viewType) {
             case R.id.view_type_fence_item:
                 return FenceItemViewHolder.create(layoutInflater, parent);
+            case R.id.view_type_playlist_picker:
+                return PlaylistInEditScreenViewHolder.create(layoutInflater, parent);
 
         }
 
@@ -44,6 +48,9 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             case R.id.view_type_fence_item:
                 ((FenceItemViewHolder) holder).bindTo((FenceItem) item);
+                break;
+            case R.id.view_type_playlist_picker:
+                ((PlaylistInEditScreenViewHolder) holder).bindTo((PlaylistPicker) item);
                 break;
 
         }

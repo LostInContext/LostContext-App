@@ -23,7 +23,6 @@
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:outlineProvider="background"
             android:tint="#757575"
             app:resource="@{item.drawableRes}"
             tools:src="@drawable/ic_run_24" />

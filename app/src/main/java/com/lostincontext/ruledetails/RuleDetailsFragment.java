@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.lostincontext.playlists.PlaylistsActivity;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.ContentValues.TAG;
 import static com.lostincontext.playlists.PlaylistsContract.EXTRA_PLAYLIST;
 
 
@@ -77,6 +75,10 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
 
     @Override public void notifyItemAdded(int position) {
         adapter.notifyItemInserted(position);
+    }
+
+    @Override public void notifyItemChanged(int position) {
+        adapter.notifyItemChanged(position);
     }
 
     @Override public void displayFenceChoice() {

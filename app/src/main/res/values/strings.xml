@@ -3,4 +3,5 @@
     <string name="pick_playlist">Pick a playlist to play !</string>
     <string name="play_playlist">play %1$s</string>
     <string name="rule_name">Rule name</string>
+    <string name="then_play">Then, play :</string>
 </resources>
