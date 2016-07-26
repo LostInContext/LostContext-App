@@ -6,15 +6,17 @@ import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.lostincontext.R;
+import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.data.FenceCreator;
 import com.lostincontext.databinding.ItemSectionItemRuleCreationBinding;
 
 
-public class RuleCreatorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class RuleCreatorViewHolder extends ViewHolder implements View.OnClickListener {
 
 
     private static final float SCALE_SELECTED = 1f;
@@ -28,6 +30,16 @@ public class RuleCreatorViewHolder extends RecyclerView.ViewHolder implements Vi
 
 
     private ItemSectionItemRuleCreationBinding binding;
+
+    public static RuleCreatorViewHolder create(LayoutInflater inflater,
+                                               ViewGroup parent,
+                                               RuleCreationItemCallback callback) {
+        ItemSectionItemRuleCreationBinding itemBinding = ItemSectionItemRuleCreationBinding.inflate(inflater,
+                                                                                                    parent,
+                                                                                                    false);
+        return new RuleCreatorViewHolder(itemBinding, callback);
+    }
+
 
     public RuleCreatorViewHolder(ItemSectionItemRuleCreationBinding binding,
                                  RuleCreationItemCallback callback) {
@@ -47,7 +59,7 @@ public class RuleCreatorViewHolder extends RecyclerView.ViewHolder implements Vi
 
     }
 
-    public void setContent(FenceCreator fenceCreator) {
+    public void bindTo(FenceCreator fenceCreator) {
 
         this.fenceCreator = fenceCreator;
         binding.setItem(fenceCreator);

@@ -1,52 +1,49 @@
-package com.lostincontext.rulescreation;
+package com.lostincontext.ruledetails.pick;
 
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
+import com.lostincontext.commons.list.Adapter;
 import com.lostincontext.commons.list.Section;
-import com.lostincontext.rulescreation.display.PlaylistPickViewHolder;
-import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
-import com.lostincontext.rulescreation.display.RuleCreatorViewHolder;
+import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.rulescreation.display.SectionViewHolder;
 
 import java.util.List;
 
-public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RulePickAdapter extends Adapter<ViewHolder> {
 
-    private static final String TAG = RulesCreationAdapter.class.getSimpleName();
+    private static final String TAG = RulePickAdapter.class.getSimpleName();
 
-    private RuleCreationItemCallback callback;
+    private PickerDialogCallback callback;
     int count;
 
     private List<Section> sections;
 
-    public RulesCreationAdapter(RuleCreationItemCallback callback) {
+    public RulePickAdapter(PickerDialogCallback callback) {
 
         this.callback = callback;
     }
 
-    @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
         switch (viewType) {
             case R.id.view_type_section_header:
                 return SectionViewHolder.create(layoutInflater, parent);
 
-            case R.id.view_type_rule_creator:
-                return RuleCreatorViewHolder.create(layoutInflater, parent, callback);
+            case R.id.view_type_grid_bottom_sheet_item:
+                return BottomSheetGridItemViewHolder.create(layoutInflater, parent, callback);
 
-            case R.id.view_type_playlist_picker: {
-                return PlaylistPickViewHolder.create(layoutInflater, parent, callback);
-            }
         }
 
         return null;
     }
 
-    @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    @Override public void onBindViewHolder(ViewHolder holder, int position) {
         Section section;
         int sectionSize;
         for (int i = 0, sectionsCount = sections.size(); i < sectionsCount; i++) {
@@ -80,7 +77,6 @@ public class RulesCreationAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         throw new RuntimeException("position not found !");
     }
-
 
     @Override public int getItemCount() {
         return count;

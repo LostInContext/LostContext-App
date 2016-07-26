@@ -1,27 +1,32 @@
 package com.lostincontext.ruledetails;
 
-import android.content.res.Resources;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
-import com.lostincontext.commons.list.Section;
+import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;
-import com.lostincontext.rulescreation.RulesCreationAdapter;
+import com.lostincontext.playlists.PlaylistsActivity;
 
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
+import static com.lostincontext.playlists.PlaylistsContract.EXTRA_PLAYLIST;
 
 
 public class RuleDetailsFragment extends Fragment implements RuleDetailsContract.View {
 
+    private static final int PLAYLIST_PICKER_REQUEST_CODE = 9001;
     private RuleDetailsContract.Presenter presenter;
 
     private RuleDetailsAdapter adapter;
@@ -42,15 +47,12 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
 
         RecyclerView recyclerView = binding.recyclerView;
 
-        Resources resources = getResources();
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new RuleDetailsAdapter(presenter);
 
 
-
-
+        binding.plusButton.setCallback(presenter);
         recyclerView.setAdapter(adapter);
 
 
@@ -69,11 +71,32 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         this.presenter = presenter;
     }
 
-
-    @Override
-    public void setSections(List<Section> sections) {
-
+    @Override public void setItems(List<RuleDetailsItem> items) {
+        adapter.setItems(items);
     }
 
+    @Override public void notifyItemAdded(int position) {
+        adapter.notifyItemInserted(position);
+    }
 
+    @Override public void displayFenceChoice() {
+
+        PickerDialogFragment picker = PickerDialogFragment.newInstance();
+        picker.registerCallback(presenter);
+        picker.show(getFragmentManager(), "PickerDialogFragment");
+    }
+
+    @Override public void pickAPlaylist() {
+        Intent intent = new Intent(this.getContext(), PlaylistsActivity.class);
+        startActivityForResult(intent, PLAYLIST_PICKER_REQUEST_CODE);
+    }
+
+    @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PLAYLIST_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
+            Playlist playlist = data.getParcelableExtra(EXTRA_PLAYLIST);
+            presenter.onPlaylistPicked(playlist);
+        }
+
+    }
 }

@@ -4,7 +4,6 @@ package com.lostincontext.commons.list;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import com.lostincontext.R;
 
 import static com.lostincontext.commons.list.StatefulAdapter.ContentState.CONTENT;
 
-public abstract class StatefulAdapter extends RecyclerView.Adapter<ViewHolder> {
+public abstract class StatefulAdapter extends Adapter<ViewHolder> {
 
     public enum ContentState {
         LOADING,

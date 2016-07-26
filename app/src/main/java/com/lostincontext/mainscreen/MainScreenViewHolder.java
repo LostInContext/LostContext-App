@@ -1,15 +1,13 @@
 package com.lostincontext.mainscreen;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.graphics.Palette;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
+import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +19,7 @@ import com.lostincontext.R;
 import com.lostincontext.commons.images.palette.PaletteBitmap;
 import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder;
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget;
+import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.FenceIconGiver;
 import com.lostincontext.data.rules.Rule;
@@ -28,7 +27,11 @@ import com.lostincontext.databinding.ItemRuleBinding;
 
 import java.util.List;
 
-public class MainScreenViewHolder extends RecyclerView.ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
+import static android.support.v4.content.ContextCompat.getColor;
+import static com.lostincontext.utils.Colors.animateBackgroundColor;
+import static com.lostincontext.utils.Colors.animateTextColor;
+
+public class MainScreenViewHolder extends ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
 
     public interface Callback {
         void onPlaylistCoverClick(Playlist playlist);
@@ -45,15 +48,24 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
     private final int animationDuration;
     private final Interpolator interpolator;
 
-    ViewPropertyAnimation.Animator AlphaAnimator = new ViewPropertyAnimation.Animator() {
+    ViewPropertyAnimation.Animator alphaAnimator = new ViewPropertyAnimation.Animator() {
         @Override
         public void animate(View view) {
-            AlphaAnimation animation = new AlphaAnimation(0f, 1f);
-            animation.setDuration(animationDuration);
-            animation.setInterpolator(interpolator);
-            view.startAnimation(animation);
+            view.setAlpha(0f);
+            view.animate()
+                    .withLayer()
+                    .alpha(1f)
+                    .setDuration(animationDuration)
+                    .setInterpolator(interpolator)
+                    .start();
         }
     };
+
+    public static MainScreenViewHolder create(LayoutInflater layoutInflater,
+                                              ViewGroup parent) {
+        ItemRuleBinding binding = ItemRuleBinding.inflate(layoutInflater, parent, false);
+        return new MainScreenViewHolder(binding);
+    }
 
     public MainScreenViewHolder(final ItemRuleBinding binding) {
         super(binding.getRoot());
@@ -61,17 +73,17 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
         this.target = new PaletteImageViewTarget(binding.image);
         this.defaultTextColor = binding.itemTitle.getCurrentTextColor();
         Context context = binding.getRoot().getContext();
-        this.defaultBackgroundColor = ContextCompat.getColor(context,
-                                                             R.color.playlist_text_default_background);
-        this.defaultIconColor = ContextCompat.getColor(context,
-                                                       R.color.playlist_icon_default_filter);
+        this.defaultBackgroundColor = getColor(context,
+                                               R.color.playlist_text_default_background);
+        this.defaultIconColor = getColor(context,
+                                         R.color.playlist_icon_default_color);
 
         this.transcoder = new PaletteBitmapTranscoder(context);
         this.animationDuration = context.getResources().getInteger(android.R.integer.config_longAnimTime);
         this.interpolator = new LinearOutSlowInInterpolator();
     }
 
-    public void setContent(Rule rule) {
+    public void bindTo(Rule rule) {
 
         binding.setRule(rule);
 
@@ -89,7 +101,7 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
                 .load(rule.getPlaylist())
                 .asBitmap()
                 .transcode(transcoder, PaletteBitmap.class)
-                .animate(AlphaAnimator)
+                .animate(alphaAnimator)
                 .listener(this)
                 .into(target);
 
@@ -108,12 +120,19 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
 
     //region requestListener
     @Override
-    public boolean onException(Exception e, Playlist model, Target<PaletteBitmap> target, boolean isFirstResource) {
+    public boolean onException(Exception e,
+                               Playlist model,
+                               Target<PaletteBitmap> target,
+                               boolean isFirstResource) {
         return false;
     }
 
     @Override
-    public boolean onResourceReady(PaletteBitmap resource, Playlist model, Target<PaletteBitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+    public boolean onResourceReady(PaletteBitmap resource,
+                                   Playlist model,
+                                   Target<PaletteBitmap> target,
+                                   boolean isFromMemoryCache,
+                                   boolean isFirstResource) {
         applyPalette(resource, !isFromMemoryCache);
         return false;
     }
@@ -125,41 +144,18 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
         Palette.Swatch swatch = getSwatch(palette);
         if (swatch == null) return;
         if (shouldAnimate) {
-            ValueAnimator textAnimator = ValueAnimator.ofArgb(binding.itemTitle.getCurrentTextColor(),
-                                                              swatch.getTitleTextColor());
-            textAnimator.setDuration(animationDuration);
-            textAnimator.setInterpolator(interpolator);
-            textAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    int animatedValue = (Integer) valueAnimator.getAnimatedValue();
-                    binding.itemTitle.setTextColor(animatedValue);
-                }
-            });
-            textAnimator.start();
 
+            animateTextColor(binding.itemTitle,
+                             binding.itemTitle.getCurrentTextColor(),
+                             swatch.getTitleTextColor(),
+                             animationDuration,
+                             interpolator);
 
-            ValueAnimator iconAnimator = ValueAnimator.ofArgb(defaultIconColor,
-                                                              swatch.getBodyTextColor());
-
-            iconAnimator.setDuration(animationDuration);
-            iconAnimator.setInterpolator(interpolator);
-            iconAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-
-                }
-            });
-            iconAnimator.start();
-
-            ValueAnimator backgroundAnimator = ValueAnimator.ofArgb(defaultBackgroundColor,
-                                                                    swatch.getRgb());
-            backgroundAnimator.setDuration(animationDuration);
-            backgroundAnimator.setInterpolator(interpolator);
-            backgroundAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    binding.textBackground.setBackgroundColor((Integer) valueAnimator.getAnimatedValue());
-                }
-            });
-            backgroundAnimator.start();
+            animateBackgroundColor(binding.textBackground,
+                                   defaultBackgroundColor,
+                                   swatch.getRgb(),
+                                   animationDuration,
+                                   interpolator);
 
         } else {
             binding.itemTitle.setTextColor(swatch.getTitleTextColor());
@@ -178,5 +174,12 @@ public class MainScreenViewHolder extends RecyclerView.ViewHolder implements Req
             if (swatches.size() != 0) swatch = swatches.get(0);
         }
         return swatch;
+    }
+
+    @Override public boolean onFailedToRecycleView() {
+        binding.image.clearAnimation();
+        binding.textBackground.clearAnimation();
+        binding.itemTitle.clearAnimation();
+        return true;
     }
 }

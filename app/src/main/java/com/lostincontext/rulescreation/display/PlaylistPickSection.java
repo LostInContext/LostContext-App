@@ -18,7 +18,7 @@ public class PlaylistPickSection extends Section<PlaylistPicker> {
     }
 
     @Override protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((PlaylistPickViewHolder) holder).setContent(get(position).getPlaylist());
+        ((PlaylistPickViewHolder) holder).bindTo(get(position).getPlaylist());
 
     }
 }

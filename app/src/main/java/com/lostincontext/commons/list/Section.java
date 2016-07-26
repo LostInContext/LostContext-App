@@ -45,7 +45,7 @@ public abstract class Section<Model> {
 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (position == 0) {
-            ((SectionViewHolder) holder).setContent(this);
+            ((SectionViewHolder) holder).bindTo(this);
             return;
         }
         position--;

@@ -2,12 +2,11 @@ package com.lostincontext.commons.list;
 
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lostincontext.databinding.ItemErrorBinding;
 
-public class ErrorPlaceholderViewHolder extends RecyclerView.ViewHolder {
+public class ErrorPlaceholderViewHolder extends ViewHolder {
 
     private final ItemErrorBinding binding;
 
@@ -18,10 +17,10 @@ public class ErrorPlaceholderViewHolder extends RecyclerView.ViewHolder {
         binding.setCallback(callBack);
     }
 
-    private void setContent(@DrawableRes int errorDrawableRes,
-                            CharSequence errorText,
-                            CharSequence buttonText,
-                            @DrawableRes int buttonIcon) {
+    private void bindTo(@DrawableRes int errorDrawableRes,
+                        CharSequence errorText,
+                        CharSequence buttonText,
+                        @DrawableRes int buttonIcon) {
 
         binding.errorImage.setImageResource(errorDrawableRes);
         binding.errorText.setText(errorText);

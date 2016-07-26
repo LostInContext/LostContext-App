@@ -15,33 +15,43 @@
         android:layout_height="match_parent"
         tools:context=".ruledetails.RuleDetailsActivity">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="8dp">
 
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={rule.name}"
                     android:hint="@string/rule_name"
-                    android:inputType="textAutoComplete" />
+                    android:inputType="textAutoComplete"
+                    android:text="@={rule.name}" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_above="@+id/plus_button"
+                android:layout_below="@+id/textInputLayout" />
 
-        </LinearLayout>
+            <include
+                android:id="@+id/plus_button"
+                layout="@layout/item_plus_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true" />
+
+
+        </RelativeLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

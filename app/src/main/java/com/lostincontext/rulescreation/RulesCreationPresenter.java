@@ -6,6 +6,7 @@ import android.graphics.Color;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.FenceCreator;
+import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.data.location.LocationModel;
 import com.lostincontext.data.location.repo.LocationRepository;
 import com.lostincontext.data.playlist.Playlist;
@@ -134,6 +135,15 @@ public class RulesCreationPresenter implements RulesCreationContract.Presenter {
     @Override public void onPlaylistPickerClick() {
         view.onPlaylistPickerClick();
     }
+
+    @Override public void onPlusButtonClick() {
+
+    }
+
+    @Override public void onGridBottomSheetItemClick(GridBottomSheetItem item) {
+
+    }
+
 
     @Inject RulesCreationPresenter(RulesCreationContract.View view,
                                    LocationRepository locationRepository) {

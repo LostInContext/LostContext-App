@@ -15,6 +15,6 @@ public class FenceCreatorSection extends Section<FenceCreator> {
     }
 
     @Override protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((RuleCreatorViewHolder) holder).setContent(get(position));
+        ((RuleCreatorViewHolder) holder).bindTo(get(position));
     }
 }

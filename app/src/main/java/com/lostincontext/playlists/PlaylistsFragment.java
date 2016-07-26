@@ -1,16 +1,20 @@
 package com.lostincontext.playlists;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lostincontext.PlaylistLauncher;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.SpacesItemDecoration;
 import com.lostincontext.data.playlist.Playlist;
@@ -50,7 +54,7 @@ public class PlaylistsFragment extends Fragment implements PlaylistsContract.Vie
         int space = resources.getDimensionPixelSize(R.dimen.grid_spacing);
         recyclerView.addItemDecoration(new SpacesItemDecoration(space, span));
 
-        adapter = new PlaylistsAdapter(presenter);
+        adapter = new PlaylistsAdapter(presenter, presenter);
 
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override public int getSpanSize(int position) {
@@ -85,5 +89,19 @@ public class PlaylistsFragment extends Fragment implements PlaylistsContract.Vie
 
     @Override public void setPlaylists(List<Playlist> playlists) {
         adapter.setPlaylists(playlists);
+    }
+
+    @Override public void openDeezerFor(Playlist playlist) {
+        PlaylistLauncher launcher = new PlaylistLauncher();
+        launcher.launchPlaylist(getContext(), playlist);
+    }
+
+    @Override public void returnResult(Playlist playlist) {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("extra", "coin coin");
+        returnIntent.putExtra(PlaylistsContract.EXTRA_PLAYLIST, playlist);
+        FragmentActivity activity = getActivity();
+        activity.setResult(Activity.RESULT_OK, returnIntent);
+        activity.finish();
     }
 }

@@ -2,37 +2,37 @@ package com.lostincontext.playlists;
 
 
 import android.support.annotation.IdRes;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.commons.list.EmptyListCallback;
 import com.lostincontext.commons.list.StatefulAdapter;
+import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.data.playlist.Playlist;
-import com.lostincontext.databinding.ItemPlaylistBinding;
 
 import java.util.List;
 
 public class PlaylistsAdapter extends StatefulAdapter {
 
-
     private List<Playlist> playlists;
 
+    private PlaylistViewHolder.Callback itemCallback;
     private EmptyListCallback emptyListCallback;
 
-    public PlaylistsAdapter(EmptyListCallback emptyListCallback) {
+    public PlaylistsAdapter(PlaylistViewHolder.Callback itemCallback,
+                            EmptyListCallback emptyListCallback) {
         super(ContentState.LOADING);
+        this.itemCallback = itemCallback;
         this.emptyListCallback = emptyListCallback;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, @IdRes int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, @IdRes int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         switch (viewType) {
             case R.id.view_type_standard:
-                ItemPlaylistBinding binding = ItemPlaylistBinding.inflate(layoutInflater, parent, false);
-                return new PlaylistViewHolder(binding);
+                return PlaylistViewHolder.create(layoutInflater, parent, itemCallback);
 
             case R.id.view_type_loading:
                 return buildLoadingViewHolder(layoutInflater, parent);
@@ -48,11 +48,11 @@ public class PlaylistsAdapter extends StatefulAdapter {
         }
     }
 
-    @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    @Override public void onBindViewHolder(ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case R.id.view_type_standard:
                 PlaylistViewHolder viewHolder = (PlaylistViewHolder) holder;
-                viewHolder.setContent(playlists.get(position));
+                viewHolder.bindTo(playlists.get(position));
                 break;
 
 
