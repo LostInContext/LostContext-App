@@ -41,7 +41,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/plus_button"
-                android:layout_below="@+id/textInputLayout" />
+                android:layout_below="@+id/textInputLayout"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp" />
 
             <include
                 android:id="@+id/plus_button"

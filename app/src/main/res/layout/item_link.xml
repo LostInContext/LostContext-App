@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="linkItem"
+            name="item"
             type="com.lostincontext.ruledetails.items.LinkItem" />
 
     </data>
@@ -17,9 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@{linkItem.type.resourceId}"
+        android:text="@{item.type.resourceId}"
         tools:text="And" />
 
 

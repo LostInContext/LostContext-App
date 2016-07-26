@@ -27,6 +27,6 @@ public class LinkItemViewHolder extends ViewHolder {
     }
 
     public void bindTo(LinkItem item) {
-        binding.setLinkItem(item);
+        binding.setItem(item);
     }
 }
