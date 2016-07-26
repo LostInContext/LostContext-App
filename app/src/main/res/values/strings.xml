@@ -4,4 +4,5 @@
     <string name="play_playlist">play %1$s</string>
     <string name="rule_name">Rule name</string>
     <string name="then_play">Then, play :</string>
+    <string name="_if">If</string>
 </resources>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.lostincontext.commons.list.ViewHolder;
+import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.ItemPlaylistEditScreenBinding;
 
 public class PlaylistInEditScreenViewHolder extends ViewHolder {
@@ -26,8 +27,8 @@ public class PlaylistInEditScreenViewHolder extends ViewHolder {
         this.binding = binding;
     }
 
-    public void bindTo(PlaylistPicker playlistPicker) {
-        binding.setPlaylist(playlistPicker.getPlaylist());
+    public void bindTo(Playlist playlist) {
+        binding.setPlaylist(playlist);
     }
 
 

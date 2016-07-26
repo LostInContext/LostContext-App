@@ -9,7 +9,7 @@ import com.lostincontext.data.rules.DetectedActivityFenceVM;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.ruledetails.items.FenceItem;
-import com.lostincontext.ruledetails.items.PlaylistPicker;
+import com.lostincontext.ruledetails.items.IfItem;
 import com.lostincontext.ruledetails.pick.BottomSheetItemSection;
 
 import java.util.ArrayList;
@@ -42,7 +42,6 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
 
 
     @Override public void start() {
-        // items.add(new PlusItem());
         view.setItems(items);
     }
 
@@ -122,8 +121,10 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
             case PLUG_IN:
             case PLUG_OUT:
                 FenceItem fenceItem = FenceItem.createFromPick(item, getFenceVMForPick(item));
+                if (items.isEmpty()) items.add(new IfItem(type));
+                else items.add(new IfItem(type));
                 items.add(fenceItem);
-                view.notifyItemAdded(items.indexOf(fenceItem));
+                view.notifyItemRangeInserted(items.indexOf(fenceItem) - 1, 2);
 
                 break;
             case HOME:
@@ -162,19 +163,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
     }
 
     @Override public void onPlaylistPicked(Playlist playlist) {
-        PlaylistPicker picker = new PlaylistPicker(playlist);
-
-        if (this.playlist == null) {
-            items.add(picker);
-            view.notifyItemAdded(items.indexOf(picker));
-        } else if (this.playlist == playlist) {
-            return;
-        } else {
-            items.set(items.size() - 1, picker);
-            view.notifyItemChanged(items.indexOf(picker));
-        }
         this.playlist = playlist;
-
-
+        view.showPlaylist(playlist);
     }
 }

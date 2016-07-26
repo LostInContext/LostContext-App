@@ -81,8 +81,15 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         adapter.notifyItemChanged(position);
     }
 
-    @Override public void displayFenceChoice() {
+    @Override public void showPlaylist(Playlist playlist) {
+        adapter.setPlaylist(playlist);
+    }
 
+    @Override public void notifyItemRangeInserted(int positionStart, int itemCount) {
+        adapter.notifyItemRangeInserted(positionStart, itemCount);
+    }
+
+    @Override public void displayFenceChoice() {
         PickerDialogFragment picker = PickerDialogFragment.newInstance();
         picker.registerCallback(presenter);
         picker.show(getFragmentManager(), "PickerDialogFragment");
