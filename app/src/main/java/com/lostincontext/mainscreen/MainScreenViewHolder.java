@@ -90,7 +90,7 @@ public class MainScreenViewHolder extends ViewHolder implements RequestListener<
         binding.setCallback(new MainScreenViewHolder.Callback() {
             @Override public void onPlaylistCoverClick(Playlist playlist) {
                 PlaylistLauncher launcher = new PlaylistLauncher();
-                launcher.launchPlaylist(binding.getRoot().getContext(), playlist);
+                launcher.launchPlaylist(binding.getRoot().getContext(), playlist, false);
             }
         });
 
