@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import com.lostincontext.commons.BasePresenter;
 import com.lostincontext.commons.BaseView;
 import com.lostincontext.commons.list.EmptyListCallback;
+import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.Rule;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface MainScreenContract {
 
     interface View extends BaseView<Presenter> {
 
-        PendingIntent getPendingIntent();
+        PendingIntent getPendingIntent(Playlist playlist);
 
         void openRuleCreationScreen();
 
