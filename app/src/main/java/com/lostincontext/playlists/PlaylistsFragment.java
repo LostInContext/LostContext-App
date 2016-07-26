@@ -93,7 +93,7 @@ public class PlaylistsFragment extends Fragment implements PlaylistsContract.Vie
 
     @Override public void openDeezerFor(Playlist playlist) {
         PlaylistLauncher launcher = new PlaylistLauncher();
-        launcher.launchPlaylist(getContext(), playlist);
+        launcher.launchPlaylist(getContext(), playlist, false);
     }
 
     @Override public void returnResult(Playlist playlist) {
