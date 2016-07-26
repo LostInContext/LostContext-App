@@ -12,6 +12,8 @@ import com.lostincontext.commons.list.DummyViewHolder;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.items.FenceItemViewHolder;
+import com.lostincontext.ruledetails.items.LinkItem;
+import com.lostincontext.ruledetails.items.LinkItemViewHolder;
 import com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder;
 import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
 
@@ -43,6 +45,8 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case R.id.view_type_if:
                 View view = layoutInflater.inflate(R.layout.item_if, parent, false);
                 return new DummyViewHolder(view);
+            case R.id.view_type_link:
+                return LinkItemViewHolder.create(layoutInflater, parent);
 
         }
 
@@ -65,6 +69,8 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 break;
             case R.id.view_type_if:
                 break;
+            case R.id.view_type_link:
+                ((LinkItemViewHolder) holder).bindTo((LinkItem) item);
         }
 
 

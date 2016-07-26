@@ -10,6 +10,7 @@ import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.items.IfItem;
+import com.lostincontext.ruledetails.items.LinkItem;
 import com.lostincontext.ruledetails.pick.BottomSheetItemSection;
 
 import java.util.ArrayList;
@@ -121,8 +122,8 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
             case PLUG_IN:
             case PLUG_OUT:
                 FenceItem fenceItem = FenceItem.createFromPick(item, getFenceVMForPick(item));
-                if (items.isEmpty()) items.add(new IfItem(type));
-                else items.add(new IfItem(type));
+                if (items.isEmpty()) items.add(new IfItem());
+                else items.add(new LinkItem());
                 items.add(fenceItem);
                 view.notifyItemRangeInserted(items.indexOf(fenceItem) - 1, 2);
 
