@@ -11,14 +11,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.lostincontext.awareness.Awareness;
 import com.lostincontext.data.playlist.DataPlaylist;
 import com.lostincontext.data.playlist.Playlist;
-import com.lostincontext.data.rules.CompositeFenceVM;
-import com.lostincontext.data.rules.DetectedActivityFenceVM;
+import com.lostincontext.data.rules.FenceBuilder;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.data.rules.repo.RulesRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -38,33 +36,38 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
     @Override
     public void start() {
         // POC test of how to register a fence
-        FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
+        final FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
 
         FenceVM headPhoneDescription = new HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_IN);
-        FenceVM runningDescription = new DetectedActivityFenceVM(DetectedActivityFenceVM.Type.IN_VEHICLE, DetectedActivityFenceVM.State.DURING);
-        List<FenceVM> rules = new ArrayList<>();
-        rules.add(headPhoneDescription);
-        rules.add(runningDescription);
+//        FenceVM runningDescription = new DetectedActivityFenceVM(DetectedActivityFenceVM.Type.IN_VEHICLE, DetectedActivityFenceVM.State.DURING);
+//        List<FenceVM> rules = new ArrayList<>();
+//        rules.add(headPhoneDescription);
+//        rules.add(runningDescription);
 
-        FenceVM compositeFenceVM = new CompositeFenceVM(rules, CompositeFenceVM.Operator.AND);
+//        FenceVM compositeFenceVM = new CompositeFenceVM(rules, CompositeFenceVM.Operator.AND);
 
 
         //  Rule compositeRule = compositeFenceVM.build(new FenceBuilder());
 
 
-        //  builder.addFence(compositeRule.getName(), compositeRule.getFence(), view.getPendingIntent());
-        awareness.updateFences(builder.build());
-
         rulesRepository.clearAllRules();
 
         List<Playlist> playlists = DataPlaylist.getPlaylists();
 
-        rulesRepository.saveRule(new Rule("test", compositeFenceVM, playlists.get(0)));
-        rulesRepository.saveRule(new Rule("test2", compositeFenceVM, playlists.get(1)));
+        rulesRepository.saveRule(new Rule("test", headPhoneDescription, playlists.get(0)));
+        rulesRepository.saveRule(new Rule("test2", headPhoneDescription, playlists.get(1)));
+
 
         rulesRepository.getRules(new RulesRepository.LoadTasksCallback() {
             @Override public void onTasksLoaded(List<Rule> rules) {
                 view.setRules(rules);
+                for (Rule rule : rules) {
+                    builder
+                            .addFence(rule.getName(), rule.getFenceVM()
+                                    .build(new FenceBuilder()), view.getPendingIntent(rule.getPlaylist()));
+
+                    awareness.updateFences(builder.build());
+                }
             }
 
             @Override public void onTasksLoadFailure() {

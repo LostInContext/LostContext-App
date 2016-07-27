@@ -1,22 +1,30 @@
 package com.lostincontext.that;
 
 import android.app.IntentService;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.text.TextUtils;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.awareness.fence.FenceState;
-import com.lostincontext.PlaylistLauncher;
+import com.lostincontext.data.playlist.Playlist;
+import com.lostincontext.data.rules.Rule;
+import com.lostincontext.data.rules.repo.RulesRepository;
+import com.lostincontext.utils.NotificationIntentUtils;
+
+import java.io.IOException;
 
 
 public class ThatService extends IntentService {
 
     private static final String TAG = ThatService.class.getSimpleName();
+    private static Playlist playlist;
+    private BroadcastReceiver playReceiver;
 
     public ThatService() {
         super(TAG);
     }
-
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -24,22 +32,43 @@ public class ThatService extends IntentService {
         FenceState fenceState = FenceState.extract(intent);
         Log.i(TAG, "onReceive : fenceKey : " + fenceState.getFenceKey());
 
-        if (TextUtils.equals(fenceState.getFenceKey(), "HeadPhone are plugged in")) {
+        Rule rule = getRule(fenceState);
+
+        if (rule != null) {
             switch (fenceState.getCurrentState()) {
                 case FenceState.TRUE:
-                    //new PlaylistLauncher().launchPlaylist(this);
-                    Log.i(TAG, "Headphones are plugged in.");
+                    playlist = rule.getPlaylist();
+                    if (playlist != null) {
+//                        new PlaylistLauncher().launchPlaylist(this, playlist, true);
+                        NotificationIntentUtils.displayNotification(this, rule.getName());
+                    }
+
+                    Log.i(TAG, "Rule is verified");
                     break;
 
                 case FenceState.FALSE:
-                    Log.i(TAG, "Headphones are NOT plugged in.");
+                    Log.i(TAG, "Rule is NOT verified");
                     break;
 
                 case FenceState.UNKNOWN:
-                    Log.i(TAG, "The headphone fence is in an unknown state.");
+                    Log.i(TAG, "Rule fence is in an unknown state.");
                     break;
             }
         }
 
     }
+
+    @Nullable private Rule getRule(FenceState fenceState) {
+        final RulesRepository rulesRepository = new RulesRepository(getSharedPreferences(getPackageName(),
+                                                                                         MODE_PRIVATE), new ObjectMapper());
+        Rule rule = null;
+        try {
+            rule = rulesRepository.getRule(fenceState.getFenceKey());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return rule;
+    }
+
+
 }

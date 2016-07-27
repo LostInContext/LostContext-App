@@ -14,11 +14,12 @@ import java.util.List;
 public class PlaylistLauncher {
     private static String TAG = PlaylistLauncher.class.getSimpleName();
 
-    public void launchPlaylist(Context context, Playlist playlist) {
+    public void launchPlaylist(Context context, Playlist playlist, boolean autoplay) {
         Log.i(TAG, "i'm launching playlist !");
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        String uri = "deezer://www.deezer.com/playlist/" + playlist.getId();
+
+        String uri = "deezer://www.deezer.com/playlist/" + playlist.getId() + "?autoplay=" + autoplay;
         intent.setData(Uri.parse(uri));
 
         PackageManager manager = context.getPackageManager();

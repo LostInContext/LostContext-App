@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.lostincontext.R;
 import com.lostincontext.commons.list.SpacesItemDecoration;
+import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.MainScreenFragmentBinding;
 import com.lostincontext.ruledetails.RuleDetailsActivity;
@@ -87,7 +88,8 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
         this.presenter = checkNotNull(presenter);
     }
 
-    public PendingIntent getPendingIntent() {
+    @Override
+    public PendingIntent getPendingIntent(Playlist playlist) {
         Intent intent = new Intent(this.getContext(), ThatService.class);
         return PendingIntent.getService(this.getContext().getApplicationContext(),
                                         0,
