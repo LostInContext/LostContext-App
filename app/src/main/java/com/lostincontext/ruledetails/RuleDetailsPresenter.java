@@ -1,16 +1,21 @@
 package com.lostincontext.ruledetails;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.FenceCreator;
 import com.lostincontext.data.GridBottomSheetItem;
+import com.lostincontext.data.location.LocationModel;
+import com.lostincontext.data.location.repo.LocationRepository;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.DetectedActivityFenceVM;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
+import com.lostincontext.data.rules.LocationFenceVM;
 import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.pick.BottomSheetItemSection;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,13 +35,16 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
 
     private final RuleDetailsContract.View view;
 
-    private List<FenceItem> items = new ArrayList<>();
+    private final LocationRepository locationRepository;
 
+    private List<FenceItem> items = new ArrayList<>();
     private Playlist playlist;
 
 
-    @Inject RuleDetailsPresenter(RuleDetailsContract.View view) {
+    @Inject RuleDetailsPresenter(RuleDetailsContract.View view,
+                                 LocationRepository locationRepository) {
         this.view = view;
+        this.locationRepository = locationRepository;
     }
 
     @Inject void setup() {
@@ -158,6 +166,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
 
             case HOME:
             case WORK:
+                handleLocationItemClick(item);
                 break;
 
             case PLAYLIST:
@@ -165,6 +174,33 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
                 break;
         }
     }
+
+
+    private void handleLocationItemClick(GridBottomSheetItem item) {
+        String name = item.picker.name();
+        LocationModel locationModel = getLocation(name);
+        if (locationModel == null) view.showLocationPicker(name);
+        else addLocationFence(item, locationModel);
+    }
+
+    private void addLocationFence(GridBottomSheetItem item, LocationModel locationModel) {
+        FenceVM fenceVM = new LocationFenceVM(locationModel.placeName, locationModel.getLatLng());
+        FenceItem fenceItem = FenceItem.createFromPick(item, fenceVM, items.isEmpty());
+        items.add(fenceItem);
+        view.notifyItemInserted(items.indexOf(fenceItem));
+
+    }
+
+    private LocationModel getLocation(String locationName) {
+        LocationModel location = null;
+        try {
+            location = locationRepository.getLocation(locationName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return location;
+    }
+
 
     private FenceVM getFenceVMForPick(GridBottomSheetItem pick) {
         switch (pick.picker) {
@@ -188,6 +224,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
 
             case PLUG_OUT:
                 return new HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_OUT);
+
         }
         throw new RuntimeException("surprise !");
     }
@@ -195,5 +232,9 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
     @Override public void onPlaylistPicked(Playlist playlist) {
         this.playlist = playlist;
         view.showPlaylist(playlist);
+    }
+
+    @Override public void onPlacePicked(String placeName, LatLng latLng) {
+        locationRepository.saveLocation(placeName, latLng);
     }
 }
