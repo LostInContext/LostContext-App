@@ -1,5 +1,6 @@
 package com.lostincontext.ruledetails;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.commons.BasePresenter;
 import com.lostincontext.commons.BaseView;
 import com.lostincontext.commons.list.Section;
@@ -28,6 +29,8 @@ public class RuleDetailsContract {
         void showPlaylist(Playlist playlist);
 
         void notifyItemRangeInserted(int positionStart, int itemCount);
+
+        void showLocationPicker(String name);
     }
 
 
@@ -36,5 +39,7 @@ public class RuleDetailsContract {
         List<Section> provideFenceChoices();
 
         void onPlaylistPicked(Playlist playlist);
+
+        void onPlacePicked(String savedPlaceName, LatLng latLng);
     }
 }

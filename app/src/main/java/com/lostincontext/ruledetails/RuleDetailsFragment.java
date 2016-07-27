@@ -13,6 +13,11 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;
@@ -22,15 +27,22 @@ import com.lostincontext.ruledetails.items.FenceItem;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static android.text.TextUtils.isEmpty;
 import static com.lostincontext.playlists.PlaylistsContract.EXTRA_PLAYLIST;
 
 
 public class RuleDetailsFragment extends Fragment implements RuleDetailsContract.View {
 
     private static final int PLAYLIST_PICKER_REQUEST_CODE = 9001;
+    private static final int LOCATION_PICKER_REQUEST_CODE = 9002;
+    public static final String EXTRA_PLACE_NAME = "place_name";
+
+
     private RuleDetailsContract.Presenter presenter;
 
     private RuleDetailsAdapter adapter;
+
+    private String savedPlaceName;
 
 
     public static RuleDetailsFragment newInstance() {
@@ -107,17 +119,35 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         startActivityForResult(intent, PLAYLIST_PICKER_REQUEST_CODE);
     }
 
+    @Override public void showLocationPicker(String name) {
+        savedPlaceName = name;
+        try {
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+            Intent intent = builder.build(getActivity());
+            intent.putExtra(EXTRA_PLACE_NAME, name);
+            startActivityForResult(intent, LOCATION_PICKER_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
+        }
+    }
+
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PLAYLIST_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
             Playlist playlist = data.getParcelableExtra(EXTRA_PLAYLIST);
             presenter.onPlaylistPicked(playlist);
+        } else if (requestCode == LOCATION_PICKER_REQUEST_CODE
+                && resultCode == RESULT_OK
+                && !isEmpty(savedPlaceName)) {
+            Place place = PlacePicker.getPlace(getContext(), data);
+            LatLng latLng = place.getLatLng();
+            presenter.onPlacePicked(savedPlaceName, latLng);
         }
 
     }
 
     @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.create_rule_menu, menu);
+        inflater.inflate(R.menu.edit_rule_menu, menu);
     }
 }

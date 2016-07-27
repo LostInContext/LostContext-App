@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.data.location.LocationModel;
 import com.lostincontext.data.rules.FenceVM;
 
@@ -15,6 +16,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class LocationRepository {
+
+    private final static String LOCATION_PREFIX = "LOCATION-";
+
 
     interface LoadTasksCallback {
 
@@ -41,6 +45,16 @@ public class LocationRepository {
         }
     }
 
+    public void saveLocation(String name, LatLng latLng) {
+        LocationModel model = new LocationModel(name, latLng.latitude, latLng.longitude);
+        try {
+            saveToPrefs(name, serialize(model));
+        } catch (JsonProcessingException e) {
+            Log.e(TAG, "save: ", e);
+        }
+    }
+
+
     public LocationModel getLocation(String name) throws IOException {
         return deserialize(loadFromPrefs(name));
     }
@@ -49,14 +63,14 @@ public class LocationRepository {
 
     private void saveToPrefs(String title, String json) {
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(title, json);
+        editor.putString(LOCATION_PREFIX + title, json);
         editor.apply();
 
         Log.i(TAG, "saving: " + json);
     }
 
     private String loadFromPrefs(String title) {
-        final String data = preferences.getString(title, "");
+        final String data = preferences.getString(LOCATION_PREFIX + title, "");
         Log.i(TAG, "loading: " + data);
         return data;
     }
