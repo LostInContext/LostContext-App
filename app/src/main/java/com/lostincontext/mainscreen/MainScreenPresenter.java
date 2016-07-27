@@ -11,15 +11,12 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.lostincontext.awareness.Awareness;
 import com.lostincontext.data.playlist.DataPlaylist;
 import com.lostincontext.data.playlist.Playlist;
-import com.lostincontext.data.rules.CompositeFenceVM;
-import com.lostincontext.data.rules.DetectedActivityFenceVM;
 import com.lostincontext.data.rules.FenceBuilder;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.data.rules.repo.RulesRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -53,7 +50,6 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         //  Rule compositeRule = compositeFenceVM.build(new FenceBuilder());
 
 
-
         rulesRepository.clearAllRules();
 
         List<Playlist> playlists = DataPlaylist.getPlaylists();
@@ -65,14 +61,13 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
         rulesRepository.getRules(new RulesRepository.LoadTasksCallback() {
             @Override public void onTasksLoaded(List<Rule> rules) {
                 view.setRules(rules);
-                final Rule rule = rules.get(0);
-                builder
-                        .addFence(rule.getName(), rule.getFenceVM()
-                                .build(new FenceBuilder()), view.getPendingIntent(rule.getPlaylist()));
+                for (Rule rule : rules) {
+                    builder
+                            .addFence(rule.getName(), rule.getFenceVM()
+                                    .build(new FenceBuilder()), view.getPendingIntent(rule.getPlaylist()));
 
-
-                awareness.updateFences(builder.build());
-
+                    awareness.updateFences(builder.build());
+                }
             }
 
             @Override public void onTasksLoadFailure() {

@@ -33,7 +33,7 @@ public class ThatService extends IntentService {
 
         Rule rule = getRule(fenceState);
 
-        if (rule != null && TextUtils.equals(fenceState.getFenceKey(), rule.getName())) {
+        if (rule != null) {
             switch (fenceState.getCurrentState()) {
                 case FenceState.TRUE:
                     final Playlist playlist = rule.getPlaylist();
@@ -41,15 +41,15 @@ public class ThatService extends IntentService {
                         new PlaylistLauncher().launchPlaylist(this, playlist, true);
                     }
 
-                    Log.i(TAG, "Headphones are plugged in.");
+                    Log.i(TAG, "Rule is verified");
                     break;
 
                 case FenceState.FALSE:
-                    Log.i(TAG, "Headphones are NOT plugged in.");
+                    Log.i(TAG, "Rule is NOT verified");
                     break;
 
                 case FenceState.UNKNOWN:
-                    Log.i(TAG, "The headphone fence is in an unknown state.");
+                    Log.i(TAG, "Rule fence is in an unknown state.");
                     break;
             }
         }
