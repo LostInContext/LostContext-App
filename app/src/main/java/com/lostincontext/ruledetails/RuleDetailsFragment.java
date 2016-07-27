@@ -15,6 +15,7 @@ import com.lostincontext.R;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;
 import com.lostincontext.playlists.PlaylistsActivity;
+import com.lostincontext.ruledetails.items.FenceItem;
 
 import java.util.List;
 
@@ -69,11 +70,11 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         this.presenter = presenter;
     }
 
-    @Override public void setItems(List<RuleDetailsItem> items) {
+    @Override public void setItems(List<FenceItem> items) {
         adapter.setItems(items);
     }
 
-    @Override public void notifyItemAdded(int position) {
+    @Override public void notifyItemInserted(int position) {
         adapter.notifyItemInserted(position);
     }
 

@@ -7,4 +7,6 @@
     <string name="_if">If</string>
     <string name="or">Or</string>
     <string name="and">And</string>
+    <string name="and_not">and not</string>
+    <string name="or_not">or not</string>
 </resources>

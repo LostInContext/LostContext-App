@@ -2,33 +2,60 @@ package com.lostincontext.ruledetails.items;
 
 
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
+import android.support.annotation.StringRes;
 
 import com.lostincontext.R;
 import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.data.rules.FenceVM;
-import com.lostincontext.ruledetails.RuleDetailsItem;
 
-public class FenceItem implements RuleDetailsItem {
+import static com.lostincontext.ruledetails.items.FenceItem.Link.AND;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.AND_NOT;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.IF;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.OR;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.OR_NOT;
+
+public class FenceItem {
 
     public final FenceVM fenceVM;
 
     public final String name;
     @DrawableRes public final int drawableRes;
+    public Link link;
 
-    public FenceItem(FenceVM fenceVM, String name, int drawableRes) {
+
+    public enum Link {
+        AND(R.string.and),
+        OR(R.string.or),
+        AND_NOT(R.string.and_not),
+        OR_NOT(R.string.or_not),
+        IF(R.string._if);
+
+        @StringRes private final int resourceId;
+
+        Link(int resourceId) {
+            this.resourceId = resourceId;
+        }
+
+        @StringRes public int getResourceId() {
+            return resourceId;
+        }
+    }
+
+
+    public FenceItem(FenceVM fenceVM,
+                     String name,
+                     int drawableRes,
+                     boolean isFirstItem) {
         this.fenceVM = fenceVM;
         this.name = name;
         this.drawableRes = drawableRes;
+        if (isFirstItem) link = IF;
+        else link = AND;
     }
 
-
-    @IdRes @Override public int getItemViewType() {
-        return R.id.view_type_fence_item;
+    public static FenceItem createFromPick(GridBottomSheetItem pick, FenceVM fenceVM, boolean isFirstItem) {
+        return new FenceItem(fenceVM, pick.name, pick.drawableRes, isFirstItem);
     }
 
-    public static FenceItem createFromPick(GridBottomSheetItem pick, FenceVM fenceVM) {
-        return new FenceItem(fenceVM, pick.name, pick.drawableRes);
-    }
 
 }

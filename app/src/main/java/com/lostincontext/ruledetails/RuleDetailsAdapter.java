@@ -4,16 +4,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.lostincontext.R;
-import com.lostincontext.commons.list.DummyViewHolder;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.ruledetails.items.FenceItem;
+import com.lostincontext.ruledetails.items.FenceItemCallback;
 import com.lostincontext.ruledetails.items.FenceItemViewHolder;
-import com.lostincontext.ruledetails.items.LinkItem;
-import com.lostincontext.ruledetails.items.LinkItemViewHolder;
 import com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder;
 import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
 
@@ -24,13 +21,13 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private static final String TAG = RuleDetailsAdapter.class.getSimpleName();
 
-    private RuleCreationItemCallback callback;
+    private FenceItemCallback callback;
 
 
-    @NonNull private List<RuleDetailsItem> items = Collections.emptyList();
+    @NonNull private List<FenceItem> items = Collections.emptyList();
     @Nullable private Playlist playlist;
 
-    public RuleDetailsAdapter(RuleCreationItemCallback callback) {
+    public RuleDetailsAdapter(FenceItemCallback callback) {
         this.callback = callback;
     }
 
@@ -39,15 +36,9 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (viewType) {
             case R.id.view_type_fence_item:
-                return FenceItemViewHolder.create(layoutInflater, parent);
+                return FenceItemViewHolder.create(layoutInflater, parent, callback);
             case R.id.view_type_playlist_picker:
                 return PlaylistInEditScreenViewHolder.create(layoutInflater, parent);
-            case R.id.view_type_if:
-                View view = layoutInflater.inflate(R.layout.item_if, parent, false);
-                return new DummyViewHolder(view);
-            case R.id.view_type_link:
-                return LinkItemViewHolder.create(layoutInflater, parent);
-
         }
 
         throw new RuntimeException("unknown viewType");
@@ -61,25 +52,15 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             return;
         }
 
-        RuleDetailsItem item = items.get(position);
-        switch (item.getItemViewType()) {
-
-            case R.id.view_type_fence_item:
-                ((FenceItemViewHolder) holder).bindTo((FenceItem) item);
-                break;
-            case R.id.view_type_if:
-                break;
-            case R.id.view_type_link:
-                ((LinkItemViewHolder) holder).bindTo((LinkItem) item);
-        }
-
+        FenceItem item = items.get(position);
+        ((FenceItemViewHolder) holder).bindTo(item);
 
     }
 
     @Override public int getItemViewType(int position) {
         int lastIndex = items.size() - 1;
         if (position > lastIndex) return R.id.view_type_playlist_picker;
-        return items.get(position).getItemViewType();
+        return R.id.view_type_fence_item;
     }
 
 
@@ -89,7 +70,7 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return count;
     }
 
-    public void setItems(List<RuleDetailsItem> items) {
+    public void setItems(@NonNull List<FenceItem> items) {
         if (this.items == items) return;
         this.items = items;
         notifyDataSetChanged();

@@ -9,8 +9,6 @@ import com.lostincontext.data.rules.DetectedActivityFenceVM;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.ruledetails.items.FenceItem;
-import com.lostincontext.ruledetails.items.IfItem;
-import com.lostincontext.ruledetails.items.LinkItem;
 import com.lostincontext.ruledetails.pick.BottomSheetItemSection;
 
 import java.util.ArrayList;
@@ -20,6 +18,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.AND;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.AND_NOT;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.OR;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.OR_NOT;
 
 public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
 
@@ -28,7 +30,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
 
     private final RuleDetailsContract.View view;
 
-    private List<RuleDetailsItem> items = new ArrayList<>();
+    private List<FenceItem> items = new ArrayList<>();
 
     private Playlist playlist;
 
@@ -47,6 +49,34 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
     }
 
     @Override public void onRuleCreationItemClick(FenceCreator fence) {
+
+    }
+
+    @Override public void onLinkClick(FenceItem item) {
+        toggleLink(item);
+    }
+
+
+    public void toggleLink(FenceItem item) {
+        switch (item.link) {
+            case AND:
+                item.link = OR;
+                break;
+            case OR:
+                item.link = AND_NOT;
+                break;
+            case AND_NOT:
+                item.link = OR_NOT;
+                break;
+            case OR_NOT:
+                item.link = AND;
+                break;
+            case IF:
+                break;
+        }
+
+        view.notifyItemChanged(items.indexOf(item));
+
 
     }
 
@@ -121,16 +151,15 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
             case CAR:
             case PLUG_IN:
             case PLUG_OUT:
-                FenceItem fenceItem = FenceItem.createFromPick(item, getFenceVMForPick(item));
-                if (items.isEmpty()) items.add(new IfItem());
-                else items.add(new LinkItem());
+                FenceItem fenceItem = FenceItem.createFromPick(item, getFenceVMForPick(item), items.isEmpty());
                 items.add(fenceItem);
-                view.notifyItemRangeInserted(items.indexOf(fenceItem) - 1, 2);
-
+                view.notifyItemInserted(items.indexOf(fenceItem));
                 break;
+
             case HOME:
             case WORK:
                 break;
+
             case PLAYLIST:
                 view.pickAPlaylist();
                 break;

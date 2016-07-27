@@ -9,26 +9,40 @@
             name="item"
             type="com.lostincontext.ruledetails.items.FenceItem" />
 
+        <variable
+            name="callback"
+            type="com.lostincontext.ruledetails.items.FenceItemCallback" />
+
     </data>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
+        android:layout_height="48dp"
         android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/linkTextView"
+            style="@style/TextAppearance.AppCompat.Button"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="?selectableItemBackground"
+            android:clickable="@{item.link != item.link.IF}"
+            android:gravity="center_vertical"
+            android:onClick="@{() -> callback.onLinkClick(item)}"
+            android:text="@{item.link.resourceId}"
+            tools:text="AND" />
 
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/icon"
             android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="8dp"
+            android:layout_height="match_parent"
             android:tint="#757575"
             app:resource="@{item.drawableRes}"
             tools:src="@drawable/ic_run_24" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <TextView
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
