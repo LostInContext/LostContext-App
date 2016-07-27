@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -58,6 +60,10 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         return binding.getRoot();
     }
 
+    @Override public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public void onResume() {
@@ -108,5 +114,10 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
             presenter.onPlaylistPicked(playlist);
         }
 
+    }
+
+    @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.create_rule_menu, menu);
     }
 }
