@@ -66,7 +66,11 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
             @Override public void onTasksLoaded(List<Rule> rules) {
                 view.setRules(rules);
                 final Rule rule = rules.get(0);
-                builder.addFence(rule.getName(), rule.getFenceVM().build(new FenceBuilder()), view.getPendingIntent(rule.getPlaylist()));
+                builder
+                        .addFence(rule.getName(), rule.getFenceVM()
+                                .build(new FenceBuilder()), view.getPendingIntent(rule.getPlaylist()));
+
+
                 awareness.updateFences(builder.build());
 
             }

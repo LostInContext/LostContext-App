@@ -91,7 +91,6 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
     @Override
     public PendingIntent getPendingIntent(Playlist playlist) {
         Intent intent = new Intent(this.getContext(), ThatService.class);
-        intent.putExtra("playlist", playlist);
         return PendingIntent.getService(this.getContext().getApplicationContext(),
                                         0,
                                         intent,
