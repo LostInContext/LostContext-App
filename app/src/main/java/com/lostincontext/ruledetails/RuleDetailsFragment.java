@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +20,8 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
+import com.lostincontext.data.GridBottomSheetItem;
+import com.lostincontext.data.RuleDetails;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;
 import com.lostincontext.playlists.PlaylistsActivity;
@@ -35,11 +38,10 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
 
     private static final int PLAYLIST_PICKER_REQUEST_CODE = 9001;
     private static final int LOCATION_PICKER_REQUEST_CODE = 9002;
-    public static final String EXTRA_PLACE_NAME = "place_name";
 
 
     private RuleDetailsContract.Presenter presenter;
-
+    private RuleDetailsScreenFragmentBinding binding;
     private RuleDetailsAdapter adapter;
 
     private String savedPlaceName;
@@ -53,17 +55,16 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        RuleDetailsScreenFragmentBinding binding = DataBindingUtil.inflate(inflater,
-                                                                           R.layout.rule_details_screen_fragment,
-                                                                           container,
-                                                                           false);
+        binding = DataBindingUtil.inflate(inflater,
+                                          R.layout.rule_details_screen_fragment,
+                                          container,
+                                          false);
 
         RecyclerView recyclerView = binding.recyclerView;
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new RuleDetailsAdapter(presenter);
-
 
         binding.plusButton.setCallback(presenter);
         recyclerView.setAdapter(adapter);
@@ -124,11 +125,14 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         try {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
             Intent intent = builder.build(getActivity());
-            intent.putExtra(EXTRA_PLACE_NAME, name);
             startActivityForResult(intent, LOCATION_PICKER_REQUEST_CODE);
         } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
             // TODO: Handle the error.
         }
+    }
+
+    @Override public void setRuleDetails(RuleDetails ruleDetails) {
+        binding.setRule(ruleDetails);
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -149,5 +153,9 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
     @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.edit_rule_menu, menu);
+    }
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        return presenter.onMenuItemClick(item.getItemId());
     }
 }

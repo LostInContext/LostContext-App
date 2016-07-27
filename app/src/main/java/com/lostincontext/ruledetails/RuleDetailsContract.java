@@ -4,10 +4,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.commons.BasePresenter;
 import com.lostincontext.commons.BaseView;
 import com.lostincontext.commons.list.Section;
+import com.lostincontext.data.RuleDetails;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.items.FenceItemCallback;
-import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
+import com.lostincontext.ruledetails.pick.PlusButtonCallback;
 
 import java.util.List;
 
@@ -31,15 +32,19 @@ public class RuleDetailsContract {
         void notifyItemRangeInserted(int positionStart, int itemCount);
 
         void showLocationPicker(String name);
+
+        void setRuleDetails(RuleDetails ruleDetails);
     }
 
 
-    interface Presenter extends BasePresenter, FenceItemCallback, RuleCreationItemCallback {
+    interface Presenter extends BasePresenter, FenceItemCallback, PlusButtonCallback {
 
         List<Section> provideFenceChoices();
 
         void onPlaylistPicked(Playlist playlist);
 
         void onPlacePicked(String savedPlaceName, LatLng latLng);
+
+        boolean onMenuItemClick(int itemId);
     }
 }

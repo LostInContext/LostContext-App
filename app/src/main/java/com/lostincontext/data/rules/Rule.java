@@ -31,4 +31,16 @@ public class Rule {
         return playlist;
     }
 
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFenceVM(FenceVM fenceVM) {
+        this.fenceVM = fenceVM;
+    }
+
+    public void setPlaylist(Playlist playlist) {
+        this.playlist = playlist;
+    }
 }
