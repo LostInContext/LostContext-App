@@ -5,15 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.lostincontext.awareness.Awareness;
-import com.lostincontext.data.playlist.DataPlaylist;
-import com.lostincontext.data.playlist.Playlist;
-import com.lostincontext.data.rules.FenceBuilder;
-import com.lostincontext.data.rules.FenceVM;
-import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.data.rules.repo.RulesRepository;
 
@@ -35,8 +29,6 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
 
     @Override
     public void start() {
-        // POC test of how to register a fence
-
         rulesRepository.getRules(new RulesRepository.LoadTasksCallback() {
             @Override public void onTasksLoaded(List<Rule> rules) {
                 view.setRules(rules);

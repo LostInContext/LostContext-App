@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.commons.BasePresenter;
 import com.lostincontext.commons.BaseView;
 import com.lostincontext.commons.list.Section;
+import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.ruledetails.items.FenceItem;
@@ -32,11 +33,13 @@ public class RuleDetailsContract {
 
         void showPlaylist(Playlist playlist);
 
-        void showLocationPicker(String name);
+        void showLocationPicker(String name, GridBottomSheetItem item);
 
         void setRule(Rule rule);
 
         PendingIntent getPendingIntent(Playlist playlist);
+
+        void finishActivity();
     }
 
 
@@ -46,7 +49,7 @@ public class RuleDetailsContract {
 
         void onPlaylistPicked(Playlist playlist);
 
-        void onPlacePicked(String savedPlaceName, LatLng latLng);
+        void onPlacePicked(String savedPlaceName, GridBottomSheetItem item, LatLng latLng);
 
         boolean onMenuItemClick(int itemId);
     }

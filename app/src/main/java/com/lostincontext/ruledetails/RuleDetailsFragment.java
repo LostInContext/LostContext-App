@@ -21,6 +21,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
+import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;
@@ -46,6 +47,7 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
     private RuleDetailsAdapter adapter;
 
     private String savedPlaceName;
+    private GridBottomSheetItem savedGridBottomSheetItem;
 
 
     public static RuleDetailsFragment newInstance() {
@@ -117,8 +119,9 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         startActivityForResult(intent, PLAYLIST_PICKER_REQUEST_CODE);
     }
 
-    @Override public void showLocationPicker(String name) {
+    @Override public void showLocationPicker(String name, GridBottomSheetItem item) {
         savedPlaceName = name;
+        savedGridBottomSheetItem = item;
         try {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
             Intent intent = builder.build(getActivity());
@@ -132,12 +135,16 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         binding.setRule(rule);
     }
 
-        public PendingIntent getPendingIntent(Playlist playlist) {
-            Intent intent = new Intent(this.getContext(), ThatService.class);
-            return PendingIntent.getService(this.getContext().getApplicationContext(),
-                                            0,
-                                            intent,
-                                            0);
+    public PendingIntent getPendingIntent(Playlist playlist) {
+        Intent intent = new Intent(this.getContext(), ThatService.class);
+        return PendingIntent.getService(this.getContext().getApplicationContext(),
+                                        0,
+                                        intent,
+                                        0);
+    }
+
+    @Override public void finishActivity() {
+        getActivity().finish();
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -150,7 +157,7 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
                 && !isEmpty(savedPlaceName)) {
             Place place = PlacePicker.getPlace(getContext(), data);
             LatLng latLng = place.getLatLng();
-            presenter.onPlacePicked(savedPlaceName, latLng);
+            presenter.onPlacePicked(savedPlaceName, savedGridBottomSheetItem, latLng);
         }
 
     }

@@ -208,7 +208,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
     private void handleLocationItemClick(GridBottomSheetItem item) {
         String name = item.picker.name();
         LocationModel locationModel = getLocation(name);
-        if (locationModel == null) view.showLocationPicker(name);
+        if (locationModel == null) view.showLocationPicker(name, item);
         else addLocationFence(item, locationModel);
     }
 
@@ -263,8 +263,9 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
         view.showPlaylist(playlist);
     }
 
-    @Override public void onPlacePicked(String placeName, LatLng latLng) {
+    @Override public void onPlacePicked(String placeName, GridBottomSheetItem item, LatLng latLng) {
         locationRepository.saveLocation(placeName, latLng);
+        addLocationFence(item, new LocationModel(placeName, latLng.latitude, latLng.longitude));
     }
 
 
@@ -275,7 +276,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
                 return true;
 
             case R.id.action_save:
-                saveRule();
+                saveRuleAndQuit();
                 return true;
         }
         return false;
@@ -284,7 +285,8 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
     private void deleteRule() { }
 
     // todo validate input and diplay snackbar when there is an issue
-    private void saveRule() {
+    private void saveRuleAndQuit() {
+        Rule rule = new Rule();
 
         if (items.isEmpty()) return;
         if (playlist == null) return;
@@ -299,6 +301,8 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
         builder.addFence(rule.getName(), rule.getFenceVM().build(new FenceBuilder()), view.getPendingIntent(playlist));
         awareness.updateFences(builder.build());
+
+        view.finishActivity();
 
 
     }
