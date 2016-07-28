@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,9 +27,11 @@ import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;
 import com.lostincontext.playlists.PlaylistsActivity;
+import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors;
 import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.that.ThatService;
 
+import java.util.EnumSet;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -145,6 +148,20 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
 
     @Override public void finishActivity() {
         getActivity().finish();
+    }
+
+    @Override public void showSnack(EnumSet<RuleErrors> errors) {
+
+        String message = "";
+        if (errors.contains(RuleErrors.NO_TITLE)) {
+            message = getString(R.string.missing_title);
+        } else if (errors.contains(RuleErrors.NO_CONDITION)) {
+            message = getString(R.string.missing_condition);
+        } else if (errors.contains(RuleErrors.NO_PLAYLIST)) {
+            message = getString(R.string.missing_playlist);
+        }
+
+        Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {

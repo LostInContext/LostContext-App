@@ -11,4 +11,7 @@
     <string name="or_not">or not</string>
     <string name="save">SAVE</string>
     <string name="delete">Delete</string>
+    <string name="missing_condition">you need to pick at list one condition</string>
+    <string name="missing_title">You need to give a name to this rule.</string>
+    <string name="missing_playlist">You need to pick a playlist.</string>
 </resources>

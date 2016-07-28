@@ -14,10 +14,18 @@ import com.lostincontext.ruledetails.items.FenceItemCallback;
 import com.lostincontext.ruledetails.pick.PickerDialogCallback;
 import com.lostincontext.ruledetails.pick.PlusButtonCallback;
 
+import java.util.EnumSet;
 import java.util.List;
 
 
 public class RuleDetailsContract {
+
+    public enum RuleErrors{
+        NO_TITLE,
+        NO_CONDITION,
+        NO_PLAYLIST
+    }
+
 
     interface View extends BaseView<Presenter> {
 
@@ -40,6 +48,8 @@ public class RuleDetailsContract {
         PendingIntent getPendingIntent(Playlist playlist);
 
         void finishActivity();
+
+        void showSnack(EnumSet<RuleErrors> errors);
     }
 
 

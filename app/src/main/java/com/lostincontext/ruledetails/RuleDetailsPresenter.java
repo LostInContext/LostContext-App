@@ -35,22 +35,26 @@ import com.lostincontext.ruledetails.pick.BottomSheetItemSection;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.lostincontext.ruledetails.RuleDetailsContract.Presenter;
+import static com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors;
+import static com.lostincontext.ruledetails.RuleDetailsContract.View;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.AND;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.AND_NOT;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.OR_NOT;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.WHEN;
 
-public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class RuleDetailsPresenter implements Presenter, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
 
     private static final String TAG = RuleDetailsPresenter.class.getSimpleName();
 
-    private final RuleDetailsContract.View view;
+    private final View view;
 
     private final Rule rule = new Rule();
 
@@ -62,7 +66,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
     private Playlist playlist;
 
 
-    @Inject RuleDetailsPresenter(RuleDetailsContract.View view,
+    @Inject RuleDetailsPresenter(View view,
                                  LocationRepository locationRepository,
                                  RulesRepository rulesRepository,
                                  Awareness awareness) {
@@ -284,15 +288,20 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
         return false;
     }
 
+
     private void deleteRule() { }
 
     // todo validate input and diplay snackbar when there is an issue
     private void saveRuleAndQuit() {
+        EnumSet<RuleErrors> errors = EnumSet.noneOf(RuleErrors.class);
+        if (items.isEmpty()) errors.add(RuleErrors.NO_CONDITION);
+        if (playlist == null) errors.add(RuleErrors.NO_PLAYLIST);
+        if (TextUtils.isEmpty(rule.getName())) errors.add(RuleErrors.NO_TITLE);
 
-        if (items.isEmpty()) return;
-        if (playlist == null) return;
-        if (TextUtils.isEmpty(rule.getName())) return;
-
+        if (!errors.isEmpty()) {
+            view.showSnack(errors);
+            return;
+        }
         rule.setPlaylist(playlist);
 
         FenceVM fenceVM = extractFenceForRule();
@@ -311,7 +320,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
 
             }
         });
-        
+
     }
 
 
