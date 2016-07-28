@@ -1,5 +1,7 @@
 package com.lostincontext.ruledetails;
 
+import android.app.PendingIntent;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.commons.BasePresenter;
 import com.lostincontext.commons.BaseView;
@@ -34,6 +36,8 @@ public class RuleDetailsContract {
         void showLocationPicker(String name);
 
         void setRuleDetails(RuleDetails ruleDetails);
+
+        PendingIntent getPendingIntent(Playlist playlist);
     }
 
 

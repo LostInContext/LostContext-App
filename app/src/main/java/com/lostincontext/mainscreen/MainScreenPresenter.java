@@ -36,38 +36,11 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
     @Override
     public void start() {
         // POC test of how to register a fence
-        final FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
-
-        FenceVM headPhoneDescription = new HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_IN);
-//        FenceVM runningDescription = new DetectedActivityFenceVM(DetectedActivityFenceVM.Type.IN_VEHICLE, DetectedActivityFenceVM.State.DURING);
-//        List<FenceVM> rules = new ArrayList<>();
-//        rules.add(headPhoneDescription);
-//        rules.add(runningDescription);
-
-//        FenceVM compositeFenceVM = new CompositeFenceVM(rules, CompositeFenceVM.Operator.AND);
-
-
-        //  Rule compositeRule = compositeFenceVM.build(new FenceBuilder());
-
-
-        rulesRepository.clearAllRules();
-
-        List<Playlist> playlists = DataPlaylist.getPlaylists();
-
-        rulesRepository.saveRule(new Rule("test", headPhoneDescription, playlists.get(0)));
-        rulesRepository.saveRule(new Rule("test2", headPhoneDescription, playlists.get(1)));
-
 
         rulesRepository.getRules(new RulesRepository.LoadTasksCallback() {
             @Override public void onTasksLoaded(List<Rule> rules) {
                 view.setRules(rules);
-                for (Rule rule : rules) {
-                    builder
-                            .addFence(rule.getName(), rule.getFenceVM()
-                                    .build(new FenceBuilder()), view.getPendingIntent(rule.getPlaylist()));
 
-                    awareness.updateFences(builder.build());
-                }
             }
 
             @Override public void onTasksLoadFailure() {

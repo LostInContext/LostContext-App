@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -19,11 +21,13 @@ public class LocationRepositoryModule {
         this.context = context;
     }
 
+    @Named("location")
     @Provides ObjectMapper provideObjectMapper() {
         return new ObjectMapper();
     }
 
 
+    @Named("location")
     @Provides SharedPreferences provideSharedPreferences() {
         return context.getSharedPreferences("location",
                                             MODE_PRIVATE);

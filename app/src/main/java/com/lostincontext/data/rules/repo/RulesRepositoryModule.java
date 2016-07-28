@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -20,12 +22,13 @@ public class RulesRepositoryModule {
         this.context = context;
     }
 
-
+    @Named("base")
     @Provides ObjectMapper provideObjectMapper() {
         return new ObjectMapper();
     }
 
 
+    @Named("base")
     @Provides SharedPreferences provideSharedPreferences() {
         return context.getSharedPreferences(context.getPackageName(),
                                             MODE_PRIVATE);

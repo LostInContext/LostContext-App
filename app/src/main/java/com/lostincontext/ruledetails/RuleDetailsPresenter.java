@@ -1,7 +1,16 @@
 package com.lostincontext.ruledetails;
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+import com.google.android.gms.awareness.fence.FenceUpdateRequest;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
+import com.lostincontext.awareness.Awareness;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.data.RuleDetails;
@@ -11,11 +20,13 @@ import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.CompositeFenceVM;
 import com.lostincontext.data.rules.CompositeFenceVM.Operator;
 import com.lostincontext.data.rules.DetectedActivityFenceVM;
+import com.lostincontext.data.rules.FenceBuilder;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.data.rules.LocationFenceVM;
 import com.lostincontext.data.rules.NotFenceVM;
 import com.lostincontext.data.rules.Rule;
+import com.lostincontext.data.rules.repo.RulesRepository;
 import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.items.FenceItem.Link;
 import com.lostincontext.ruledetails.pick.BottomSheetItemSection;
@@ -33,7 +44,7 @@ import static com.lostincontext.ruledetails.items.FenceItem.Link.AND_NOT;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.IF;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.OR_NOT;
 
-public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
+public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
 
     private static final String TAG = RuleDetailsPresenter.class.getSimpleName();
@@ -43,19 +54,27 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
     private final RuleDetails ruleDetails = new RuleDetails();
 
     private final LocationRepository locationRepository;
+    private final RulesRepository rulesRepository;
+    private final Awareness awareness;
 
     private List<FenceItem> items = new ArrayList<>();
     private Playlist playlist;
 
 
     @Inject RuleDetailsPresenter(RuleDetailsContract.View view,
-                                 LocationRepository locationRepository) {
+                                 LocationRepository locationRepository,
+                                 RulesRepository rulesRepository,
+                                 Awareness awareness) {
         this.view = view;
         this.locationRepository = locationRepository;
+        this.rulesRepository = rulesRepository;
+        this.awareness = awareness;
     }
 
     @Inject void setup() {
         view.setPresenter(this);
+        awareness.init(this,
+                       this);
     }
 
 
@@ -98,6 +117,18 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
 
     @Override public void onPlusButtonClick() {
         view.displayFenceChoice();
+    }
+
+    @Override public void onConnected(@Nullable Bundle bundle) {
+        Log.d(TAG, "onConnected");
+    }
+
+    @Override public void onConnectionSuspended(int i) {
+        Log.d(TAG, "onConnectionSuspended " + i);
+    }
+
+    @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.e(TAG, "onConnectionSuspended " + connectionResult.getErrorMessage());
     }
 
     public enum Picker {
@@ -269,6 +300,12 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter {
 
         FenceVM fenceVM = extractFenceForRule();
         rule.setFenceVM(fenceVM);
+
+        rulesRepository.saveRule(rule);
+        FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
+        builder.addFence(rule.getName(), rule.getFenceVM().build(new FenceBuilder()), view.getPendingIntent(playlist));
+        awareness.updateFences(builder.build());
+
 
 
     }

@@ -1,5 +1,6 @@
 package com.lostincontext.ruledetails;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;
 import com.lostincontext.playlists.PlaylistsActivity;
 import com.lostincontext.ruledetails.items.FenceItem;
+import com.lostincontext.that.ThatService;
 
 import java.util.List;
 
@@ -132,6 +134,14 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
 
     @Override public void setRuleDetails(RuleDetails ruleDetails) {
         binding.setRule(ruleDetails);
+    }
+
+        public PendingIntent getPendingIntent(Playlist playlist) {
+            Intent intent = new Intent(this.getContext(), ThatService.class);
+            return PendingIntent.getService(this.getContext().getApplicationContext(),
+                                            0,
+                                            intent,
+                                            0);
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {

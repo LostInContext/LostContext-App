@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 
 public class RulesRepository {
@@ -34,8 +35,8 @@ public class RulesRepository {
     private final SharedPreferences preferences;
     private final ObjectMapper objectMapper;
 
-    @Inject public RulesRepository(SharedPreferences preferences,
-                                   ObjectMapper objectMapper) {
+    @Inject public RulesRepository(@Named("base") SharedPreferences preferences,
+                                   @Named("base") ObjectMapper objectMapper) {
         this.preferences = preferences;
         this.objectMapper = objectMapper;
     }

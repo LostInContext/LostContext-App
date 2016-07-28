@@ -14,10 +14,9 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 public class LocationRepository {
-
-    private final static String LOCATION_PREFIX = "LOCATION-";
 
 
     interface LoadTasksCallback {
@@ -32,7 +31,9 @@ public class LocationRepository {
     private final SharedPreferences preferences;
     private final ObjectMapper objectMapper;
 
-    @Inject public LocationRepository(SharedPreferences preferences, ObjectMapper objectMapper) {
+    @Inject
+    public LocationRepository(@Named("location") SharedPreferences preferences,
+                              @Named("location") ObjectMapper objectMapper) {
         this.preferences = preferences;
         this.objectMapper = objectMapper;
     }
@@ -63,14 +64,14 @@ public class LocationRepository {
 
     private void saveToPrefs(String title, String json) {
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(LOCATION_PREFIX + title, json);
+        editor.putString(title, json);
         editor.apply();
 
         Log.i(TAG, "saving: " + json);
     }
 
     private String loadFromPrefs(String title) {
-        final String data = preferences.getString(LOCATION_PREFIX + title, "");
+        final String data = preferences.getString(title, "");
         Log.i(TAG, "loading: " + data);
         return data;
     }
