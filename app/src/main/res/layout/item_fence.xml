@@ -24,7 +24,7 @@
         <TextView
             android:id="@+id/linkTextView"
             style="@style/TextAppearance.AppCompat.Button"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/when_width"
             android:layout_height="match_parent"
             android:background="?selectableItemBackground"
             android:clickable="@{item.link != item.link.WHEN}"

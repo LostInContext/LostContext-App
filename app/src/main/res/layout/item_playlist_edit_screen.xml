@@ -12,47 +12,45 @@
     </data>
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="?selectableItemBackground"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/then"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="8dp"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="@dimen/when_width"
+            android:layout_height="48dp"
+            android:background="@null"
+            android:gravity="start|center_vertical"
             android:text="@string/then_play" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/then"
             android:layout_marginStart="8dp"
             app:glide_playlist="@{playlist}"
             tools:background="#757575" />
 
+
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/text"
+            android:id="@+id/title"
+            style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_alignTop="@+id/icon"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/icon"
+            android:maxLines="1"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:text="@{playlist.title}"
-            android:textSize="16sp"
-            tools:text="description" />
+            tools:text="title" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </layout>
