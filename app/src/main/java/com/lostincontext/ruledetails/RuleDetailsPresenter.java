@@ -41,6 +41,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.lostincontext.ruledetails.RuleDetailsContract.LINK_CHANGED;
 import static com.lostincontext.ruledetails.RuleDetailsContract.Presenter;
 import static com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors;
 import static com.lostincontext.ruledetails.RuleDetailsContract.View;
@@ -111,7 +112,7 @@ public class RuleDetailsPresenter implements Presenter, GoogleApiClient.Connecti
                 break;
         }
 
-        view.notifyItemChanged(items.indexOf(item));
+        view.notifyItemChanged(items.indexOf(item), LINK_CHANGED);
 
 
     }

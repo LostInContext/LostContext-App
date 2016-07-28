@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.databinding.ItemFenceBinding;
 
+import java.util.List;
+
+import static com.lostincontext.ruledetails.RuleDetailsContract.LINK_CHANGED;
+
 public class FenceItemViewHolder extends ViewHolder {
 
 
@@ -28,8 +32,16 @@ public class FenceItemViewHolder extends ViewHolder {
         binding.setCallback(callback);
     }
 
-    public void bindTo(FenceItem item) {
-        binding.setItem(item);
+    public void bindTo(FenceItem item, List<Object> payloads) {
+        if (payloads.isEmpty()) binding.setItem(item);
+        else {
+            for (int i = 0, size = payloads.size(); i < size; i++) {
+                if ((payloads.get(i)) == LINK_CHANGED) {
+                    binding.linkTextView.setText(item.link.getResourceId());
+                }
+
+            }
+        }
     }
 
 

@@ -20,11 +20,13 @@ import java.util.List;
 
 public class RuleDetailsContract {
 
-    public enum RuleErrors{
+    public enum RuleErrors {
         NO_TITLE,
         NO_CONDITION,
         NO_PLAYLIST
     }
+
+    public static Object LINK_CHANGED = new Object();
 
 
     interface View extends BaseView<Presenter> {
@@ -37,7 +39,7 @@ public class RuleDetailsContract {
 
         void pickAPlaylist();
 
-        void notifyItemChanged(int position);
+        void notifyItemChanged(int position, Object payload);
 
         void showPlaylist(Playlist playlist);
 

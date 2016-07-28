@@ -43,18 +43,20 @@ public class RuleDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         throw new RuntimeException("unknown viewType");
     }
 
-
-    @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder,
+                                 int position,
+                                 List<Object> payloads) {
         if (position >= items.size()) {
             ((PlaylistInEditScreenViewHolder) holder).bindTo(playlist);
             return;
         }
 
         FenceItem item = items.get(position);
-        ((FenceItemViewHolder) holder).bindTo(item);
-
+        ((FenceItemViewHolder) holder).bindTo(item, payloads);
     }
+
+    @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) { }
 
     @Override public int getItemViewType(int position) {
         int lastIndex = items.size() - 1;

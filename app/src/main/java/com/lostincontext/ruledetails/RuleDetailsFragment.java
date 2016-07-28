@@ -103,8 +103,8 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         adapter.notifyItemInserted(position);
     }
 
-    @Override public void notifyItemChanged(int position) {
-        adapter.notifyItemChanged(position);
+    @Override public void notifyItemChanged(int position, Object payload) {
+        adapter.notifyItemChanged(position, payload);
     }
 
     @Override public void showPlaylist(Playlist playlist) {
