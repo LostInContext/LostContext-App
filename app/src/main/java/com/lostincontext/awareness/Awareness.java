@@ -45,31 +45,9 @@ public class Awareness {
         activity.registerLifecycleCallbacks(lifecycleCallbacks);
     }
 
-    public void updateFences(final FenceUpdateRequest fenceUpdateRequest) {
-        com.google.android.gms.awareness.Awareness.FenceApi.updateFences(googleApiClient,
-                                                                         fenceUpdateRequest).setResultCallback(new ResultCallbacks<Status>() {
-            @Override public void onSuccess(@NonNull Status status) {
-                Log.i(TAG, "Fence was successfully registered.");
-                final PendingResult<FenceQueryResult> fenceQueryResultPendingResult = queryFences();
-                fenceQueryResultPendingResult.setResultCallback(new ResultCallbacks<FenceQueryResult>() {
-                    @Override public void onSuccess(@NonNull FenceQueryResult fenceQueryResult) {
-                        final FenceStateMap fenceStateMap = fenceQueryResult.getFenceStateMap();
-                        final Set<String> fenceKeys = fenceStateMap.getFenceKeys();
-                        for (String fenceKey : fenceKeys) {
-                            Log.i(TAG, "fenceKey: " + fenceKey);
-                        }
-                    }
-
-                    @Override public void onFailure(@NonNull Status status) {
-
-                    }
-                });
-            }
-
-            @Override public void onFailure(@NonNull Status status) {
-
-            }
-        });
+    public PendingResult<Status> updateFences(final FenceUpdateRequest fenceUpdateRequest) {
+        return com.google.android.gms.awareness.Awareness.FenceApi.updateFences(googleApiClient,
+                                                                         fenceUpdateRequest);
     }
 
     public PendingResult<FenceQueryResult> queryFences() {

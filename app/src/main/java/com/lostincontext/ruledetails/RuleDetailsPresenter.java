@@ -9,6 +9,8 @@ import android.util.Log;
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallbacks;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
 import com.lostincontext.awareness.Awareness;
@@ -299,11 +301,17 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
         rulesRepository.saveRule(rule);
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
         builder.addFence(rule.getName(), rule.getFenceVM().build(new FenceBuilder()), view.getPendingIntent(playlist));
-        awareness.updateFences(builder.build());
+        awareness.updateFences(builder.build()).setResultCallback(new ResultCallbacks<Status>() {
+            @Override public void onSuccess(@NonNull Status status) {
+                view.finishActivity();
 
-        view.finishActivity();
+            }
 
+            @Override public void onFailure(@NonNull Status status) {
 
+            }
+        });
+        
     }
 
 
