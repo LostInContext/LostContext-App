@@ -20,7 +20,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
-import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.data.RuleDetails;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;

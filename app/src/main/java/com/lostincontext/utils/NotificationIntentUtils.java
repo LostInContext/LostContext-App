@@ -7,19 +7,20 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.lostincontext.R;
+import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.that.PlayReceiver;
-import com.lostincontext.that.ThatService;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class NotificationIntentUtils {
     public static String ACTION_PLAY = "action_play";
-    private static int KEY_PLAY = 9877;
+    private static final int NOTIFICATION_ID = 0;
 
 
-    public static void displayNotification(Context context, String fenceName) {
+    public static void displayNotification(Context context, String fenceName, Playlist playlist) {
         Intent intent = new Intent(context, PlayReceiver.class);
-        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
+        intent.putExtra("playlist", playlist);
+        PendingIntent pIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), intent, 0);
 
         Notification n = new Notification.Builder(context)
                 .setContentTitle("LostContext : " + fenceName + " is verified")
@@ -27,26 +28,33 @@ public class NotificationIntentUtils {
                 .setSmallIcon(R.drawable.ic_deezer_logo_24)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
-                .addAction(getPlayAction(context))
+                .addAction(getPlayAction(context, playlist))
                 .build();
 
 
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0, n);
+        notificationManager.notify(NOTIFICATION_ID, n);
     }
 
-    private static Notification.Action getPlayAction(Context context) {
+    private static Notification.Action getPlayAction(Context context, Playlist playlist) {
         Intent playReceive = new Intent();
+        playReceive.putExtra("playlist", playlist);
         playReceive.setAction(ACTION_PLAY);
+        int KEY_PLAY = 9877;
         PendingIntent pendingIntentPlay = PendingIntent.getBroadcast(context, KEY_PLAY, playReceive, PendingIntent.FLAG_UPDATE_CURRENT);
 
         return new Notification.Action.Builder(R.drawable.ic_tick_16,
-                                               "action play",
-                                               pendingIntentPlay)
-                .build();
+                                               ACTION_PLAY,
+                                               pendingIntentPlay).build();
     }
 
-
+    public static void cancelNotification(Context context) {
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(ns);
+        notificationManager.cancel(NOTIFICATION_ID);
+        Intent closeIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        context.sendBroadcast(closeIntent);
+    }
 }

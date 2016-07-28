@@ -1,7 +1,6 @@
 package com.lostincontext.that;
 
 import android.app.IntentService;
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -19,8 +18,6 @@ import java.io.IOException;
 public class ThatService extends IntentService {
 
     private static final String TAG = ThatService.class.getSimpleName();
-    private static Playlist playlist;
-    private BroadcastReceiver playReceiver;
 
     public ThatService() {
         super(TAG);
@@ -37,10 +34,9 @@ public class ThatService extends IntentService {
         if (rule != null) {
             switch (fenceState.getCurrentState()) {
                 case FenceState.TRUE:
-                    playlist = rule.getPlaylist();
+                    Playlist playlist = rule.getPlaylist();
                     if (playlist != null) {
-//                        new PlaylistLauncher().launchPlaylist(this, playlist, true);
-                        NotificationIntentUtils.displayNotification(this, rule.getName());
+                        NotificationIntentUtils.displayNotification(this, rule.getName(), playlist);
                     }
 
                     Log.i(TAG, "Rule is verified");
