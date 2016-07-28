@@ -14,7 +14,6 @@ import com.lostincontext.R;
 import com.lostincontext.awareness.Awareness;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.GridBottomSheetItem;
-import com.lostincontext.data.RuleDetails;
 import com.lostincontext.data.location.LocationModel;
 import com.lostincontext.data.location.repo.LocationRepository;
 import com.lostincontext.data.playlist.Playlist;
@@ -52,7 +51,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
 
     private final RuleDetailsContract.View view;
 
-    private final RuleDetails ruleDetails = new RuleDetails();
+    private final Rule rule = new Rule();
 
     private final LocationRepository locationRepository;
     private final RulesRepository rulesRepository;
@@ -81,7 +80,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
 
     @Override public void start() {
         view.setItems(items);
-        view.setRuleDetails(ruleDetails);
+        view.setRule(rule);
     }
 
     @Override public void onLinkClick(FenceItem item) {
@@ -287,13 +286,11 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
 
     // todo validate input and diplay snackbar when there is an issue
     private void saveRule() {
-        Rule rule = new Rule();
 
         if (items.isEmpty()) return;
         if (playlist == null) return;
         if (TextUtils.isEmpty(rule.getName())) return;
 
-        rule.setName(ruleDetails.name);
         rule.setPlaylist(playlist);
 
         FenceVM fenceVM = extractFenceForRule();

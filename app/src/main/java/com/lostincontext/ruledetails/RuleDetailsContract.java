@@ -8,6 +8,7 @@ import com.lostincontext.commons.BaseView;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.RuleDetails;
 import com.lostincontext.data.playlist.Playlist;
+import com.lostincontext.data.rules.Rule;
 import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.items.FenceItemCallback;
 import com.lostincontext.ruledetails.pick.PickerDialogCallback;
@@ -34,7 +35,7 @@ public class RuleDetailsContract {
 
         void showLocationPicker(String name);
 
-        void setRuleDetails(RuleDetails ruleDetails);
+        void setRule(Rule rule);
 
         PendingIntent getPendingIntent(Playlist playlist);
     }

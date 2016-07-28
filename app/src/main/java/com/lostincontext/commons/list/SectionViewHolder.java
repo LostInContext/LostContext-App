@@ -27,7 +27,7 @@ public class SectionViewHolder extends ViewHolder {
 
 
     public void bindTo(Section section) {
-        binding.title.setText(section.getTitle());
+        binding.setTitle(section.getTitle());
     }
 
 }

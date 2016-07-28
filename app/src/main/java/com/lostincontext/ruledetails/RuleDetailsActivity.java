@@ -23,7 +23,7 @@ public class RuleDetailsActivity extends BaseActivity {
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rules_creation_screen);
+        setContentView(R.layout.rule_details_screen);
 
         FragmentManager fm = getSupportFragmentManager();
         RuleDetailsFragment fragment = (RuleDetailsFragment) fm.findFragmentById(R.id.contentFrame);

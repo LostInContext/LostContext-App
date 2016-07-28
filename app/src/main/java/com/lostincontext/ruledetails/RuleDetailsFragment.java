@@ -21,8 +21,8 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
-import com.lostincontext.data.RuleDetails;
 import com.lostincontext.data.playlist.Playlist;
+import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;
 import com.lostincontext.playlists.PlaylistsActivity;
 import com.lostincontext.ruledetails.items.FenceItem;
@@ -128,8 +128,8 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         }
     }
 
-    @Override public void setRuleDetails(RuleDetails ruleDetails) {
-        binding.setRule(ruleDetails);
+    @Override public void setRule(Rule rule) {
+        binding.setRule(rule);
     }
 
         public PendingIntent getPendingIntent(Playlist playlist) {
