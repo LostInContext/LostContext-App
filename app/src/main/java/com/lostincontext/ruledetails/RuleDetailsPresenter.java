@@ -286,7 +286,6 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
 
     // todo validate input and diplay snackbar when there is an issue
     private void saveRuleAndQuit() {
-        Rule rule = new Rule();
 
         if (items.isEmpty()) return;
         if (playlist == null) return;
