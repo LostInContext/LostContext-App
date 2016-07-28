@@ -24,7 +24,6 @@ import com.lostincontext.data.rules.FenceBuilder;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.HeadphoneFenceVM;
 import com.lostincontext.data.rules.LocationFenceVM;
-import com.lostincontext.data.rules.NotFenceVM;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.data.rules.repo.RulesRepository;
 import com.lostincontext.ruledetails.items.FenceItem;
@@ -346,11 +345,16 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
         return completedFence;
     }
 
-    List<FenceItem> getCleanedList() {
+    /**
+     * @return a new list, where there are only {@link Link#AND}, {@link Link#OR} & {@link Link#WHEN}
+     * links, all the {@link Link#AND_NOT} & {@link Link#OR_NOT} see their fenceVMs wrapped in
+     * {@link com.lostincontext.data.rules.NotFenceVM}s.
+     */
+    private List<FenceItem> getCleanedList() {
         List<FenceItem> cleanedItems = new ArrayList<>(items.size());
 
-
         for (FenceItem item : items) {
+
             switch (item.link) {
 
                 case AND:
@@ -361,12 +365,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
 
                 case AND_NOT:
                 case OR_NOT:
-                    FenceItem duplicate = new FenceItem(new NotFenceVM(item.fenceVM),
-                                                        item.name,
-                                                        item.drawableRes,
-                                                        false);
-                    duplicate.link = item.link == AND_NOT ? AND : Link.OR;
-                    cleanedItems.add(duplicate);
+                    cleanedItems.add(FenceItem.wrapNot(item));
                     break;
             }
         }

@@ -7,8 +7,10 @@ import android.support.annotation.StringRes;
 import com.lostincontext.R;
 import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.data.rules.FenceVM;
+import com.lostincontext.data.rules.NotFenceVM;
 
 import static com.lostincontext.ruledetails.items.FenceItem.Link.AND;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.OR;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.WHEN;
 
 public class FenceItem {
@@ -48,6 +50,33 @@ public class FenceItem {
         this.drawableRes = drawableRes;
         if (isFirstItem) link = WHEN;
         else link = AND;
+    }
+
+    /**
+     * duplicates an object but replaces its fenceVM & link attributes
+     */
+    public FenceItem(FenceItem item,
+                     FenceVM fenceVM,
+                     Link link) {
+        this.fenceVM = fenceVM;
+        this.name = item.name;
+        this.drawableRes = item.drawableRes;
+        this.link = link;
+
+    }
+
+    public static FenceItem wrapNot(FenceItem item) {
+        switch (item.link) {
+
+            case AND:
+            case OR:
+            case WHEN:
+                return item;
+            case AND_NOT:
+                return new FenceItem(item, new NotFenceVM(item.fenceVM), AND);
+            case OR_NOT:
+                return new FenceItem(item, new NotFenceVM(item.fenceVM), OR);
+        }
     }
 
     public static FenceItem createFromPick(GridBottomSheetItem pick, FenceVM fenceVM, boolean isFirstItem) {
