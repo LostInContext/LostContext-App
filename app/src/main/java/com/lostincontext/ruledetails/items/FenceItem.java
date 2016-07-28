@@ -65,18 +65,23 @@ public class FenceItem {
 
     }
 
+    /**
+     * If the item link is not of the 'NOT' variety, this just returns the item,
+     * Otherwise, it returns a new item without the not but with a wrapping NotFenceVM
+     */
     public static FenceItem wrapNot(FenceItem item) {
         switch (item.link) {
-
             case AND:
             case OR:
             case WHEN:
                 return item;
+
             case AND_NOT:
                 return new FenceItem(item, new NotFenceVM(item.fenceVM), AND);
             case OR_NOT:
                 return new FenceItem(item, new NotFenceVM(item.fenceVM), OR);
         }
+        throw new RuntimeException("unhandled case");
     }
 
     public static FenceItem createFromPick(GridBottomSheetItem pick, FenceVM fenceVM, boolean isFirstItem) {

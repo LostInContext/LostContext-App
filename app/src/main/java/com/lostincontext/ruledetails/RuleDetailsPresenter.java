@@ -354,20 +354,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
         List<FenceItem> cleanedItems = new ArrayList<>(items.size());
 
         for (FenceItem item : items) {
-
-            switch (item.link) {
-
-                case AND:
-                case OR:
-                case WHEN:
-                    cleanedItems.add(item);
-                    break;
-
-                case AND_NOT:
-                case OR_NOT:
-                    cleanedItems.add(FenceItem.wrapNot(item));
-                    break;
-            }
+            cleanedItems.add(FenceItem.wrapNot(item));
         }
         return cleanedItems;
     }
