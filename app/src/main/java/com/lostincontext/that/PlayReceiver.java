@@ -8,11 +8,11 @@ import android.os.Bundle;
 
 import com.lostincontext.PlaylistLauncher;
 import com.lostincontext.data.playlist.Playlist;
-import com.lostincontext.utils.NotificationIntentUtils;
+import com.lostincontext.utils.Notifications;
 
 public class PlayReceiver extends BroadcastReceiver {
     @Override public void onReceive(Context context, Intent intent) {
-        NotificationIntentUtils.cancelNotification(context);
+        Notifications.cancelNotification(context);
         final Bundle extras = intent.getExtras();
         if (extras != null) {
             final Playlist playlist = extras.getParcelable("playlist");

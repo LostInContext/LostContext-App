@@ -10,7 +10,7 @@ import com.google.android.gms.awareness.fence.FenceState;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.data.rules.repo.RulesRepository;
-import com.lostincontext.utils.NotificationIntentUtils;
+import com.lostincontext.utils.Notifications;
 
 import java.io.IOException;
 
@@ -36,7 +36,7 @@ public class ThatService extends IntentService {
                 case FenceState.TRUE:
                     Playlist playlist = rule.getPlaylist();
                     if (playlist != null) {
-                        NotificationIntentUtils.displayNotification(this, rule.getName(), playlist);
+                        Notifications.displayNotification(this, rule.getName(), playlist);
                     }
 
                     Log.i(TAG, "Rule is verified");

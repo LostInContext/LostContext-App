@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 
 import com.lostincontext.R;
 import com.lostincontext.data.playlist.Playlist;
@@ -12,7 +13,7 @@ import com.lostincontext.that.PlayReceiver;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
-public class NotificationIntentUtils {
+public class Notifications {
     public static String ACTION_PLAY = "action_play";
     private static final int NOTIFICATION_ID = 0;
 
