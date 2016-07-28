@@ -24,8 +24,8 @@ public class LocationFenceVM implements FenceVM {
     })
     public @interface LocationName { }
 
-    public static final String HOME = "home";
-    public static final String WORK = "work";
+    public static final String HOME = "HOME";
+    public static final String WORK = "WORK";
 
 
     private State state;
