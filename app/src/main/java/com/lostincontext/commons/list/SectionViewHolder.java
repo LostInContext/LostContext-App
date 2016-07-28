@@ -1,11 +1,9 @@
-package com.lostincontext.rulescreation.display;
+package com.lostincontext.commons.list;
 
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.lostincontext.commons.list.Section;
-import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.databinding.ItemSectionHeaderBinding;
 
 public class SectionViewHolder extends ViewHolder {

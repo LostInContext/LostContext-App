@@ -10,6 +10,7 @@ import com.lostincontext.data.RuleDetails;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.items.FenceItemCallback;
+import com.lostincontext.ruledetails.pick.PickerDialogCallback;
 import com.lostincontext.ruledetails.pick.PlusButtonCallback;
 
 import java.util.List;
@@ -31,8 +32,6 @@ public class RuleDetailsContract {
 
         void showPlaylist(Playlist playlist);
 
-        void notifyItemRangeInserted(int positionStart, int itemCount);
-
         void showLocationPicker(String name);
 
         void setRuleDetails(RuleDetails ruleDetails);
@@ -41,7 +40,7 @@ public class RuleDetailsContract {
     }
 
 
-    interface Presenter extends BasePresenter, FenceItemCallback, PlusButtonCallback {
+    interface Presenter extends BasePresenter, FenceItemCallback, PlusButtonCallback, PickerDialogCallback {
 
         List<Section> provideFenceChoices();
 

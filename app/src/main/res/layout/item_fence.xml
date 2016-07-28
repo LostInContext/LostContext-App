@@ -27,7 +27,7 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:background="?selectableItemBackground"
-            android:clickable="@{item.link != item.link.IF}"
+            android:clickable="@{item.link != item.link.WHEN}"
             android:gravity="center_vertical"
             android:onClick="@{() -> callback.onLinkClick(item)}"
             android:text="@{item.link.resourceId}"

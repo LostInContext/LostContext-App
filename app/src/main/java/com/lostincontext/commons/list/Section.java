@@ -5,7 +5,6 @@ import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
 
 import com.lostincontext.R;
-import com.lostincontext.rulescreation.display.SectionViewHolder;
 
 import java.util.List;
 

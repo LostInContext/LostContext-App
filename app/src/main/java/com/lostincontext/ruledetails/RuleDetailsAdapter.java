@@ -12,7 +12,6 @@ import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.items.FenceItemCallback;
 import com.lostincontext.ruledetails.items.FenceItemViewHolder;
 import com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder;
-import com.lostincontext.rulescreation.display.RuleCreationItemCallback;
 
 import java.util.Collections;
 import java.util.List;

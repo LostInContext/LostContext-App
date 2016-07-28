@@ -9,10 +9,7 @@ import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.data.rules.FenceVM;
 
 import static com.lostincontext.ruledetails.items.FenceItem.Link.AND;
-import static com.lostincontext.ruledetails.items.FenceItem.Link.AND_NOT;
-import static com.lostincontext.ruledetails.items.FenceItem.Link.IF;
-import static com.lostincontext.ruledetails.items.FenceItem.Link.OR;
-import static com.lostincontext.ruledetails.items.FenceItem.Link.OR_NOT;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.WHEN;
 
 public class FenceItem {
 
@@ -28,7 +25,7 @@ public class FenceItem {
         OR(R.string.or),
         AND_NOT(R.string.and_not),
         OR_NOT(R.string.or_not),
-        IF(R.string._if);
+        WHEN(R.string.when);
 
         @StringRes private final int resourceId;
 
@@ -49,7 +46,7 @@ public class FenceItem {
         this.fenceVM = fenceVM;
         this.name = name;
         this.drawableRes = drawableRes;
-        if (isFirstItem) link = IF;
+        if (isFirstItem) link = WHEN;
         else link = AND;
     }
 

@@ -3,6 +3,7 @@ package com.lostincontext.ruledetails;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
@@ -41,8 +42,8 @@ import javax.inject.Inject;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.AND;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.AND_NOT;
-import static com.lostincontext.ruledetails.items.FenceItem.Link.IF;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.OR_NOT;
+import static com.lostincontext.ruledetails.items.FenceItem.Link.WHEN;
 
 public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -87,10 +88,6 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
         toggleLink(item);
     }
 
-    @Override public void onPlaylistPickerClick() {
-
-    }
-
 
     public void toggleLink(FenceItem item) {
         switch (item.link) {
@@ -106,7 +103,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
             case OR_NOT:
                 item.link = AND;
                 break;
-            case IF:
+            case WHEN:
                 break;
         }
 
@@ -294,6 +291,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
 
         if (items.isEmpty()) return;
         if (playlist == null) return;
+        if (TextUtils.isEmpty(rule.getName())) return;
 
         rule.setName(ruleDetails.name);
         rule.setPlaylist(playlist);
@@ -305,7 +303,6 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
         builder.addFence(rule.getName(), rule.getFenceVM().build(new FenceBuilder()), view.getPendingIntent(playlist));
         awareness.updateFences(builder.build());
-
 
 
     }
@@ -324,7 +321,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
             Link link = null;
             while (j < count) {
                 FenceItem nextItem = list.get(j);
-                if (item.link.equals(IF) && (link == null || link == nextItem.link)
+                if (item.link.equals(WHEN) && (link == null || link == nextItem.link)
                         || nextItem.link.equals(item.link)) {
                     similarItems.add(nextItem.fenceVM);
                     link = nextItem.link;
@@ -361,7 +358,7 @@ public class RuleDetailsPresenter implements RuleDetailsContract.Presenter, Goog
 
                 case AND:
                 case OR:
-                case IF:
+                case WHEN:
                     cleanedItems.add(item);
                     break;
 

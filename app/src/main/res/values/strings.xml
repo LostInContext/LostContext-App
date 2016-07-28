@@ -4,7 +4,7 @@
     <string name="play_playlist">play %1$s</string>
     <string name="rule_name">Rule name</string>
     <string name="then_play">Then, play :</string>
-    <string name="_if">If</string>
+    <string name="when">When</string>
     <string name="or">Or</string>
     <string name="and">And</string>
     <string name="and_not">and not</string>

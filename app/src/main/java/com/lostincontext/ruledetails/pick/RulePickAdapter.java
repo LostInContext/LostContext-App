@@ -9,7 +9,7 @@ import com.lostincontext.R;
 import com.lostincontext.commons.list.Adapter;
 import com.lostincontext.commons.list.Section;
 import com.lostincontext.commons.list.ViewHolder;
-import com.lostincontext.rulescreation.display.SectionViewHolder;
+import com.lostincontext.commons.list.SectionViewHolder;
 
 import java.util.List;
 
