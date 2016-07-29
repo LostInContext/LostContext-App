@@ -193,10 +193,12 @@ public abstract class StatefulAdapter extends Adapter<ViewHolder> {
     /**
      * Set the state and notify about the item changes if there are any.
      *
-     * @param state the {@link ContentState} to set
+     * @param state        the {@link ContentState} to set
+     * @param notifyIfSame will call {@link Adapter#notifyDataSetChanged()} if the current state is
+     *                     already {@code state}.
      * @return {@code true} if the state has changed, {@code false} otherwise
      */
-    public final boolean setCurrentState(ContentState state) {
+    public final boolean setCurrentState(ContentState state, boolean notifyIfSame) {
         if (state == mCurrentState) return false;
 
         ContentState oldState = mCurrentState;
@@ -212,5 +214,9 @@ public abstract class StatefulAdapter extends Adapter<ViewHolder> {
             notifyItemInserted(0);
         }
         return true;
+    }
+
+    public final boolean setCurrentState(ContentState state) {
+        return setCurrentState(state, false);
     }
 }

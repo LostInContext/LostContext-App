@@ -72,7 +72,7 @@ public class MainScreenAdapter extends StatefulAdapter {
     public void setRules(List<Rule> rules) {
         this.rules = rules;
         if (rules.size() == 0) setCurrentState(ContentState.EMPTY);
-        else setCurrentState(ContentState.CONTENT);
+        else setCurrentState(ContentState.CONTENT, true);
     }
 
 }
