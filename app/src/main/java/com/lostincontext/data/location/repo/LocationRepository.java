@@ -2,7 +2,6 @@ package com.lostincontext.data.location.repo;
 
 
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -54,7 +53,6 @@ public class LocationRepository {
         }
     }
 
-    @Nullable
     public void getLocation(String name, LocationCallback callback) {
         String json = loadFromPrefs(name);
         if (json.isEmpty()) callback.onLocationLoadFailed(name);
