@@ -15,12 +15,10 @@ import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
-
+@Singleton
 public class RulesRepository {
-
-    private final static String RULES_KEY = "rules_Key_prefs";
-
 
     public interface LoadTasksCallback {
 
@@ -29,14 +27,14 @@ public class RulesRepository {
         void onTasksLoadFailure();
     }
 
-
+    private static final String RULES_KEY = "rules_Key_prefs";
     private static final String TAG = RulesRepository.class.getSimpleName();
 
     private final SharedPreferences preferences;
     private final ObjectMapper objectMapper;
 
-    @Inject public RulesRepository(@Named("base") SharedPreferences preferences,
-                                   @Named("base") ObjectMapper objectMapper) {
+    @Inject public RulesRepository(@Named("rule") SharedPreferences preferences,
+                                   @Named("rule") ObjectMapper objectMapper) {
         this.preferences = preferences;
         this.objectMapper = objectMapper;
     }

@@ -2,8 +2,10 @@ package com.lostincontext.mainscreen;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.test.mock.MockApplication;
 
 import com.lostincontext.R;
+import com.lostincontext.application.LostApplication;
 import com.lostincontext.awareness.AwarenessModule;
 import com.lostincontext.commons.BaseActivity;
 import com.lostincontext.data.rules.repo.RulesRepositoryModule;
@@ -35,7 +37,7 @@ public class MainActivity extends BaseActivity {
         DaggerMainScreenComponent.builder()
                 .mainScreenPresenterModule(new MainScreenPresenterModule(fragment))
                 .awarenessModule(new AwarenessModule(this))
-                .rulesRepositoryModule(new RulesRepositoryModule(this))
+                .rulesRepositoryComponent(((LostApplication) getApplication()).getRulesRepositoryComponent())
                 .build()
                 .inject(this);
     }

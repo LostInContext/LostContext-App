@@ -20,26 +20,12 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
                                             GoogleApiClient.ConnectionCallbacks,
                                             GoogleApiClient.OnConnectionFailedListener {
 
-    private MainScreenContract.View view;
+    private final MainScreenContract.View view;
 
-    private Awareness awareness;
+    private final Awareness awareness;
 
-    private RulesRepository rulesRepository;
+    private final RulesRepository rulesRepository;
 
-
-    @Override
-    public void start() {
-        rulesRepository.getRules(new RulesRepository.LoadTasksCallback() {
-            @Override public void onTasksLoaded(List<Rule> rules) {
-                view.setRules(rules);
-
-            }
-
-            @Override public void onTasksLoadFailure() {
-
-            }
-        });
-    }
 
     @Inject
     public MainScreenPresenter(MainScreenContract.View view,
@@ -57,6 +43,19 @@ public class MainScreenPresenter implements MainScreenContract.Presenter,
                        this);
     }
 
+    @Override
+    public void start() {
+        rulesRepository.getRules(new RulesRepository.LoadTasksCallback() {
+            @Override public void onTasksLoaded(List<Rule> rules) {
+                view.setRules(rules);
+
+            }
+
+            @Override public void onTasksLoadFailure() {
+
+            }
+        });
+    }
 
     //region callbacks
 

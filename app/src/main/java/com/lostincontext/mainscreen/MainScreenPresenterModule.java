@@ -7,7 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 
 
-@Module(includes = {AwarenessModule.class, RulesRepositoryModule.class})
+@Module(includes = {AwarenessModule.class})
 public class MainScreenPresenterModule {
 
     private final MainScreenContract.View view;

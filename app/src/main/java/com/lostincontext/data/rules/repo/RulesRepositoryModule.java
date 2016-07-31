@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,22 +17,21 @@ import static android.content.Context.MODE_PRIVATE;
 @Module
 public class RulesRepositoryModule {
 
-    private Context context;
 
-    public RulesRepositoryModule(Context context) {
-        this.context = context;
-    }
+    public RulesRepositoryModule() { }
 
-    @Named("base")
-    @Provides ObjectMapper provideObjectMapper() {
+    @Singleton
+    @Named("rule")
+    @Provides
+    ObjectMapper provideObjectMapper() {
         return new ObjectMapper();
     }
 
-
-    @Named("base")
-    @Provides SharedPreferences provideSharedPreferences() {
-        return context.getSharedPreferences(context.getPackageName(),
-                                            MODE_PRIVATE);
+    @Singleton
+    @Named("rule")
+    @Provides
+    SharedPreferences provideSharedPreferences(Context context) {
+        return context.getSharedPreferences("rules", MODE_PRIVATE);
     }
 
 }
