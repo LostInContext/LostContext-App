@@ -23,7 +23,8 @@ public class RuleDetailsContract {
     public enum RuleErrors {
         NO_TITLE,
         NO_CONDITION,
-        NO_PLAYLIST
+        NO_PLAYLIST,
+        SAVE_ERROR,
     }
 
     public static Object LINK_CHANGED = new Object();
@@ -43,7 +44,7 @@ public class RuleDetailsContract {
 
         void showPlaylist(Playlist playlist);
 
-        void showLocationPicker(String name, GridBottomSheetItem item);
+        void checkPermissionsAndShowLocationPicker(String name, GridBottomSheetItem item);
 
         void setRule(Rule rule);
 

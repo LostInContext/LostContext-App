@@ -32,7 +32,6 @@ import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.items.FenceItem.Link;
 import com.lostincontext.ruledetails.pick.BottomSheetItemSection;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -49,6 +48,7 @@ import static com.lostincontext.ruledetails.items.FenceItem.Link.AND;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.AND_NOT;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.OR_NOT;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.WHEN;
+import static java.util.EnumSet.of;
 
 public class RuleDetailsPresenter implements Presenter, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -214,8 +214,8 @@ public class RuleDetailsPresenter implements Presenter, GoogleApiClient.Connecti
 
     private void handleLocationItemClick(GridBottomSheetItem item) {
         String name = item.picker.name();
-        LocationModel locationModel = getLocation(name);
-        if (locationModel == null) view.showLocationPicker(name, item);
+        LocationModel locationModel = locationRepository.getLocation(name);
+        if (locationModel == null) view.checkPermissionsAndShowLocationPicker(name, item);
         else addLocationFence(item, locationModel);
     }
 
@@ -225,16 +225,6 @@ public class RuleDetailsPresenter implements Presenter, GoogleApiClient.Connecti
         items.add(fenceItem);
         view.notifyItemInserted(items.indexOf(fenceItem));
 
-    }
-
-    private LocationModel getLocation(String locationName) {
-        LocationModel location = null;
-        try {
-            location = locationRepository.getLocation(locationName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return location;
     }
 
 
@@ -308,17 +298,17 @@ public class RuleDetailsPresenter implements Presenter, GoogleApiClient.Connecti
         FenceVM fenceVM = extractFenceForRule();
         rule.setFenceVM(fenceVM);
 
-        rulesRepository.saveRule(rule);
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
         builder.addFence(rule.getName(), rule.getFenceVM().build(new FenceBuilder()), view.getPendingIntent(playlist));
         awareness.updateFences(builder.build()).setResultCallback(new ResultCallbacks<Status>() {
             @Override public void onSuccess(@NonNull Status status) {
+                Log.d(TAG, "updateFences.onSuccess: " + status.getStatusMessage());
+                rulesRepository.saveRule(rule);
                 view.finishActivity();
-
             }
 
             @Override public void onFailure(@NonNull Status status) {
-
+                view.showSnack(of(RuleErrors.SAVE_ERROR));
             }
         });
 

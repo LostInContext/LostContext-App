@@ -9,9 +9,13 @@
     <string name="and">And</string>
     <string name="and_not">and not</string>
     <string name="or_not">or not</string>
-    <string name="save">SAVE</string>
+    <string name="save">Save</string>
     <string name="delete">Delete</string>
-    <string name="missing_condition">you need to pick at list one condition</string>
+    <string name="missing_condition">You need to pick at list one condition.</string>
     <string name="missing_title">You need to give a name to this rule.</string>
     <string name="missing_playlist">You need to pick a playlist.</string>
+    <string name="rule_save_error">Impossible to save the rule.</string>
+    <string name="permission_rationale">We need to access to your location in order to use it in a rule.</string>
+    <string name="ok">OK</string>
+    <string name="play_services_not_available">Google Play Services is not available.</string>
 </resources>

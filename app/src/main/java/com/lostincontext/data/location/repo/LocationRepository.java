@@ -2,6 +2,7 @@ package com.lostincontext.data.location.repo;
 
 
 import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -55,9 +56,16 @@ public class LocationRepository {
         }
     }
 
-
-    public LocationModel getLocation(String name) throws IOException {
-        return deserialize(loadFromPrefs(name));
+    @Nullable
+    public LocationModel getLocation(String name) {
+        String json = loadFromPrefs(name);
+        if (json.isEmpty()) return null;
+        try {
+            return deserialize(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //region SharedPreferences editor
