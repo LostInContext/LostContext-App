@@ -9,10 +9,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.data.location.LocationModel;
-import com.lostincontext.data.rules.FenceVM;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,11 +18,11 @@ import javax.inject.Named;
 public class LocationRepository {
 
 
-    interface LoadTasksCallback {
+    public interface LocationCallback {
 
-        void onTasksLoaded(List<FenceVM> rules);
+        void onLocationFetched(LocationModel locationModel);
 
-        void onTasksLoadFailure();
+        void onLocationLoadFailed(String name);
     }
 
     private static final String TAG = LocationRepository.class.getSimpleName();
@@ -57,15 +55,15 @@ public class LocationRepository {
     }
 
     @Nullable
-    public LocationModel getLocation(String name) {
+    public void getLocation(String name, LocationCallback callback) {
         String json = loadFromPrefs(name);
-        if (json.isEmpty()) return null;
+        if (json.isEmpty()) callback.onLocationLoadFailed(name);
         try {
-            return deserialize(json);
+            callback.onLocationFetched(deserialize(json));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        callback.onLocationLoadFailed(name);
     }
 
     //region SharedPreferences editor

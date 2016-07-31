@@ -18,6 +18,7 @@ import com.lostincontext.commons.list.Section;
 import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.data.location.LocationModel;
 import com.lostincontext.data.location.repo.LocationRepository;
+import com.lostincontext.data.location.repo.LocationRepository.LocationCallback;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.data.rules.CompositeFenceVM;
 import com.lostincontext.data.rules.CompositeFenceVM.Operator;
@@ -212,11 +213,17 @@ public class RuleDetailsPresenter implements Presenter, GoogleApiClient.Connecti
     }
 
 
-    private void handleLocationItemClick(GridBottomSheetItem item) {
+    private void handleLocationItemClick(final GridBottomSheetItem item) {
         String name = item.picker.name();
-        LocationModel locationModel = locationRepository.getLocation(name);
-        if (locationModel == null) view.checkPermissionsAndShowLocationPicker(name, item);
-        else addLocationFence(item, locationModel);
+        locationRepository.getLocation(name, new LocationCallback() {
+            @Override public void onLocationFetched(LocationModel locationModel) {
+                addLocationFence(item, locationModel);
+            }
+
+            @Override public void onLocationLoadFailed(String name) {
+                view.checkPermissionsAndShowLocationPicker(name, item);
+            }
+        });
     }
 
     private void addLocationFence(GridBottomSheetItem item, LocationModel locationModel) {
