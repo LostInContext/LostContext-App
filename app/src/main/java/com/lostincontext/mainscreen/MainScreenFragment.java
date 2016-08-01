@@ -76,6 +76,7 @@ public class MainScreenFragment extends Fragment implements MainScreenContract.V
             }
         });
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
         return binding.getRoot();
     }
 

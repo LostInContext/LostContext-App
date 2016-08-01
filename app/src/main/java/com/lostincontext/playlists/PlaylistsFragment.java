@@ -73,6 +73,7 @@ public class PlaylistsFragment extends Fragment implements PlaylistsContract.Vie
             }
         });
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
         return binding.getRoot();
     }
 

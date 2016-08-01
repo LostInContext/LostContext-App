@@ -89,8 +89,7 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
 
         binding.plusButton.setCallback(presenter);
         recyclerView.setAdapter(adapter);
-
-
+        recyclerView.setHasFixedSize(true);
         return binding.getRoot();
     }
 
