@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".playlists.PlaylistsActivity" />
-        <activity android:name=".ruledetails.RuleDetailsActivity" />
+        <activity android:name=".ruledetails.RuleDetailsActivity"
+            android:theme="@style/RuleDetailsTheme"/>
 
         <receiver android:name=".that.PlayReceiver">
             <intent-filter>

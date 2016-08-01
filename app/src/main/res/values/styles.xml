@@ -6,10 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:actionMenuTextColor">@android:color/primary_text_dark</item>
-
     </style>
 
+    <style name="RuleDetailsTheme" parent="AppTheme">
+        <item name="actionButtonStyle">@style/ActionButtonStyle</item>
+    </style>
+
+    <style name="ActionButtonStyle" parent="Base.Widget.AppCompat.Button.Borderless" />
 
     <style name="itemTitle" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textSize">16sp</item>
