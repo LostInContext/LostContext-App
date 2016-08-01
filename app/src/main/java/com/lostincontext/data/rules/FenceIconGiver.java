@@ -22,8 +22,10 @@ public class FenceIconGiver {
         switch (fence.getName()) {
             case LocationFenceVM.HOME:
                 iconList.add(R.drawable.ic_home_24);
+                break;
             case LocationFenceVM.WORK:
                 iconList.add(R.drawable.ic_work_24);
+                break;
 
         }
         return iconList;
@@ -44,6 +46,9 @@ public class FenceIconGiver {
                 break;
             case RUNNING:
                 iconList.add(R.drawable.ic_run_24);
+                break;
+            case ON_BICYCLE:
+                iconList.add(R.drawable.ic_bike_24);
                 break;
             case WALKING:
             default:
