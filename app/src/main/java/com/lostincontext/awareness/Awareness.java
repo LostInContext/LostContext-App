@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.google.android.gms.awareness.fence.FenceQueryRequest;
 import com.google.android.gms.awareness.fence.FenceQueryResult;
-import com.google.android.gms.awareness.fence.FenceStateMap;
 import com.google.android.gms.awareness.fence.FenceUpdateRequest;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
@@ -45,14 +44,33 @@ public class Awareness {
         activity.registerLifecycleCallbacks(lifecycleCallbacks);
     }
 
-    public PendingResult<Status> updateFences(final FenceUpdateRequest fenceUpdateRequest) {
+    public PendingResult<Status> updateFence(final FenceUpdateRequest fenceUpdateRequest) {
         return com.google.android.gms.awareness.Awareness.FenceApi.updateFences(googleApiClient,
-                                                                         fenceUpdateRequest);
+                                                                                fenceUpdateRequest);
     }
 
     public PendingResult<FenceQueryResult> queryFences() {
         return com.google.android.gms.awareness.Awareness.FenceApi.queryFences(googleApiClient,
                                                                                FenceQueryRequest.all());
+    }
+
+    public void deleteAllFences() {
+        queryFences().setResultCallback(new ResultCallbacks<FenceQueryResult>() {
+            @Override public void onSuccess(@NonNull FenceQueryResult fenceQueryResult) {
+                Set<String> fenceKeys = fenceQueryResult.getFenceStateMap().getFenceKeys();
+                Log.d(TAG, "onSuccess: number of keys : " + fenceKeys.size());
+                for (String fenceKey : fenceKeys) {
+                    Log.d(TAG, "deleting key : " + fenceKey);
+                    FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
+                    builder.removeFence(fenceKey);
+                    updateFence(builder.build());
+                }
+            }
+
+            @Override public void onFailure(@NonNull Status status) {
+                Log.e(TAG, "deleteAllFences : onFailure: ");
+            }
+        });
     }
 
     //region LifecycleCallbacks

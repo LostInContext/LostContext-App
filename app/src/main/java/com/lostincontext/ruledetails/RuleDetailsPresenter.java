@@ -303,9 +303,9 @@ public class RuleDetailsPresenter implements Presenter, GoogleApiClient.Connecti
 
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
         builder.addFence(rule.getName(), rule.getFenceVM().build(new FenceBuilder()), view.getPendingIntentFor(playlist));
-        awareness.updateFences(builder.build()).setResultCallback(new ResultCallbacks<Status>() {
+        awareness.updateFence(builder.build()).setResultCallback(new ResultCallbacks<Status>() {
             @Override public void onSuccess(@NonNull Status status) {
-                Log.d(TAG, "updateFences.onSuccess: " + status.getStatusMessage());
+                Log.d(TAG, "updateFence.onSuccess: " + status.getStatusMessage());
                 rulesRepository.saveRule(rule);
                 view.finishActivity();
             }
