@@ -275,10 +275,6 @@ public class RuleDetailsPresenter implements Presenter, GoogleApiClient.Connecti
 
     @Override public boolean onMenuItemClick(int itemId) {
         switch (itemId) {
-            case R.id.action_delete:
-                deleteRule();
-                return true;
-
             case R.id.action_save:
                 saveRuleAndQuit();
                 return true;
