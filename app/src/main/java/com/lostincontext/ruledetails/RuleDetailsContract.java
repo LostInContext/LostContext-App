@@ -48,7 +48,7 @@ public class RuleDetailsContract {
 
         void setRule(Rule rule);
 
-        PendingIntent getPendingIntent(Playlist playlist);
+        PendingIntent getPendingIntentFor(Playlist playlist);
 
         void finishActivity();
 

@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -106,6 +108,12 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
     @Override
     public void setPresenter(RuleDetailsContract.Presenter presenter) {
         this.presenter = presenter;
+        FragmentManager manager = getFragmentManager();
+        PickerDialogFragment pickerFragment = (PickerDialogFragment) manager.findFragmentByTag(PickerDialogFragment.TAG);
+        if (pickerFragment != null) {
+            pickerFragment.registerCallback(presenter);
+            pickerFragment.setSections(presenter.provideFenceChoices());
+        }
     }
 
     @Override public void setItems(List<FenceItem> items) {
@@ -127,7 +135,8 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
     @Override public void displayFenceChoice() {
         PickerDialogFragment picker = PickerDialogFragment.newInstance();
         picker.registerCallback(presenter);
-        picker.show(getFragmentManager(), "PickerDialogFragment");
+        picker.setSections(presenter.provideFenceChoices());
+        picker.show(getFragmentManager(), PickerDialogFragment.TAG);
     }
 
     @Override public void pickAPlaylist() {
@@ -137,17 +146,16 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
 
     @Override
     public void checkPermissionsAndShowLocationPicker(String name, GridBottomSheetItem item) {
-
         savedPlaceName = name;
         savedGridBottomSheetItem = item;
-        checkLocationPermissionToShowPicker();
+        checkLocationPermissionAndShowPicker();
     }
 
     @Override public void setRule(Rule rule) {
         binding.setRule(rule);
     }
 
-    @Override public PendingIntent getPendingIntent(Playlist playlist) {
+    @Override public PendingIntent getPendingIntentFor(Playlist playlist) {
         Intent intent = new Intent(this.getContext(), ThatService.class);
         return PendingIntent.getService(this.getContext().getApplicationContext(),
                                         0,
@@ -213,7 +221,7 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
     }
 
 
-    private void checkLocationPermissionToShowPicker() {
+    private void checkLocationPermissionAndShowPicker() {
         int permissionResult = checkSelfPermission(getContext(),
                                                    ACCESS_FINE_LOCATION);
         boolean permissionGranted = permissionResult == PackageManager.PERMISSION_GRANTED;
@@ -254,7 +262,8 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
                                                                                PLAY_SERVICES_REQUEST_CODE);
             dialog.show();
         } catch (GooglePlayServicesNotAvailableException e) {
-            Snackbar.make(binding.getRoot(), R.string.play_services_not_available,
+            Snackbar.make(binding.getRoot(),
+                          R.string.play_services_not_available,
                           Snackbar.LENGTH_LONG)
                     .show();
         }

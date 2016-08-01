@@ -25,16 +25,16 @@ import java.util.List;
 // todo handle rotations
 public class PickerDialogFragment extends BottomSheetDialogFragment implements PickerDialogCallback {
 
-
+    public static final String TAG = "PickerDialogFragment";
 
     public static PickerDialogFragment newInstance() {
         return new PickerDialogFragment();
     }
 
 
-    private RulePickAdapter adapter;
+    private RulePickAdapter adapter = new RulePickAdapter(this);
 
-    RuleDetailsContract.Presenter callback;
+    private PickerDialogCallback callback;
 
 
     @Nullable @Override
@@ -52,7 +52,6 @@ public class PickerDialogFragment extends BottomSheetDialogFragment implements P
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), span);
         recyclerView.setLayoutManager(layoutManager);
         int space = resources.getDimensionPixelSize(R.dimen.grid_spacing);
-        adapter = new RulePickAdapter(this);
 
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override public int getSpanSize(int position) {
@@ -68,15 +67,17 @@ public class PickerDialogFragment extends BottomSheetDialogFragment implements P
 
 
         recyclerView.setAdapter(adapter);
-
-        List<Section> sections = callback.provideFenceChoices();
-        adapter.setSections(sections);
+        recyclerView.setHasFixedSize(false);
 
         return binding.getRoot();
     }
 
-    public void registerCallback(RuleDetailsContract.Presenter callback) {
+    public void registerCallback(PickerDialogCallback callback) {
         this.callback = callback;
+    }
+
+    public void setSections(List<Section> sections) {
+        adapter.setSections(sections);
     }
 
     @Override public void onGridBottomSheetItemClick(GridBottomSheetItem item) {
