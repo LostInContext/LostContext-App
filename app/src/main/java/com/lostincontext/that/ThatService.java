@@ -55,7 +55,7 @@ public class ThatService extends IntentService {
     }
 
     @Nullable private Rule getRule(FenceState fenceState) {
-        final RulesRepository rulesRepository = new RulesRepository(getSharedPreferences(getPackageName(),
+        final RulesRepository rulesRepository = new RulesRepository(getSharedPreferences("rules",
                                                                                          MODE_PRIVATE), new ObjectMapper());
         Rule rule = null;
         try {
