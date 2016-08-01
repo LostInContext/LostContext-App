@@ -24,12 +24,12 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="@dimen/when_width"
             android:layout_height="48dp"
-            android:paddingStart="@{@dimen/btn_horizontal_padding + @dimen/btn_horizontal_inset}"
             android:background="@null"
             android:gravity="start|center_vertical"
+            android:paddingEnd="@{@dimen/btn_horizontal_padding + @dimen/btn_horizontal_inset}"
+            android:paddingStart="@{@dimen/btn_horizontal_padding + @dimen/btn_horizontal_inset}"
             android:text="@string/then_play"
-            android:textColor="@android:color/secondary_text_light"
-            tools:ignore="RtlSymmetry" />
+            android:textColor="@android:color/secondary_text_light" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/icon"
