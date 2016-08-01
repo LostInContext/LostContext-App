@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".application.LostApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,8 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".playlists.PlaylistsActivity" />
-        <activity android:name=".ruledetails.RuleDetailsActivity"
-            android:theme="@style/RuleDetailsTheme"/>
+        <activity
+            android:name=".ruledetails.RuleDetailsActivity"
+            android:theme="@style/RuleDetailsTheme" />
 
         <receiver android:name=".that.PlayReceiver">
             <intent-filter>

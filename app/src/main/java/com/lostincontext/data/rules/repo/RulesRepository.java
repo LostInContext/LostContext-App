@@ -35,8 +35,8 @@ public class RulesRepository {
     private final SharedPreferences preferences;
     private final ObjectMapper objectMapper;
 
-    @Inject public RulesRepository(@Named("base") SharedPreferences preferences,
-                                   @Named("base") ObjectMapper objectMapper) {
+    @Inject public RulesRepository(@Named("rules") SharedPreferences preferences,
+                                   ObjectMapper objectMapper) {
         this.preferences = preferences;
         this.objectMapper = objectMapper;
     }

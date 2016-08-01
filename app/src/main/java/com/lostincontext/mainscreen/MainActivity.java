@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import com.lostincontext.R;
+import com.lostincontext.application.LostApplication;
 import com.lostincontext.awareness.AwarenessModule;
 import com.lostincontext.commons.BaseActivity;
-import com.lostincontext.data.rules.repo.RulesRepositoryModule;
 
 import javax.inject.Inject;
 
@@ -34,8 +34,8 @@ public class MainActivity extends BaseActivity {
         // Create the presenter
         DaggerMainScreenComponent.builder()
                 .mainScreenPresenterModule(new MainScreenPresenterModule(fragment))
+                .applicationComponent(((LostApplication) getApplication()).getAppComponent())
                 .awarenessModule(new AwarenessModule(this))
-                .rulesRepositoryModule(new RulesRepositoryModule(this))
                 .build()
                 .inject(this);
     }

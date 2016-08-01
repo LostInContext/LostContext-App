@@ -31,7 +31,7 @@ public class LocationRepository {
 
     @Inject
     public LocationRepository(@Named("location") SharedPreferences preferences,
-                              @Named("location") ObjectMapper objectMapper) {
+                              ObjectMapper objectMapper) {
         this.preferences = preferences;
         this.objectMapper = objectMapper;
     }
