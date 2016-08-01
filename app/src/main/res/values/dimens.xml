@@ -6,4 +6,6 @@
     <dimen name="grid_spacing">4dp</dimen>
     <dimen name="button_elevation">2dp</dimen>
     <dimen name="when_width">110dp</dimen>
+    <dimen name="btn_horizontal_inset">4dp</dimen>
+    <dimen name="btn_horizontal_padding">8dp</dimen>
 </resources>

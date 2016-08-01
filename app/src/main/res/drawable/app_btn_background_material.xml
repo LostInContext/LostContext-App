@@ -15,8 +15,8 @@
 
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
     android:insetBottom="6dp"
-    android:insetLeft="4dp"
-    android:insetRight="4dp"
+    android:insetLeft="@dimen/btn_horizontal_inset"
+    android:insetRight="@dimen/btn_horizontal_inset"
     android:insetTop="6dp">
     <ripple android:color="?attr/colorControlHighlight">
         <item>
@@ -27,8 +27,8 @@
                 <solid android:color="@android:color/white" />
                 <padding
                     android:bottom="4dp"
-                    android:left="8dp"
-                    android:right="8dp"
+                    android:left="@dimen/btn_horizontal_padding"
+                    android:right="@dimen/btn_horizontal_padding"
                     android:top="4dp" />
             </shape>
         </item>

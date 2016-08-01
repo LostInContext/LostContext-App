@@ -24,9 +24,12 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="@dimen/when_width"
             android:layout_height="48dp"
+            android:paddingStart="@{@dimen/btn_horizontal_padding + @dimen/btn_horizontal_inset}"
             android:background="@null"
             android:gravity="start|center_vertical"
-            android:text="@string/then_play" />
+            android:text="@string/then_play"
+            android:textColor="@android:color/secondary_text_light"
+            tools:ignore="RtlSymmetry" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/icon"
@@ -44,9 +47,9 @@
             android:layout_height="48dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:maxLines="1"
             android:ellipsize="end"
             android:gravity="center_vertical"
+            android:maxLines="1"
             android:text="@{playlist.title}"
             tools:text="title" />
 
