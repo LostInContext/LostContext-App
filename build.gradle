@@ -39,7 +39,7 @@ ext {
     espressoVersion = '2.2.2'
     daggerVersion = '2.2'
     constraintLayoutVersion = '1.0.0-alpha4'
-    playServicesVersion = '9.2.0'
+    playServicesVersion = '9.2.1'
     glideVersion = '3.7.0'
     jacksonVersion='2.8.0'
 }
