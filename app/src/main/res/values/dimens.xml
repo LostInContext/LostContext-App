@@ -4,6 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="grid_spacing">4dp</dimen>
-    <dimen name="lost_radio_button_elevation">4dp</dimen>
+    <dimen name="button_elevation">2dp</dimen>
     <dimen name="when_width">110dp</dimen>
 </resources>

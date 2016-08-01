@@ -88,5 +88,8 @@ public class FenceItem {
         return new FenceItem(fenceVM, pick.name, pick.drawableRes, isFirstItem);
     }
 
+    public boolean isWhen() {
+        return link.equals(WHEN);
+    }
 
 }

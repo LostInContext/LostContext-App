@@ -23,14 +23,16 @@
 
         <TextView
             android:id="@+id/linkTextView"
-            style="@style/TextAppearance.AppCompat.Button"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="@dimen/when_width"
             android:layout_height="match_parent"
-            android:background="?selectableItemBackground"
-            android:clickable="@{item.link != item.link.WHEN}"
+            android:background="@{item.isWhen() ? @drawable/transparent : @drawable/app_btn_background_material}"
+            android:clickable="@{!item.isWhen()}"
+            android:elevation="@{item.isWhen() ? 0f : @dimen/button_elevation}"
             android:gravity="center_vertical"
             android:onClick="@{() -> callback.onLinkClick(item)}"
             android:text="@{item.link.resourceId}"
+            android:textColor="@{item.isWhen() ? @android:color/primary_text_light : @android:color/primary_text_dark}"
             tools:text="AND" />
 
 
