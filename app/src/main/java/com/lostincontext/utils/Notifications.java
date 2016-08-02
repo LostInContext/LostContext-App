@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Icon;
+import android.support.v4.app.NotificationCompat;
 
 import com.lostincontext.R;
 import com.lostincontext.data.playlist.Playlist;
@@ -26,7 +27,7 @@ public class Notifications {
         Notification n = new Notification.Builder(context)
                 .setContentTitle("LostContext : " + fenceName + " is verified")
                 .setContentText("Launch playlist?")
-                .setSmallIcon(R.drawable.ic_deezer_logo_24)
+                .setSmallIcon(R.drawable.ic_music_note_24)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
                 .addAction(getPlayAction(context, playlist))
@@ -39,14 +40,14 @@ public class Notifications {
         notificationManager.notify(NOTIFICATION_ID, n);
     }
 
-    private static Notification.Action getPlayAction(Context context, Playlist playlist) {
+    private static NotificationCompat.Action getPlayAction(Context context, Playlist playlist) {
         Intent playReceive = new Intent();
         playReceive.putExtra("playlist", playlist);
         playReceive.setAction(ACTION_PLAY);
         int KEY_PLAY = 9877;
         PendingIntent pendingIntentPlay = PendingIntent.getBroadcast(context, KEY_PLAY, playReceive, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        return new Notification.Action.Builder(R.drawable.ic_tick_16,
+        return new NotificationCompat.Action.Builder(R.drawable.ic_tick_16,
                                                ACTION_PLAY,
                                                pendingIntentPlay).build();
     }
