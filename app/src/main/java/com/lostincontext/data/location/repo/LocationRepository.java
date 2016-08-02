@@ -36,14 +36,6 @@ public class LocationRepository {
         this.objectMapper = objectMapper;
     }
 
-    public void saveLocation(String name, LocationModel locationModel) {
-        try {
-            saveToPrefs(name, serialize(locationModel));
-        } catch (JsonProcessingException e) {
-            Log.e(TAG, "save: ", e);
-        }
-    }
-
     public void saveLocation(String name, LatLng latLng) {
         LocationModel model = new LocationModel(name, latLng.latitude, latLng.longitude);
         try {
@@ -60,8 +52,8 @@ public class LocationRepository {
             callback.onLocationFetched(deserialize(json));
         } catch (IOException e) {
             e.printStackTrace();
+            callback.onLocationLoadFailed(name);
         }
-        callback.onLocationLoadFailed(name);
     }
 
     //region SharedPreferences editor
