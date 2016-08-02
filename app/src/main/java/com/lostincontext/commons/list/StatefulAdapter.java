@@ -199,7 +199,10 @@ public abstract class StatefulAdapter extends Adapter<ViewHolder> {
      * @return {@code true} if the state has changed, {@code false} otherwise
      */
     public final boolean setCurrentState(ContentState state, boolean notifyIfSame) {
-        if (state == mCurrentState) return false;
+        if (state == mCurrentState) {
+            if (notifyIfSame) notifyDataSetChanged();
+            return false;
+        }
 
         ContentState oldState = mCurrentState;
         mCurrentState = state;
