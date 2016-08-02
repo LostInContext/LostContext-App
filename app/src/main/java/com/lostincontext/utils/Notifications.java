@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Icon;
 import android.support.v4.app.NotificationCompat;
 
 import com.lostincontext.R;
@@ -24,7 +23,7 @@ public class Notifications {
         intent.putExtra("playlist", playlist);
         PendingIntent pIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), intent, 0);
 
-        Notification n = new Notification.Builder(context)
+        Notification n = new NotificationCompat.Builder(context)
                 .setContentTitle("LostContext : " + fenceName + " is verified")
                 .setContentText("Launch playlist?")
                 .setSmallIcon(R.drawable.ic_music_note_24)
@@ -48,8 +47,8 @@ public class Notifications {
         PendingIntent pendingIntentPlay = PendingIntent.getBroadcast(context, KEY_PLAY, playReceive, PendingIntent.FLAG_UPDATE_CURRENT);
 
         return new NotificationCompat.Action.Builder(R.drawable.ic_tick_16,
-                                               ACTION_PLAY,
-                                               pendingIntentPlay).build();
+                                                     ACTION_PLAY,
+                                                     pendingIntentPlay).build();
     }
 
     public static void cancelNotification(Context context) {
