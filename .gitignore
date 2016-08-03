@@ -6,3 +6,6 @@
 .DS_Store
 /build
 /captures
+
+#misc file that always change its content
+.idea/misc.xml
