@@ -18,4 +18,5 @@
     <string name="permission_rationale">We need to access to your location in order to use it in a rule.</string>
     <string name="ok">OK</string>
     <string name="play_services_not_available">Google Play Services is not available.</string>
+    <string name="play">play</string>
 </resources>
