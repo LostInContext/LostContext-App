@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha7'
+        classpath 'com.android.tools.build:gradle:2.2.0-beta1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
@@ -39,7 +39,7 @@ ext {
     espressoVersion = '2.2.2'
     daggerVersion = '2.2'
     constraintLayoutVersion = '1.0.0-alpha4'
-    playServicesVersion = '9.2.1'
+    playServicesVersion = '9.4.0'
     glideVersion = '3.7.0'
-    jacksonVersion='2.8.0'
+    jacksonVersion='2.8.1'
 }

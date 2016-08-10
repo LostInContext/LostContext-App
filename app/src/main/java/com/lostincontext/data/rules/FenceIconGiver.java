@@ -12,7 +12,9 @@ public class FenceIconGiver {
         List<FenceVM> fenceVMs = compositeFence.getFenceVMs();
         List<Integer> icons = new ArrayList<>();
         for (FenceVM fenceVM : fenceVMs) {
-            icons.addAll(fenceVM.giveIcon(this));
+            if (fenceVM.giveIcon(this) != null) {
+                icons.addAll(fenceVM.giveIcon(this));
+            }
         }
         return icons;
     }
