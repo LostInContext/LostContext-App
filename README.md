@@ -1,7 +1,7 @@
 # LostContext-App
 
 
-A small app allowing you to use the Awareness API in order to launch a playlist when some conditions are reunited.  
+A small app allowing you to use the Awareness API in order to launch a playlist when some conditions are verified.  
 
 For example, you can launch a playlist each time you plug-in your headphones while walking.
 
