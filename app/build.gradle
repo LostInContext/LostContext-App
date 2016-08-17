@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -31,6 +32,11 @@ android {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -55,9 +61,11 @@ dependencies {
     compile "com.google.android.gms:play-services-contextmanager:$rootProject.playServicesVersion"
 
     // Dagger
-    apt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
+
+    kapt 'com.android.databinding:compiler:2.1.3'
 
     // Libraries
     compile "com.google.guava:guava:$rootProject.guavaVersion"
@@ -67,4 +75,19 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-core:$rootProject.jacksonVersion"
     compile "com.fasterxml.jackson.core:jackson-annotations:$rootProject.jacksonVersion"
 
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlin_version"
+
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+    }
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
 }
