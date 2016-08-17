@@ -11,8 +11,13 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
 
     dataBinding {
@@ -31,11 +36,6 @@ android {
         }
     }
 }
-
-kapt {
-    generateStubs = true
-}
-
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -65,7 +65,8 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
 
-    kapt 'com.android.databinding:compiler:2.1.3'
+    //DataBinding
+    kapt 'com.android.databinding:compiler:2.1.0'
 
     // Libraries
     compile "com.google.guava:guava:$rootProject.guavaVersion"
@@ -79,15 +80,6 @@ dependencies {
 
 }
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-    }
-}
-
-sourceSets {
-    main.java.srcDirs += 'src/main/kotlin'
+kapt {
+    generateStubs = true
 }

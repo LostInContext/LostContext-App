@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity {
         MainScreenFragment fragment = (MainScreenFragment) fm.findFragmentById(R.id.contentFrame);
 
         if (fragment == null) {
-            fragment = MainScreenFragment.newInstance();
+            fragment = MainScreenFragment.Companion.newInstance();
             addFragmentToActivity(fm, fragment, R.id.contentFrame);
         }
 
