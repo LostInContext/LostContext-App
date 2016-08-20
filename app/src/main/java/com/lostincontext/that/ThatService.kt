@@ -4,14 +4,11 @@ import android.app.IntentService
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.awareness.fence.FenceState
-import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rules.Rule
 import com.lostincontext.data.rules.repo.RulesRepository
-import com.lostincontext.utils.Notifications
-
+import com.lostincontext.utils.displayNotification
 import java.io.IOException
 
 
@@ -29,7 +26,7 @@ class ThatService : IntentService(ThatService.TAG) {
                 FenceState.TRUE -> {
                     val playlist = rule.playlist
                     if (playlist != null) {
-                        Notifications.displayNotification(this, rule.name, playlist)
+                        displayNotification(this, rule.name, playlist)
                     }
 
                     Log.i(TAG, "Rule is verified")

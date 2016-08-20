@@ -21,8 +21,8 @@ import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rules.FenceIconGiver
 import com.lostincontext.data.rules.Rule
 import com.lostincontext.databinding.ItemRuleBinding
-import com.lostincontext.utils.Colors.animateBackgroundColor
-import com.lostincontext.utils.Colors.animateTextColor
+import com.lostincontext.utils.animateBackgroundColor
+import com.lostincontext.utils.animateTextColor
 
 class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(binding.root),
                                                                    RequestListener<Playlist, PaletteBitmap> {
@@ -125,17 +125,15 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
         val swatch = getSwatch(palette) ?: return
         if (shouldAnimate) {
 
-            animateTextColor(binding.itemTitle,
-                             binding.itemTitle.currentTextColor,
-                             swatch.titleTextColor,
-                             animationDuration,
-                             interpolator)
+            binding.itemTitle.animateTextColor(binding.itemTitle.currentTextColor,
+                                               swatch.titleTextColor,
+                                               animationDuration,
+                                               interpolator)
 
-            animateBackgroundColor(binding.textBackground,
-                                   defaultBackgroundColor,
-                                   swatch.rgb,
-                                   animationDuration,
-                                   interpolator)
+            binding.textBackground.animateBackgroundColor(defaultBackgroundColor,
+                                                          swatch.rgb,
+                                                          animationDuration,
+                                                          interpolator)
 
         } else {
             binding.itemTitle.setTextColor(swatch.titleTextColor)

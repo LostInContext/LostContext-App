@@ -23,13 +23,11 @@ import com.lostincontext.commons.images.palette.PaletteImageViewTarget;
 import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.data.playlist.Playlist;
 import com.lostincontext.databinding.ItemPlaylistBinding;
+import com.lostincontext.utils.ColorsKt;
 
 import java.util.List;
 
 import static android.support.v4.content.ContextCompat.getColor;
-import static com.lostincontext.utils.Colors.animateBackgroundColor;
-import static com.lostincontext.utils.Colors.animateImageTint;
-import static com.lostincontext.utils.Colors.animateTextColor;
 
 public class PlaylistViewHolder extends ViewHolder implements RequestListener<Playlist, PaletteBitmap> {
 
@@ -138,29 +136,29 @@ public class PlaylistViewHolder extends ViewHolder implements RequestListener<Pl
         if (swatch == null) return;
         if (shouldAnimate) {
 
-            animateTextColor(binding.itemInfo,
-                             binding.itemInfo.getCurrentTextColor(),
-                             swatch.getTitleTextColor(),
-                             animationDuration,
-                             interpolator);
+            ColorsKt.animateTextColor(binding.itemInfo,
+                                      binding.itemInfo.getCurrentTextColor(),
+                                      swatch.getTitleTextColor(),
+                                      animationDuration,
+                                      interpolator);
 
-            animateTextColor(binding.itemTitle,
-                             binding.itemTitle.getCurrentTextColor(),
-                             swatch.getTitleTextColor(),
-                             animationDuration,
-                             interpolator);
+            ColorsKt.animateTextColor(binding.itemTitle,
+                                      binding.itemTitle.getCurrentTextColor(),
+                                      swatch.getTitleTextColor(),
+                                      animationDuration,
+                                      interpolator);
 
-            animateBackgroundColor(binding.textBackground,
-                                   defaultBackgroundColor,
-                                   swatch.getRgb(),
-                                   animationDuration,
-                                   interpolator);
+            ColorsKt.animateBackgroundColor(binding.textBackground,
+                                            defaultBackgroundColor,
+                                            swatch.getRgb(),
+                                            animationDuration,
+                                            interpolator);
 
-            animateImageTint(binding.deezerLogo,
-                             defaultBackgroundColor,
-                             swatch.getBodyTextColor(),
-                             animationDuration,
-                             interpolator);
+            ColorsKt.animateImageTint(binding.deezerLogo,
+                                      defaultBackgroundColor,
+                                      swatch.getBodyTextColor(),
+                                      animationDuration,
+                                      interpolator);
 
         } else {
             binding.itemInfo.setTextColor(swatch.getTitleTextColor());

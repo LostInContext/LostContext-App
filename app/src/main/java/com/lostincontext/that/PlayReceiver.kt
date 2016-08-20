@@ -6,11 +6,11 @@ import android.content.Context
 import android.content.Intent
 import com.lostincontext.PlaylistLauncher
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.utils.Notifications
+import com.lostincontext.utils.cancelNotification
 
 class PlayReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        Notifications.cancelNotification(context)
+        cancelNotification(context)
         val extras = intent.extras
         if (extras != null) {
             val playlist = extras.getParcelable<Playlist>("playlist")
