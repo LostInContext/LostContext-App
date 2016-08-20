@@ -70,7 +70,7 @@ class MainScreenFragment : Fragment(), MainScreenContract.View {
     }
 
     override fun setPresenter(presenter: MainScreenContract.Presenter) {
-        this.presenter = checkNotNull(presenter)
+        this.presenter = presenter
     }
 
     override fun getPendingIntent(playlist: Playlist): PendingIntent {

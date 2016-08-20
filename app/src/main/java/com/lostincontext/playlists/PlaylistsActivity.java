@@ -9,7 +9,7 @@ import com.lostincontext.commons.BaseActivity;
 
 import javax.inject.Inject;
 
-import static com.lostincontext.utils.Activities.addFragmentToActivity;
+import static com.lostincontext.utils.ActivitiesKt.addFragmentToActivity;
 
 
 public class PlaylistsActivity extends BaseActivity {
@@ -28,7 +28,7 @@ public class PlaylistsActivity extends BaseActivity {
 
         if (fragment == null) {
             fragment = PlaylistsFragment.newInstance();
-            addFragmentToActivity(fm, fragment, R.id.contentFrame);
+            addFragmentToActivity(this, fm, fragment, R.id.contentFrame);
         }
 
         DaggerPlaylistsComponent.builder()

@@ -11,7 +11,7 @@ import com.lostincontext.commons.BaseActivity;
 
 import javax.inject.Inject;
 
-import static com.lostincontext.utils.Activities.addFragmentToActivity;
+import static com.lostincontext.utils.ActivitiesKt.addFragmentToActivity;
 
 
 public class RuleDetailsActivity extends BaseActivity {
@@ -28,7 +28,7 @@ public class RuleDetailsActivity extends BaseActivity {
         RuleDetailsFragment fragment = (RuleDetailsFragment) fm.findFragmentById(R.id.contentFrame);
         if (fragment == null) {
             fragment = RuleDetailsFragment.newInstance();
-            addFragmentToActivity(fm, fragment, R.id.contentFrame);
+            addFragmentToActivity(this, fm, fragment, R.id.contentFrame);
         }
 
         DaggerRuleDetailsComponent.builder()
