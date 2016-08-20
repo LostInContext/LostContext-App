@@ -9,7 +9,7 @@ import java.util.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    private val lifecycleListeners = HashSet<ActivityLifecycleCallbacks>()
+    private val lifecycleCallbacks = ArrayList<ActivityLifecycleCallbacks>()
 
 
     interface ActivityLifecycleCallbacks {
@@ -28,45 +28,54 @@ abstract class BaseActivity : AppCompatActivity() {
 
     }
 
-    @MainThread
-    fun registerLifecycleCallbacks(listener: ActivityLifecycleCallbacks) {
-        lifecycleListeners.add(listener)
+    @MainThread fun registerLifecycleCallbacks(callback: ActivityLifecycleCallbacks) {
+        lifecycleCallbacks.add(callback)
+    }
+
+    @MainThread fun registerLifecycleCallbacks(callbacks: List<ActivityLifecycleCallbacks>) {
+        lifecycleCallbacks.addAll(callbacks)
     }
 
     @MainThread
-    fun unregisterLifecycleCallbacks(listener: ActivityLifecycleCallbacks) {
-        lifecycleListeners.remove(listener)
+    fun unregisterLifecycleCallbacks(callback: ActivityLifecycleCallbacks) {
+        lifecycleCallbacks.remove(callback)
     }
 
     @CallSuper override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleListeners.forEach { it.onActivityCreated(this) }
-
+        invokeListeners({ it.onActivityCreated(this) })
     }
+
 
     @CallSuper override fun onStart() {
         super.onStart()
-        lifecycleListeners.forEach { it.onActivityStarted(this) }
+        invokeListeners({ it.onActivityStarted(this) })
     }
 
     @CallSuper override fun onResume() {
         super.onResume()
-        lifecycleListeners.forEach { it.onActivityResumed(this) }
+        invokeListeners({ it.onActivityResumed(this) })
     }
 
     @CallSuper override fun onPause() {
-        lifecycleListeners.forEach { it.onActivityPaused(this) }
+        invokeListeners({ it.onActivityPaused(this) })
         super.onPause()
     }
 
     @CallSuper override fun onStop() {
-        lifecycleListeners.forEach { it.onActivityStopped(this) }
+        invokeListeners({ it.onActivityStopped(this) })
         super.onStop()
     }
 
     @CallSuper override fun onDestroy() {
-        lifecycleListeners.forEach { it.onActivityDestroyed(this) }
+        invokeListeners({ it.onActivityDestroyed(this) })
         super.onDestroy()
     }
 
+    private inline fun invokeListeners(fn: (callback: ActivityLifecycleCallbacks) -> Unit) {
+        for (i in lifecycleCallbacks.size - 1 downTo 0) {
+            val callback = lifecycleCallbacks[i]
+            fn.invoke(callback)
+        }
+    }
 }
