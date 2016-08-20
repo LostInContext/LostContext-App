@@ -66,7 +66,7 @@ dependencies {
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
 
     //DataBinding
-    kapt 'com.android.databinding:compiler:2.1.0'
+    kapt "com.android.databinding:compiler:$rootProject.dataBindingVersion"
 
     // Libraries
     compile "com.google.guava:guava:$rootProject.guavaVersion"

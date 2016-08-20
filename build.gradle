@@ -33,7 +33,7 @@ task wrapper(type: Wrapper) {
 }
 
 ext {
-    // Sdk and tools
+    // Sdk and build tools
     minSdkVersion = 21
     targetSdkVersion = 24
     compileSdkVersion = 24
@@ -41,7 +41,15 @@ ext {
 
     // App dependencies
     supportLibraryVersion = '24.2.0'
+    playServicesVersion = '9.4.0'
+    dataBindingVersion = '2.1.2'
     guavaVersion = '19.0'
+    daggerVersion = '2.2'
+    constraintLayoutVersion = '1.0.0-alpha7'
+    glideVersion = '3.7.0'
+    jacksonVersion = '2.8.1'
+
+    // Testing
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
     powerMockito = '1.6.2'
@@ -49,9 +57,4 @@ ext {
     runnerVersion = '0.4.1'
     rulesVersion = '0.4.1'
     espressoVersion = '2.2.2'
-    daggerVersion = '2.2'
-    constraintLayoutVersion = '1.0.0-alpha7'
-    playServicesVersion = '9.4.0'
-    glideVersion = '3.7.0'
-    jacksonVersion = '2.8.1'
 }
