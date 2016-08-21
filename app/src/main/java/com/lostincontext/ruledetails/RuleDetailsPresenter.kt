@@ -2,7 +2,6 @@ package com.lostincontext.ruledetails
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import com.google.android.gms.awareness.fence.FenceUpdateRequest
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -29,6 +28,8 @@ import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.items.FenceItem.Link
 import com.lostincontext.ruledetails.items.FenceItem.Link.*
 import com.lostincontext.ruledetails.pick.BottomSheetItemSection
+import com.lostincontext.utils.logD
+import com.lostincontext.utils.logE
 import java.util.*
 import java.util.EnumSet.of
 import javax.inject.Inject
@@ -80,15 +81,15 @@ class RuleDetailsPresenter
     }
 
     override fun onConnected(bundle: Bundle?) {
-        Log.d(TAG, "onConnected")
+        logD(TAG) { "onConnected" }
     }
 
     override fun onConnectionSuspended(i: Int) {
-        Log.d(TAG, "onConnectionSuspended " + i)
+        logD(TAG) { "onConnectionSuspended " + i }
     }
 
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
-        Log.e(TAG, "onConnectionSuspended " + connectionResult.errorMessage!!)
+        logE(TAG) { "onConnectionSuspended " + connectionResult.errorMessage }
     }
 
     enum class Picker {
@@ -267,7 +268,7 @@ class RuleDetailsPresenter
                          view.getPendingIntentFor(playlist!!))
         awareness.updateFence(builder.build()).setResultCallback(object : ResultCallbacks<Status>() {
             override fun onSuccess(status: Status) {
-                Log.d(TAG, "updateFence.onSuccess: " + status.statusMessage!!)
+                logD(TAG) { "updateFence.onSuccess: " + status.statusMessage }
                 rulesRepository.saveRule(rule)
                 view.finishActivity()
             }

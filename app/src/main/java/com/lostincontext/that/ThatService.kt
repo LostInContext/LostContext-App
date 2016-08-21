@@ -3,38 +3,39 @@ package com.lostincontext.that
 import android.app.IntentService
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.awareness.fence.FenceState
 import com.lostincontext.data.rules.Rule
 import com.lostincontext.data.rules.repo.RulesRepository
 import com.lostincontext.utils.displayNotification
+import com.lostincontext.utils.logD
+import com.lostincontext.utils.logI
 import java.io.IOException
 
 
 class ThatService : IntentService(ThatService.TAG) {
 
     override fun onHandleIntent(intent: Intent) {
-        Log.d(TAG, "onHandleIntent : ")
+        logD(TAG) { "onHandleIntent" }
         val fenceState = FenceState.extract(intent)
-        Log.i(TAG, "onReceive : fenceKey : " + fenceState.fenceKey)
+        logD(TAG) { "fenceKey : " + fenceState.fenceKey }
 
         val rule = getRule(fenceState)
 
         if (rule != null) {
             when (fenceState.currentState) {
                 FenceState.TRUE -> {
+                    logI(TAG) { "Rule verified" }
                     val playlist = rule.playlist
                     if (playlist != null) {
                         displayNotification(this, rule.name, playlist)
                     }
 
-                    Log.i(TAG, "Rule is verified")
                 }
 
-                FenceState.FALSE -> Log.i(TAG, "Rule is NOT verified")
+                FenceState.FALSE -> logI(TAG) { "Rule NOT verified" }
 
-                FenceState.UNKNOWN -> Log.i(TAG, "Rule fence is in an unknown state.")
+                FenceState.UNKNOWN -> logI(TAG) { "Rule fence is in an unknown state" }
             }
         }
 

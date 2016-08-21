@@ -1,7 +1,6 @@
 package com.lostincontext.ruledetails.pick
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.lostincontext.R
@@ -9,6 +8,7 @@ import com.lostincontext.commons.list.Adapter
 import com.lostincontext.commons.list.Section
 import com.lostincontext.commons.list.SectionViewHolder
 import com.lostincontext.commons.list.ViewHolder
+import com.lostincontext.utils.logE
 
 class RulePickAdapter(private val callback: PickerDialogCallback) : Adapter<ViewHolder>() {
 
@@ -45,8 +45,7 @@ class RulePickAdapter(private val callback: PickerDialogCallback) : Adapter<View
             section.onBindViewHolder(holder, finalPosition)
             return
         }
-        Log.e(TAG, "onBindViewHolder: ,  position not found ! " + finalPosition)
-
+        logE(TAG) { "onBindViewHolder: ,  position not found ! " + finalPosition }
     }
 
 

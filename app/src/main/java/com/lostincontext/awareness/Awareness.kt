@@ -1,8 +1,6 @@
 package com.lostincontext.awareness
 
 
-import android.util.Log
-
 import com.google.android.gms.awareness.fence.FenceQueryRequest
 import com.google.android.gms.awareness.fence.FenceQueryResult
 import com.google.android.gms.awareness.fence.FenceUpdateRequest
@@ -13,7 +11,7 @@ import com.google.android.gms.common.api.PendingResult
 import com.google.android.gms.common.api.ResultCallbacks
 import com.google.android.gms.common.api.Status
 import com.lostincontext.commons.BaseActivity
-
+import com.lostincontext.utils.logD
 import javax.inject.Inject
 
 
@@ -36,21 +34,21 @@ constructor(private val googleApiClient: GoogleApiClient) {
 
     fun updateFence(fenceUpdateRequest: FenceUpdateRequest): PendingResult<Status> {
         return com.google.android.gms.awareness.Awareness.FenceApi.updateFences(googleApiClient,
-                fenceUpdateRequest)
+                                                                                fenceUpdateRequest)
     }
 
     fun queryFences(): PendingResult<FenceQueryResult> {
         return com.google.android.gms.awareness.Awareness.FenceApi.queryFences(googleApiClient,
-                FenceQueryRequest.all())
+                                                                               FenceQueryRequest.all())
     }
 
     fun deleteAllFences() {
         queryFences().setResultCallback(object : ResultCallbacks<FenceQueryResult>() {
             override fun onSuccess(fenceQueryResult: FenceQueryResult) {
                 val fenceKeys = fenceQueryResult.fenceStateMap.fenceKeys
-                Log.d(TAG, "onSuccess: number of keys : " + fenceKeys.size)
+                logD(TAG) { "onSuccess: number of keys : " + fenceKeys.size }
                 for (fenceKey in fenceKeys) {
-                    Log.d(TAG, "deleting key : " + fenceKey)
+                    logD(TAG) { "deleting key : " + fenceKey }
                     val builder = FenceUpdateRequest.Builder()
                     builder.removeFence(fenceKey)
                     updateFence(builder.build())
@@ -58,7 +56,7 @@ constructor(private val googleApiClient: GoogleApiClient) {
             }
 
             override fun onFailure(status: Status) {
-                Log.e(TAG, "deleteAllFences : onFailure: ")
+                logD(TAG) { "deleteAllFences : onFailure: " }
             }
         })
     }

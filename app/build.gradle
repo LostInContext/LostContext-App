@@ -30,9 +30,20 @@ android {
     }
 
     buildTypes {
+
+        def BOOLEAN = 'boolean'
+        def LOG = 'LOG'
+        def TRUE = 'true'
+        def FALSE = 'false'
+
+        debug {
+            buildConfigField BOOLEAN, LOG, TRUE
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField BOOLEAN, LOG, FALSE
         }
     }
 }

@@ -1,10 +1,9 @@
 package com.lostincontext.commons.list
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
-
 import com.lostincontext.BuildConfig
+import com.lostincontext.utils.logW
 
 abstract class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -17,7 +16,7 @@ abstract class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
      * @see RecyclerView.Adapter.onFailedToRecycleView
      */
     open fun onFailedToRecycleView(): Boolean {
-        Log.w(TAG, "onFailedToRecycleItem" + toString())
+        logW(TAG) { "onFailedToRecycleItem" + toString() }
         if (BuildConfig.DEBUG) {
             throw RuntimeException("you need to rid the ViewHolder of its transient animations")
         }

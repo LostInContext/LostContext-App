@@ -62,7 +62,6 @@ public class LocationRepository {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(title, json);
         editor.apply();
-
         Log.i(TAG, "saving: " + json);
     }
 

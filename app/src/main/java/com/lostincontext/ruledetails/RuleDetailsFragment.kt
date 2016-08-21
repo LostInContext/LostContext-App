@@ -4,7 +4,7 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.Activity.RESULT_OK
 import android.app.PendingIntent
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat.checkSelfPermission
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils.isEmpty
-import android.util.Log
 import android.view.*
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
@@ -28,6 +27,7 @@ import com.lostincontext.playlists.PlaylistsContract
 import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors
 import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.that.ThatService
+import com.lostincontext.utils.logD
 import java.util.*
 
 
@@ -170,7 +170,7 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
                                             grantResults: IntArray) {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE
                 && grantResults.size == 1
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                && grantResults[0] == PERMISSION_GRANTED) {
             showLocationPicker()
         }
     }
@@ -188,11 +188,10 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
     private fun checkLocationPermissionAndShowPicker() {
         val permissionResult = checkSelfPermission(context,
                                                    ACCESS_FINE_LOCATION)
-        val permissionGranted = permissionResult == PackageManager.PERMISSION_GRANTED
-        if (permissionGranted)
-            showLocationPicker()
+        val permissionGranted = permissionResult == PERMISSION_GRANTED
+        if (permissionGranted) showLocationPicker()
         else {
-            Log.d(TAG, "getLocationPermission: permissionNeeded")
+            logD(TAG) { "getLocationPermission: permissionNeeded" }
             if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
                 Snackbar.make(binding.root,
                               R.string.permission_rationale,
@@ -212,7 +211,6 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
     }
 
     private fun showLocationPicker() {
-
         try {
             val builder = PlacePicker.IntentBuilder()
             val intent = builder.build(activity)
@@ -228,7 +226,6 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
                           Snackbar.LENGTH_LONG)
                     .show()
         }
-
     }
 
     companion object {
