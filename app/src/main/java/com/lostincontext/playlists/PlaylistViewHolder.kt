@@ -114,7 +114,7 @@ class PlaylistViewHolder(private val binding: ItemPlaylistBinding,
 
 
     private fun applyPalette(resource: PaletteBitmap, shouldAnimate: Boolean) {
-        val palette = resource.palette ?: return
+        val palette = resource.palette
         val swatch = getSwatch(palette) ?: return
         if (shouldAnimate) {
             binding.itemInfo.animateTextColor(binding.itemInfo.currentTextColor,

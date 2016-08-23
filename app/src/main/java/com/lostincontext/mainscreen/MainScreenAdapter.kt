@@ -3,7 +3,6 @@ package com.lostincontext.mainscreen
 import android.support.annotation.IdRes
 import android.view.LayoutInflater
 import android.view.ViewGroup
-
 import com.lostincontext.R
 import com.lostincontext.commons.list.EmptyListCallback
 import com.lostincontext.commons.list.StatefulAdapter
@@ -21,15 +20,15 @@ class MainScreenAdapter(private val emptyListCallback: EmptyListCallback) : Stat
         when (viewType) {
             R.id.view_type_standard -> return MainScreenViewHolder.create(layoutInflater, parent)
 
-            R.id.view_type_loading -> return StatefulAdapter.buildLoadingViewHolder(layoutInflater,
-                                                                                    parent)
+            R.id.view_type_loading -> return buildLoadingViewHolder(layoutInflater,
+                                                                    parent)
 
-            R.id.view_type_error -> return StatefulAdapter.buildErrorViewHolder(layoutInflater,
-                                                                                parent,
-                                                                                emptyListCallback)
+            R.id.view_type_error -> return buildErrorViewHolder(layoutInflater,
+                                                                parent,
+                                                                emptyListCallback)
 
-            R.id.view_type_empty -> return StatefulAdapter.buildEmptyViewHolder(layoutInflater,
-                                                                                parent)
+            R.id.view_type_empty -> return buildEmptyViewHolder(layoutInflater,
+                                                                parent)
 
             else -> throw IllegalStateException("the adapter is in an invalid state")
         }
@@ -57,7 +56,7 @@ class MainScreenAdapter(private val emptyListCallback: EmptyListCallback) : Stat
     fun setRules(rules: List<Rule>) {
         this.rules = rules
         if (rules.size == 0)
-            currentState = StatefulAdapter.ContentState.EMPTY
+            setCurrentState(StatefulAdapter.ContentState.EMPTY)
         else
             setCurrentState(StatefulAdapter.ContentState.CONTENT, true)
     }

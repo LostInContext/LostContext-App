@@ -90,7 +90,7 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
                 .into(target)
 
         val icons = rule.fenceVM.giveIcon(FenceIconGiver())
-        if (icons != null && !icons.isEmpty()) {
+        if (!icons.isEmpty()) {
             if (icons.size >= 3) {
                 binding.ic3.setImageResource(icons[2])
             }
@@ -121,7 +121,7 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
     //endregion requestListener
 
     private fun applyPalette(resource: PaletteBitmap, shouldAnimate: Boolean) {
-        val palette = resource.palette ?: return
+        val palette = resource.palette
         val swatch = getSwatch(palette) ?: return
         if (shouldAnimate) {
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.lostincontext.R
 import com.lostincontext.commons.list.EmptyListCallback
 import com.lostincontext.commons.list.StatefulAdapter
-import com.lostincontext.commons.list.StatefulAdapter.ContentState.LOADING
+import com.lostincontext.commons.list.StatefulAdapter.ContentState.*
 import com.lostincontext.commons.list.ViewHolder
 import com.lostincontext.data.playlist.Playlist
 
@@ -25,15 +25,15 @@ class PlaylistsAdapter(private val itemCallback: PlaylistViewHolder.Callback,
                                                                         parent,
                                                                         itemCallback)
 
-            R.id.view_type_loading -> return StatefulAdapter.buildLoadingViewHolder(layoutInflater,
-                                                                                    parent)
+            R.id.view_type_loading -> return buildLoadingViewHolder(layoutInflater,
+                                                                    parent)
 
-            R.id.view_type_error -> return StatefulAdapter.buildErrorViewHolder(layoutInflater,
-                                                                                parent,
-                                                                                emptyListCallback)
+            R.id.view_type_error -> return buildErrorViewHolder(layoutInflater,
+                                                                parent,
+                                                                emptyListCallback)
 
-            R.id.view_type_empty -> return StatefulAdapter.buildEmptyViewHolder(layoutInflater,
-                                                                                parent)
+            R.id.view_type_empty -> return buildEmptyViewHolder(layoutInflater,
+                                                                parent)
 
             else -> throw IllegalStateException("the adapter is in an invalid state")
         }
@@ -57,17 +57,13 @@ class PlaylistsAdapter(private val itemCallback: PlaylistViewHolder.Callback,
 
     }
 
-
     override fun getContentItemsCount(): Int {
         return playlists.size
     }
 
-
     fun setPlaylists(playlists: List<Playlist>) {
         this.playlists = playlists
-        if (playlists.size == 0)
-            currentState = StatefulAdapter.ContentState.EMPTY
-        else
-            currentState = StatefulAdapter.ContentState.CONTENT
+        if (playlists.size == 0) setCurrentState(EMPTY)
+        else setCurrentState(CONTENT)
     }
 }

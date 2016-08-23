@@ -14,7 +14,7 @@ class PlaylistsPresenter
     }
 
     override fun start() {
-        val playlists = DataPlaylist.getPlaylists()
+        val playlists = DataPlaylist.playlists
         view.setPlaylists(playlists)
     }
 

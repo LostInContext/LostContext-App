@@ -8,7 +8,7 @@ import com.lostincontext.utils.logI
 
 class PlaylistLauncher {
 
-    fun launchPlaylist(context: Context, playlist: Playlist, autoplay: Boolean) {
+    fun launchPlaylist(context: Context, playlist: Playlist, autoplay: Boolean = true) {
         logI(TAG) { "i'm launching playlist !" }
         val intent = Intent(Intent.ACTION_VIEW)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

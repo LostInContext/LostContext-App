@@ -183,7 +183,7 @@ class RuleDetailsPresenter
     }
 
     private fun addLocationFence(item: GridBottomSheetItem, locationModel: LocationModel) {
-        val fenceVM = LocationFenceVM(locationModel.placeName, locationModel.latLng)
+        val fenceVM = LocationFenceVM(locationModel.placeName, locationModel.getLatLng())
         val fenceItem = FenceItem.createFromPick(item, fenceVM, items.isEmpty())
         items.add(fenceItem)
         view.notifyItemInserted(items.indexOf(fenceItem))

@@ -58,7 +58,7 @@ class RulePickAdapter(private val callback: PickerDialogCallback) : Adapter<View
                 finalPosition -= sectionSize
                 return@forEachIndexed
             }
-            if (finalPosition == 0) return section.headerViewType
+            if (finalPosition == 0) return section.getHeaderViewType()
             return section.itemViewType
         }
 
