@@ -86,6 +86,7 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:$rootProject.jacksonVersion"
     compile "com.fasterxml.jackson.core:jackson-core:$rootProject.jacksonVersion"
     compile "com.fasterxml.jackson.core:jackson-annotations:$rootProject.jacksonVersion"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$rootProject.jacksonVersion"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlin_version"
 
