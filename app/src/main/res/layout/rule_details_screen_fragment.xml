@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="ruleName"
-            type="String" />
+            name="rule"
+            type="com.lostincontext.ruledetails.RuleDetailsPresenter.RuleVM" />
 
     </data>
 
@@ -34,7 +34,7 @@
                     android:hint="@string/rule_name"
                     android:imeOptions="actionDone"
                     android:inputType="textAutoComplete"
-                    android:text="@={ruleName}" />
+                    android:text="@={rule.name}" />
 
             </android.support.design.widget.TextInputLayout>
 

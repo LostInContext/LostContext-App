@@ -45,7 +45,7 @@ public class RuleDetailsContract {
 
         void checkPermissionsAndShowLocationPicker(String name, GridBottomSheetItem item);
 
-        void setRuleName(String ruleName);
+        void setRuleName(RuleDetailsPresenter.RuleVM ruleVM);
 
         PendingIntent getPendingIntentFor(Playlist playlist);
 

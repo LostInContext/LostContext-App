@@ -25,6 +25,7 @@ import com.lostincontext.data.rules.FenceIconGiver;
 import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.ItemRuleBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.v4.content.ContextCompat.getColor;
@@ -105,7 +106,8 @@ public class MainScreenViewHolder extends ViewHolder implements RequestListener<
                 .listener(this)
                 .into(target);
 
-        List<Integer> icons = rule.getFenceVM().giveIcon(new FenceIconGiver());
+        List<Integer> icons = new ArrayList<>();
+        rule.getFenceVM().giveIcon(new FenceIconGiver(), icons);
         if (icons != null && !icons.isEmpty()) {
             if (icons.size() >= 3) {
                 binding.ic3.setImageResource(icons.get(2));

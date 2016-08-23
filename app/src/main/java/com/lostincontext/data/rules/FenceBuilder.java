@@ -1,5 +1,7 @@
 package com.lostincontext.data.rules;
 
+import android.support.annotation.NonNull;
+
 import com.google.android.gms.awareness.fence.AwarenessFence;
 import com.google.android.gms.awareness.fence.DetectedActivityFence;
 import com.google.android.gms.awareness.fence.HeadphoneFence;
@@ -13,15 +15,19 @@ import static com.google.android.gms.awareness.fence.LocationFence.entering;
 import static com.google.android.gms.awareness.fence.LocationFence.exiting;
 import static com.google.android.gms.awareness.fence.LocationFence.in;
 
+/**
+ * Visitor who traverses the tree of fences in order to build the corresponding collective
+ * {@link AwarenessFence}
+ */
 public class FenceBuilder {
 
 
-    public AwarenessFence not(NotFenceVM notFence) {
+    public AwarenessFence not(@NonNull NotFenceVM notFence) {
         AwarenessFence awarenessFence = notFence.getFenceVM().build(this);
         return AwarenessFence.not(awarenessFence);
     }
 
-    public AwarenessFence composite(CompositeFenceVM compositeFence) {
+    public AwarenessFence composite(@NonNull CompositeFenceVM compositeFence) {
         List<FenceVM> fenceVMs = compositeFence.getFenceVMs();
 
         AwarenessFence[] awarenessFences = new AwarenessFence[fenceVMs.size()];
@@ -42,7 +48,12 @@ public class FenceBuilder {
     }
 
     @SuppressWarnings("MissingPermission")
-    public AwarenessFence location(LocationFenceVM fence) {
+    /**
+     * Creates a location fence without checking the location permission
+     * The permission is checked when the user picks a {@link LocationFenceVM} so it should be enough
+     * in most cases
+     */
+    public AwarenessFence location(@NonNull LocationFenceVM fence) {
         double latitude = fence.getLatitude();
         double longitude = fence.getLongitude();
         double radius = fence.getRadius();
@@ -62,7 +73,7 @@ public class FenceBuilder {
         }
     }
 
-    public AwarenessFence time(TimeFenceVM fence) {
+    public AwarenessFence time(@NonNull TimeFenceVM fence) {
         long startingTime = fence.getStarting();
         long endingTime = fence.getEnding();
         TimeFenceVM.State state = fence.getState();
@@ -91,7 +102,7 @@ public class FenceBuilder {
         }
     }
 
-    public AwarenessFence headphone(HeadphoneFenceVM fence) {
+    public AwarenessFence headphone(@NonNull HeadphoneFenceVM fence) {
         switch (fence.getState()) {
 
             case PLUGGED_IN:
@@ -105,7 +116,7 @@ public class FenceBuilder {
 
     }
 
-    public AwarenessFence detectedActivity(DetectedActivityFenceVM fence) {
+    public AwarenessFence detectedActivity(@NonNull DetectedActivityFenceVM fence) {
         int type;
         switch (fence.getType()) {
             case WALKING:

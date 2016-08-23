@@ -1,7 +1,10 @@
 package com.lostincontext.data.rules;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.android.gms.awareness.fence.AwarenessFence;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -28,17 +31,29 @@ public class LocationFenceVM implements FenceVM {
     public static final String WORK = "WORK";
 
 
-    private State state;
-    private double latitude;
-    private double longitude;
-    private double radius;
-    @LocationName private String name;
+    private final @NonNull State state;
+    private final double latitude;
+    private final double longitude;
+    private final double radius;
+    private final @NonNull @LocationName String name;
 
-    private long dwellTimeMillis = 10000; //10 seconds
+    private final static long DWELL_TIME_MILLIS = 10000; //10 seconds
 
-    private LocationFenceVM() { }
+    @SuppressWarnings("unused")
+    @JsonCreator
+    public LocationFenceVM(@JsonProperty("state") @NonNull State state,
+                           @JsonProperty("latitude") double latitude,
+                           @JsonProperty("longitude") double longitude,
+                           @JsonProperty("radius") double radius,
+                           @JsonProperty("name") @NonNull String name) {
+        this.state = state;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.radius = radius;
+        this.name = name;
+    }
 
-    public LocationFenceVM(@LocationName String locationName, LatLng latLng) {
+    public LocationFenceVM(@NonNull @LocationName String locationName, LatLng latLng) {
         this.state = State.IN;
         this.latitude = latLng.latitude;
         this.longitude = latLng.longitude;
@@ -55,11 +70,11 @@ public class LocationFenceVM implements FenceVM {
         return descriptor.location(this);
     }
 
-    @Override public List<Integer> giveIcon(FenceIconGiver iconGiver) {
-        return iconGiver.location(this);
+    @Override public void giveIcon(FenceIconGiver iconGiver, List<Integer> icons) {
+        iconGiver.location(this, icons);
     }
 
-    public State getState() {
+    @NonNull public State getState() {
         return state;
     }
 
@@ -75,36 +90,12 @@ public class LocationFenceVM implements FenceVM {
         return radius;
     }
 
-
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setRadius(double radius) {
-        this.radius = radius;
-    }
-
-    public void setDwellTimeMillis(long dwellTimeMillis) {
-        this.dwellTimeMillis = dwellTimeMillis;
-    }
-
     public long getDwellTimeMillis() {
-        return dwellTimeMillis;
+        return DWELL_TIME_MILLIS;
     }
 
-    @LocationName public String getName() {
+    @NonNull @LocationName public String getName() {
         return name;
     }
 
-    public void setName(@LocationName String name) {
-        this.name = name;
-    }
 }

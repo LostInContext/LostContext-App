@@ -148,8 +148,8 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         checkLocationPermissionAndShowPicker();
     }
 
-    @Override public void setRuleName(String ruleName) {
-       binding.setRuleName(ruleName);
+    @Override public void setRuleName(RuleDetailsPresenter.RuleVM ruleVM) {
+       binding.setRule(ruleVM);
     }
 
     @Override public PendingIntent getPendingIntentFor(Playlist playlist) {

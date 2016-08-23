@@ -1,18 +1,23 @@
 package com.lostincontext.data.rules;
 
 
+import android.support.annotation.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.android.gms.awareness.fence.AwarenessFence;
 
 import java.util.List;
 
 public class TimeFenceVM implements FenceVM {
-    private State state;
-    private long starting;
-    private long ending;
+    private final @NonNull State state;
+    private final long starting;
+    private final long ending;
 
-    private TimeFenceVM() { }
-
-    public TimeFenceVM(State state, long starting, long ending) {
+    @JsonCreator
+    public TimeFenceVM(@NonNull @JsonProperty("state") State state,
+                       @JsonProperty("starting") long starting,
+                       @JsonProperty("ending") long ending) {
         this.state = state;
         this.starting = starting;
         this.ending = ending;
@@ -27,9 +32,7 @@ public class TimeFenceVM implements FenceVM {
         return descriptor.time(this);
     }
 
-    @Override public List<Integer> giveIcon(FenceIconGiver iconGiver) {
-        return null;
-    }
+    @Override public void giveIcon(FenceIconGiver iconGiver, List<Integer> icons) { }
 
     public enum State {
         IN_INTERVAL,
@@ -43,7 +46,7 @@ public class TimeFenceVM implements FenceVM {
         IN_SATURDAY_INTERVAL
     }
 
-    public State getState() {
+    @NonNull public State getState() {
         return state;
     }
 
@@ -55,15 +58,5 @@ public class TimeFenceVM implements FenceVM {
         return ending;
     }
 
-    public void setState(State state) {
-        this.state = state;
-    }
 
-    public void setStarting(long starting) {
-        this.starting = starting;
-    }
-
-    public void setEnding(long ending) {
-        this.ending = ending;
-    }
 }

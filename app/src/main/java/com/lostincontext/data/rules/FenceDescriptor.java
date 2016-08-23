@@ -1,17 +1,21 @@
 package com.lostincontext.data.rules;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.util.List;
 
+/**
+ * Visitor who traverses the fence tree in order to create an human readable description.
+ */
 public class FenceDescriptor {
 
-    public String not(NotFenceVM notFence) {
+    public String not(@NonNull NotFenceVM notFence) {
         String description = notFence.getFenceVM().describe(this);
         return "not { " + description + " } ";
     }
 
-    public String composite(CompositeFenceVM compositeFence) {
+    public String composite(@NonNull CompositeFenceVM compositeFence) {
         List<FenceVM> fenceVMs = compositeFence.getFenceVMs();
         String description = "";
         for (FenceVM fenceVM : fenceVMs) {
@@ -21,7 +25,7 @@ public class FenceDescriptor {
         return description;
     }
 
-    private String getSeparator(CompositeFenceVM compositeFence) {
+    private String getSeparator(@NonNull CompositeFenceVM compositeFence) {
         switch (compositeFence.getOperator()) {
 
             case AND:
@@ -33,16 +37,16 @@ public class FenceDescriptor {
         }
     }
 
-    public String location(LocationFenceVM fence) {
+    public String location(@NonNull LocationFenceVM fence) {
         return "at " + fence.getName();
     }
 
 
-    public String time(TimeFenceVM fence) {
+    public String time(@NonNull TimeFenceVM fence) {
         return fence.getState().name();
     }
 
-    public String headphone(HeadphoneFenceVM fence) {
+    public String headphone(@NonNull HeadphoneFenceVM fence) {
         switch (fence.getState()) {
 
             case PLUGGED_IN:
@@ -56,7 +60,7 @@ public class FenceDescriptor {
 
     }
 
-    public String detectedActivity(DetectedActivityFenceVM fence) {
+    public String detectedActivity(@NonNull DetectedActivityFenceVM fence) {
 
         String name = fence.getType().name();
 

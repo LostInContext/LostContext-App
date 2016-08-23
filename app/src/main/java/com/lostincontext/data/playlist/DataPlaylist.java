@@ -40,7 +40,7 @@ public class DataPlaylist {
 
 
     public static List<Playlist> getPlaylists() {
-        return deserialize(Playlist.JSON);
+        return deserialize(Json.PLAYLIST_RAW_JSON);
     }
 
     public static List<Playlist> deserialize(String data) {

@@ -1,17 +1,20 @@
 package com.lostincontext.data.rules;
 
 
+import android.support.annotation.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.android.gms.awareness.fence.AwarenessFence;
 
 import java.util.List;
 
 public class NotFenceVM implements FenceVM {
 
-    private FenceVM fenceVM;
+    private final @NonNull FenceVM fenceVM;
 
-    private NotFenceVM() { }
-
-    public NotFenceVM(FenceVM fenceVM) {
+    @JsonCreator
+    public NotFenceVM(@NonNull @JsonProperty("fenceVM") FenceVM fenceVM) {
         this.fenceVM = fenceVM;
     }
 
@@ -28,11 +31,8 @@ public class NotFenceVM implements FenceVM {
         return descriptor.not(this);
     }
 
-    @Override public List<Integer> giveIcon(FenceIconGiver iconGiver) {
-        return null;
+    @Override public void giveIcon(FenceIconGiver iconGiver, List<Integer> icons) {
+
     }
 
-    public void setFenceVM(FenceVM fenceVM) {
-        this.fenceVM = fenceVM;
-    }
 }

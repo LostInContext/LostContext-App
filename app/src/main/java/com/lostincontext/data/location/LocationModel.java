@@ -14,8 +14,6 @@ public class LocationModel {
     public final double longitude;
     public final @NonNull String placeName;
 
-    @JsonIgnore private LatLng latLng;
-
     @JsonCreator
     public LocationModel(@JsonProperty("placeName") @NonNull String placeName,
                          @JsonProperty("latitude") double latitude,
