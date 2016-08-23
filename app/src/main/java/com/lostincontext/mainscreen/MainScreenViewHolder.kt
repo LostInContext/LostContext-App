@@ -25,7 +25,7 @@ import com.lostincontext.utils.animateBackgroundColor
 import com.lostincontext.utils.animateTextColor
 
 class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(binding.root),
-                                                                   RequestListener<Playlist, PaletteBitmap> {
+                                                                   RequestListener<Playlist?, PaletteBitmap> {
 
     interface Callback {
         fun onPlaylistCoverClick(playlist: Playlist)
@@ -89,7 +89,7 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
                 .listener(this)
                 .into(target)
 
-        val icons = rule.fenceVM.giveIcon(FenceIconGiver())
+        val icons = rule.fenceVM!!.giveIcon(FenceIconGiver())
         if (!icons.isEmpty()) {
             if (icons.size >= 3) {
                 binding.ic3.setImageResource(icons[2])
@@ -104,14 +104,14 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
 
     //region requestListener
     override fun onException(e: Exception,
-                             model: Playlist,
+                             model: Playlist?,
                              target: Target<PaletteBitmap>,
                              isFirstResource: Boolean): Boolean {
         return false
     }
 
     override fun onResourceReady(resource: PaletteBitmap,
-                                 model: Playlist,
+                                 model: Playlist?,
                                  target: Target<PaletteBitmap>,
                                  isFromMemoryCache: Boolean,
                                  isFirstResource: Boolean): Boolean {
@@ -169,3 +169,4 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
         }
     }
 }
+

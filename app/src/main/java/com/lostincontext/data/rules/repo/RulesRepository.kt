@@ -29,7 +29,7 @@ class RulesRepository
 
     fun saveRule(rule: Rule) {
         try {
-            val name = rule.name
+            val name : String= rule.name!!
             saveToPrefs(name, serialize(rule))
             addToRulesList(name)
         } catch (e: JsonProcessingException) {

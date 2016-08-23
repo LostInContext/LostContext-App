@@ -13,6 +13,7 @@ import dagger.Module
 import dagger.Provides
 
 import android.content.Context.MODE_PRIVATE
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 @Module
 class ApplicationModule(private val lostApplication: LostApplication) {
@@ -40,7 +41,7 @@ class ApplicationModule(private val lostApplication: LostApplication) {
     }
 
     @Provides internal fun provideObjectMapper(): ObjectMapper {
-        return ObjectMapper()
+        return jacksonObjectMapper()
     }
 
 

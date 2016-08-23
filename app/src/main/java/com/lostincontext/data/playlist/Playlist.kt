@@ -3,48 +3,23 @@ package com.lostincontext.data.playlist
 
 import android.os.Parcel
 import android.os.Parcelable
-
 import com.lostincontext.commons.images.DeezerImage
 import com.lostincontext.commons.images.DeezerImageUrlGenerator.DeezerImageType
 
-class Playlist : DeezerImage, Parcelable {
-
-    var id: Int = 0
-    var title: String? = null
-    var creator: String? = null
-    override var coverMd5: String = ""
-    @DeezerImageType override var imageType: Long = 0
-
-    constructor() {
-    }
-
-    constructor(id: Int,
-                title: String,
-                creator: String,
-                coverMd5: String,
-                @DeezerImageType imageType: Int) {
-        this.id = id
-        this.title = title
-        this.creator = creator
-        this.coverMd5 = coverMd5
-        this.imageType = imageType.toLong()
-    }
-
-    private constructor(`in`: Parcel) {
-        this.id = `in`.readInt()
-        this.title = `in`.readString()
-        this.creator = `in`.readString()
-        this.coverMd5 = `in`.readString()
-        //noinspection WrongConstant
-        this.imageType = `in`.readLong()
-    }
-
-    override fun toString(): String {
-        return "Playlist{id=$id, title='$title', creator='$creator', coverMd5='$coverMd5', imageType=$imageType}"
-    }
+data class Playlist(val id: Int,
+                    val title: String,
+                    val creator: String,
+                    override val coverMd5: String,
+                    override @DeezerImageType val imageType: Long) : DeezerImage, Parcelable {
 
 
-    //region Parcelable
+    private constructor(`in`: Parcel) : this(`in`.readInt(),
+                                             `in`.readString(),
+                                             `in`.readString(),
+                                             `in`.readString(),
+                                             `in`.readLong())
+
+//region Parcelable
 
     override fun describeContents(): Int {
         return 0
@@ -70,7 +45,7 @@ class Playlist : DeezerImage, Parcelable {
             }
         }
     }
-    //endregion
+//endregion
 
 
 }

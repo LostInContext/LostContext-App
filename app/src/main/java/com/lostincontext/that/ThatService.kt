@@ -3,7 +3,7 @@ package com.lostincontext.that
 import android.app.IntentService
 import android.content.Context
 import android.content.Intent
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.android.gms.awareness.fence.FenceState
 import com.lostincontext.data.rules.Rule
 import com.lostincontext.data.rules.repo.RulesRepository
@@ -28,7 +28,7 @@ class ThatService : IntentService(ThatService.TAG) {
                     logI(TAG) { "Rule verified" }
                     val playlist = rule.playlist
                     if (playlist != null) {
-                        displayNotification(this, rule.name, playlist)
+                        displayNotification(this, rule.name!!, playlist)
                     }
 
                 }
@@ -44,7 +44,7 @@ class ThatService : IntentService(ThatService.TAG) {
     private fun getRule(fenceState: FenceState): Rule? {
         val rulesRepository = RulesRepository(getSharedPreferences("rules",
                                                                    Context.MODE_PRIVATE),
-                                              ObjectMapper())
+                                              jacksonObjectMapper())
         var rule: Rule? = null
         try {
             rule = rulesRepository.getRule(fenceState.fenceKey)

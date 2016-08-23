@@ -7,8 +7,8 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.lostincontext.commons.images.DeezerImageUrlGenerator.DeezerImageType
 import com.lostincontext.commons.images.DeezerImageUrlGenerator.TYPE_COVER
 import com.lostincontext.commons.images.DeezerImageUrlGenerator.TYPE_PLAYLIST_CUSTOM_COVER
@@ -41,17 +41,15 @@ class DataPlaylist {
                                  ctxt: DeserializationContext): Playlist {
             val oc = p.codec
             val node = oc.readTree<JsonNode>(p)
-
-
-            val playlist = Playlist()
             extractCoverMd5(node.get("picture_small").textValue(), data)
-            playlist.coverMd5 = data.coverMd5
-            playlist.title = node.get("title").textValue()
-            playlist.imageType = data.coverType
-            playlist.id = node.get("id").asInt()
-            playlist.creator = node.get("creator").get("name").textValue()
 
-            return playlist
+            return Playlist(node.get("id").asInt(),
+                            node.get("title").textValue(),
+                            node.get("creator").get("name").textValue(),
+                            data.coverMd5,
+                            data.coverType)
+
+
         }
 
         /**
@@ -75,14 +73,13 @@ class DataPlaylist {
     companion object {
 
         private val TAG = DataPlaylist::class.java.simpleName
-        private val CHECKSUM_NORMAL_LENGTH = 32
 
 
         val playlists: List<Playlist>
             get() = deserialize(PlaylistJSON.JSON)
 
         fun deserialize(data: String): List<Playlist> {
-            val mapper = ObjectMapper()
+            val mapper = jacksonObjectMapper()
 
             val simpleModule = SimpleModule()
             val customDeserializer = PlaylistDeserializer()
