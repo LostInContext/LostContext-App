@@ -20,7 +20,6 @@ import com.google.android.gms.location.places.ui.PlacePicker
 import com.lostincontext.R
 import com.lostincontext.data.GridBottomSheetItem
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rules.Rule
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsActivity
 import com.lostincontext.playlists.PlaylistsContract
@@ -115,8 +114,8 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
         checkLocationPermissionAndShowPicker()
     }
 
-    override fun setRule(rule: Rule) {
-        binding.rule = rule
+    override fun setRuleName(ruleName: String) {
+        binding.ruleName = ruleName
     }
 
     override fun getPendingIntentFor(playlist: Playlist): PendingIntent {
@@ -127,9 +126,7 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
                                         0)
     }
 
-    override fun finishActivity() {
-        activity.finish()
-    }
+    override fun finishActivity() = activity.finish()
 
     override fun showSnack(errors: EnumSet<RuleErrors>) {
 
@@ -175,14 +172,12 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater!!.inflate(R.menu.edit_rule_menu, menu)
+        inflater.inflate(R.menu.edit_rule_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return presenter.onMenuItemClick(item!!.itemId)
-    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onMenuItemClick(item.itemId)
 
 
     private fun checkLocationPermissionAndShowPicker() {

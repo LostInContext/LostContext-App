@@ -43,8 +43,7 @@ class RuleDetailsPresenter
   GoogleApiClient.ConnectionCallbacks,
   GoogleApiClient.OnConnectionFailedListener {
 
-    private val rule = Rule()
-
+    private val name = ""
     private val items = ArrayList<FenceItem>()
     private var playlist: Playlist? = null
 
@@ -57,7 +56,7 @@ class RuleDetailsPresenter
 
     override fun start() {
         view.setItems(items)
-        view.setRule(rule)
+        view.setRuleName(name)
     }
 
     override fun onLinkClick(item: FenceItem) {
@@ -243,29 +242,24 @@ class RuleDetailsPresenter
     }
 
 
-    private fun deleteRule() {
-    }
-
-    // todo validate input and diplay snackbar when there is an issue
     private fun saveRuleAndQuit() {
         val errors = EnumSet.noneOf(RuleErrors::class.java)
         if (items.isEmpty()) errors.add(RuleErrors.NO_CONDITION)
         if (playlist == null) errors.add(RuleErrors.NO_PLAYLIST)
-        if (TextUtils.isEmpty(rule.name)) errors.add(RuleErrors.NO_TITLE)
+        if (TextUtils.isEmpty(name)) errors.add(RuleErrors.NO_TITLE)
 
         if (!errors.isEmpty()) {
             view.showSnack(errors)
             return
         }
-        rule.playlist = playlist
 
         val fenceVM = extractFenceForRule()
-        rule.fenceVM = fenceVM
+        val rule = Rule(name, fenceVM, playlist!!)
 
         val builder = FenceUpdateRequest.Builder()
         builder.addFence(rule.name,
                          rule.fenceVM.build(FenceBuilder()),
-                         view.getPendingIntentFor(playlist!!))
+                         view.getPendingIntentFor(rule.playlist))
         awareness.updateFence(builder.build()).setResultCallback(object : ResultCallbacks<Status>() {
             override fun onSuccess(status: Status) {
                 logD(TAG) { "updateFence.onSuccess: " + status.statusMessage }
