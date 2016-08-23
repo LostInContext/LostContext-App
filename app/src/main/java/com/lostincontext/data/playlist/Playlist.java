@@ -3,24 +3,26 @@ package com.lostincontext.data.playlist;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lostincontext.commons.images.DeezerImage;
 import com.lostincontext.commons.images.DeezerImageUrlGenerator.DeezerImageType;
 
 public class Playlist implements DeezerImage, Parcelable {
 
-    private int id;
-    private String title;
-    private String creator;
-    private String coverMd5;
-    @DeezerImageType private int imageType;
+    private final int id;
+    private final String title;
+    private final String creator;
+    private final String coverMd5;
+    @DeezerImageType private final int imageType;
 
-    public Playlist() { }
-
-    public Playlist(int id,
-                    String title,
-                    String creator,
-                    String coverMd5,
+    @JsonCreator
+    public Playlist(@JsonProperty("id") int id,
+                    @JsonProperty("title") @NonNull String title,
+                    @JsonProperty("creator") @NonNull String creator,
+                    @JsonProperty("coverMd5") @NonNull String coverMd5,
                     @DeezerImageType int imageType) {
         this.id = id;
         this.title = title;
@@ -54,43 +56,27 @@ public class Playlist implements DeezerImage, Parcelable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public String getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
 
     @Override
     public String getCoverMd5() {
         return coverMd5;
     }
 
-    public void setCoverMd5(String coverMd5) {
-        this.coverMd5 = coverMd5;
-    }
 
     @Override
     @DeezerImageType
     public int getImageType() {
         return imageType;
-    }
-
-    public void setImageType(@DeezerImageType int imageType) {
-        this.imageType = imageType;
     }
 
     //endregion

@@ -8,4 +8,8 @@ public abstract class Adapter<VH extends ViewHolder> extends RecyclerView.Adapte
     @Override public boolean onFailedToRecycleView(VH holder) {
         return holder.onFailedToRecycleView();
     }
+
+    @Override public final void onBindViewHolder(VH holder, int position) {
+        // let's not use that one
+    }
 }

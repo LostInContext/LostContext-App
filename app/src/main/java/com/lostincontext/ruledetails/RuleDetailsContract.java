@@ -6,9 +6,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.commons.BasePresenter;
 import com.lostincontext.commons.BaseView;
 import com.lostincontext.commons.list.Section;
-import com.lostincontext.data.GridBottomSheetItem;
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem;
 import com.lostincontext.data.playlist.Playlist;
-import com.lostincontext.data.rules.Rule;
 import com.lostincontext.ruledetails.items.FenceItem;
 import com.lostincontext.ruledetails.items.FenceItemCallback;
 import com.lostincontext.ruledetails.pick.PickerDialogCallback;
@@ -27,7 +26,7 @@ public class RuleDetailsContract {
         SAVE_ERROR,
     }
 
-    public static Object LINK_CHANGED = new Object();
+    public static final Object LINK_CHANGED = new Object();
 
 
     interface View extends BaseView<Presenter> {
@@ -46,7 +45,7 @@ public class RuleDetailsContract {
 
         void checkPermissionsAndShowLocationPicker(String name, GridBottomSheetItem item);
 
-        void setRule(Rule rule);
+        void setRuleName(String ruleName);
 
         PendingIntent getPendingIntentFor(Playlist playlist);
 

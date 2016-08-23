@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
 import com.lostincontext.awareness.Awareness;
 import com.lostincontext.commons.list.Section;
-import com.lostincontext.data.GridBottomSheetItem;
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem;
 import com.lostincontext.data.location.LocationModel;
 import com.lostincontext.data.location.repo.LocationRepository;
 import com.lostincontext.data.location.repo.LocationRepository.LocationCallback;
@@ -51,14 +51,16 @@ import static com.lostincontext.ruledetails.items.FenceItem.Link.OR_NOT;
 import static com.lostincontext.ruledetails.items.FenceItem.Link.WHEN;
 import static java.util.EnumSet.of;
 
-public class RuleDetailsPresenter implements Presenter, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class RuleDetailsPresenter implements Presenter,
+                                             GoogleApiClient.ConnectionCallbacks,
+                                             GoogleApiClient.OnConnectionFailedListener {
 
 
     private static final String TAG = RuleDetailsPresenter.class.getSimpleName();
 
     private final View view;
 
-    private final Rule rule = new Rule();
+    @NonNull private String ruleName = "";
 
     private final LocationRepository locationRepository;
     private final RulesRepository rulesRepository;
@@ -87,7 +89,7 @@ public class RuleDetailsPresenter implements Presenter, GoogleApiClient.Connecti
 
     @Override public void start() {
         view.setItems(items);
-        view.setRule(rule);
+        view.setRuleName(ruleName);
     }
 
     @Override public void onLinkClick(FenceItem item) {
@@ -290,17 +292,16 @@ public class RuleDetailsPresenter implements Presenter, GoogleApiClient.Connecti
         EnumSet<RuleErrors> errors = EnumSet.noneOf(RuleErrors.class);
         if (items.isEmpty()) errors.add(RuleErrors.NO_CONDITION);
         if (playlist == null) errors.add(RuleErrors.NO_PLAYLIST);
-        if (TextUtils.isEmpty(rule.getName())) errors.add(RuleErrors.NO_TITLE);
+        if (TextUtils.isEmpty(ruleName)) errors.add(RuleErrors.NO_TITLE);
 
         if (!errors.isEmpty()) {
             view.showSnack(errors);
             return;
         }
-        rule.setPlaylist(playlist);
 
         FenceVM fenceVM = extractFenceForRule();
-        rule.setFenceVM(fenceVM);
 
+        final Rule rule = new Rule(ruleName, fenceVM, playlist);
         FenceUpdateRequest.Builder builder = new FenceUpdateRequest.Builder();
         builder.addFence(rule.getName(), rule.getFenceVM().build(new FenceBuilder()), view.getPendingIntentFor(playlist));
         awareness.updateFence(builder.build()).setResultCallback(new ResultCallbacks<Status>() {

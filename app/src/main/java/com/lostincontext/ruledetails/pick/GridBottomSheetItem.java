@@ -1,4 +1,4 @@
-package com.lostincontext.data;
+package com.lostincontext.ruledetails.pick;
 
 
 import android.support.annotation.DrawableRes;

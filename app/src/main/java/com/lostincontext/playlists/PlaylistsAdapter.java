@@ -13,9 +13,11 @@ import com.lostincontext.data.playlist.Playlist;
 
 import java.util.List;
 
+import static java.util.Collections.emptyList;
+
 public class PlaylistsAdapter extends StatefulAdapter {
 
-    private List<Playlist> playlists;
+    private List<Playlist> playlists = emptyList();
 
     private PlaylistViewHolder.Callback itemCallback;
     private EmptyListCallback emptyListCallback;
@@ -48,7 +50,7 @@ public class PlaylistsAdapter extends StatefulAdapter {
         }
     }
 
-    @Override public void onBindViewHolder(ViewHolder holder, int position) {
+    @Override public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
         switch (holder.getItemViewType()) {
             case R.id.view_type_standard:
                 PlaylistViewHolder viewHolder = (PlaylistViewHolder) holder;

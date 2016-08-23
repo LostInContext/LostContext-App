@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import com.lostincontext.R;
 import com.lostincontext.commons.list.Adapter;
 import com.lostincontext.commons.list.Section;
-import com.lostincontext.commons.list.ViewHolder;
 import com.lostincontext.commons.list.SectionViewHolder;
+import com.lostincontext.commons.list.ViewHolder;
 
 import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 public class RulePickAdapter extends Adapter<ViewHolder> {
 
@@ -20,10 +22,9 @@ public class RulePickAdapter extends Adapter<ViewHolder> {
     private PickerDialogCallback callback;
     int count;
 
-    private List<Section> sections;
+    private List<Section> sections = emptyList();
 
     public RulePickAdapter(PickerDialogCallback callback) {
-
         this.callback = callback;
     }
 
@@ -43,7 +44,7 @@ public class RulePickAdapter extends Adapter<ViewHolder> {
         return null;
     }
 
-    @Override public void onBindViewHolder(ViewHolder holder, int position) {
+    @Override public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
         Section section;
         int sectionSize;
         for (int i = 0, sectionsCount = sections.size(); i < sectionsCount; i++) {
@@ -90,7 +91,6 @@ public class RulePickAdapter extends Adapter<ViewHolder> {
 
     private void count() {
         count = 0;
-        if (sections == null) return;
         for (int i = 0, size = sections.size(); i < size; i++) {
             count += sections.get(i).size();
         }

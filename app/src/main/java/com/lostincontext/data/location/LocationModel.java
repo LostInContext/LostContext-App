@@ -1,21 +1,25 @@
 package com.lostincontext.data.location;
 
 
+import android.support.annotation.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.android.gms.maps.model.LatLng;
 
 public class LocationModel {
 
-    public double latitude;
-    public double longitude;
-    public String placeName;
+    public final double latitude;
+    public final double longitude;
+    public final @NonNull String placeName;
 
     @JsonIgnore private LatLng latLng;
 
-    public LocationModel() {
-    }
-
-    public LocationModel(String placeName, double latitude, double longitude) {
+    @JsonCreator
+    public LocationModel(@JsonProperty("placeName") @NonNull String placeName,
+                         @JsonProperty("latitude") double latitude,
+                         @JsonProperty("longitude") double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.placeName = placeName;
@@ -25,30 +29,17 @@ public class LocationModel {
         return placeName;
     }
 
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
-    }
 
     public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
 
     public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
     public LatLng getLatLng() {
-        if (latLng == null) {
-            latLng = new LatLng(latitude, longitude);
-        }
-        return latLng;
+        return new LatLng(latitude, longitude);
     }
 }

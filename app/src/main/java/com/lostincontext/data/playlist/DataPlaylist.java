@@ -75,20 +75,17 @@ public class DataPlaylist {
 
         @Override
         public Playlist deserialize(JsonParser p,
-                                    DeserializationContext ctxt) throws IOException {
+                                    DeserializationContext context) throws IOException {
             ObjectCodec oc = p.getCodec();
             JsonNode node = oc.readTree(p);
 
-
-            Playlist playlist = new Playlist();
             extractCoverMd5(node.get("picture_small").textValue(), data);
-            playlist.setCoverMd5(data.coverMd5);
-            playlist.setTitle(node.get("title").textValue());
-            playlist.setImageType(data.coverType);
-            playlist.setId(node.get("id").asInt());
-            playlist.setCreator(node.get("creator").get("name").textValue());
 
-            return playlist;
+            return new Playlist(node.get("id").asInt(),
+                                node.get("title").textValue(),
+                                node.get("creator").get("name").textValue(),
+                                data.coverMd5,
+                                data.coverType);
         }
 
         /**

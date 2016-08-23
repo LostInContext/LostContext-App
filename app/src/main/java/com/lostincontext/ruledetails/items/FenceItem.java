@@ -5,7 +5,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
 import com.lostincontext.R;
-import com.lostincontext.data.GridBottomSheetItem;
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem;
 import com.lostincontext.data.rules.FenceVM;
 import com.lostincontext.data.rules.NotFenceVM;
 

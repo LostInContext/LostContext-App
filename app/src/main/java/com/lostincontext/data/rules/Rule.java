@@ -1,46 +1,40 @@
 package com.lostincontext.data.rules;
 
 
+import android.support.annotation.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lostincontext.data.playlist.Playlist;
 
 public class Rule {
 
-    private String name;
-    private FenceVM fenceVM;
-    private Playlist playlist;
+    @NonNull private final String name;
+    @NonNull private final FenceVM fenceVM;
+    @NonNull private final Playlist playlist;
 
-    public Rule() {
-    }
 
-    public Rule(String name, FenceVM fenceVM, Playlist playlist) {
+    @JsonCreator
+    public Rule(@NonNull @JsonProperty("name") String name,
+                @NonNull @JsonProperty("fenceVM") FenceVM fenceVM,
+                @NonNull @JsonProperty("playlist") Playlist playlist) {
         this.name = name;
         this.fenceVM = fenceVM;
         this.playlist = playlist;
     }
 
 
-    public String getName() {
+    @NonNull public String getName() {
         return name;
     }
 
-    public FenceVM getFenceVM() {
+    @NonNull public FenceVM getFenceVM() {
         return fenceVM;
     }
 
-    public Playlist getPlaylist() {
+    @NonNull public Playlist getPlaylist() {
         return playlist;
     }
 
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setFenceVM(FenceVM fenceVM) {
-        this.fenceVM = fenceVM;
-    }
-
-    public void setPlaylist(Playlist playlist) {
-        this.playlist = playlist;
-    }
 }

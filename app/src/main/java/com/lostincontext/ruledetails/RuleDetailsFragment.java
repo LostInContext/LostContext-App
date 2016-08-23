@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,9 +28,8 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.lostincontext.R;
-import com.lostincontext.data.GridBottomSheetItem;
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem;
 import com.lostincontext.data.playlist.Playlist;
-import com.lostincontext.data.rules.Rule;
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding;
 import com.lostincontext.playlists.PlaylistsActivity;
 import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors;
@@ -150,8 +148,8 @@ public class RuleDetailsFragment extends Fragment implements RuleDetailsContract
         checkLocationPermissionAndShowPicker();
     }
 
-    @Override public void setRule(Rule rule) {
-        binding.setRule(rule);
+    @Override public void setRuleName(String ruleName) {
+       binding.setRuleName(ruleName);
     }
 
     @Override public PendingIntent getPendingIntentFor(Playlist playlist) {

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.lostincontext.commons.list.ViewHolder;
-import com.lostincontext.data.GridBottomSheetItem;
 import com.lostincontext.databinding.ItemBottomSheetGridBinding;
 
 public class BottomSheetGridItemViewHolder extends ViewHolder {

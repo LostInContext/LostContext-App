@@ -12,10 +12,12 @@ import com.lostincontext.data.rules.Rule;
 
 import java.util.List;
 
+import static java.util.Collections.emptyList;
+
 
 public class MainScreenAdapter extends StatefulAdapter {
 
-    private List<Rule> rules;
+    private List<Rule> rules = emptyList();
     private EmptyListCallback emptyListCallback;
 
 
@@ -45,7 +47,7 @@ public class MainScreenAdapter extends StatefulAdapter {
         }
     }
 
-    @Override public void onBindViewHolder(ViewHolder holder, int position) {
+    @Override public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
         switch (holder.getItemViewType()) {
             case R.id.view_type_standard:
                 MainScreenViewHolder viewHolder = (MainScreenViewHolder) holder;
