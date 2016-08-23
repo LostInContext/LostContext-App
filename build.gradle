@@ -2,6 +2,7 @@
 
 buildscript {
     ext.kotlin_version = '1.0.4-eap-62'
+    ext.android_build_tools_version = '2.2.0-beta2'
     repositories {
         jcenter()
         mavenCentral()
@@ -10,7 +11,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-beta2'
+        classpath "com.android.tools.build:gradle:$android_build_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -42,7 +43,7 @@ ext {
     // App dependencies
     supportLibraryVersion = '24.2.0'
     playServicesVersion = '9.4.0'
-    dataBindingVersion = '2.1.2'
+    dataBindingVersion = android_build_tools_version
     guavaVersion = '19.0'
     daggerVersion = '2.2'
     constraintLayoutVersion = '1.0.0-alpha7'

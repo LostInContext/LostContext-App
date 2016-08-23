@@ -28,7 +28,7 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="@dimen/when_width"
             android:layout_height="match_parent"
-            android:background="@{BindingsKt.getWhenItemBackground(context, item)}"
+            android:background="@{item.isWhen() ? @drawable/transparent : @drawable/app_btn_background_material}"
             android:clickable="@{!item.isWhen()}"
             android:elevation="@{item.isWhen() ? 0f : @dimen/button_elevation}"
             android:gravity="center_vertical"
