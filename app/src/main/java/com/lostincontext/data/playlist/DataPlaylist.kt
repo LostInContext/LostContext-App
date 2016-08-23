@@ -76,7 +76,7 @@ class DataPlaylist {
 
 
         val playlists: List<Playlist>
-            get() = deserialize(PlaylistJSON.JSON)
+            get() = deserialize(Playlist_Raw_Json)
 
         fun deserialize(data: String): List<Playlist> {
             val mapper = jacksonObjectMapper()
