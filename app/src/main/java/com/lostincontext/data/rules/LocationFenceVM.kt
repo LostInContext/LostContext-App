@@ -39,8 +39,9 @@ class LocationFenceVM(val state: State,
         return descriptor.location(this)
     }
 
-    override fun giveIcon(iconGiver: FenceIconGiver): List<Int> {
-        return iconGiver.location(this)
+    override fun giveIcon(iconGiver: FenceIconGiver,
+                          icons: MutableList<Int>) {
+        return iconGiver.location(this, icons)
     }
 
     companion object {

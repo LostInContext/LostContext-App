@@ -15,5 +15,6 @@ data class HeadphoneFenceVM(val state: State) : FenceVM {
 
     override fun describe(descriptor: FenceDescriptor): String = descriptor.headphone(this)
 
-    override fun giveIcon(iconGiver: FenceIconGiver): List<Int> = iconGiver.headphone(this)
+    override fun giveIcon(iconGiver: FenceIconGiver,
+                          icons: MutableList<Int>): List<Int> = iconGiver.headphone(this)
 }

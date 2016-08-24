@@ -3,16 +3,19 @@ package com.lostincontext.data.rules
 
 import com.google.android.gms.awareness.fence.AwarenessFence
 
-class TimeFenceVM (val state: State,
-                   val starting: Long,
-                   val ending: Long): FenceVM {
+class TimeFenceVM(val state: State,
+                  val starting: Long,
+                  val ending: Long) : FenceVM {
 
 
     override fun build(builder: FenceBuilder): AwarenessFence = builder.time(this)
 
     override fun describe(descriptor: FenceDescriptor): String = descriptor.time(this)
 
-    override fun giveIcon(iconGiver: FenceIconGiver): List<Int> = emptyList()
+    override fun giveIcon(iconGiver: FenceIconGiver,
+                          icons: MutableList<Int>) {
+        iconGiver.time(this, icons)
+    }
 
     enum class State {
         IN_INTERVAL,

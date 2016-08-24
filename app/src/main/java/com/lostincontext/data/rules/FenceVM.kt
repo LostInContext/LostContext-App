@@ -26,5 +26,6 @@ interface FenceVM {
 
     fun describe(descriptor: FenceDescriptor): String
 
-    fun giveIcon(iconGiver: FenceIconGiver): List<Int>
+    fun giveIcon(iconGiver: FenceIconGiver,
+                 icons: MutableList<Int>)
 }

@@ -10,5 +10,6 @@ data class NotFenceVM(val fenceVM: FenceVM) : FenceVM {
 
     override fun describe(descriptor: FenceDescriptor): String = descriptor.not(this)
 
-    override fun giveIcon(iconGiver: FenceIconGiver): List<Int> = iconGiver.not(this)
+    override fun giveIcon(iconGiver: FenceIconGiver,
+                          icons: MutableList<Int>) = iconGiver.not(this, icons)
 }
