@@ -18,7 +18,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.lostincontext.R
-import com.lostincontext.data.GridBottomSheetItem
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsActivity

@@ -12,7 +12,7 @@ import com.google.common.collect.Lists.newArrayList
 import com.lostincontext.R
 import com.lostincontext.awareness.Awareness
 import com.lostincontext.commons.list.Section
-import com.lostincontext.data.GridBottomSheetItem
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.data.location.LocationModel
 import com.lostincontext.data.location.repo.LocationRepository
 import com.lostincontext.data.location.repo.LocationRepository.LocationCallback

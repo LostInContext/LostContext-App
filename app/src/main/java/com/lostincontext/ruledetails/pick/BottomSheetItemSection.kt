@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 
 import com.lostincontext.R
 import com.lostincontext.commons.list.Section
-import com.lostincontext.data.GridBottomSheetItem
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 
 
 class BottomSheetItemSection(title: String, fenceCreators: List<GridBottomSheetItem>)

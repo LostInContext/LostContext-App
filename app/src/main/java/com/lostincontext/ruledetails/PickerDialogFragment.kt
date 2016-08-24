@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lostincontext.R
 import com.lostincontext.commons.list.Section
-import com.lostincontext.data.GridBottomSheetItem
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.databinding.RuleDetailsBottomSheetBinding
 import com.lostincontext.ruledetails.pick.PickerDialogCallback
 import com.lostincontext.ruledetails.pick.RulePickAdapter

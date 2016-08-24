@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="com.lostincontext.data.GridBottomSheetItem" />
+            type="com.lostincontext.ruledetails.pick.GridBottomSheetItem" />
 
     </data>
 

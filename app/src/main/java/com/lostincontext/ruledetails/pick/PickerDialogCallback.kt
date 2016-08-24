@@ -1,6 +1,6 @@
 package com.lostincontext.ruledetails.pick
 
-import com.lostincontext.data.GridBottomSheetItem
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 
 interface PickerDialogCallback {
 

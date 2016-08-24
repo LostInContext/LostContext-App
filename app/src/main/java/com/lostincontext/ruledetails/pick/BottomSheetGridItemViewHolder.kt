@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 import com.lostincontext.commons.list.ViewHolder
-import com.lostincontext.data.GridBottomSheetItem
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.databinding.ItemBottomSheetGridBinding
 
 class BottomSheetGridItemViewHolder(private val binding: ItemBottomSheetGridBinding,
