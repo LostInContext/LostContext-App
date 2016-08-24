@@ -1,8 +1,4 @@
-package com.lostincontext.data.playlist
-
-
-val Playlist_Raw_Json = """
-"{
+{
                       "data": [
                     {"id": 2042608324,
                           "title": "Pokémon GO : Playlist To Catch'Em All",
@@ -876,6 +872,5 @@ val Playlist_Raw_Json = """
                       "total": 88,
                       "next": "http://api.deezer.com/2.0/user/21292726/playlists?index=25"
                     }
-"""
 
 

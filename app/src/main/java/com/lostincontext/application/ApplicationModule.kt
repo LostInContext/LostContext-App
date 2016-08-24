@@ -1,19 +1,17 @@
 package com.lostincontext.application
 
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-
+import android.content.res.Resources
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.lostincontext.data.location.repo.LocationRepository
+import com.lostincontext.data.playlist.repo.PlaylistsRepository
 import com.lostincontext.data.rules.repo.RulesRepository
-
-import javax.inject.Named
-import javax.inject.Singleton
-
 import dagger.Module
 import dagger.Provides
-
-import android.content.Context.MODE_PRIVATE
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
 class ApplicationModule(private val lostApplication: LostApplication) {
@@ -40,6 +38,12 @@ class ApplicationModule(private val lostApplication: LostApplication) {
         return RulesRepository(preferences, mapper)
     }
 
+    @Singleton
+    @Provides
+    fun providePlaylistsRepository(resources: Resources): PlaylistsRepository {
+        return PlaylistsRepository(resources)
+    }
+
     @Provides internal fun provideObjectMapper(): ObjectMapper {
         return jacksonObjectMapper()
     }
@@ -58,6 +62,11 @@ class ApplicationModule(private val lostApplication: LostApplication) {
     internal fun provideSharedPreferencesForRules(): SharedPreferences {
         return lostApplication.getSharedPreferences("rules",
                                                     MODE_PRIVATE)
+    }
+
+    @Provides
+    internal fun provideResourcesForPlaylists(): Resources {
+        return lostApplication.resources
     }
 
 }

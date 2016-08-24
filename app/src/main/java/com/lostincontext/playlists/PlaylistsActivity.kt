@@ -2,6 +2,7 @@ package com.lostincontext.playlists
 
 import android.os.Bundle
 import com.lostincontext.R
+import com.lostincontext.application.LostApplication
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.utils.addFragmentToActivity
 import javax.inject.Inject
@@ -27,6 +28,7 @@ class PlaylistsActivity : BaseActivity() {
 
         DaggerPlaylistsComponent.builder()
                 .playlistsPresenterModule(PlaylistsPresenterModule(fragment))
+                .applicationComponent((application as LostApplication).appComponent)
                 .build()
                 .inject(this)
     }

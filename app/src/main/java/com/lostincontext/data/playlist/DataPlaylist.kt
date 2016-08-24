@@ -13,6 +13,7 @@ import com.lostincontext.commons.images.DeezerImageUrlGenerator.DeezerImageType
 import com.lostincontext.commons.images.DeezerImageUrlGenerator.TYPE_COVER
 import com.lostincontext.commons.images.DeezerImageUrlGenerator.TYPE_PLAYLIST_CUSTOM_COVER
 import java.io.IOException
+import java.io.InputStream
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class DataPlaylist {
@@ -75,10 +76,7 @@ class DataPlaylist {
         private val TAG = DataPlaylist::class.java.simpleName
 
 
-        val playlists: List<Playlist>
-            get() = deserialize(Playlist_Raw_Json)
-
-        fun deserialize(data: String): List<Playlist> {
+        fun deserialize(data: InputStream): List<Playlist> {
             val mapper = jacksonObjectMapper()
 
             val simpleModule = SimpleModule()

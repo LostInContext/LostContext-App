@@ -1,21 +1,21 @@
 package com.lostincontext.playlists
 
 
-import com.lostincontext.data.playlist.DataPlaylist
 import com.lostincontext.data.playlist.Playlist
-
+import com.lostincontext.data.playlist.repo.PlaylistsRepository
 import javax.inject.Inject
 
 class PlaylistsPresenter
-@Inject internal constructor(private val view: PlaylistsContract.View) : PlaylistsContract.Presenter {
+@Inject internal constructor(private val view: PlaylistsContract.View,
+                             private val playlistsRepository: PlaylistsRepository) : PlaylistsContract.Presenter, PlaylistsRepository.Callback {
+
 
     @Inject internal fun setup() {
         view.setPresenter(this)
     }
 
     override fun start() {
-        val playlists = DataPlaylist.playlists
-        view.setPlaylists(playlists)
+        playlistsRepository.getPlaylists(this)
     }
 
     override fun onRefreshButtonClick() {
@@ -27,5 +27,14 @@ class PlaylistsPresenter
 
     override fun onItemClick(playlist: Playlist) {
         view.returnResult(playlist)
+    }
+
+
+    override fun onPlaylistsLoaded(playlists: List<Playlist>) {
+        view.setPlaylists(playlists)
+    }
+
+    override fun onPlaylistsLoadFailed() {
+        throw UnsupportedOperationException("not implemented")
     }
 }
