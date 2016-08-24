@@ -26,11 +26,7 @@ class ThatService : IntentService(ThatService.TAG) {
             when (fenceState.currentState) {
                 FenceState.TRUE -> {
                     logI(TAG) { "Rule verified" }
-                    val playlist = rule.playlist
-                    if (playlist != null) {
-                        displayNotification(this, rule.name!!, playlist)
-                    }
-
+                    displayNotification(this, rule.name, rule.playlist)
                 }
 
                 FenceState.FALSE -> logI(TAG) { "Rule NOT verified" }

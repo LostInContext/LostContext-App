@@ -89,7 +89,7 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
                 .listener(this)
                 .into(target)
 
-        val icons = rule.fenceVM!!.giveIcon(FenceIconGiver())
+        val icons = rule.fenceVM.giveIcon(FenceIconGiver())
         if (!icons.isEmpty()) {
             if (icons.size >= 3) {
                 binding.ic3.setImageResource(icons[2])
