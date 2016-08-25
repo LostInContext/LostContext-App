@@ -8,11 +8,9 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.ResultCallbacks
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.model.LatLng
-import com.google.common.collect.Lists.newArrayList
 import com.lostincontext.R
 import com.lostincontext.awareness.Awareness
 import com.lostincontext.commons.list.Section
-import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.data.location.LocationModel
 import com.lostincontext.data.location.repo.LocationRepository
 import com.lostincontext.data.location.repo.LocationRepository.LocationCallback
@@ -28,6 +26,7 @@ import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.items.FenceItem.Link
 import com.lostincontext.ruledetails.items.FenceItem.Link.*
 import com.lostincontext.ruledetails.pick.BottomSheetItemSection
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.utils.logD
 import com.lostincontext.utils.logE
 import java.util.*
@@ -105,10 +104,6 @@ class RuleDetailsPresenter
 
     override fun provideFenceChoices(): List<Section<*>> {
 
-        val choices = newArrayList(GridBottomSheetItem("Walking",
-                                                       R.drawable.ic_walk_24,
-                                                       Picker.WALK),
-                                   GridBottomSheetItem("Running",
                                                        R.drawable.ic_run_24,
                                                        Picker.RUN),
                                    GridBottomSheetItem("On bicycle",
@@ -129,13 +124,17 @@ class RuleDetailsPresenter
                                    GridBottomSheetItem("At work",
                                                        R.drawable.ic_work_24,
                                                        Picker.WORK))
+        val choices = arrayListOf(GridBottomSheetItem("Walking",
+                                                      R.drawable.ic_walk_24,
+                                                      Picker.WALK),
+                                  GridBottomSheetItem("Running",
 
         val fencesSection = BottomSheetItemSection("Pick a condition", choices)
 
 
-        val playlistPickers = newArrayList(GridBottomSheetItem("Playlist",
-                                                               R.drawable.ic_music_note_24,
                                                                Picker.PLAYLIST))
+        val playlistPickers = arrayListOf(GridBottomSheetItem("Playlist",
+                                                              R.drawable.ic_music_note_24,
 
         val mediaPickSection = BottomSheetItemSection("Pick a playlist", playlistPickers)
 

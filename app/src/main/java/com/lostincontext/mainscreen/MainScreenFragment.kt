@@ -9,7 +9,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.common.base.Preconditions.checkNotNull
 import com.lostincontext.R
 import com.lostincontext.commons.list.SpacesItemDecoration
 import com.lostincontext.commons.list.StatefulAdapter.ContentState
