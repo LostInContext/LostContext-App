@@ -43,7 +43,7 @@ object RuleDetailsContract {
 
         fun checkPermissionsAndShowLocationPicker(name: String, item: GridBottomSheetItem)
 
-        fun setRuleName(ruleName: String)
+        fun setRuleVM(rule: RuleVM)
 
         fun getPendingIntentFor(playlist: Playlist): PendingIntent
 

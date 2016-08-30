@@ -114,8 +114,8 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
         checkLocationPermissionAndShowPicker()
     }
 
-    override fun setRuleName(ruleName: String) {
-        binding.ruleName = ruleName
+    override fun setRuleVM(rule: RuleVM) {
+        binding.rule = rule
     }
 
     override fun getPendingIntentFor(playlist: Playlist): PendingIntent {

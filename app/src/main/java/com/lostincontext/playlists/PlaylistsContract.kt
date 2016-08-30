@@ -9,7 +9,7 @@ import com.lostincontext.data.playlist.Playlist
 object PlaylistsContract {
 
 
-    val EXTRA_PLAYLIST = "playlist"
+    const val EXTRA_PLAYLIST = "playlist"
 
     interface View : BaseView<PlaylistsContract.Presenter> {
 

@@ -42,7 +42,8 @@ class RuleDetailsPresenter
   GoogleApiClient.ConnectionCallbacks,
   GoogleApiClient.OnConnectionFailedListener {
 
-    private val name = ""
+
+    private val ruleVM: RuleVM = RuleVM("")
     private val items = ArrayList<FenceItem>()
     private var playlist: Playlist? = null
 
@@ -55,7 +56,7 @@ class RuleDetailsPresenter
 
     override fun start() {
         view.setItems(items)
-        view.setRuleName(name)
+        view.setRuleVM(ruleVM)
     }
 
     override fun onLinkClick(item: FenceItem) {
@@ -243,9 +244,10 @@ class RuleDetailsPresenter
 
     private fun saveRuleAndQuit() {
         val errors = EnumSet.noneOf(RuleErrors::class.java)
+
         if (items.isEmpty()) errors.add(RuleErrors.NO_CONDITION)
         if (playlist == null) errors.add(RuleErrors.NO_PLAYLIST)
-        if (TextUtils.isEmpty(name)) errors.add(RuleErrors.NO_TITLE)
+        if (TextUtils.isEmpty(ruleVM.name)) errors.add(RuleErrors.NO_TITLE)
 
         if (!errors.isEmpty()) {
             view.showSnack(errors)
@@ -253,7 +255,7 @@ class RuleDetailsPresenter
         }
 
         val fenceVM = extractFenceForRule()
-        val rule = Rule(name, fenceVM, playlist!!)
+        val rule = Rule(ruleVM.name, fenceVM, playlist!!)
 
         val builder = FenceUpdateRequest.Builder()
         builder.addFence(rule.name,
