@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version = '1.0.3'
-    ext.android_build_tools_version = '2.2.0-beta2'
+    ext.android_build_tools_version = '2.2.0-beta3'
     repositories {
         jcenter()
         mavenCentral()
