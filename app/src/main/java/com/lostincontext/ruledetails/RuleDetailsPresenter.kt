@@ -104,37 +104,37 @@ class RuleDetailsPresenter
 
     override fun provideFenceChoices(): List<Section<*>> {
 
-                                                       R.drawable.ic_run_24,
-                                                       Picker.RUN),
-                                   GridBottomSheetItem("On bicycle",
-                                                       R.drawable.ic_bike_24,
-                                                       Picker.BIKE),
-                                   GridBottomSheetItem("In vehicle",
-                                                       R.drawable.ic_car_24,
-                                                       Picker.CAR),
-                                   GridBottomSheetItem("Plugged in",
-                                                       R.drawable.ic_headset_24,
-                                                       Picker.PLUG_IN),
-                                   GridBottomSheetItem("Plugged out",
-                                                       R.drawable.ic_headset_24,
-                                                       Picker.PLUG_OUT),
-                                   GridBottomSheetItem("At home",
-                                                       R.drawable.ic_home_24,
-                                                       Picker.HOME),
-                                   GridBottomSheetItem("At work",
-                                                       R.drawable.ic_work_24,
-                                                       Picker.WORK))
         val choices = arrayListOf(GridBottomSheetItem("Walking",
                                                       R.drawable.ic_walk_24,
                                                       Picker.WALK),
                                   GridBottomSheetItem("Running",
+                                                      R.drawable.ic_run_24,
+                                                      Picker.RUN),
+                                  GridBottomSheetItem("On bicycle",
+                                                      R.drawable.ic_bike_24,
+                                                      Picker.BIKE),
+                                  GridBottomSheetItem("In vehicle",
+                                                      R.drawable.ic_car_24,
+                                                      Picker.CAR),
+                                  GridBottomSheetItem("Plugged in",
+                                                      R.drawable.ic_headset_24,
+                                                      Picker.PLUG_IN),
+                                  GridBottomSheetItem("Plugged out",
+                                                      R.drawable.ic_headset_24,
+                                                      Picker.PLUG_OUT),
+                                  GridBottomSheetItem("At home",
+                                                      R.drawable.ic_home_24,
+                                                      Picker.HOME),
+                                  GridBottomSheetItem("At work",
+                                                      R.drawable.ic_work_24,
+                                                      Picker.WORK))
 
         val fencesSection = BottomSheetItemSection("Pick a condition", choices)
 
 
-                                                               Picker.PLAYLIST))
         val playlistPickers = arrayListOf(GridBottomSheetItem("Playlist",
                                                               R.drawable.ic_music_note_24,
+                                                              Picker.PLAYLIST))
 
         val mediaPickSection = BottomSheetItemSection("Pick a playlist", playlistPickers)
 
@@ -277,9 +277,10 @@ class RuleDetailsPresenter
     private fun extractFenceForRule(): FenceVM {
         var completedFence: FenceVM? = null
         var fenceToAccumulate: FenceVM
-        val list = cleanedList
+        val list = getCleanedList()
         var i = 0
         val count = list.size
+
         while (i < count) {
             val item = list[i]
 
@@ -297,8 +298,7 @@ class RuleDetailsPresenter
                     break
             }
 
-            if (similarItems.isEmpty())
-                fenceToAccumulate = item.fenceVM
+            if (similarItems.isEmpty()) fenceToAccumulate = item.fenceVM
             else {
                 i = j - 1
                 similarItems.add(0, item.fenceVM)
@@ -326,15 +326,7 @@ class RuleDetailsPresenter
      * * links, all the [Link.AND_NOT] & [Link.OR_NOT] see their fenceVMs wrapped in
      * * [com.lostincontext.data.rules.NotFenceVM]s.
      */
-    private val cleanedList: List<FenceItem>
-        get() {
-            val cleanedItems = ArrayList<FenceItem>(items.size)
-
-            for (item in items) {
-                cleanedItems.add(FenceItem.wrapNot(item))
-            }
-            return cleanedItems
-        }
+    private fun getCleanedList(): List<FenceItem> = items.map { FenceItem.wrapNot(it) }
 
     companion object {
         private val TAG = RuleDetailsPresenter::class.java.simpleName
