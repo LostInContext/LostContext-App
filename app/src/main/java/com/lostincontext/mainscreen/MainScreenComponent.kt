@@ -10,5 +10,5 @@ import dagger.Component
            dependencies = arrayOf(ApplicationComponent::class))
 interface MainScreenComponent {
 
-    fun inject(activity: MainActivity)
+    fun inject(fragment : MainScreenFragment)
 }

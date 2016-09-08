@@ -19,9 +19,7 @@ import com.lostincontext.data.rules.*
 import com.lostincontext.data.rules.CompositeFenceVM.Operator
 import com.lostincontext.data.rules.repo.RulesRepository
 import com.lostincontext.ruledetails.RuleDetailsContract.LINK_CHANGED
-import com.lostincontext.ruledetails.RuleDetailsContract.Presenter
 import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors
-import com.lostincontext.ruledetails.RuleDetailsContract.View
 import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.items.FenceItem.Link
 import com.lostincontext.ruledetails.items.FenceItem.Link.*
@@ -33,22 +31,37 @@ import java.util.*
 import java.util.EnumSet.of
 import javax.inject.Inject
 
-class RuleDetailsPresenter
-@Inject internal constructor(private val view: View,
-                             private val locationRepository: LocationRepository,
-                             private val rulesRepository: RulesRepository,
-                             private val awareness: Awareness)
-: Presenter,
-  GoogleApiClient.ConnectionCallbacks,
-  GoogleApiClient.OnConnectionFailedListener {
+class RuleDetailsPresenter : RuleDetailsContract.Presenter,
+                             GoogleApiClient.ConnectionCallbacks,
+                             GoogleApiClient.OnConnectionFailedListener {
 
+    private val view: RuleDetailsContract.View
+    private val locationRepository: LocationRepository
+    private val awareness: Awareness
+    private val rulesRepository: RulesRepository
+
+    @Inject internal constructor(view: RuleDetailsContract.View,
+                                 icicle: Bundle?,
+                                 locationRepository: LocationRepository,
+                                 rulesRepository: RulesRepository,
+                                 awareness: Awareness) {
+
+        this.view = view
+        this.locationRepository = locationRepository
+        this.rulesRepository = rulesRepository
+        this.awareness = awareness
+
+        if (icicle != null) {
+            // todo fetch saved state here
+        }
+
+    }
 
     private val ruleVM: RuleVM = RuleVM("")
     private val items = ArrayList<FenceItem>()
     private var playlist: Playlist? = null
 
     @Inject internal fun setup() {
-        view.setPresenter(this)
         awareness.init(this,
                        this)
     }
@@ -57,6 +70,10 @@ class RuleDetailsPresenter
     override fun start() {
         view.setItems(items)
         view.setRuleVM(ruleVM)
+    }
+
+    override fun saveState(outState: Bundle) {
+        // todo save state here
     }
 
     override fun onLinkClick(item: FenceItem) {
@@ -69,8 +86,7 @@ class RuleDetailsPresenter
             FenceItem.Link.OR -> item.link = AND_NOT
             AND_NOT -> item.link = OR_NOT
             OR_NOT -> item.link = AND
-            WHEN -> {
-            }
+            FenceItem.Link.WHEN -> throw  RuntimeException("unexpected")
         }
         view.notifyItemChanged(items.indexOf(item), LINK_CHANGED)
     }

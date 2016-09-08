@@ -18,27 +18,51 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.lostincontext.R
-import com.lostincontext.ruledetails.pick.GridBottomSheetItem
+import com.lostincontext.application.LostApplication
+import com.lostincontext.awareness.AwarenessModule
+import com.lostincontext.commons.BaseActivity
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsActivity
 import com.lostincontext.playlists.PlaylistsContract
 import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors
 import com.lostincontext.ruledetails.items.FenceItem
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.that.ThatService
 import com.lostincontext.utils.logD
 import java.util.*
+import javax.inject.Inject
 
 
 class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
 
 
-    private lateinit var presenter: RuleDetailsContract.Presenter
+    @Inject lateinit internal var presenter: RuleDetailsPresenter
     private lateinit var binding: RuleDetailsScreenFragmentBinding
     private lateinit var adapter: RuleDetailsAdapter
 
     private var savedPlaceName: String? = null
     private var savedGridBottomSheetItem: GridBottomSheetItem? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+
+        DaggerRuleDetailsComponent.builder()
+                .ruleDetailsPresenterModule(RuleDetailsPresenterModule(this, savedInstanceState))
+                .applicationComponent((activity.application as LostApplication).appComponent)
+                .awarenessModule(AwarenessModule(activity as BaseActivity))
+                .build()
+                .inject(this)
+
+        val manager = fragmentManager
+        val pickerFragment = manager.findFragmentByTag(PickerDialogFragment.TAG) as PickerDialogFragment?
+        if (pickerFragment != null) {
+            pickerFragment.registerCallback(presenter)
+            pickerFragment.setSections(presenter.provideFenceChoices())
+        }
+
+    }
 
     override fun onCreateView(inflater: LayoutInflater?,
                               container: ViewGroup?,
@@ -60,24 +84,15 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         presenter.start()
     }
 
-    override fun setPresenter(presenter: RuleDetailsContract.Presenter) {
-        this.presenter = presenter
-        val manager = fragmentManager
-        val pickerFragment = manager.findFragmentByTag(PickerDialogFragment.TAG) as PickerDialogFragment?
-        if (pickerFragment != null) {
-            pickerFragment.registerCallback(presenter)
-            pickerFragment.setSections(presenter.provideFenceChoices())
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        presenter.saveState(outState)
+        super.onSaveInstanceState(outState)
     }
 
     override fun setItems(items: List<FenceItem>) {

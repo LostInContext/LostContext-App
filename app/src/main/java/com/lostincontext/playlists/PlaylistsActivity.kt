@@ -2,16 +2,11 @@ package com.lostincontext.playlists
 
 import android.os.Bundle
 import com.lostincontext.R
-import com.lostincontext.application.LostApplication
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.utils.addFragmentToActivity
-import javax.inject.Inject
 
 
 class PlaylistsActivity : BaseActivity() {
-
-
-    @Inject lateinit internal var presenter: PlaylistsPresenter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +21,5 @@ class PlaylistsActivity : BaseActivity() {
             addFragmentToActivity(fm, fragment, R.id.contentFrame)
         }
 
-        DaggerPlaylistsComponent.builder()
-                .playlistsPresenterModule(PlaylistsPresenterModule(fragment))
-                .applicationComponent((application as LostApplication).appComponent)
-                .build()
-                .inject(this)
     }
 }

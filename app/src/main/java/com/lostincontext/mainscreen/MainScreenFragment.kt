@@ -10,6 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lostincontext.R
+import com.lostincontext.application.LostApplication
+import com.lostincontext.awareness.AwarenessModule
+import com.lostincontext.commons.BaseActivity
 import com.lostincontext.commons.list.SpacesItemDecoration
 import com.lostincontext.commons.list.StatefulAdapter.ContentState
 import com.lostincontext.data.playlist.Playlist
@@ -17,12 +20,28 @@ import com.lostincontext.data.rules.Rule
 import com.lostincontext.databinding.MainScreenFragmentBinding
 import com.lostincontext.ruledetails.RuleDetailsActivity
 import com.lostincontext.that.ThatService
+import javax.inject.Inject
 
 
 class MainScreenFragment : Fragment(), MainScreenContract.View {
 
-    private lateinit var presenter: MainScreenContract.Presenter
+    @Inject internal lateinit var presenter: MainScreenPresenter
+
     private lateinit var adapter: MainScreenAdapter
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Create the presenter
+        DaggerMainScreenComponent.builder()
+                .mainScreenPresenterModule(MainScreenPresenterModule(this))
+                .applicationComponent((activity.application as LostApplication).appComponent)
+                .awarenessModule(AwarenessModule(activity as BaseActivity))
+                .build()
+                .inject(this)
+
+    }
 
 
     override fun onCreateView(inflater: LayoutInflater?,
@@ -66,10 +85,6 @@ class MainScreenFragment : Fragment(), MainScreenContract.View {
     override fun onResume() {
         super.onResume()
         presenter.start()
-    }
-
-    override fun setPresenter(presenter: MainScreenContract.Presenter) {
-        this.presenter = presenter
     }
 
     override fun getPendingIntent(playlist: Playlist): PendingIntent {

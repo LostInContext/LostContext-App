@@ -1,15 +1,15 @@
 package com.lostincontext.ruledetails
 
 import android.app.PendingIntent
+import android.os.Bundle
 import com.google.android.gms.maps.model.LatLng
 import com.lostincontext.commons.BasePresenter
 import com.lostincontext.commons.BaseView
 import com.lostincontext.commons.list.Section
-import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rules.Rule
 import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.items.FenceItemCallback
+import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.ruledetails.pick.PickerDialogCallback
 import com.lostincontext.ruledetails.pick.PlusButtonCallback
 import java.util.*
@@ -54,6 +54,8 @@ object RuleDetailsContract {
 
 
     interface Presenter : BasePresenter, FenceItemCallback, PlusButtonCallback, PickerDialogCallback {
+
+        fun saveState(outState: Bundle)
 
         fun provideFenceChoices(): List<Section<*>>
 

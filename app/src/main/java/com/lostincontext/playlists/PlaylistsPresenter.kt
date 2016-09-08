@@ -11,7 +11,6 @@ class PlaylistsPresenter
 
 
     @Inject internal fun setup() {
-        view.setPresenter(this)
     }
 
     override fun start() {

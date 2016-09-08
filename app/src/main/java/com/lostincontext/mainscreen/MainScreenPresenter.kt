@@ -35,7 +35,6 @@ constructor(private val view: MainScreenContract.View,
 
     @Inject
     internal fun setup() {
-        view.setPresenter(this)
         awareness.init(this,
                        this)
     }

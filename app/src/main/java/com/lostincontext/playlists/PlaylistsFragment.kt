@@ -11,17 +11,31 @@ import android.view.View
 import android.view.ViewGroup
 import com.lostincontext.PlaylistLauncher
 import com.lostincontext.R
+import com.lostincontext.application.LostApplication
 import com.lostincontext.commons.list.SpacesItemDecoration
 import com.lostincontext.commons.list.StatefulAdapter
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.databinding.PlaylistsScreenFragmentBinding
+import javax.inject.Inject
 
 
 class PlaylistsFragment : Fragment(), PlaylistsContract.View {
 
-    private lateinit var presenter: PlaylistsContract.Presenter
+    @Inject lateinit internal var presenter: PlaylistsPresenter
 
     private lateinit var adapter: PlaylistsAdapter
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        DaggerPlaylistsComponent.builder()
+                .playlistsPresenterModule(PlaylistsPresenterModule(this))
+                .applicationComponent((activity.application as LostApplication).appComponent)
+                .build()
+                .inject(this)
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater?,
                               container: ViewGroup?,
@@ -62,10 +76,6 @@ class PlaylistsFragment : Fragment(), PlaylistsContract.View {
     override fun onResume() {
         super.onResume()
         presenter.start()
-    }
-
-    override fun setPresenter(presenter: PlaylistsContract.Presenter) {
-        this.presenter = presenter
     }
 
     override fun setPlaylists(playlists: List<Playlist>) {

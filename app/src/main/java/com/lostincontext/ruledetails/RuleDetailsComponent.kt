@@ -11,6 +11,6 @@ import dagger.Component
            dependencies = arrayOf(ApplicationComponent::class))
 interface RuleDetailsComponent {
 
-    fun inject(activity: RuleDetailsActivity)
+    fun inject(fragment: RuleDetailsFragment)
 
 }
