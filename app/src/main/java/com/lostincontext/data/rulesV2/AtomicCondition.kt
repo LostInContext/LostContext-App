@@ -15,6 +15,13 @@ class AtomicCondition {
 
 
     val fence: FenceVM
+        get() {
+            when (modifier) {
+                Modifier.NONE -> return field
+                Modifier.NOT -> return NotFenceVM(field)
+            }
+        }
+
     var modifier: Modifier
 
 
@@ -24,15 +31,6 @@ class AtomicCondition {
             Modifier.NOT -> modifier = Modifier.NONE
         }
     }
-
-    fun getAtomic(): FenceVM {
-        when (modifier) {
-
-            AtomicCondition.Modifier.NONE -> return fence
-            AtomicCondition.Modifier.NOT -> return NotFenceVM(fence)
-        }
-    }
-
 }
 
 
