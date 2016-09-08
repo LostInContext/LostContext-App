@@ -5,11 +5,11 @@ import com.google.android.gms.awareness.fence.AwarenessFence
 import com.google.android.gms.maps.model.LatLng
 import kotlin.annotation.AnnotationRetention.SOURCE
 
-class LocationFenceVM(val state: State,
-                      val latitude: Double,
-                      val longitude: Double,
-                      @LocationName val name: String,
-                      val radius: Double = 10.0) : FenceVM {
+data class LocationFenceVM(val state: State,
+                           val latitude: Double,
+                           val longitude: Double,
+                           @LocationName val name: String,
+                           val radius: Double = 10.0) : FenceVM {
 
 
     constructor(@LocationName locationName: String, latLng: LatLng) : this(State.IN,
