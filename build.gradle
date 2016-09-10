@@ -1,8 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.0.4-eap-100'
-    ext.android_build_tools_version = '2.2.0-rc1'
+    ext.kotlin_version_internal = '1.0.4-eap-114'
+    ext.android_build_tools_version = '2.2.0-rc2'
     repositories {
         jcenter()
         mavenCentral()
@@ -12,7 +12,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$android_build_tools_version"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version_internal"
     }
 }
 
@@ -38,20 +38,21 @@ ext {
     minSdkVersion = 21
     targetSdkVersion = 24
     compileSdkVersion = 24
-    buildToolsVersion = '24.0.1'
+    buildToolsVersion = '24.0.2'
 
     // App dependencies
     supportLibraryVersion = '24.2.0'
     playServicesVersion = '9.4.0'
     dataBindingVersion = android_build_tools_version
-    guavaVersion = '19.0'
-    daggerVersion = '2.2'
+    daggerVersion = '2.6.1'
+    javaxAnnotationsVersion = '10.0-b28'
     constraintLayoutVersion = '1.0.0-alpha7'
     glideVersion = '3.7.0'
-    jacksonVersion = '2.8.1'
+    jacksonVersion = '2.8.2'
+    kotlinVersion = kotlin_version_internal
 
     // Testing
-    junitVersion = '4.12'
+    jUnitVersion = '4.12'
     mockitoVersion = '1.10.19'
     powerMockito = '1.6.2'
     hamcrestVersion = '1.3'

@@ -19,9 +19,7 @@ class ApplicationModule(private val lostApplication: LostApplication) {
 
     @Provides
     @Singleton
-    fun provideApplication(): LostApplication {
-        return lostApplication
-    }
+    fun provideApplication(): LostApplication = lostApplication
 
 
     @Singleton
@@ -44,9 +42,7 @@ class ApplicationModule(private val lostApplication: LostApplication) {
         return PlaylistsRepository(resources)
     }
 
-    @Provides internal fun provideObjectMapper(): ObjectMapper {
-        return jacksonObjectMapper()
-    }
+    @Provides internal fun provideObjectMapper(): ObjectMapper = jacksonObjectMapper()
 
 
     @Named("location")
@@ -65,8 +61,6 @@ class ApplicationModule(private val lostApplication: LostApplication) {
     }
 
     @Provides
-    internal fun provideResourcesForPlaylists(): Resources {
-        return lostApplication.resources
-    }
+    internal fun provideResourcesForPlaylists(): Resources = lostApplication.resources
 
 }

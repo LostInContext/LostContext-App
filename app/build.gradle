@@ -49,10 +49,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
+    testCompile "junit:junit:$rootProject.jUnitVersion"
     compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoVersion"
 
     // Support Lib
@@ -72,7 +72,7 @@ dependencies {
 
     // Dagger
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    provided "org.glassfish:javax.annotation:$rootProject.javaxAnnotationsVersion"
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
 
     //DataBinding
@@ -86,7 +86,7 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-annotations:$rootProject.jacksonVersion"
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:$rootProject.jacksonVersion"
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion"
 
 }
 
