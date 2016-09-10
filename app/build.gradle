@@ -70,6 +70,8 @@ dependencies {
     compile "com.google.android.gms:play-services-base:$rootProject.playServicesVersion"
     compile "com.google.android.gms:play-services-contextmanager:$rootProject.playServicesVersion"
 
+    compile "com.google.firebase:firebase-crash:$rootProject.firebaseVersion"
+
     // Dagger
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     provided "org.glassfish:javax.annotation:$rootProject.javaxAnnotationsVersion"
@@ -93,3 +95,5 @@ dependencies {
 kapt {
     generateStubs = true
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -3,6 +3,8 @@
 buildscript {
     ext.kotlin_version_internal = '1.0.4-eap-114'
     ext.android_build_tools_version = '2.2.0-rc2'
+    ext.gms_plugin_version = '3.0.0'
+
     repositories {
         jcenter()
         mavenCentral()
@@ -13,6 +15,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$android_build_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version_internal"
+        classpath "com.google.gms:google-services:$gms_plugin_version"
     }
 }
 
@@ -43,6 +46,7 @@ ext {
     // App dependencies
     supportLibraryVersion = '24.2.0'
     playServicesVersion = '9.4.0'
+    firebaseVersion = playServicesVersion
     dataBindingVersion = android_build_tools_version
     daggerVersion = '2.6.1'
     javaxAnnotationsVersion = '10.0-b28'
