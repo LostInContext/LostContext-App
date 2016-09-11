@@ -8,8 +8,14 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.lostincontext.data.location.repo.LocationRepository
 import com.lostincontext.data.playlist.repo.PlaylistsRepository
 import com.lostincontext.data.rules.repo.RulesRepository
+import com.lostincontext.data.user.UserImageAdapter
+import com.lostincontext.data.user.repo.DeezerUserSearchEndPoint
+import com.lostincontext.data.user.repo.UserRepository
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -42,6 +48,31 @@ class ApplicationModule(private val lostApplication: LostApplication) {
         return PlaylistsRepository(resources)
     }
 
+    //region userRepo
+    @Singleton
+    @Provides
+    fun provideUserRepository(searchEndPoint: DeezerUserSearchEndPoint): UserRepository {
+        return UserRepository(searchEndPoint)
+    }
+
+
+    @Provides
+    internal fun provideRetrofit(): Retrofit {
+
+        val moshi = Moshi.Builder().add(UserImageAdapter()).build()
+
+        return Retrofit.Builder()
+                .baseUrl("https://api.deezer.com/")
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
+                .build()
+    }
+
+    @Provides fun provideUserSearch(retrofit: Retrofit): DeezerUserSearchEndPoint {
+        return retrofit.create(DeezerUserSearchEndPoint::class.java)
+    }
+
+    //endregion
+
     @Provides internal fun provideObjectMapper(): ObjectMapper = jacksonObjectMapper()
 
 
@@ -62,5 +93,6 @@ class ApplicationModule(private val lostApplication: LostApplication) {
 
     @Provides
     internal fun provideResourcesForPlaylists(): Resources = lostApplication.resources
+
 
 }
