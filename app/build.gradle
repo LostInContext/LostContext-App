@@ -49,11 +49,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile "junit:junit:$rootProject.jUnitVersion"
-    compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoVersion"
+
+    // kotlin std lib
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion"
 
     // Support Lib
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
@@ -70,6 +68,7 @@ dependencies {
     compile "com.google.android.gms:play-services-base:$rootProject.playServicesVersion"
     compile "com.google.android.gms:play-services-contextmanager:$rootProject.playServicesVersion"
 
+    // Firebase
     compile "com.google.firebase:firebase-crash:$rootProject.firebaseVersion"
 
     // Dagger
@@ -80,15 +79,28 @@ dependencies {
     //DataBinding
     kapt "com.android.databinding:compiler:$rootProject.dataBindingVersion"
 
-    // Libraries
+    // glide
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
 
+    // jackson
     compile "com.fasterxml.jackson.core:jackson-databind:$rootProject.jacksonVersion"
     compile "com.fasterxml.jackson.core:jackson-core:$rootProject.jacksonVersion"
     compile "com.fasterxml.jackson.core:jackson-annotations:$rootProject.jacksonVersion"
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:$rootProject.jacksonVersion"
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion"
+    // retrofit
+    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    compile "com.squareup.retrofit2:converter-moshi:$rootProject.retrofitVersion"
+
+    // moshi
+    compile "com.squareup.moshi:moshi:$rootProject.moshiVersion"
+
+    // testing
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile "junit:junit:$rootProject.jUnitVersion"
+    compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoVersion"
 
 }
 
