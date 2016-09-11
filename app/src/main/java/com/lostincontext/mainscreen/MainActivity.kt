@@ -8,6 +8,9 @@ import com.lostincontext.utils.addFragmentToActivity
 
 class MainActivity : BaseActivity() {
 
+    val TAG = "MainActivity"
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_screen)
@@ -20,6 +23,7 @@ class MainActivity : BaseActivity() {
             fragment = MainScreenFragment.newInstance()
             addFragmentToActivity(fm, fragment, R.id.contentFrame)
         }
+
 
     }
 
