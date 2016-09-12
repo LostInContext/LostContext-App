@@ -14,7 +14,7 @@ class PlaylistsPresenter
     }
 
     override fun start() {
-        playlistsRepository.getPlaylists(this)
+        playlistsRepository.getHardcodedPlaylists(this)
     }
 
     override fun onRefreshButtonClick() {
