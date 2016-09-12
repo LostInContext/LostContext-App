@@ -8,17 +8,17 @@ import com.squareup.moshi.ToJson
 class UserImageAdapter {
 
     @FromJson @UserImage fun fromJson(image: String): String {
-        val beginning = image.indexOf(user) + user.length
+        val beginning = image.indexOf(USER) + USER.length
         val end = image.indexOf("/", beginning) - 1
         val substring = image.substring(beginning..end)
         return substring
     }
 
     @ToJson fun toJson(@UserImage image: String): String {
-        return "$user$image/"
+        return "$USER$image/"
     }
 
     companion object {
-        const val user = "/user/"
+        const val USER = "/user/"
     }
 }

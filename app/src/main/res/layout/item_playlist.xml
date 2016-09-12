@@ -63,12 +63,11 @@
                     style="@style/itemInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:ellipsize="end"
                     android:lines="1"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
-                    android:text="@{playlist.creator}"
+                    android:text="@{playlist.creator.name}"
                     tools:text="some comment" />
 
             </LinearLayout>

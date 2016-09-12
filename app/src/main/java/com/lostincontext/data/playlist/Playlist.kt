@@ -6,16 +6,18 @@ import android.os.Parcelable
 import com.lostincontext.commons.images.DeezerImage
 import com.lostincontext.commons.images.DeezerImageUrlGenerator.DeezerImageType
 
-data class Playlist(val id: Int,
+data class Playlist(val id: Long,
                     val title: String,
-                    val creator: String,
+                    val creator: Creator,
                     override val coverMd5: String,
-                    override @DeezerImageType val imageType: Long) : DeezerImage, Parcelable {
+                    override @DeezerImageType val imageType: Long)
+: DeezerImage, Parcelable {
 
 
-    private constructor(`in`: Parcel) : this(`in`.readInt(),
+    private constructor(`in`: Parcel) : this(`in`.readLong(),
                                              `in`.readString(),
-                                             `in`.readString(),
+                                             Creator(`in`.readLong(),
+                                                     `in`.readString()),
                                              `in`.readString(),
                                              `in`.readLong())
 
@@ -26,9 +28,10 @@ data class Playlist(val id: Int,
     }
 
     override fun writeToParcel(out: Parcel, flags: Int) {
-        out.writeInt(id)
+        out.writeLong(id)
         out.writeString(title)
-        out.writeString(creator)
+        out.writeLong(creator.id)
+        out.writeString(creator.name)
         out.writeString(coverMd5)
         out.writeLong(imageType)
     }

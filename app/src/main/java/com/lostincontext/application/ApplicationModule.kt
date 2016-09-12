@@ -6,9 +6,11 @@ import android.content.res.Resources
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.lostincontext.data.location.repo.LocationRepository
+import com.lostincontext.data.playlist.PlaylistJsonAdapter
 import com.lostincontext.data.playlist.repo.PlaylistsRepository
 import com.lostincontext.data.rules.repo.RulesRepository
 import com.lostincontext.data.user.UserImageAdapter
+import com.lostincontext.data.user.repo.DeezerPlaylistsEndPoint
 import com.lostincontext.data.user.repo.DeezerUserSearchEndPoint
 import com.lostincontext.data.user.repo.UserRepository
 import com.squareup.moshi.Moshi
@@ -44,8 +46,9 @@ class ApplicationModule(private val lostApplication: LostApplication) {
 
     @Singleton
     @Provides
-    fun providePlaylistsRepository(resources: Resources): PlaylistsRepository {
-        return PlaylistsRepository(resources)
+    fun providePlaylistsRepository(resources: Resources,
+                                   playlistsEndPoint: DeezerPlaylistsEndPoint): PlaylistsRepository {
+        return PlaylistsRepository(resources, playlistsEndPoint)
     }
 
     //region userRepo
@@ -59,7 +62,10 @@ class ApplicationModule(private val lostApplication: LostApplication) {
     @Provides
     internal fun provideRetrofit(): Retrofit {
 
-        val moshi = Moshi.Builder().add(UserImageAdapter()).build()
+        val moshi = Moshi.Builder()
+                .add(UserImageAdapter())
+                .add(PlaylistJsonAdapter())
+                .build()
 
         return Retrofit.Builder()
                 .baseUrl("https://api.deezer.com/")
@@ -69,6 +75,10 @@ class ApplicationModule(private val lostApplication: LostApplication) {
 
     @Provides fun provideUserSearch(retrofit: Retrofit): DeezerUserSearchEndPoint {
         return retrofit.create(DeezerUserSearchEndPoint::class.java)
+    }
+
+    @Provides fun providePlaylistsEndPoint(retrofit: Retrofit): DeezerPlaylistsEndPoint {
+        return retrofit.create(DeezerPlaylistsEndPoint::class.java)
     }
 
     //endregion

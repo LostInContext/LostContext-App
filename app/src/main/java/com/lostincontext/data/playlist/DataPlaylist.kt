@@ -16,6 +16,7 @@ import java.io.IOException
 import java.io.InputStream
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Deprecated("use PlaylistsData instead")
 class DataPlaylist {
 
     var data: List<Playlist> = emptyList()
@@ -44,9 +45,10 @@ class DataPlaylist {
             val node = oc.readTree<JsonNode>(p)
             extractCoverMd5(node.get("picture_small").textValue(), data)
 
-            return Playlist(node.get("id").asInt(),
+            return Playlist(node.get("id").asLong(),
                             node.get("title").textValue(),
-                            node.get("creator").get("name").textValue(),
+                            Creator(node.get("creator").get("id").longValue(),
+                                    node.get("creator").get("name").textValue()),
                             data.coverMd5,
                             data.coverType)
 
