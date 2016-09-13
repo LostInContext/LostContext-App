@@ -41,12 +41,12 @@ ext {
     buildToolsVersion = '24.0.2'
 
     // App dependencies
-    supportLibraryVersion = '24.2.0'
+    supportLibraryVersion = '24.2.1'
     playServicesVersion = '9.4.0'
     dataBindingVersion = android_build_tools_version
-    daggerVersion = '2.6.1'
+    daggerVersion = '2.7'
     javaxAnnotationsVersion = '10.0-b28'
-    constraintLayoutVersion = '1.0.0-alpha7'
+    constraintLayoutVersion = '1.0.0-alpha8'
     glideVersion = '3.7.0'
     jacksonVersion = '2.8.2'
     kotlinVersion = kotlin_version_internal
