@@ -1,4 +1,4 @@
-package com.lostincontext.data.user.repo
+package com.lostincontext.data.playlist.repo
 
 import com.lostincontext.data.playlist.PlaylistsData
 import retrofit2.Call
