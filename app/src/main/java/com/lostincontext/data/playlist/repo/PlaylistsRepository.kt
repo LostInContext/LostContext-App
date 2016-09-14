@@ -6,7 +6,6 @@ import com.lostincontext.R
 import com.lostincontext.data.playlist.DataPlaylist
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.playlist.PlaylistsData
-import com.lostincontext.data.user.repo.DeezerPlaylistsEndPoint
 import com.lostincontext.utils.enqueue
 import retrofit2.Response
 import javax.inject.Inject

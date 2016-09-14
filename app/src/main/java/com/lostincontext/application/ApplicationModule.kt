@@ -10,7 +10,7 @@ import com.lostincontext.data.playlist.PlaylistJsonAdapter
 import com.lostincontext.data.playlist.repo.PlaylistsRepository
 import com.lostincontext.data.rules.repo.RulesRepository
 import com.lostincontext.data.user.UserImageAdapter
-import com.lostincontext.data.user.repo.DeezerPlaylistsEndPoint
+import com.lostincontext.data.playlist.repo.DeezerPlaylistsEndPoint
 import com.lostincontext.data.user.repo.DeezerUserSearchEndPoint
 import com.lostincontext.data.user.repo.UserRepository
 import com.squareup.moshi.Moshi
