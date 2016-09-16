@@ -10,6 +10,8 @@
 
     <style name="RuleDetailsTheme" parent="AppTheme">
         <item name="actionButtonStyle">@style/ActionButtonStyle</item>
+        <item name="android:windowTranslucentStatus">true</item>
+
     </style>
 
     <style name="ActionButtonStyle" parent="Base.Widget.AppCompat.Button.Borderless" />
