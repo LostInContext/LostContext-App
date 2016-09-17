@@ -28,7 +28,7 @@ class UsersPresenter : UsersContract.Presenter {
 
 
     override fun onItemClick(user: User) {
-
+        view.openPlaylistsScreen(user)
     }
 
 

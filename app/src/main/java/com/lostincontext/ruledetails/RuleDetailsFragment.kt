@@ -243,7 +243,7 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
 
         private val TAG = RuleDetailsFragment::class.java.simpleName
 
-        private val PLAYLIST_PICKER_REQUEST_CODE = 9001
+        val PLAYLIST_PICKER_REQUEST_CODE = 9001
         private val LOCATION_PICKER_REQUEST_CODE = 9002
         private val LOCATION_PERMISSION_REQUEST_CODE = 9003
         private val PLAY_SERVICES_REQUEST_CODE = 9004

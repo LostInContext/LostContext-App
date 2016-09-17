@@ -11,6 +11,9 @@ object PlaylistsContract {
 
     const val EXTRA_PLAYLIST = "playlist"
 
+    const val EXTRA_USER_ID = "user"
+    const val NO_USER = 0L
+
     interface View : BaseView<PlaylistsContract.Presenter> {
 
         fun setPlaylists(playlists: List<Playlist>)

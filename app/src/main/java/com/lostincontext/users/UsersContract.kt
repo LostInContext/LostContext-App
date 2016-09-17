@@ -15,6 +15,7 @@ object UsersContract {
         fun setUsers(users: List<User>)
 
         fun setContentState(state: StatefulAdapter.ContentState)
+        fun  openPlaylistsScreen(user: User)
 
     }
 

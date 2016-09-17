@@ -3,16 +3,38 @@ package com.lostincontext.playlists
 
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.playlist.repo.PlaylistsRepository
+import com.lostincontext.playlists.PlaylistsContract.NO_USER
 import javax.inject.Inject
+import javax.inject.Named
 
 class PlaylistsPresenter
 @Inject internal constructor(private val view: PlaylistsContract.View,
+                             private @Named("userId") val userId: Long,
                              private val playlistsRepository: PlaylistsRepository) : PlaylistsContract.Presenter,
                                                                                      PlaylistsRepository.Callback {
 
 
     override fun start() {
-        playlistsRepository.getHardcodedPlaylists(this)
+        when (userId) {
+            NO_USER -> playlistsRepository.getHardcodedPlaylists(this)
+            else -> queryPlaylists()
+        }
+
+    }
+
+    private fun queryPlaylists() {
+        playlistsRepository.queryPlaylists(userId,
+                                           {
+                                               if (it.playlists != null) {
+                                                   view.setPlaylists(it.playlists)
+                                               } else {
+                                                   view.setPlaylists(emptyList())
+                                               }
+
+
+                                           }, {
+
+                                           })
     }
 
     override fun onRefreshButtonClick() {
