@@ -29,8 +29,13 @@ class MainActivity : BaseActivity() {
         val lostApplication = application as LostApplication
         val userRepository = lostApplication.appComponent.userRepository
         userRepository.queryUsers("angie23", {
-            logD(TAG) { it.body().toString() }
-        }, { logD(TAG) { it.toString().toString() } })
+            logD(TAG) { it.toString() }
+        }, { logD(TAG) { it.toString() } })
+
+        val playlistRepository = lostApplication.appComponent.playlistsRepository
+        playlistRepository.queryPlaylists(21292726, {
+            logD(TAG) { it.toString() }
+        }, { logD(TAG) { it.toString() } })
 
     }
 

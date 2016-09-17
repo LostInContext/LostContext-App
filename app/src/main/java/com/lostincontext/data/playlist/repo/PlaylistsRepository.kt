@@ -24,8 +24,8 @@ class PlaylistsRepository
 
 
     inline fun queryPlaylists(userId: Long,
-                              crossinline success: (response: Response<PlaylistsData>) -> Unit,
-                              crossinline failure: (t: Throwable) -> Unit) {
+                              crossinline success: (playlistsData: PlaylistsData) -> Unit,
+                              crossinline failure: (t: Int) -> Unit) {
         playlistsEndPoint.getUserPlaylists(userId).enqueue(success,
                                                            failure)
     }
@@ -33,12 +33,8 @@ class PlaylistsRepository
 
     fun getHardcodedPlaylists(callback: PlaylistsRepository.Callback) {
         val data = resources.openRawResource(R.raw.playlists)
-
         val playlistDataAdapter = moshi.adapter(PlaylistsData::class.java)
-
         val deezerData = playlistDataAdapter.fromJson(data.toBufferedSource())
-
-
         callback.onPlaylistsLoaded(deezerData.playlists)
     }
 

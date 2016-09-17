@@ -2,7 +2,6 @@ package com.lostincontext.data.user.repo
 
 import com.lostincontext.data.user.UsersData
 import com.lostincontext.utils.enqueue
-import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -11,8 +10,8 @@ class UserRepository
 
 
     inline fun queryUsers(query: String,
-                          crossinline success: (response: Response<UsersData>) -> Unit,
-                          crossinline failure: (t: Throwable) -> Unit) {
+                          crossinline success: (usersData: UsersData) -> Unit,
+                          crossinline failure: (t: Int) -> Unit) {
         searchEndPoint.searchUser(query).enqueue(success,
                                                  failure)
 
