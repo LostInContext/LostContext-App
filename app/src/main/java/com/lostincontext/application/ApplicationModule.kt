@@ -17,7 +17,6 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
@@ -65,9 +64,8 @@ class ApplicationModule(private val lostApplication: LostApplication) {
     @Provides
     internal fun provideRetrofit(moshi: Moshi): Retrofit {
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+        val client = OkHttpClient.Builder()
+                .build()
 
 
         val retrofit = Retrofit.Builder()
