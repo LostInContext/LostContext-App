@@ -3,7 +3,6 @@
 buildscript {
     ext.kotlin_version_internal = '1.0.4-eap-118'
     ext.android_build_tools_version = '2.2.0-rc2'
-    ext.gms_plugin_version = '3.0.0'
 
     repositories {
         jcenter()
@@ -15,7 +14,6 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$android_build_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version_internal"
-        classpath "com.google.gms:google-services:$gms_plugin_version"
     }
 }
 

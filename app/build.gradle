@@ -107,5 +107,3 @@ dependencies {
 kapt {
     generateStubs = true
 }
-
-apply plugin: 'com.google.gms.google-services'
