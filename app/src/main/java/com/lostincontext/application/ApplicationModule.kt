@@ -7,15 +7,17 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.lostincontext.data.location.repo.LocationRepository
 import com.lostincontext.data.playlist.PlaylistJsonAdapter
+import com.lostincontext.data.playlist.repo.DeezerPlaylistsEndPoint
 import com.lostincontext.data.playlist.repo.PlaylistsRepository
 import com.lostincontext.data.rules.repo.RulesRepository
 import com.lostincontext.data.user.UserImageAdapter
-import com.lostincontext.data.playlist.repo.DeezerPlaylistsEndPoint
 import com.lostincontext.data.user.repo.DeezerUserSearchEndPoint
 import com.lostincontext.data.user.repo.UserRepository
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
@@ -47,8 +49,9 @@ class ApplicationModule(private val lostApplication: LostApplication) {
     @Singleton
     @Provides
     fun providePlaylistsRepository(resources: Resources,
-                                   playlistsEndPoint: DeezerPlaylistsEndPoint): PlaylistsRepository {
-        return PlaylistsRepository(resources, playlistsEndPoint)
+                                   playlistsEndPoint: DeezerPlaylistsEndPoint,
+                                   moshi: Moshi): PlaylistsRepository {
+        return PlaylistsRepository(playlistsEndPoint, resources, moshi)
     }
 
     //region userRepo
@@ -60,17 +63,20 @@ class ApplicationModule(private val lostApplication: LostApplication) {
 
 
     @Provides
-    internal fun provideRetrofit(): Retrofit {
+    internal fun provideRetrofit(moshi: Moshi): Retrofit {
 
-        val moshi = Moshi.Builder()
-                .add(UserImageAdapter())
-                .add(PlaylistJsonAdapter())
-                .build()
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
-        return Retrofit.Builder()
+
+        val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.deezer.com/")
+                .client(client)
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
+
+        return retrofit
     }
 
     @Provides fun provideUserSearch(retrofit: Retrofit): DeezerUserSearchEndPoint {
@@ -104,5 +110,13 @@ class ApplicationModule(private val lostApplication: LostApplication) {
     @Provides
     internal fun provideResourcesForPlaylists(): Resources = lostApplication.resources
 
+
+    @Provides
+    internal fun provideMoshi(): Moshi {
+        return Moshi.Builder()
+                .add(UserImageAdapter())
+                .add(PlaylistJsonAdapter())
+                .build()
+    }
 
 }

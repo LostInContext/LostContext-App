@@ -3,16 +3,19 @@ package com.lostincontext.data.playlist.repo
 
 import android.content.res.Resources
 import com.lostincontext.R
-import com.lostincontext.data.playlist.DataPlaylist
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.playlist.PlaylistsData
 import com.lostincontext.utils.enqueue
+import com.squareup.moshi.Moshi
+import okio.Okio
 import retrofit2.Response
+import java.io.InputStream
 import javax.inject.Inject
 
 class PlaylistsRepository
-@Inject constructor(private val resources: Resources,
-                    val playlistsEndPoint: DeezerPlaylistsEndPoint) {
+@Inject constructor(val playlistsEndPoint: DeezerPlaylistsEndPoint,
+                    private val resources: Resources,
+                    private val moshi: Moshi) {
 
     interface Callback {
         fun onPlaylistsLoaded(playlists: List<Playlist>)
@@ -27,10 +30,18 @@ class PlaylistsRepository
                                                            failure)
     }
 
+
     fun getHardcodedPlaylists(callback: PlaylistsRepository.Callback) {
         val data = resources.openRawResource(R.raw.playlists)
-        val playlists = DataPlaylist.deserialize(data)
-        callback.onPlaylistsLoaded(playlists)
+
+        val playlistDataAdapter = moshi.adapter(PlaylistsData::class.java)
+
+        val deezerData = playlistDataAdapter.fromJson(data.toBufferedSource())
+
+
+        callback.onPlaylistsLoaded(deezerData.playlists)
     }
+
+    private fun InputStream.toBufferedSource() = Okio.buffer(Okio.source(this))
 }
       
