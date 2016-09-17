@@ -1,6 +1,7 @@
 package com.lostincontext.users;
 
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,6 +14,9 @@ import com.lostincontext.application.LostApplication
 import com.lostincontext.commons.list.StatefulAdapter
 import com.lostincontext.data.user.User
 import com.lostincontext.databinding.UsersScreenFragmentBinding
+import com.lostincontext.playlists.PlaylistsActivity
+import com.lostincontext.playlists.PlaylistsContract
+import com.lostincontext.ruledetails.RuleDetailsFragment
 import javax.inject.Inject
 
 class UsersFragment : Fragment(), UsersContract.View {
@@ -76,6 +80,12 @@ class UsersFragment : Fragment(), UsersContract.View {
 
     override fun setContentState(state: StatefulAdapter.ContentState) {
         adapter.currentState = state
+    }
+
+    override fun openPlaylistsScreen(user: User) {
+        val intent = Intent(this.context, PlaylistsActivity::class.java)
+        intent.putExtra(PlaylistsContract.EXTRA_USER_ID, user.id)
+        startActivityForResult(intent, RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE)
     }
     //endregion
 

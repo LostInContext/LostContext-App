@@ -29,8 +29,11 @@ class PlaylistsFragment : Fragment(), PlaylistsContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val userId = activity.intent.getLongExtra(PlaylistsContract.EXTRA_USER_ID,
+                                                  PlaylistsContract.NO_USER)
+
         DaggerPlaylistsComponent.builder()
-                .playlistsPresenterModule(PlaylistsPresenterModule(this))
+                .playlistsPresenterModule(PlaylistsPresenterModule(this, userId))
                 .applicationComponent((activity.application as LostApplication).appComponent)
                 .build()
                 .inject(this)
@@ -53,7 +56,6 @@ class PlaylistsFragment : Fragment(), PlaylistsContract.View {
         recyclerView.addItemDecoration(SpacesItemDecoration(space, span))
 
         adapter = PlaylistsAdapter(presenter, presenter)
-
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 when (adapter.currentState) {
@@ -69,7 +71,7 @@ class PlaylistsFragment : Fragment(), PlaylistsContract.View {
         }
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
-        adapter.setHasStableIds(true)
+
         return binding.root
     }
 
