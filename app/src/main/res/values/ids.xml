@@ -10,5 +10,6 @@
     <item name="view_type_grid_bottom_sheet_item" type="id" />
     <item name="view_type_fence_item" type="id" />
     <item name="view_type_fence_item_when" type="id" />
+    <item name="view_type_load_more" type="id" />
 
 </resources>

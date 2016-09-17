@@ -8,6 +8,7 @@ import com.squareup.moshi.ToJson
 
 
 class PlaylistJsonAdapter {
+    @Suppress("unused")
     @FromJson fun playlistFromJson(playlistJson: PlaylistJson): Playlist {
 
 
@@ -40,6 +41,7 @@ class PlaylistJsonAdapter {
         return DataHolder(coverMd5, coverType)
     }
 
+    @Suppress("unused")
     @ToJson fun playlistToJson(playlist: Playlist): PlaylistJson {
 
         val prefix: String

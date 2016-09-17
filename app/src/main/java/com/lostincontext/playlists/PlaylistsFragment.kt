@@ -37,10 +37,10 @@ class PlaylistsFragment : Fragment(), PlaylistsContract.View {
     }
 
 
-    override fun onCreateView(inflater: LayoutInflater?,
+    override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<PlaylistsScreenFragmentBinding>(inflater!!,
+        val binding = DataBindingUtil.inflate<PlaylistsScreenFragmentBinding>(inflater,
                                                                               R.layout.playlists_screen_fragment,
                                                                               container,
                                                                               false)
@@ -69,6 +69,7 @@ class PlaylistsFragment : Fragment(), PlaylistsContract.View {
         }
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
+        adapter.setHasStableIds(true)
         return binding.root
     }
 

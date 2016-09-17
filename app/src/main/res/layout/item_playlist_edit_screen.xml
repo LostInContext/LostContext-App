@@ -36,7 +36,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
-            app:glide_playlist="@{playlist}"
+            app:deezer_image="@{playlist}"
             tools:background="#757575" />
 
 

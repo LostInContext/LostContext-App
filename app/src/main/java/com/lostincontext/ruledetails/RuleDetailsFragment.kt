@@ -29,6 +29,7 @@ import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors
 import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.that.ThatService
+import com.lostincontext.users.UsersActivity
 import com.lostincontext.utils.logD
 import java.util.*
 import javax.inject.Inject
@@ -119,7 +120,7 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
     }
 
     override fun pickAPlaylist() {
-        val intent = Intent(this.context, PlaylistsActivity::class.java)
+        val intent = Intent(this.context, UsersActivity::class.java)
         startActivityForResult(intent, PLAYLIST_PICKER_REQUEST_CODE)
     }
 
