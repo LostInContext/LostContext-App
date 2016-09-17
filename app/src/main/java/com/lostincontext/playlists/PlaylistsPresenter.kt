@@ -7,11 +7,9 @@ import javax.inject.Inject
 
 class PlaylistsPresenter
 @Inject internal constructor(private val view: PlaylistsContract.View,
-                             private val playlistsRepository: PlaylistsRepository) : PlaylistsContract.Presenter, PlaylistsRepository.Callback {
+                             private val playlistsRepository: PlaylistsRepository) : PlaylistsContract.Presenter,
+                                                                                     PlaylistsRepository.Callback {
 
-
-    @Inject internal fun setup() {
-    }
 
     override fun start() {
         playlistsRepository.getHardcodedPlaylists(this)

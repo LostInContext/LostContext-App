@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".playlists.PlaylistsActivity" />
+        <activity android:name=".users.UsersActivity" />
         <activity
             android:name=".ruledetails.RuleDetailsActivity"
             android:theme="@style/RuleDetailsTheme" />

@@ -8,7 +8,6 @@ import com.lostincontext.data.playlist.PlaylistsData
 import com.lostincontext.utils.enqueue
 import com.squareup.moshi.Moshi
 import okio.Okio
-import retrofit2.Response
 import java.io.InputStream
 import javax.inject.Inject
 
@@ -30,12 +29,19 @@ class PlaylistsRepository
                                                            failure)
     }
 
+    inline fun queryMorePlaylists(data: PlaylistsData,
+                                  crossinline success: (playlistsData: PlaylistsData) -> Unit,
+                                  crossinline failure: (t: Int) -> Unit) {
+        playlistsEndPoint.getUserPlaylistsPaginate(data.next).enqueue(success,
+                                                                      failure)
+    }
+
 
     fun getHardcodedPlaylists(callback: PlaylistsRepository.Callback) {
         val data = resources.openRawResource(R.raw.playlists)
         val playlistDataAdapter = moshi.adapter(PlaylistsData::class.java)
         val deezerData = playlistDataAdapter.fromJson(data.toBufferedSource())
-        callback.onPlaylistsLoaded(deezerData.playlists)
+        callback.onPlaylistsLoaded(deezerData.playlists!!)
     }
 
     private fun InputStream.toBufferedSource() = Okio.buffer(Okio.source(this))

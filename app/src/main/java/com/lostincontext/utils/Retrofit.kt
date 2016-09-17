@@ -7,7 +7,7 @@ import retrofit2.Response
 
 const val FAILURE_CODE = -1
 
-inline fun <T> Call<T>.enqueue(crossinline success: (response: T) -> Unit,
+inline fun <T> Call<T>.enqueue(crossinline success: (model: T) -> Unit,
                                crossinline failure: (error: Int) -> Unit) {
     enqueue(object : Callback<T> {
         override fun onResponse(call: Call<T>, response: Response<T>) {

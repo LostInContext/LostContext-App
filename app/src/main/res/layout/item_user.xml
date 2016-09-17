@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.lostincontext.data.user.User" />
+
+        <variable
+            name="callback"
+            type="com.lostincontext.users.UserViewHolder.Callback" />
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:onClick="@{() -> callback.onItemClick(user)}"
+        android:orientation="horizontal"
+        android:outlineProvider="bounds">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            app:deezer_image="@{user}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:text="@{user.name}" />
+
+
+    </LinearLayout>
+</layout>

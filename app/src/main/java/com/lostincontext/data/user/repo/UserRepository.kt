@@ -17,4 +17,12 @@ class UserRepository
 
 
     }
+
+    inline fun queryMoreUsers(data: UsersData,
+                              crossinline success: (usersData: UsersData) -> Unit,
+                              crossinline failure: (t: Int) -> Unit) {
+        searchEndPoint.searchUserPaginate(data.next).enqueue(success,
+                                                             failure)
+    }
+
 }
