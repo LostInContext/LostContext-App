@@ -45,6 +45,11 @@ android {
             buildConfigField BOOLEAN, LOG, FALSE
         }
     }
+
+    packagingOptions {
+        // sigh, need to exclude that file since jackson creates duplicates
+        exclude 'META-INF/LICENSE'
+    }
 }
 
 dependencies {
