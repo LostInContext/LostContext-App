@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version_internal = '1.0.4-eap-118'
-    ext.android_build_tools_version = '2.2.0-rc2'
+    ext.android_build_tools_version = '2.2.0'
 
     repositories {
         jcenter()
