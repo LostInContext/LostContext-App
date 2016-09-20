@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat.checkSelfPermission
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils.isEmpty
 import android.view.*
@@ -82,6 +83,9 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
         binding.plusButton.callback = presenter
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
         return binding.root
     }
 
