@@ -18,6 +18,16 @@
         android:focusableInTouchMode="true"
         tools:context=".ruledetails.RuleDetailsActivity">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/plus_button"
+            android:layout_below="@+id/textInputLayout"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
@@ -54,8 +64,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -73,22 +84,12 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/plus_button"
-                android:layout_below="@+id/textInputLayout"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp" />
-
             <include
                 android:id="@+id/plus_button"
                 layout="@layout/item_plus_button"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_alignParentBottom="true" />
-
 
         </RelativeLayout>
 

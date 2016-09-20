@@ -8,9 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="RuleDetailsTheme" parent="AppTheme">
+    <style name="RuleDetailsTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="actionButtonStyle">@style/ActionButtonStyle</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
     </style>
 
