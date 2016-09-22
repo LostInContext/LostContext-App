@@ -13,7 +13,7 @@ import com.lostincontext.PlaylistLauncher
 import com.lostincontext.R
 import com.lostincontext.application.LostApplication
 import com.lostincontext.commons.list.SpacesItemDecoration
-import com.lostincontext.commons.list.StatefulAdapter
+import com.lostincontext.commons.list.StatefulAdapter.ContentState
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.databinding.PlaylistsScreenFragmentBinding
 import javax.inject.Inject
@@ -55,15 +55,21 @@ class PlaylistsFragment : Fragment(), PlaylistsContract.View {
         val space = resources.getDimensionPixelSize(R.dimen.grid_spacing)
         recyclerView.addItemDecoration(SpacesItemDecoration(space, span))
 
-        adapter = PlaylistsAdapter(presenter, presenter)
+        adapter = PlaylistsAdapter(presenter, presenter, presenter)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 when (adapter.currentState) {
-                    StatefulAdapter.ContentState.LOADING,
-                    StatefulAdapter.ContentState.ERROR,
-                    StatefulAdapter.ContentState.EMPTY -> return span
+                    ContentState.LOADING,
+                    ContentState.ERROR,
+                    ContentState.EMPTY -> return span
 
-                    StatefulAdapter.ContentState.CONTENT -> return 1
+                    ContentState.CONTENT -> {
+                        when (adapter.getContentItemViewType(position)) {
+                            R.id.view_type_standard -> return 1
+                            R.id.view_type_load_more -> return span
+                            else -> throw RuntimeException("invalid state")
+                        }
+                    }
 
                     else -> throw RuntimeException("invalid state")
                 }
@@ -72,17 +78,33 @@ class PlaylistsFragment : Fragment(), PlaylistsContract.View {
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
 
+
         return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
         presenter.start()
     }
 
-    override fun setPlaylists(playlists: List<Playlist>) {
-        adapter.setPlaylists(playlists)
+    override fun setPlaylists(playlists: List<Playlist>,
+                              total: Int) {
+        adapter.setPlaylists(playlists, total)
+    }
+
+    override fun displayMorePlaylists(playlists: List<Playlist>,
+                                      total: Int,
+                                      size: Int) {
+        adapter.setPlaylists(playlists, total)
+    }
+
+    override fun swap(playlists: List<Playlist>,
+                      hasNext: Boolean) {
+        adapter.swap(playlists)
+    }
+
+    override fun setContentState(contentState: ContentState) {
+        adapter.setCurrentState(contentState)
     }
 
     override fun openDeezerFor(playlist: Playlist) {

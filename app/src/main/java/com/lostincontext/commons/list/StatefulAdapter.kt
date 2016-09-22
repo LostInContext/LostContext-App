@@ -40,7 +40,7 @@ abstract class StatefulAdapter(var currentState: StatefulAdapter.ContentState) :
      */
     @Suppress("UNUSED_PARAMETER")
     @IdRes
-    fun getContentItemViewType(position: Int): Int {
+    open fun getContentItemViewType(position: Int): Int {
         return R.id.view_type_standard
     }
 

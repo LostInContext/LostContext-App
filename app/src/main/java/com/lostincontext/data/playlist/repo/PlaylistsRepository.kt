@@ -16,11 +16,6 @@ class PlaylistsRepository
                     private val resources: Resources,
                     private val moshi: Moshi) {
 
-    interface Callback {
-        fun onPlaylistsLoaded(playlists: List<Playlist>)
-        fun onPlaylistsLoadFailed()
-    }
-
 
     inline fun queryPlaylists(userId: Long,
                               crossinline success: (playlistsData: PlaylistsData) -> Unit,
@@ -29,19 +24,19 @@ class PlaylistsRepository
                                                            failure)
     }
 
-    inline fun queryMorePlaylists(data: PlaylistsData,
+    inline fun queryMorePlaylists(next: String,
                                   crossinline success: (playlistsData: PlaylistsData) -> Unit,
                                   crossinline failure: (t: Int) -> Unit) {
-        playlistsEndPoint.getUserPlaylistsPaginate(data.next).enqueue(success,
-                                                                      failure)
+        playlistsEndPoint.getUserPlaylistsPaginate(next).enqueue(success,
+                                                                 failure)
     }
 
 
-    fun getHardcodedPlaylists(callback: PlaylistsRepository.Callback) {
+    fun getHardcodedPlaylists(success: (playlistsData: PlaylistsData) -> Unit) {
         val data = resources.openRawResource(R.raw.playlists)
         val playlistDataAdapter = moshi.adapter(PlaylistsData::class.java)
         val deezerData = playlistDataAdapter.fromJson(data.toBufferedSource())
-        callback.onPlaylistsLoaded(deezerData.playlists!!)
+        success.invoke(deezerData)
     }
 
     private fun InputStream.toBufferedSource() = Okio.buffer(Okio.source(this))
