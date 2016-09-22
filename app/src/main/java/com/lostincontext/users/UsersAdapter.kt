@@ -15,10 +15,6 @@ class UsersAdapter(private val itemCallback: UserViewHolder.Callback,
                    private val emptyListCallback: EmptyListCallback) : StatefulAdapter(EMPTY) {
 
 
-    init {
-        setHasStableIds(true)
-    }
-
     private var users: List<User> = emptyList()
 
 

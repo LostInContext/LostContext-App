@@ -4,6 +4,7 @@ package com.lostincontext.utils
 import android.animation.ValueAnimator
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.view.View
@@ -49,6 +50,7 @@ fun Drawable.animateDrawableTint(@ColorInt from: Int,
                                  @ColorInt to: Int,
                                  duration: Long,
                                  interpolator: Interpolator? = null) {
+    setTintMode(PorterDuff.Mode.SRC_ATOP)
     animate(from,
             to,
             duration,
