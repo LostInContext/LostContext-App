@@ -65,10 +65,10 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?,
+    override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate<RuleDetailsScreenFragmentBinding>(inflater!!,
+        binding = DataBindingUtil.inflate<RuleDetailsScreenFragmentBinding>(inflater,
                                                                             R.layout.rule_details_screen_fragment,
                                                                             container,
                                                                             false)

@@ -1,17 +1,21 @@
 package com.lostincontext.users;
 
 
+import android.app.Activity
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.location.places.ui.PlacePicker
 import com.lostincontext.R
 import com.lostincontext.application.LostApplication
 import com.lostincontext.commons.list.StatefulAdapter
+import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.user.User
 import com.lostincontext.databinding.UsersScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsActivity
@@ -87,6 +91,22 @@ class UsersFragment : Fragment(), UsersContract.View {
         intent.putExtra(PlaylistsContract.EXTRA_USER_ID, user.id)
         startActivityForResult(intent, RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE)
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val playlist = data.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
+            val returnIntent = Intent()
+            returnIntent.putExtra(PlaylistsContract.EXTRA_PLAYLIST, playlist)
+            val activity = activity
+            activity.setResult(Activity.RESULT_OK, returnIntent)
+            activity.finish()
+        }
+    }
+
+
+
     //endregion
 
     companion object {
