@@ -45,7 +45,7 @@ ext {
     dataBindingVersion = android_build_tools_version
     daggerVersion = '2.7'
     javaxAnnotationsVersion = '10.0-b28'
-    constraintLayoutVersion = '1.0.0-alpha8'
+    constraintLayoutVersion = '1.0.0-alpha9'
     glideVersion = '3.7.0'
     jacksonVersion = '2.8.2'
     kotlinVersion = kotlin_version_internal
