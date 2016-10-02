@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,51 +8,38 @@
             name="playlist"
             type="com.lostincontext.data.playlist.Playlist" />
 
+        <variable
+            name="callback"
+            type="com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder.Callback" />
+
     </data>
 
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="?selectableItemBackground"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/then"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="@dimen/when_width"
-            android:layout_height="48dp"
-            android:background="@null"
-            android:gravity="start|center_vertical"
-            android:paddingEnd="@{@dimen/btn_horizontal_padding + @dimen/btn_horizontal_inset}"
-            android:paddingStart="@{@dimen/btn_horizontal_padding + @dimen/btn_horizontal_inset}"
-            android:text="@string/then_play"
-            android:textColor="@android:color/secondary_text_light" />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@{playlist.title}"
             app:deezer_image="@{playlist}"
-            tools:background="#757575" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/playlistPickButton"
+            android:onClick="@{() -> callback.onPlaylistPickClick()}"
+            android:text="@{playlist != null ? @string/playlist_change : @string/playlist_pick}"
+            app:layout_constraintBottom_toBottomOf="@id/imageView" />
 
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/title"
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="@{playlist.title}"
-            tools:text="title" />
-
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
 </layout>

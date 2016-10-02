@@ -20,4 +20,7 @@
     <string name="ok">OK</string>
     <string name="play_services_not_available">Google Play Services is not available.</string>
     <string name="play">play</string>
+    <string name="playlist_pick">pick a playlist</string>
+    <string name="playlist_change">change playlist</string>
+
 </resources>
