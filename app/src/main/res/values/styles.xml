@@ -22,6 +22,17 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="playlistPickButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/background_playlist_pick_button</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 
     <declare-styleable name="LostRadioButton">
 

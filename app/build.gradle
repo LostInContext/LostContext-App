@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -104,8 +105,4 @@ dependencies {
     testCompile "junit:junit:$rootProject.jUnitVersion"
     compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.espressoVersion"
 
-}
-
-kapt {
-    generateStubs = true
 }

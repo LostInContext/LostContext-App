@@ -11,6 +11,12 @@ import com.lostincontext.databinding.ItemPlaylistEditScreenBinding
 class PlaylistInEditScreenViewHolder(private val binding: ItemPlaylistEditScreenBinding) : ViewHolder(
         binding.root) {
 
+
+    interface Callback {
+        fun onPlaylistPickClick()
+    }
+
+
     fun bindTo(playlist: Playlist) {
         binding.playlist = playlist
     }
