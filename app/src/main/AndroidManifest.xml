@@ -24,8 +24,15 @@
         </activity>
         <activity android:name=".playlists.PlaylistsActivity" />
         <activity android:name=".users.UsersActivity" />
+
+        <activity
+            android:name=".rulecreate.RuleCreateActivity"
+            android:parentActivityName=".mainscreen.MainActivity"
+            android:theme="@style/RuleDetailsTheme" />
+
         <activity
             android:name=".ruledetails.RuleDetailsActivity"
+            android:parentActivityName=".rulecreate.RuleCreateActivity"
             android:theme="@style/RuleDetailsTheme" />
 
         <receiver android:name=".that.PlayReceiver">

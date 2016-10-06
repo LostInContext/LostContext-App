@@ -18,6 +18,7 @@ import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rules.*
 import com.lostincontext.data.rules.CompositeFenceVM.Operator
 import com.lostincontext.data.rules.repo.RulesRepository
+import com.lostincontext.ruledetails.RuleDetailsContract
 import com.lostincontext.ruledetails.RuleDetailsContract.LINK_CHANGED
 import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors
 import com.lostincontext.ruledetails.items.FenceItem

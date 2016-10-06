@@ -18,6 +18,7 @@ import com.lostincontext.commons.list.StatefulAdapter.ContentState
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rules.Rule
 import com.lostincontext.databinding.MainScreenFragmentBinding
+import com.lostincontext.rulecreate.RuleCreateActivity
 import com.lostincontext.ruledetails.RuleDetailsActivity
 import com.lostincontext.that.ThatService
 import javax.inject.Inject
@@ -97,7 +98,7 @@ class MainScreenFragment : Fragment(), MainScreenContract.View {
 
 
     override fun openRuleCreationScreen() {
-        val intent = Intent(this.context, RuleDetailsActivity::class.java)
+        val intent = Intent(this.context, RuleCreateActivity::class.java)
         startActivity(intent)
     }
 
