@@ -2,6 +2,7 @@ package com.lostincontext.ruledetails
 
 import android.os.Bundle
 import com.lostincontext.awareness.AwarenessModule
+import com.lostincontext.ruledetails.RuleDetailsContract
 
 import dagger.Module
 import dagger.Provides

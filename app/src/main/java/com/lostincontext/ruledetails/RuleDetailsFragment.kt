@@ -26,6 +26,7 @@ import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsActivity
 import com.lostincontext.playlists.PlaylistsContract
+import com.lostincontext.ruledetails.RuleDetailsContract
 import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors
 import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.pick.GridBottomSheetItem
@@ -84,8 +85,6 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
 
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-
         return binding.root
     }
 
@@ -134,7 +133,7 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
     }
 
     override fun setRuleVM(rule: RuleVM) {
-        binding.rule = rule
+        //binding.rule = rule
     }
 
     override fun getPendingIntentFor(playlist: Playlist): PendingIntent {
