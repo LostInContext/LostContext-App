@@ -2,14 +2,11 @@
 
 buildscript {
     ext.kotlin_version_internal = '1.0.4'
-    ext.android_build_tools_version = '2.2.0'
+    ext.android_build_tools_version = '2.2.1'
 
     repositories {
         jcenter()
         mavenCentral()
-        maven {
-            url 'http://dl.bintray.com/kotlin/kotlin-eap'
-        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$android_build_tools_version"
