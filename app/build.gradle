@@ -100,6 +100,9 @@ dependencies {
     // moshi
     compile "com.squareup.moshi:moshi:$rootProject.moshiVersion"
 
+    // groupie
+    compile "com.genius:groupie:$rootProject.groupieVersion"
+
     // testing
     androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'

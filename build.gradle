@@ -47,6 +47,7 @@ ext {
     kotlinVersion = kotlin_version_internal
     retrofitVersion = '2.1.0'
     moshiVersion = '1.2.0'
+    groupieVersion = '0.1.0'
 
     // Testing
     jUnitVersion = '4.12'

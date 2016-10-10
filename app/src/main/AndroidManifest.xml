@@ -28,7 +28,7 @@
         <activity
             android:name=".rulecreate.RuleCreateActivity"
             android:parentActivityName=".mainscreen.MainActivity"
-            android:theme="@style/RuleDetailsTheme" />
+            android:theme="@style/AppTheme.Scrim" />
 
         <activity
             android:name=".ruledetails.RuleDetailsActivity"

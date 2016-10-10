@@ -2,11 +2,20 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+
+    <style name="AppTheme.Scrim" parent="AppTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="actionButtonStyle">@style/ActionButtonStyle</item>
+    </style>
+
 
     <style name="RuleDetailsTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="actionButtonStyle">@style/ActionButtonStyle</item>
@@ -53,9 +62,14 @@
     </style>
 
 
-    <declare-styleable name="LostRadioButton">
+    <style name="LostToolbar" parent="Widget.AppCompat.Toolbar">
+        <!-- Define custom attributes here -->
+    </style>
 
+    <declare-styleable name="LostRadioButton">
         <attr name="src" format="reference" />
         <attr name="selected_color" format="color" />
     </declare-styleable>
+
+
 </resources>
