@@ -1,9 +1,13 @@
 package com.lostincontext.rulecreate
 
 import android.os.Bundle
+import com.lostincontext.data.playlist.Playlist
 import javax.inject.Inject
 
 class RuleCreatePresenter : RuleCreateContract.Presenter {
+
+    var playlist: Playlist? = null
+
     override fun saveState(outState: Bundle) {
     }
 
@@ -24,8 +28,13 @@ class RuleCreatePresenter : RuleCreateContract.Presenter {
     override fun start() {
     }
 
-    override fun onPlusButtonClick() {
-        view.showRuleDetailsActivity()
+    override fun onPlusButtonClick() = view.showRuleDetailsActivity()
+
+    override fun onPlaylistPickClick() = view.pickAPlaylist()
+
+    override fun onPlaylistPicked(playlist: Playlist) {
+        this.playlist = playlist
+        view.setPlaylist(playlist)
     }
 
     override fun onMenuItemClick(itemId: Int): Boolean {
