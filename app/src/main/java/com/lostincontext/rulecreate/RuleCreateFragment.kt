@@ -1,5 +1,6 @@
 package com.lostincontext.rulecreate
 
+import android.app.Activity
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -12,17 +13,22 @@ import com.lostincontext.R
 import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
-import com.lostincontext.commons.images.DeezerImageUrlGenerator
-import com.lostincontext.data.playlist.Creator
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.databinding.RuleCreateScreenFragmentBinding
+import com.lostincontext.playlists.PlaylistsContract
 import com.lostincontext.ruledetails.RuleDetailsActivity
+import com.lostincontext.ruledetails.RuleDetailsFragment
+import com.lostincontext.users.UsersActivity
 import javax.inject.Inject
 
 class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.View {
 
     @Inject lateinit internal var presenter: RuleCreatePresenter
+
     private lateinit var binding: RuleCreateScreenFragmentBinding
+
+    private lateinit var playlistItem: PlaylistItem
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,26 +59,15 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
         val recyclerView = binding.recyclerView
 
         val adapter = GroupAdapter(this)
+
+
+        playlistItem = PlaylistItem(presenter)
+        adapter.add(playlistItem)
+
         recyclerView.adapter = adapter
-
-        val playlistItem = PlaylistItem(Playlist(1687197983L,
-                                                 "test",
-                                                 Creator(1687197983L, "tes"),
-                                                 "07f77e2b833a9e31a852ca89cab041bc",
-                                                 DeezerImageUrlGenerator.TYPE_COVER))
-        adapter.add(playlistItem)
-        adapter.add(playlistItem)
-        adapter.add(playlistItem)
-        adapter.add(playlistItem)
-        adapter.add(playlistItem)
-
 
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
-        /*val adapter = RecyclerView.Adapter
-        val layoutManager = LinearLayoutManager(context)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = layoutManager */
 
 
         return binding.root
@@ -91,23 +86,42 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.edit_rule_menu, menu)
+        inflater.inflate(R.menu.create_rule_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onMenuItemClick(item.itemId)
 
-    companion object {
-        fun newInstance(): RuleCreateFragment = RuleCreateFragment()
-    }
 
     override fun showRuleDetailsActivity() {
         val intent = Intent(this.context, RuleDetailsActivity::class.java)
         startActivity(intent)
     }
 
-    override fun onClick(v: View) {
-        throw UnsupportedOperationException("not implemented")
+    override fun pickAPlaylist() {
+        val intent = Intent(this.context, UsersActivity::class.java)
+        startActivityForResult(intent, PLAYLIST_PICKER_REQUEST_CODE)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE
+                && resultCode == Activity.RESULT_OK) {
+            val playlist = data.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
+            presenter.onPlaylistPicked(playlist)
+        }
+    }
+
+    override fun setPlaylist(playlist: Playlist) {
+        playlistItem.playlist = playlist
+    }
+
+
+    companion object {
+        fun newInstance(): RuleCreateFragment = RuleCreateFragment()
+        val PLAYLIST_PICKER_REQUEST_CODE = 9001
+    }
+
+    override fun onClick(v: View) {
+    }
 
 }

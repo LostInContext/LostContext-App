@@ -16,6 +16,6 @@ fun setSrc(imageView: ImageView, @DrawableRes res: Int) {
 
 
 @BindingAdapter("deezer_image")
-fun setImageUrl(imageView: ImageView, image: DeezerImage) {
+fun setImageUrl(imageView: ImageView, image: DeezerImage?) {
     Glide.with(imageView.context).load(image).into(imageView)
 }
