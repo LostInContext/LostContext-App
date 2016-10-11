@@ -2,9 +2,11 @@ package com.lostincontext.rulecreate
 
 import android.os.Bundle
 import com.lostincontext.data.playlist.Playlist
+import com.lostincontext.data.rulesV2.Condition
 import javax.inject.Inject
 
 class RuleCreatePresenter : RuleCreateContract.Presenter {
+
 
     var playlist: Playlist? = null
 
@@ -41,4 +43,13 @@ class RuleCreatePresenter : RuleCreateContract.Presenter {
 
         return false
     }
+
+    override fun onConditionClick(condition: Condition) {
+
+    }
+
+    override fun onDeleteButtonClick(condition: Condition) {
+    }
+
+
 }
