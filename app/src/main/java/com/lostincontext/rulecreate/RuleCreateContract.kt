@@ -17,7 +17,8 @@ object RuleCreateContract {
 
     interface Presenter : BasePresenter,
                           PlusButtonCallback,
-                          PlaylistInEditScreenViewHolder.Callback {
+                          PlaylistInEditScreenViewHolder.Callback,
+                          ConditionItem.Callback {
 
         fun onMenuItemClick(itemId: Int): Boolean
         fun saveState(outState: Bundle)

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.lostincontext.rulecreate.ScrimCoordinatorLayout
+        android:id="@+id/scrimLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -24,6 +25,7 @@
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:navigationIcon="?homeAsUpIndicator"
+            android:elevation="4dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         <include
