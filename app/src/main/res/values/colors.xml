@@ -14,4 +14,5 @@
     <color name="playlist_icon_default_color">#E9E9E9</color>
     <color name="lost_radio_button_color">#E9E9E9</color>
     <color name="background_playlist_pick_button">#99000000</color>
+    <color name="placeholder_playlist">#454545</color>
 </resources>
