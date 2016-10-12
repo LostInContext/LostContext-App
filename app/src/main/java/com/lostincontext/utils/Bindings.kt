@@ -2,11 +2,11 @@ package com.lostincontext.utils
 
 
 import android.databinding.BindingAdapter
+import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.lostincontext.commons.images.DeezerImage
-import com.lostincontext.data.playlist.Playlist
 
 
 @BindingAdapter("resource")
@@ -17,5 +17,16 @@ fun setSrc(imageView: ImageView, @DrawableRes res: Int) {
 
 @BindingAdapter("deezer_image")
 fun setImageUrl(imageView: ImageView, image: DeezerImage?) {
-    Glide.with(imageView.context).load(image).into(imageView)
+    Glide.with(imageView.context)
+            .load(image)
+            .into(imageView)
+}
+
+
+@BindingAdapter("deezer_image", "placeholder")
+fun setImageUrl(imageView: ImageView, image: DeezerImage?, placeholder: Drawable) {
+    Glide.with(imageView.context)
+            .load(image)
+            .placeholder(placeholder)
+            .into(imageView)
 }
