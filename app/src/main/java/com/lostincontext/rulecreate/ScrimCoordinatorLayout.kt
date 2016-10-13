@@ -5,6 +5,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.ColorDrawable
+import android.support.annotation.ColorInt
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -12,6 +13,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.WindowInsets
 import com.lostincontext.R
+import com.lostincontext.commons.animation.GammaEvaluator
 import com.lostincontext.utils.FAST_OUT_LINEAR_IN_INTERPOLATOR
 import com.lostincontext.utils.LINEAR_OUT_SLOW_IN_INTERPOLATOR
 
@@ -36,8 +38,11 @@ class ScrimCoordinatorLayout : CoordinatorLayout,
     val toolbarBackground: ColorDrawable
     val scrimAnimPivot: Int
 
-    val scrimAnimator = ValueAnimator()
+    var scrimAnimator = ValueAnimator()
     val toolbarAnimator = ValueAnimator()
+
+    @ColorInt val scrimFrom: Int
+    @ColorInt val scrimTo: Int
 
     var isScrimmed = false
 
@@ -60,31 +65,32 @@ class ScrimCoordinatorLayout : CoordinatorLayout,
         val colorAccent = a.getColor(0, 0)
         toolbarBackground = ColorDrawable(colorAccent)
         val colorPrimaryDark = a.getColor(1, 0)
-        scrim = ColorDrawable(colorPrimaryDark)
+
         a.recycle()
 
         toolbarBackground.alpha = 0
-        scrim.alpha = 100
 
+        val resources = resources
         scrimAnimPivot = resources.getDimensionPixelSize(R.dimen.scrim_anim_pivot)
 
-        val duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+        val duration = resources.getInteger(android.R.integer.config_longAnimTime).toLong()
         scrimAnimator.duration = duration
         toolbarAnimator.duration = duration
 
+        scrimFrom = resources.getColor(R.color.scrim_from, context.theme)
+        scrimTo = colorPrimaryDark
+        scrim = ColorDrawable(scrimFrom)
+
         scrimAnimator.addUpdateListener {
-            scrim.alpha = it.animatedValue as Int
+            scrim.color = it.animatedValue as Int
             invalidate(scrim.bounds)
         }
 
         toolbarAnimator.addUpdateListener { toolbarBackground.alpha = it.animatedValue as Int }
-
-
     }
 
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        //if (changed) {
         for (i in 0..childCount - 1) {
             val v = getChildAt(i)
             when (v.id) {
@@ -108,7 +114,6 @@ class ScrimCoordinatorLayout : CoordinatorLayout,
         }
 
 
-        //}
 
         super.onLayout(changed, l, t, r, b)
     }
@@ -135,8 +140,9 @@ class ScrimCoordinatorLayout : CoordinatorLayout,
             scrimAnimator.interpolator = FAST_OUT_LINEAR_IN_INTERPOLATOR
             toolbarAnimator.interpolator = FAST_OUT_LINEAR_IN_INTERPOLATOR
 
-            scrimAnimator.setIntValues(scrim.alpha, 255)
             toolbarAnimator.setIntValues(toolbarBackground.alpha, 255)
+            scrimAnimator.setIntValues(scrim.color, scrimTo)
+            scrimAnimator.setEvaluator(GammaEvaluator.getInstance())
 
             scrimAnimator.start()
             toolbarAnimator.start()
@@ -149,8 +155,10 @@ class ScrimCoordinatorLayout : CoordinatorLayout,
             scrimAnimator.interpolator = LINEAR_OUT_SLOW_IN_INTERPOLATOR
             toolbarAnimator.interpolator = LINEAR_OUT_SLOW_IN_INTERPOLATOR
 
-            scrimAnimator.setIntValues(scrim.alpha, 100)
             toolbarAnimator.setIntValues(toolbarBackground.alpha, 0)
+            scrimAnimator.setIntValues(scrim.color, scrimFrom)
+            scrimAnimator.setEvaluator(GammaEvaluator.getInstance())
+
 
             scrimAnimator.start()
             toolbarAnimator.start()

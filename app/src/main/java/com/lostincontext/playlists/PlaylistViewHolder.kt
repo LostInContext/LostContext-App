@@ -21,7 +21,7 @@ import com.lostincontext.commons.list.ViewHolder
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.databinding.ItemPlaylistBinding
 import com.lostincontext.utils.animateBackgroundColor
-import com.lostincontext.utils.animateImageTint
+import com.lostincontext.utils.animateDrawableTint
 import com.lostincontext.utils.animateTextColor
 
 class PlaylistViewHolder(private val binding: ItemPlaylistBinding,
@@ -80,7 +80,7 @@ class PlaylistViewHolder(private val binding: ItemPlaylistBinding,
         binding.textBackground.setBackgroundColor(defaultBackgroundColor)
         binding.itemInfo.setTextColor(defaultTextColor)
         binding.itemTitle.setTextColor(defaultTextColor)
-        binding.deezerLogo.imageTintList = ColorStateList.valueOf(defaultIconColor)
+        binding.playIcon.imageTintList = ColorStateList.valueOf(defaultIconColor)
 
         Glide.with(binding.root.context)
                 .load(playlist)
@@ -132,16 +132,16 @@ class PlaylistViewHolder(private val binding: ItemPlaylistBinding,
                                                           animationDuration,
                                                           interpolator)
 
-            binding.deezerLogo.animateImageTint(defaultBackgroundColor,
-                                                swatch.bodyTextColor,
-                                                animationDuration,
-                                                interpolator)
+            binding.playIcon.drawable.animateDrawableTint(defaultBackgroundColor,
+                                                          swatch.bodyTextColor,
+                                                          animationDuration,
+                                                          interpolator)
 
         } else {
             binding.itemInfo.setTextColor(swatch.titleTextColor)
             binding.itemTitle.setTextColor(swatch.titleTextColor)
             binding.textBackground.setBackgroundColor(swatch.rgb)
-            binding.deezerLogo.imageTintList = ColorStateList.valueOf(swatch.bodyTextColor)
+            binding.playIcon.imageTintList = ColorStateList.valueOf(swatch.bodyTextColor)
         }
 
     }
@@ -149,7 +149,7 @@ class PlaylistViewHolder(private val binding: ItemPlaylistBinding,
 
     override fun onFailedToRecycleView(): Boolean {
         binding.image.clearAnimation()
-        binding.deezerLogo.clearAnimation()
+        binding.playIcon.clearAnimation()
         binding.textBackground.clearAnimation()
         binding.itemTitle.clearAnimation()
         binding.itemInfo.clearAnimation()
