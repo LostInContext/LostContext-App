@@ -4,7 +4,7 @@ package com.lostincontext.ruledetails.items
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import com.lostincontext.R
-import com.lostincontext.ruledetails.pick.GridBottomSheetItem
+import com.lostincontext.condition.pick.GridBottomSheetItem
 import com.lostincontext.data.rules.FenceVM
 import com.lostincontext.data.rules.NotFenceVM
 import com.lostincontext.ruledetails.items.FenceItem.Link.*

@@ -1,4 +1,4 @@
-package com.lostincontext.ruledetails.pick
+package com.lostincontext.condition.pick
 
 
 import android.support.annotation.DrawableRes

@@ -21,12 +21,12 @@ import com.lostincontext.R
 import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
+import com.lostincontext.condition.pick.GridBottomSheetItem
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsContract
 import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors
 import com.lostincontext.ruledetails.items.FenceItem
-import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.that.ThatService
 import com.lostincontext.users.UsersActivity
 import com.lostincontext.utils.logD
