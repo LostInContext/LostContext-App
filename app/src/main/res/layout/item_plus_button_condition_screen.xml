@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="callback"
+            type="com.lostincontext.ruledetails.pick.PlusButtonCallback" />
+    </data>
+
+    <TextView
+        style="@style/BottomButton"
+        android:onClick="@{ () -> callback.onPlusButtonClick()}"
+        android:text="@string/add_rule" />
+</layout>

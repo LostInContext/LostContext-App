@@ -9,7 +9,7 @@ import com.lostincontext.ruledetails.pick.PlusButtonCallback
 
 object RuleCreateContract {
     interface View : BaseView<Presenter> {
-        fun showRuleDetailsActivity()
+        fun pickACondition()
         fun pickAPlaylist()
         fun setPlaylist(playlist: Playlist)
 

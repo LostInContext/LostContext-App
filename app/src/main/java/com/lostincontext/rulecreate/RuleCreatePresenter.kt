@@ -30,7 +30,7 @@ class RuleCreatePresenter : RuleCreateContract.Presenter {
     override fun start() {
     }
 
-    override fun onPlusButtonClick() = view.showRuleDetailsActivity()
+    override fun onPlusButtonClick() = view.pickACondition()
 
     override fun onPlaylistPickClick() = view.pickAPlaylist()
 
