@@ -12,7 +12,6 @@ import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.databinding.ConditionScreenFragmentBinding
-import com.lostincontext.mainscreen.ConditionContract
 import com.lostincontext.ruledetails.ConditionPresenterModule
 import javax.inject.Inject
 
@@ -69,7 +68,6 @@ class ConditionFragment : Fragment(), ConditionContract.View {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onMenuItemClick(item.itemId)
-
 
 
     companion object {

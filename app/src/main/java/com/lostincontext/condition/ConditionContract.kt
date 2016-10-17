@@ -1,4 +1,4 @@
-package com.lostincontext.mainscreen
+package com.lostincontext.condition
 
 import com.lostincontext.commons.BasePresenter
 import com.lostincontext.commons.BaseView
@@ -13,7 +13,7 @@ interface ConditionContract {
 
     interface Presenter : BasePresenter,
                           PlusButtonCallback {
-        fun  onMenuItemClick(itemId: Int): Boolean
+        fun onMenuItemClick(itemId: Int): Boolean
 
     }
 }
