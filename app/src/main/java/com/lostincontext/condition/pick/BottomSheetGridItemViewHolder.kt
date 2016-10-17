@@ -1,11 +1,9 @@
-package com.lostincontext.ruledetails.pick
+package com.lostincontext.condition.pick
 
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-
 import com.lostincontext.commons.list.ViewHolder
-import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.databinding.ItemBottomSheetGridBinding
 
 class BottomSheetGridItemViewHolder(private val binding: ItemBottomSheetGridBinding,
@@ -19,6 +17,7 @@ class BottomSheetGridItemViewHolder(private val binding: ItemBottomSheetGridBind
 
     fun bindTo(item: GridBottomSheetItem) {
         binding.item = item
+        binding.executePendingBindings()
     }
 
     companion object {

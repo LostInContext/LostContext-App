@@ -1,4 +1,4 @@
-package com.lostincontext.ruledetails
+package com.lostincontext.condition.pick
 
 
 import android.databinding.DataBindingUtil
@@ -10,10 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.lostincontext.R
 import com.lostincontext.commons.list.Section
-import com.lostincontext.condition.pick.GridBottomSheetItem
 import com.lostincontext.databinding.RuleDetailsBottomSheetBinding
-import com.lostincontext.condition.pick.PickerDialogCallback
-import com.lostincontext.condition.pick.RulePickAdapter
 
 
 // todo handle rotations

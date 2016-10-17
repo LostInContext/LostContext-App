@@ -11,6 +11,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.lostincontext.R
 import com.lostincontext.awareness.Awareness
 import com.lostincontext.commons.list.Section
+import com.lostincontext.condition.pick.BottomSheetItemSection
+import com.lostincontext.condition.pick.GridBottomSheetItem
 import com.lostincontext.data.location.LocationModel
 import com.lostincontext.data.location.repo.LocationRepository
 import com.lostincontext.data.location.repo.LocationRepository.LocationCallback
@@ -18,14 +20,11 @@ import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rules.*
 import com.lostincontext.data.rules.CompositeFenceVM.Operator
 import com.lostincontext.data.rules.repo.RulesRepository
-import com.lostincontext.ruledetails.RuleDetailsContract
 import com.lostincontext.ruledetails.RuleDetailsContract.LINK_CHANGED
 import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors
 import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.items.FenceItem.Link
 import com.lostincontext.ruledetails.items.FenceItem.Link.*
-import com.lostincontext.ruledetails.pick.BottomSheetItemSection
-import com.lostincontext.ruledetails.pick.GridBottomSheetItem
 import com.lostincontext.utils.logD
 import com.lostincontext.utils.logE
 import java.util.*

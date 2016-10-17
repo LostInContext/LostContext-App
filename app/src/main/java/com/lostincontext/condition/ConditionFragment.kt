@@ -13,6 +13,7 @@ import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.databinding.ConditionScreenFragmentBinding
 import com.lostincontext.ruledetails.ConditionPresenterModule
+import com.lostincontext.ruledetails.PickerDialogFragment
 import javax.inject.Inject
 
 
@@ -61,6 +62,13 @@ class ConditionFragment : Fragment(), ConditionContract.View {
                                                                34) // todo condition number
 
         return binding.root
+    }
+
+    override fun displayFenceChoice() {
+        val picker = PickerDialogFragment.newInstance()
+        picker.registerCallback(presenter)
+        picker.setSections(presenter.provideFenceChoices())
+        picker.show(fragmentManager, PickerDialogFragment.TAG)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {

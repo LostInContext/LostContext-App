@@ -5,7 +5,7 @@
 
         <variable
             name="callback"
-            type="com.lostincontext.ruledetails.pick.PlusButtonCallback" />
+            type="com.lostincontext.condition.pick.PlusButtonCallback" />
     </data>
 
     <TextView

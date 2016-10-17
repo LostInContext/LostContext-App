@@ -9,9 +9,9 @@ import com.lostincontext.commons.list.Section
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.items.FenceItemCallback
-import com.lostincontext.ruledetails.pick.GridBottomSheetItem
-import com.lostincontext.ruledetails.pick.PickerDialogCallback
-import com.lostincontext.ruledetails.pick.PlusButtonCallback
+import com.lostincontext.condition.pick.GridBottomSheetItem
+import com.lostincontext.condition.pick.PickerDialogCallback
+import com.lostincontext.condition.pick.PlusButtonCallback
 import java.util.*
 
 

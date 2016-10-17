@@ -3,9 +3,9 @@ package com.lostincontext.rulecreate
 import android.os.Bundle
 import com.lostincontext.commons.BasePresenter
 import com.lostincontext.commons.BaseView
+import com.lostincontext.condition.pick.PlusButtonCallback
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder
-import com.lostincontext.ruledetails.pick.PlusButtonCallback
 
 object RuleCreateContract {
     interface View : BaseView<Presenter> {

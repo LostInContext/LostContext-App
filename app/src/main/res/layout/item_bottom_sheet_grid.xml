@@ -7,11 +7,11 @@
 
         <variable
             name="callback"
-            type="com.lostincontext.ruledetails.pick.PickerDialogCallback" />
+            type="com.lostincontext.condition.pick.PickerDialogCallback" />
 
         <variable
             name="item"
-            type="com.lostincontext.ruledetails.pick.GridBottomSheetItem" />
+            type="com.lostincontext.condition.pick.GridBottomSheetItem" />
 
     </data>
 
