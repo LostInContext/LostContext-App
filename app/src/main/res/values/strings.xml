@@ -23,7 +23,9 @@
     <string name="playlist_pick">pick a playlist</string>
     <string name="playlist_change">change playlist</string>
     <string name="add_condition">add a condition</string>
+    <string name="add_rule">add a rule</string>
     <string name="play_text">Play %1$S…</string>
     <string name="position">%1$d.</string>
+    <string name="condition_title">Condition %1$d</string>
 
 </resources>

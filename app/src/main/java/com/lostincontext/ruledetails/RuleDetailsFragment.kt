@@ -162,7 +162,7 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null && requestCode == PLAYLIST_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
-            val playlist = data!!.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
+            val playlist = data.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
             presenter.onPlaylistPicked(playlist)
         } else if (requestCode == LOCATION_PICKER_REQUEST_CODE
                 && resultCode == RESULT_OK
@@ -188,7 +188,6 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.edit_rule_menu, menu)
     }
 

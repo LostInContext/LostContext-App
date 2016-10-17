@@ -15,11 +15,11 @@ import com.lostincontext.R
 import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
+import com.lostincontext.condition.ConditionActivity
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.databinding.RuleCreateScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsContract
-import com.lostincontext.ruledetails.RuleDetailsActivity
 import com.lostincontext.ruledetails.RuleDetailsFragment
 import com.lostincontext.users.UsersActivity
 import java.util.*
@@ -33,6 +33,7 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
 
     private lateinit var playlistItem: PlaylistItem
 
+    private lateinit var adapter: GroupAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +45,6 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
                 .build()
                 .inject(this)
     }
-
-    private lateinit var adapter: GroupAdapter
 
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -108,15 +107,14 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.create_rule_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onMenuItemClick(item.itemId)
 
 
-    override fun showRuleDetailsActivity() {
-        val intent = Intent(this.context, RuleDetailsActivity::class.java)
+    override fun pickACondition() {
+        val intent = Intent(this.context, ConditionActivity::class.java)
         startActivity(intent)
     }
 
