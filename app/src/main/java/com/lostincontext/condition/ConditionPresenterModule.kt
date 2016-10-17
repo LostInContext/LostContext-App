@@ -2,7 +2,7 @@ package com.lostincontext.ruledetails
 
 import android.os.Bundle
 import com.lostincontext.awareness.AwarenessModule
-import com.lostincontext.mainscreen.ConditionContract
+import com.lostincontext.condition.ConditionContract
 import dagger.Module
 import dagger.Provides
 

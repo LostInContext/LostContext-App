@@ -3,7 +3,6 @@ package com.lostincontext.condition
 import android.os.Bundle
 import com.lostincontext.awareness.Awareness
 import com.lostincontext.data.location.repo.LocationRepository
-import com.lostincontext.mainscreen.ConditionContract
 import javax.inject.Inject
 
 
