@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat.checkSelfPermission
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils.isEmpty
 import android.view.*
@@ -24,9 +23,7 @@ import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.databinding.RuleDetailsScreenFragmentBinding
-import com.lostincontext.playlists.PlaylistsActivity
 import com.lostincontext.playlists.PlaylistsContract
-import com.lostincontext.ruledetails.RuleDetailsContract
 import com.lostincontext.ruledetails.RuleDetailsContract.RuleErrors
 import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.pick.GridBottomSheetItem
@@ -164,7 +161,7 @@ class RuleDetailsFragment : Fragment(), RuleDetailsContract.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PLAYLIST_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (data != null && requestCode == PLAYLIST_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
             val playlist = data!!.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
             presenter.onPlaylistPicked(playlist)
         } else if (requestCode == LOCATION_PICKER_REQUEST_CODE

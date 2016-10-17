@@ -93,9 +93,9 @@ class UsersFragment : Fragment(), UsersContract.View {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (data != null && requestCode == RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val playlist = data.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
             val returnIntent = Intent()
             returnIntent.putExtra(PlaylistsContract.EXTRA_PLAYLIST, playlist)
@@ -104,7 +104,6 @@ class UsersFragment : Fragment(), UsersContract.View {
             activity.finish()
         }
     }
-
 
 
     //endregion

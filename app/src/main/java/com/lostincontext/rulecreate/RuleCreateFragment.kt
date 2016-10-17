@@ -125,13 +125,14 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
         startActivityForResult(intent, PLAYLIST_PICKER_REQUEST_CODE)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE
+        if (data != null && requestCode == RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE
                 && resultCode == Activity.RESULT_OK) {
             val playlist = data.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
             presenter.onPlaylistPicked(playlist)
         }
+
     }
 
     override fun setPlaylist(playlist: Playlist) {
