@@ -15,10 +15,13 @@
     <TextView
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        tools:text="@{title}" />
+        android:layout_height="48dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:text="@{title}"
+        android:textColor="#979797"
+        android:textSize="14sp"
+        tools:text="title" />
 
 </layout>

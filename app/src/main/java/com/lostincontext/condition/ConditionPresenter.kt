@@ -69,7 +69,7 @@ class ConditionPresenter : ConditionContract.Presenter {
                                                       R.drawable.ic_work_24,
                                                       RuleDetailsPresenter.Picker.WORK))
 
-        val fencesSection = BottomSheetItemSection("Pick a condition", choices)
+        val fencesSection = BottomSheetItemSection("Add a rule…", choices)
 
         return Arrays.asList<Section<*>>(fencesSection)
     }
