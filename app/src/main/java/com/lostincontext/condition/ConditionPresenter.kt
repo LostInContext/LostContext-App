@@ -13,6 +13,7 @@ import com.lostincontext.data.rules.DetectedActivityFenceVM
 import com.lostincontext.data.rules.FenceVM
 import com.lostincontext.data.rules.HeadphoneFenceVM
 import com.lostincontext.data.rules.LocationFenceVM
+import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.ruledetails.RuleDetailsContract
 import com.lostincontext.ruledetails.RuleDetailsPresenter
 import com.lostincontext.ruledetails.items.FenceItem
@@ -21,6 +22,7 @@ import javax.inject.Inject
 
 
 class ConditionPresenter : ConditionContract.Presenter {
+
 
 
     private val view: ConditionContract.View
@@ -176,5 +178,11 @@ class ConditionPresenter : ConditionContract.Presenter {
 
     }
 
+    override fun onDeleteButtonClick(condition: Condition) {
+        //todo
+    }
 
+    override fun onConditionClick(condition: Condition) {
+        //todo
+    }
 }
