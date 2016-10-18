@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.*
+import com.genius.groupie.GroupAdapter
+import com.genius.groupie.UpdatingGroup
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
@@ -22,23 +24,26 @@ import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.condition.pick.GridBottomSheetItem
+import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.databinding.ConditionScreenFragmentBinding
+import com.lostincontext.rulecreate.ConditionItem
 import com.lostincontext.ruledetails.ConditionPresenterModule
 import com.lostincontext.ruledetails.PickerDialogFragment
 import com.lostincontext.ruledetails.RuleDetailsAdapter
 import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.utils.logD
+import java.util.*
 import javax.inject.Inject
 
 
-class ConditionFragment : Fragment(), ConditionContract.View {
+class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.View {
 
 
     @Inject lateinit internal var presenter: ConditionPresenter
 
     private lateinit var binding: ConditionScreenFragmentBinding
 
-    private lateinit var adapter: RuleDetailsAdapter
+    private lateinit var adapter: GroupAdapter
 
     private var savedPlaceName: String? = null
     private var savedGridBottomSheetItem: GridBottomSheetItem? = null
@@ -75,8 +80,18 @@ class ConditionFragment : Fragment(), ConditionContract.View {
 
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
-        adapter = RuleDetailsAdapter(presenter)
+        adapter = GroupAdapter(this)
 
+        val group: UpdatingGroup<ConditionItem> = UpdatingGroup()
+
+
+        val items: ArrayList<ConditionItem> = ArrayList()
+        for (i in 1..10) {
+            val item: ConditionItem = ConditionItem(presenter, i, Condition(emptyList()))
+            items.add(item)
+        }
+        group.update(items)
+        adapter.add(group)
         binding.plusButton.callback = presenter
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
@@ -125,7 +140,7 @@ class ConditionFragment : Fragment(), ConditionContract.View {
     }
 
     override fun setItems(items: List<FenceItem>) {
-        adapter.setItems(items)
+//        adapter.setItems(items)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -143,6 +158,10 @@ class ConditionFragment : Fragment(), ConditionContract.View {
                 showLocationPicker()
             }
         }
+    }
+
+    override fun onClick(v: View?) {
+        //Todo
     }
 
     private fun showLocationPicker() {

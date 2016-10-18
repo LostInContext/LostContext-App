@@ -7,6 +7,7 @@ import com.lostincontext.commons.list.Section
 import com.lostincontext.condition.pick.GridBottomSheetItem
 import com.lostincontext.condition.pick.PickerDialogCallback
 import com.lostincontext.condition.pick.PlusButtonCallback
+import com.lostincontext.rulecreate.ConditionItem
 import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.items.FenceItemCallback
 
@@ -25,7 +26,9 @@ interface ConditionContract {
     interface Presenter : BasePresenter,
                           PlusButtonCallback,
                           PickerDialogCallback,
-                          FenceItemCallback {
+                          FenceItemCallback,
+                          ConditionItem.Callback{
+
         fun onMenuItemClick(itemId: Int): Boolean
         fun provideFenceChoices(): List<Section<*>>
         fun onPlacePicked(placeName: String, item: GridBottomSheetItem, latLng: LatLng)
