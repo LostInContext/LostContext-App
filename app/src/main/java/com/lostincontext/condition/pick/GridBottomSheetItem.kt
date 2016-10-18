@@ -8,4 +8,4 @@ import com.lostincontext.ruledetails.RuleDetailsPresenter
 data class GridBottomSheetItem(val name: String,
                                @DrawableRes val drawableRes: Int,
                                val picker: RuleDetailsPresenter.Picker,
-                               var isSelected: Boolean = false)
+                               var isPicked: Boolean = false)
