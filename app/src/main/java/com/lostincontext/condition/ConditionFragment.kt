@@ -24,13 +24,10 @@ import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.condition.pick.GridBottomSheetItem
-import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.databinding.ConditionScreenFragmentBinding
 import com.lostincontext.rulecreate.ConditionItem
 import com.lostincontext.ruledetails.ConditionPresenterModule
 import com.lostincontext.ruledetails.PickerDialogFragment
-import com.lostincontext.ruledetails.RuleDetailsAdapter
-import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.utils.logD
 import java.util.*
 import javax.inject.Inject
@@ -47,6 +44,9 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
 
     private var savedPlaceName: String? = null
     private var savedGridBottomSheetItem: GridBottomSheetItem? = null
+    private val group: UpdatingGroup<ConditionItem> = UpdatingGroup()
+    private var items: ArrayList<ConditionItem> = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +68,11 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
+    }
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -82,16 +87,7 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
         recyclerView.layoutManager = layoutManager
         adapter = GroupAdapter(this)
 
-        val group: UpdatingGroup<ConditionItem> = UpdatingGroup()
 
-
-        val items: ArrayList<ConditionItem> = ArrayList()
-        for (i in 1..10) {
-            val item: ConditionItem = ConditionItem(presenter, i, Condition(emptyList()))
-            items.add(item)
-        }
-        group.update(items)
-        adapter.add(group)
         binding.plusButton.callback = presenter
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
@@ -115,12 +111,14 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onMenuItemClick(item.itemId)
-    override fun notifyItemInserted(position: Int) {
-        adapter.notifyItemInserted(position)
+
+    override fun notifyItemInserted(item: ConditionItem, position: Int) {
+        group.update(items)
+//        adapter.notifyItemInserted(group.getPosition(item))
     }
 
-    override fun notifyItemChanged(position: Int, payload: Any) {
-        adapter.notifyItemChanged(position, payload)
+    override fun notifyItemChanged(item: ConditionItem, position: Int, payload: Any) {
+        adapter.notifyItemChanged(group.getPosition(item), payload)
     }
 
     override fun checkPermissionsAndShowLocationPicker(name: String, item: GridBottomSheetItem) {
@@ -139,8 +137,11 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
         }
     }
 
-    override fun setItems(items: List<FenceItem>) {
-//        adapter.setItems(items)
+
+    override fun setItems(items: ArrayList<ConditionItem>) {
+        this.items=items
+        group.update(items)
+        adapter.add(group)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
