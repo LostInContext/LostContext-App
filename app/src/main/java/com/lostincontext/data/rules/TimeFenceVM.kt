@@ -17,6 +17,8 @@ class TimeFenceVM(val state: State,
         iconGiver.time(this, icons)
     }
 
+    override fun name(fenceNamer: FenceNamer) = fenceNamer.time(this)
+
     enum class State {
         IN_INTERVAL,
         IN_DAILY_INTERVAL,

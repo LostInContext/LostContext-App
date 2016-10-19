@@ -17,4 +17,6 @@ data class HeadphoneFenceVM(val state: State) : FenceVM {
 
     override fun giveIcon(iconGiver: FenceIconGiver,
                           icons: MutableList<Int>): Unit = iconGiver.headphone(this, icons)
+
+    override fun name(fenceNamer: FenceNamer) = fenceNamer.headphone(this)
 }

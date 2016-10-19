@@ -9,9 +9,13 @@ import com.lostincontext.databinding.ItemConditionBinding
 
 class ConditionItem constructor(val callback: Callback,
                                 val position: Int,
-                                val condition: Condition) :
+                                val condition: Condition,
+                                val text:CharSequence) :
         Item<ItemConditionBinding>(),
         UpdatingGroup.Comparable<ConditionItem> {
+
+
+    var binding : ItemConditionBinding? = null
 
 
     interface Callback {
@@ -23,6 +27,7 @@ class ConditionItem constructor(val callback: Callback,
     override fun bind(viewBinding: ItemConditionBinding, position: Int) {
         viewBinding.viewModel = this
         viewBinding.callback = callback
+        binding = viewBinding
     }
 
     override fun getLayout() = R.layout.item_condition
@@ -31,5 +36,9 @@ class ConditionItem constructor(val callback: Callback,
     override fun areContentsTheSame(other: ConditionItem?) = true
 
     override fun areItemsTheSame(other: ConditionItem) = position == other.position
+
+
+
+
 
 }

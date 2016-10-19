@@ -27,5 +27,6 @@ data class DetectedActivityFenceVM(val type: Type,
     override fun giveIcon(iconGiver: FenceIconGiver,
                           icons: MutableList<Int>) = iconGiver.detectedActivity(this, icons)
 
+    override fun name(fenceNamer: FenceNamer) = fenceNamer.detectedActivity(this)
 
 }
