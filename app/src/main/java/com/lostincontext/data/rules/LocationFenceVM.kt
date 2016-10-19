@@ -44,6 +44,8 @@ data class LocationFenceVM(val state: State,
         return iconGiver.location(this, icons)
     }
 
+    override fun name(fenceNamer: FenceNamer) = fenceNamer.location(this)
+
     companion object {
         const val HOME = "HOME"
         const val WORK = "WORK"

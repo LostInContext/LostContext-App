@@ -136,7 +136,7 @@ class ConditionPresenter : ConditionContract.Presenter {
                                                       AtomicCondition.Modifier.NONE)
                 val conditionItem = ConditionItem(this,
                                                   items.size,
-                                                  Condition(listOf(atomicCondition)))
+                                                  Condition(listOf(atomicCondition)),"")
                 items.add(conditionItem)
                 view.notifyItemInserted(conditionItem, items.indexOf(conditionItem))
             }
@@ -191,7 +191,7 @@ class ConditionPresenter : ConditionContract.Presenter {
         val fenceVM = LocationFenceVM(locationModel.placeName, locationModel.getLatLng())
         val atomicCondition = AtomicCondition(fenceVM, AtomicCondition.Modifier.NONE)
 
-        val conditionItem = ConditionItem(this, items.size, Condition(listOf(atomicCondition)))
+        val conditionItem = ConditionItem(this, items.size, Condition(listOf(atomicCondition)), "")
         items.add(conditionItem)
 //        view.setItems(items)
         view.notifyItemInserted(conditionItem,items.indexOf(conditionItem))

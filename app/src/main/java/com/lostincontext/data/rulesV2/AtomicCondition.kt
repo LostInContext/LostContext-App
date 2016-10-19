@@ -8,7 +8,7 @@ class AtomicCondition {
 
     enum class Modifier { NONE, NOT }
 
-    constructor(fence: FenceVM, modifier: Modifier) {
+    constructor(fence: FenceVM, modifier: Modifier = Modifier.NONE) {
         this.fence = fence
         this.modifier = modifier
     }

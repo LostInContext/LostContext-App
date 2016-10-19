@@ -16,6 +16,7 @@
     <color name="background_playlist_pick_button">#99000000</color>
     <color name="scrim_from">#3d000000</color>
     <color name="placeholder_playlist">#454545</color>
+    <color name="fence">#000000</color>
 
     <color name="picker">#ffffff</color>
     <color name="picker_picked">#4a4a4a</color>

@@ -28,4 +28,6 @@ interface FenceVM {
 
     fun giveIcon(iconGiver: FenceIconGiver,
                  icons: MutableList<Int>)
+
+    fun name(fenceNamer : FenceNamer) : CharSequence
 }

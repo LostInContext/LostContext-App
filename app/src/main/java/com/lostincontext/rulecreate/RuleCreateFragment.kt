@@ -1,13 +1,16 @@
 package com.lostincontext.rulecreate
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.*
 import com.genius.groupie.GroupAdapter
 import com.genius.groupie.UpdatingGroup
@@ -17,6 +20,12 @@ import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.condition.ConditionActivity
 import com.lostincontext.data.playlist.Playlist
+import com.lostincontext.data.rules.DetectedActivityFenceVM
+import com.lostincontext.data.rules.DetectedActivityFenceVM.State.DURING
+import com.lostincontext.data.rules.DetectedActivityFenceVM.Type.RUNNING
+import com.lostincontext.data.rules.FenceNamer
+import com.lostincontext.data.rules.HeadphoneFenceVM
+import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.databinding.RuleCreateScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsContract
@@ -72,10 +81,24 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
 
 
         val items: ArrayList<ConditionItem> = ArrayList()
-        for (i in 1..10) {
-            val item: ConditionItem = ConditionItem(presenter, i, Condition(emptyList()))
-            items.add(item)
-        }
+
+
+        val scribe = Scribe(context)
+
+        val condition = Condition(listOf(AtomicCondition(DetectedActivityFenceVM(RUNNING, DURING)),
+                                         AtomicCondition(HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_IN))))
+        val item = ConditionItem(presenter,
+                                 1,
+                                 condition,
+                                 scribe.describeCondition(condition))
+        items.add(item)
+
+        val condition2 = Condition(listOf(AtomicCondition(DetectedActivityFenceVM(RUNNING,
+                                                                                  DURING))))
+        val item2 = ConditionItem(presenter, 2, condition2, scribe.describeCondition(condition2))
+
+        items.add(item2)
+
         group.update(items)
         adapter.add(group)
 
@@ -92,6 +115,41 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
 
 
         return binding.root
+
+    }
+
+
+    class Scribe(val context: Context) {
+
+        val resources: Resources = context.resources
+        val theme: Resources.Theme = context.theme
+
+        fun describeCondition(condition: Condition): CharSequence {
+            val description = resources.getString(R.string.comp_when)
+            return TextUtils.expandTemplate(description,
+                                            describeAtomicConditions(condition.atomics))
+
+        }
+
+        fun describeAtomicConditions(conditions: List<AtomicCondition>): CharSequence {
+            val namer = FenceNamer(context)
+
+            val template = resources.getString(R.string.comp_and)
+
+            when (conditions.size) {
+                0 -> return ""
+                1 -> return conditions[0].fence.name(namer)
+                else ->
+                    return conditions.fold("" as CharSequence) { s, atomic ->
+                        if (s.isEmpty()) atomic.fence.name(namer)
+                        else TextUtils.expandTemplate(template,
+                                                      s,
+                                                      atomic.fence.name(namer))
+                    }
+            }
+
+
+        }
 
     }
 
