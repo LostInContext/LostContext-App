@@ -8,18 +8,18 @@ import com.lostincontext.condition.pick.GridBottomSheetItem
 import com.lostincontext.condition.pick.PickerDialogCallback
 import com.lostincontext.condition.pick.PlusButtonCallback
 import com.lostincontext.rulecreate.ConditionItem
-import com.lostincontext.ruledetails.items.FenceItem
 import com.lostincontext.ruledetails.items.FenceItemCallback
+import java.util.*
 
 
 interface ConditionContract {
 
     interface View : BaseView<Presenter> {
         fun displayFenceChoice()
-        fun notifyItemInserted(position: Int)
-        fun notifyItemChanged(position: Int, payload: Any)
+        fun notifyItemInserted(item: ConditionItem, position: Int)
+        fun notifyItemChanged(item: ConditionItem, position: Int, payload: Any)
         fun checkPermissionsAndShowLocationPicker(name: String, item: GridBottomSheetItem)
-        fun setItems(items: List<FenceItem>)
+        fun setItems(items: ArrayList<ConditionItem>)
 
     }
 
@@ -27,7 +27,7 @@ interface ConditionContract {
                           PlusButtonCallback,
                           PickerDialogCallback,
                           FenceItemCallback,
-                          ConditionItem.Callback{
+                          ConditionItem.Callback {
 
         fun onMenuItemClick(itemId: Int): Boolean
         fun provideFenceChoices(): List<Section<*>>

@@ -1,6 +1,7 @@
 package com.lostincontext.condition
 
 import android.os.Bundle
+import com.genius.groupie.UpdatingGroup
 import com.google.android.gms.maps.model.LatLng
 import com.lostincontext.R
 import com.lostincontext.awareness.Awareness
@@ -13,7 +14,9 @@ import com.lostincontext.data.rules.DetectedActivityFenceVM
 import com.lostincontext.data.rules.FenceVM
 import com.lostincontext.data.rules.HeadphoneFenceVM
 import com.lostincontext.data.rules.LocationFenceVM
+import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.data.rulesV2.Condition
+import com.lostincontext.rulecreate.ConditionItem
 import com.lostincontext.ruledetails.RuleDetailsContract
 import com.lostincontext.ruledetails.RuleDetailsPresenter
 import com.lostincontext.ruledetails.items.FenceItem
@@ -24,11 +27,10 @@ import javax.inject.Inject
 class ConditionPresenter : ConditionContract.Presenter {
 
 
-
     private val view: ConditionContract.View
     private val locationRepository: LocationRepository
     private val awareness: Awareness
-    private val items = ArrayList<FenceItem>()
+    private val items = ArrayList<ConditionItem>()
 
     @Inject internal constructor(view: ConditionContract.View,
                                  icicle: Bundle?,
@@ -45,7 +47,17 @@ class ConditionPresenter : ConditionContract.Presenter {
 
 
     override fun start() {
+//        val group: UpdatingGroup<ConditionItem> = UpdatingGroup()
+//
+//
+//        val items: ArrayList<ConditionItem> = ArrayList()
+//        for (i in 1..10) {
+//            val item: ConditionItem = ConditionItem(this,i , Condition(emptyList()))
+//            items.add(item)
+//            view.notifyItemInserted(items.indexOf(item))
+//        }
         view.setItems(items)
+
 
     }
 
@@ -54,14 +66,14 @@ class ConditionPresenter : ConditionContract.Presenter {
     }
 
     fun toggleLink(item: FenceItem) {
-        when (item.link) {
-            FenceItem.Link.AND -> item.link = FenceItem.Link.OR
-            FenceItem.Link.OR -> item.link = FenceItem.Link.AND_NOT
-            FenceItem.Link.AND_NOT -> item.link = FenceItem.Link.OR_NOT
-            FenceItem.Link.OR_NOT -> item.link = FenceItem.Link.AND
-            FenceItem.Link.WHEN -> throw  RuntimeException("unexpected")
-        }
-        view.notifyItemChanged(items.indexOf(item), RuleDetailsContract.LINK_CHANGED)
+//        when (item.link) {
+//            AtomicCondition.Modifier.NONE -> item.link = FenceItem.Link.AND
+//            AtomicCondition.Modifier.NOT -> item.link = FenceItem.Link.AND_NOT
+//            FenceItem.Link.AND_NOT -> item.link = FenceItem.Link.OR_NOT
+//            FenceItem.Link.OR_NOT -> item.link = FenceItem.Link.AND
+//            FenceItem.Link.WHEN -> throw  RuntimeException("unexpected")
+//        }
+//        view.notifyItemChanged(items.indexOf(item), RuleDetailsContract.LINK_CHANGED)
     }
 
     override fun onPlusButtonClick() = view.displayFenceChoice()
@@ -117,11 +129,16 @@ class ConditionPresenter : ConditionContract.Presenter {
             RuleDetailsPresenter.Picker.CAR,
             RuleDetailsPresenter.Picker.PLUG_IN,
             RuleDetailsPresenter.Picker.PLUG_OUT -> {
-                val fenceItem = FenceItem.createFromPick(item,
-                                                         getFenceVMForPick(item),
-                                                         items.isEmpty())
-                items.add(fenceItem)
-                view.notifyItemInserted(items.indexOf(fenceItem))
+//                val fenceItem = FenceItem.createFromPick(item,
+//                                                         getFenceVMForPick(item),
+//                                                         items.isEmpty())
+                val atomicCondition = AtomicCondition(getFenceVMForPick(item),
+                                                      AtomicCondition.Modifier.NONE)
+                val conditionItem = ConditionItem(this,
+                                                  items.size,
+                                                  Condition(listOf(atomicCondition)))
+                items.add(conditionItem)
+                view.notifyItemInserted(conditionItem, items.indexOf(conditionItem))
             }
 
             RuleDetailsPresenter.Picker.HOME,
@@ -172,9 +189,15 @@ class ConditionPresenter : ConditionContract.Presenter {
 
     private fun addLocationFence(item: GridBottomSheetItem, locationModel: LocationModel) {
         val fenceVM = LocationFenceVM(locationModel.placeName, locationModel.getLatLng())
-        val fenceItem = FenceItem.createFromPick(item, fenceVM, items.isEmpty())
-        items.add(fenceItem)
-        view.notifyItemInserted(items.indexOf(fenceItem))
+        val atomicCondition = AtomicCondition(fenceVM, AtomicCondition.Modifier.NONE)
+
+        val conditionItem = ConditionItem(this, items.size, Condition(listOf(atomicCondition)))
+        items.add(conditionItem)
+//        view.setItems(items)
+        view.notifyItemInserted(conditionItem,items.indexOf(conditionItem))
+
+//        items.add(conditionItem)
+//        view.notifyItemInserted(items.indexOf(conditionItem))
 
     }
 
