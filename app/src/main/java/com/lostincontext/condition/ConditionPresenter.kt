@@ -47,17 +47,7 @@ class ConditionPresenter : ConditionContract.Presenter {
 
 
     override fun start() {
-//        val group: UpdatingGroup<ConditionItem> = UpdatingGroup()
-//
-//
-//        val items: ArrayList<ConditionItem> = ArrayList()
-//        for (i in 1..10) {
-//            val item: ConditionItem = ConditionItem(this,i , Condition(emptyList()))
-//            items.add(item)
-//            view.notifyItemInserted(items.indexOf(item))
-//        }
         view.setItems(items)
-
 
     }
 
@@ -129,16 +119,14 @@ class ConditionPresenter : ConditionContract.Presenter {
             RuleDetailsPresenter.Picker.CAR,
             RuleDetailsPresenter.Picker.PLUG_IN,
             RuleDetailsPresenter.Picker.PLUG_OUT -> {
-//                val fenceItem = FenceItem.createFromPick(item,
-//                                                         getFenceVMForPick(item),
-//                                                         items.isEmpty())
+
                 val atomicCondition = AtomicCondition(getFenceVMForPick(item),
                                                       AtomicCondition.Modifier.NONE)
                 val conditionItem = ConditionItem(this,
                                                   items.size,
                                                   Condition(listOf(atomicCondition)),"")
                 items.add(conditionItem)
-                view.notifyItemInserted(conditionItem, items.indexOf(conditionItem))
+                view.notifyItemInserted(conditionItem)
             }
 
             RuleDetailsPresenter.Picker.HOME,
@@ -189,15 +177,11 @@ class ConditionPresenter : ConditionContract.Presenter {
 
     private fun addLocationFence(item: GridBottomSheetItem, locationModel: LocationModel) {
         val fenceVM = LocationFenceVM(locationModel.placeName, locationModel.getLatLng())
-        val atomicCondition = AtomicCondition(fenceVM, AtomicCondition.Modifier.NONE)
 
+        val atomicCondition = AtomicCondition(fenceVM, AtomicCondition.Modifier.NONE)
         val conditionItem = ConditionItem(this, items.size, Condition(listOf(atomicCondition)), "")
         items.add(conditionItem)
-//        view.setItems(items)
-        view.notifyItemInserted(conditionItem,items.indexOf(conditionItem))
-
-//        items.add(conditionItem)
-//        view.notifyItemInserted(items.indexOf(conditionItem))
+        view.notifyItemInserted(conditionItem)
 
     }
 
