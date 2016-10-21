@@ -68,8 +68,8 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
 
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         presenter.start()
     }
 
@@ -112,9 +112,8 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onMenuItemClick(item.itemId)
 
-    override fun notifyItemInserted(item: ConditionItem, position: Int) {
+    override fun notifyItemInserted(item: ConditionItem) {
         group.update(items)
-//        adapter.notifyItemInserted(group.getPosition(item))
     }
 
     override fun notifyItemChanged(item: ConditionItem, position: Int, payload: Any) {
@@ -139,7 +138,7 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
 
 
     override fun setItems(items: ArrayList<ConditionItem>) {
-        this.items=items
+        this.items = items
         group.update(items)
         adapter.add(group)
     }
