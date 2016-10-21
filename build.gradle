@@ -2,7 +2,7 @@
 
 buildscript {
     ext.kotlin_version_internal = '1.0.4'
-    ext.android_build_tools_version = '2.2.1'
+    ext.android_build_tools_version = '2.2.2'
 
     repositories {
         jcenter()
@@ -31,17 +31,17 @@ task wrapper(type: Wrapper) {
 ext {
     // Sdk and build tools
     minSdkVersion = 21
-    targetSdkVersion = 24
-    compileSdkVersion = 24
-    buildToolsVersion = '24.0.3'
+    targetSdkVersion = 25
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.0'
 
     // App dependencies
-    supportLibraryVersion = '24.2.1'
+    supportLibraryVersion = '25.0.0'
     playServicesVersion = '9.6.1'
     dataBindingVersion = android_build_tools_version
     daggerVersion = '2.7'
     javaxAnnotationsVersion = '10.0-b28'
-    constraintLayoutVersion = '1.0.0-alpha9'
+    constraintLayoutVersion = '1.0.0-beta1'
     glideVersion = '3.7.0'
     jacksonVersion = '2.8.2'
     kotlinVersion = kotlin_version_internal
