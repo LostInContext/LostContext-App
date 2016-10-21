@@ -16,7 +16,7 @@ interface ConditionContract {
 
     interface View : BaseView<Presenter> {
         fun displayFenceChoice()
-        fun notifyItemInserted(item: ConditionItem, position: Int)
+        fun notifyItemInserted(item: ConditionItem)
         fun notifyItemChanged(item: ConditionItem, position: Int, payload: Any)
         fun checkPermissionsAndShowLocationPicker(name: String, item: GridBottomSheetItem)
         fun setItems(items: ArrayList<ConditionItem>)
