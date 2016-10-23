@@ -27,8 +27,15 @@
     <string name="play_text">Play %1$S…</string>
     <string name="position">%1$d.</string>
     <string name="condition_title">Condition %1$d</string>
-    <string name="comp_when">When ^1</string>
-    <string name="comp_or">^1 or ^2</string>
-    <string name="comp_and">^1 and ^2</string>
-    <string name="comp_not">not ^1</string>
+    <string name="when_x">When ^1</string>
+    <string name="x_or_y">^1 or ^2</string>
+    <string name="x_and_y">^1 and ^2</string>
+    <string name="not_x">not ^1</string>
+    <string name="running">running</string>
+    <string name="walking">walking</string>
+    <string name="in_vehicle">in a vehicle</string>
+    <string name="on_bike">on a bike</string>
+    <string name="on_foot">on foot</string>
+    <string name="headphones_in">headphones in</string>
+    <string name="headphones_out">headphones out</string>
 </resources>
