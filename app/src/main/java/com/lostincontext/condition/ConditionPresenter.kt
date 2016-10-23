@@ -1,7 +1,6 @@
 package com.lostincontext.condition
 
 import android.os.Bundle
-import com.genius.groupie.UpdatingGroup
 import com.google.android.gms.maps.model.LatLng
 import com.lostincontext.R
 import com.lostincontext.awareness.Awareness
@@ -17,34 +16,25 @@ import com.lostincontext.data.rules.LocationFenceVM
 import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.rulecreate.ConditionItem
-import com.lostincontext.ruledetails.RuleDetailsContract
 import com.lostincontext.ruledetails.RuleDetailsPresenter
 import com.lostincontext.ruledetails.items.FenceItem
 import java.util.*
 import javax.inject.Inject
 
 
-class ConditionPresenter : ConditionContract.Presenter {
+class ConditionPresenter// todo fetch saved state here
+@Inject internal constructor(private val view: ConditionContract.View, icicle: Bundle?,
+                             private val locationRepository: LocationRepository,
+                             private val awareness: Awareness) : ConditionContract.Presenter {
 
 
-    private val view: ConditionContract.View
-    private val locationRepository: LocationRepository
-    private val awareness: Awareness
     private val items = ArrayList<ConditionItem>()
 
-    @Inject internal constructor(view: ConditionContract.View,
-                                 icicle: Bundle?,
-                                 locationRepository: LocationRepository,
-                                 awareness: Awareness) {
-        this.view = view
-        this.locationRepository = locationRepository
-        this.awareness = awareness
-
+    init {
         if (icicle != null) {
             // todo fetch saved state here
         }
     }
-
 
     override fun start() {
         view.setItems(items)
@@ -122,11 +112,11 @@ class ConditionPresenter : ConditionContract.Presenter {
 
                 val atomicCondition = AtomicCondition(getFenceVMForPick(item),
                                                       AtomicCondition.Modifier.NONE)
-                val conditionItem = ConditionItem(this,
-                                                  items.size,
-                                                  Condition(listOf(atomicCondition)),"")
-                items.add(conditionItem)
-                view.notifyItemInserted(conditionItem)
+                //              val conditionItem = ConditionItem(this,
+                //                                              items.size,
+                //                                            Condition(listOf(atomicCondition)),"")
+                //        items.add(conditionItem)
+                //      view.notifyItemInserted(conditionItem)
             }
 
             RuleDetailsPresenter.Picker.HOME,
@@ -178,10 +168,10 @@ class ConditionPresenter : ConditionContract.Presenter {
     private fun addLocationFence(item: GridBottomSheetItem, locationModel: LocationModel) {
         val fenceVM = LocationFenceVM(locationModel.placeName, locationModel.getLatLng())
 
-        val atomicCondition = AtomicCondition(fenceVM, AtomicCondition.Modifier.NONE)
-        val conditionItem = ConditionItem(this, items.size, Condition(listOf(atomicCondition)), "")
-        items.add(conditionItem)
-        view.notifyItemInserted(conditionItem)
+        val atomicCondition = AtomicCondition(fenceVM)
+        //   val conditionItem = ConditionItem(this, items.size, Condition(listOf(atomicCondition)), "")
+        //   items.add(conditionItem)
+        //   view.notifyItemInserted(conditionItem)
 
     }
 
@@ -192,4 +182,6 @@ class ConditionPresenter : ConditionContract.Presenter {
     override fun onConditionClick(condition: Condition) {
         //todo
     }
+
+
 }

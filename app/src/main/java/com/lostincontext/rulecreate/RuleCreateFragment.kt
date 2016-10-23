@@ -34,7 +34,7 @@ import com.lostincontext.users.UsersActivity
 import java.util.*
 import javax.inject.Inject
 
-class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.View {
+class RuleCreateFragment : Fragment(), RuleCreateContract.View {
 
     @Inject lateinit internal var presenter: RuleCreatePresenter
 
@@ -72,12 +72,12 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
 
         val recyclerView = binding.recyclerView
 
-        adapter = GroupAdapter(this)
+        adapter = GroupAdapter()
 
         playlistItem = PlaylistItem(presenter)
         adapter.add(playlistItem)
 
-        val group: UpdatingGroup<ConditionItem> = UpdatingGroup()
+        val group: UpdatingGroup = UpdatingGroup()
 
 
         val items: ArrayList<ConditionItem> = ArrayList()
@@ -90,12 +90,12 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
         val item = ConditionItem(presenter,
                                  1,
                                  condition,
-                                 scribe.describeCondition(condition))
+                                 scribe)
         items.add(item)
 
         val condition2 = Condition(listOf(AtomicCondition(DetectedActivityFenceVM(RUNNING,
                                                                                   DURING))))
-        val item2 = ConditionItem(presenter, 2, condition2, scribe.describeCondition(condition2))
+        val item2 = ConditionItem(presenter, 2, condition2, scribe)
 
         items.add(item2)
 
@@ -203,11 +203,7 @@ class RuleCreateFragment : Fragment(), View.OnClickListener, RuleCreateContract.
         val PLAYLIST_PICKER_REQUEST_CODE = 9001
     }
 
-    override fun onClick(v: View) {
-    }
-
     inner class OnScrollListener : RecyclerView.OnScrollListener() {
-
 
         var listener: HeaderScrollListener? = null
 

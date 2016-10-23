@@ -33,7 +33,7 @@ import java.util.*
 import javax.inject.Inject
 
 
-class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.View {
+class ConditionFragment : Fragment(), ConditionContract.View {
 
 
     @Inject lateinit internal var presenter: ConditionPresenter
@@ -44,7 +44,7 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
 
     private var savedPlaceName: String? = null
     private var savedGridBottomSheetItem: GridBottomSheetItem? = null
-    private val group: UpdatingGroup<ConditionItem> = UpdatingGroup()
+    private val group: UpdatingGroup = UpdatingGroup()
     private var items: ArrayList<ConditionItem> = ArrayList()
 
 
@@ -85,7 +85,7 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
 
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
-        adapter = GroupAdapter(this)
+        adapter = GroupAdapter()
 
 
         binding.plusButton.callback = presenter
@@ -158,10 +158,6 @@ class ConditionFragment : Fragment(), View.OnClickListener, ConditionContract.Vi
                 showLocationPicker()
             }
         }
-    }
-
-    override fun onClick(v: View?) {
-        //Todo
     }
 
     private fun showLocationPicker() {
