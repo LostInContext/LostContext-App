@@ -1,7 +1,6 @@
 package com.lostincontext.rulecreate
 
 import com.genius.groupie.Item
-import com.genius.groupie.UpdatingGroup
 import com.lostincontext.R
 import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.databinding.ItemConditionBinding
@@ -10,12 +9,12 @@ import com.lostincontext.databinding.ItemConditionBinding
 class ConditionItem constructor(val callback: Callback,
                                 val position: Int,
                                 val condition: Condition,
-                                val text:CharSequence) :
-        Item<ItemConditionBinding>(),
-        UpdatingGroup.Comparable<ConditionItem> {
+                                val scribe: RuleCreateFragment.Scribe) :
+        Item<ItemConditionBinding>() {
 
+    val text: CharSequence = scribe.describeCondition(condition)
 
-    var binding : ItemConditionBinding? = null
+    var binding: ItemConditionBinding? = null
 
 
     interface Callback {
@@ -31,14 +30,5 @@ class ConditionItem constructor(val callback: Callback,
     }
 
     override fun getLayout() = R.layout.item_condition
-
-
-    override fun areContentsTheSame(other: ConditionItem?) = true
-
-    override fun areItemsTheSame(other: ConditionItem) = position == other.position
-
-
-
-
 
 }
