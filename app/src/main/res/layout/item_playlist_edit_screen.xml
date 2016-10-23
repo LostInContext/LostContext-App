@@ -10,6 +10,10 @@
             type="com.lostincontext.data.playlist.Playlist" />
 
         <variable
+            name="transformation"
+            type="com.bumptech.glide.load.resource.bitmap.BitmapTransformation" />
+
+        <variable
             name="callback"
             type="com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder.Callback" />
 
@@ -27,11 +31,12 @@
             android:layout_height="0dp"
             android:contentDescription="@{playlist.title}"
             app:deezer_image="@{playlist}"
-            app:placeholder="@{@color/placeholder_playlist}"
             app:layout_constraintDimensionRatio="H,1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeholder="@{@color/placeholder_playlist}"
+            app:transformation="@{transformation}" />
 
         <TextView
             android:id="@+id/pickButton"
@@ -41,9 +46,10 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            tools:text="pick a playlist"/>
+            tools:text="pick a playlist" />
 
         <TextView
+            style="@style/PlayText"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:text="@{playlist != null ? @string/play_text(playlist.title) : null}"
@@ -51,8 +57,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pickButton"
             tools:ignore="RtlSymmetry"
-            tools:text="Play Electronic..."
-            style="@style/PlayText" />
+            tools:text="Play Electronic..." />
 
 
     </android.support.constraint.ConstraintLayout>
