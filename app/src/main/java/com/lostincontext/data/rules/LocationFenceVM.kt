@@ -35,10 +35,6 @@ data class LocationFenceVM(val state: State,
         return builder.location(this)
     }
 
-    override fun describe(descriptor: FenceDescriptor): String {
-        return descriptor.location(this)
-    }
-
     override fun giveIcon(iconGiver: FenceIconGiver,
                           icons: MutableList<Int>) {
         return iconGiver.location(this, icons)

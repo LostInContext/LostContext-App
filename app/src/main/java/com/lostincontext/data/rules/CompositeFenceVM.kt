@@ -12,8 +12,6 @@ data class CompositeFenceVM(val fenceVMs: List<FenceVM>,
 
     override fun build(builder: FenceBuilder): AwarenessFence = builder.composite(this)
 
-    override fun describe(descriptor: FenceDescriptor): String = descriptor.composite(this)
-
     override fun giveIcon(iconGiver: FenceIconGiver, icons: MutableList<Int>) = iconGiver.composite(this, icons)
 
     override fun name(fenceNamer: FenceNamer) = fenceNamer.composite(this)
