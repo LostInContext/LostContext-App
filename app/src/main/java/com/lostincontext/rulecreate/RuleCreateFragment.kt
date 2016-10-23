@@ -75,7 +75,7 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
 
         adapter = GroupAdapter()
 
-        playlistItem = PlaylistItem(presenter)
+        playlistItem = PlaylistItem(context, presenter)
         adapter.add(playlistItem)
 
         val group: UpdatingGroup = UpdatingGroup()
