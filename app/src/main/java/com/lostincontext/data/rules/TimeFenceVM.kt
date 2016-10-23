@@ -10,8 +10,6 @@ class TimeFenceVM(val state: State,
 
     override fun build(builder: FenceBuilder): AwarenessFence = builder.time(this)
 
-    override fun describe(descriptor: FenceDescriptor): String = descriptor.time(this)
-
     override fun giveIcon(iconGiver: FenceIconGiver,
                           icons: MutableList<Int>) {
         iconGiver.time(this, icons)

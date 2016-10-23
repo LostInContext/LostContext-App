@@ -24,8 +24,6 @@ interface FenceVM {
 
     fun build(builder: FenceBuilder): AwarenessFence
 
-    fun describe(descriptor: FenceDescriptor): String
-
     fun giveIcon(iconGiver: FenceIconGiver,
                  icons: MutableList<Int>)
 
