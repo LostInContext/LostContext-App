@@ -3,14 +3,25 @@ package com.lostincontext.utils
 
 import android.animation.ValueAnimator
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.support.annotation.ColorInt
+import android.support.annotation.ColorRes
 import android.view.View
 import android.view.animation.Interpolator
 import android.widget.ImageView
 import android.widget.TextView
 import com.lostincontext.commons.animation.GammaEvaluator
+
+
+fun Resources.getColorSafe(@ColorRes colorRes: Int,
+                           theme: Resources.Theme): Int {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) return getColor(colorRes, theme)
+    @Suppress("DEPRECATION")
+    return getColor(colorRes)
+}
 
 
 fun View.animateBackgroundColor(@ColorInt from: Int,

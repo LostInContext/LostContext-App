@@ -23,6 +23,7 @@ import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rules.DetectedActivityFenceVM
 import com.lostincontext.data.rules.DetectedActivityFenceVM.State.DURING
 import com.lostincontext.data.rules.DetectedActivityFenceVM.Type.RUNNING
+import com.lostincontext.data.rules.DetectedActivityFenceVM.Type.WALKING
 import com.lostincontext.data.rules.FenceNamer
 import com.lostincontext.data.rules.HeadphoneFenceVM
 import com.lostincontext.data.rulesV2.AtomicCondition
@@ -93,7 +94,7 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
                                  scribe)
         items.add(item)
 
-        val condition2 = Condition(listOf(AtomicCondition(DetectedActivityFenceVM(RUNNING,
+        val condition2 = Condition(listOf(AtomicCondition(DetectedActivityFenceVM(WALKING,
                                                                                   DURING))))
         val item2 = ConditionItem(presenter, 2, condition2, scribe)
 
@@ -125,7 +126,7 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
         val theme: Resources.Theme = context.theme
 
         fun describeCondition(condition: Condition): CharSequence {
-            val description = resources.getString(R.string.comp_when)
+            val description = resources.getString(R.string.when_x)
             return TextUtils.expandTemplate(description,
                                             describeAtomicConditions(condition.atomics))
 
@@ -134,7 +135,7 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
         fun describeAtomicConditions(conditions: List<AtomicCondition>): CharSequence {
             val namer = FenceNamer(context)
 
-            val template = resources.getString(R.string.comp_and)
+            val template = resources.getString(R.string.x_and_y)
 
             when (conditions.size) {
                 0 -> return ""
