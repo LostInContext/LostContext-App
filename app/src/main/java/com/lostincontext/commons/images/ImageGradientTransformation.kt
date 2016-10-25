@@ -3,9 +3,12 @@ package com.lostincontext.commons.images
 
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.GradientDrawable
-
+import android.util.TypedValue
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.lostincontext.R
@@ -17,11 +20,18 @@ class ImageGradientTransformation(val context: Context) : BitmapTransformation(c
     val theme: Resources.Theme = context.theme
     val paint: Paint = Paint()
     val gradient = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                                    intArrayOf(resources.getColorSafe(R.color.colorAccent, theme),
+                                    intArrayOf(resources.getColorSafe(R.color.image_protection,
+                                                                      theme),
                                                Color.TRANSPARENT))
 
+    val actionBarSize: Int
+
     init {
-    //    paint.isDither = true
+
+        val a = context.obtainStyledAttributes(TypedValue().data,
+                                               intArrayOf(R.attr.actionBarSize))
+        actionBarSize = a.getDimensionPixelSize(0, 0)
+
     }
 
     override fun transform(pool: BitmapPool,
@@ -37,22 +47,11 @@ class ImageGradientTransformation(val context: Context) : BitmapTransformation(c
 
         canvas.drawBitmap(toTransform, 0f, 0f, paint)
 
-//        gradient.setBounds(0, 0, result.width, result.height)
-       // gradient.draw(canvas)
-
-        val grad = LinearGradient(0f,
-                                  0f,
-                                  0f,
-                                  toTransform.height.toFloat(),
-                                  resources.getColorSafe(R.color.colorAccent, theme),
-                                  Color.TRANSPARENT, Shader.TileMode.CLAMP)
-
-        paint.shader = grad
-     //   paint.isDither = true
-        canvas.drawRect(RectF(0f, 0f, toTransform.width.toFloat(), toTransform.height.toFloat()),
-                        paint)
+        val height = Math.min(toTransform.height, 3 * actionBarSize)
 
 
+        gradient.setBounds(0, 0, toTransform.width, height)
+        gradient.draw(canvas)
 
         return result
     }
