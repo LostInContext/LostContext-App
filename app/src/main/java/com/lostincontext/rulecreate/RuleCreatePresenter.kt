@@ -10,10 +10,6 @@ class RuleCreatePresenter : RuleCreateContract.Presenter {
 
     var playlist: Playlist? = null
 
-    override fun saveState(outState: Bundle) {
-    }
-
-
     private val view: RuleCreateContract.View
 
     @Inject internal constructor(view: RuleCreateContract.View,
@@ -22,12 +18,17 @@ class RuleCreatePresenter : RuleCreateContract.Presenter {
         this.view = view
 
         if (icicle != null) {
-            // todo fetch saved state here
+            playlist = icicle.getParcelable(KEY_PLAYLIST)
         }
 
     }
 
     override fun start() {
+        if (playlist != null) view.setPlaylist(playlist)
+    }
+
+    override fun saveState(outState: Bundle) {
+        outState.putParcelable(KEY_PLAYLIST, playlist)
     }
 
     override fun onPlusButtonClick() = view.pickACondition()
@@ -52,4 +53,7 @@ class RuleCreatePresenter : RuleCreateContract.Presenter {
     }
 
 
+    companion object {
+        const val KEY_PLAYLIST = "PlaylistRuleCreatePresenter";
+    }
 }

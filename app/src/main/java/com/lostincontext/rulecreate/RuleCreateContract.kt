@@ -11,7 +11,7 @@ object RuleCreateContract {
     interface View : BaseView<Presenter> {
         fun pickACondition()
         fun pickAPlaylist()
-        fun setPlaylist(playlist: Playlist)
+        fun setPlaylist(playlist: Playlist?)
 
     }
 

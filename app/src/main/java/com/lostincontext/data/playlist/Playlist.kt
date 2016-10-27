@@ -11,7 +11,7 @@ data class Playlist(val id: Long,
                     val creator: Creator,
                     override val coverMd5: String,
                     override @DeezerImageType val imageType: Long)
-: DeezerImage, Parcelable {
+    : DeezerImage, Parcelable {
 
 
     private constructor(`in`: Parcel) : this(`in`.readLong(),

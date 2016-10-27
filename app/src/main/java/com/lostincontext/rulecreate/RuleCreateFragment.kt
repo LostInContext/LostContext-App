@@ -45,6 +45,8 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
 
     private lateinit var adapter: GroupAdapter
 
+    private var playlist:Playlist? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -114,6 +116,7 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
 
+        binding.playlist = playlist
 
         return binding.root
 
@@ -192,9 +195,9 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
 
     }
 
-    override fun setPlaylist(playlist: Playlist) {
+    override fun setPlaylist(playlist: Playlist?) {
         playlistItem.playlist = playlist
-        binding.toolbar.title = playlist.title
+        binding.playlist = playlist
     }
 
 
