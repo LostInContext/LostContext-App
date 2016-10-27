@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.lostincontext.rulecreate.AtomicConditionItem" />
+
+        <variable
+            name="callback"
+            type="com.lostincontext.rulecreate.AtomicConditionItem.Callback" />
+
+
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="88dp"
+            android:layout_height="64dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:onClick="@{() -> callback.onToggleClick(viewModel.atomic)}"
+            android:paddingStart="16dp"
+            android:text="@{viewModel.modifierRes}"
+            android:textColor="?colorAccent"
+            android:textSize="14dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry,SpUsage"
+            tools:text="WHEN NOT" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:text="@{viewModel.name}"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/position"
+            app:layout_constraintLeft_toRightOf="@+id/position"
+            app:layout_constraintRight_toLeftOf="@+id/clear"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry"
+            tools:text="headphone plugged in" />
+
+        <ImageView
+            android:id="@+id/clear"
+            android:layout_width="56dp"
+            android:layout_height="64dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:onClick="@{()-> callback.onDeleteButtonClick(viewModel.atomic)}"
+            android:scaleType="center"
+            android:src="@drawable/ic_clear_24"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</layout>

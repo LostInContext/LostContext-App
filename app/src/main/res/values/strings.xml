@@ -6,6 +6,7 @@
     <string name="user_search_hint">Search for an user</string>
     <string name="then_play">Then, play :</string>
     <string name="when">When</string>
+    <string name="when_not">When not</string>
     <string name="or">Or</string>
     <string name="and">And</string>
     <string name="and_not">and not</string>
