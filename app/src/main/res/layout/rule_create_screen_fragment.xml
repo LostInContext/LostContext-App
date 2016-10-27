@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="playlist"
+            type="com.lostincontext.data.playlist.Playlist" />
+
+    </data>
+
     <com.lostincontext.rulecreate.ScrimCoordinatorLayout
         android:id="@+id/scrimLayout"
         android:layout_width="match_parent"
@@ -23,9 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:title="@{playlist.title}"
             app:navigationIcon="?homeAsUpIndicator"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         <include
             android:id="@+id/plus_button"
