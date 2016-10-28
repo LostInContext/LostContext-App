@@ -7,31 +7,28 @@ import com.lostincontext.commons.list.Section
 import com.lostincontext.condition.pick.GridBottomSheetItem
 import com.lostincontext.condition.pick.PickerDialogCallback
 import com.lostincontext.condition.pick.PlusButtonCallback
-import com.lostincontext.rulecreate.ConditionItem
+import com.lostincontext.data.rulesV2.AtomicCondition
+import com.lostincontext.rulecreate.AtomicConditionItem
 import com.lostincontext.ruledetails.items.FenceItemCallback
-import java.util.*
 
 
 interface ConditionContract {
 
     interface View : BaseView<Presenter> {
-        fun displayFenceChoice()
-        fun notifyItemInserted(item: ConditionItem)
-        fun notifyItemChanged(item: ConditionItem, position: Int, payload: Any)
-        fun checkPermissionsAndShowLocationPicker(name: String, item: GridBottomSheetItem)
-        fun setItems(items: ArrayList<ConditionItem>)
 
+        fun displayFenceChoice()
+        fun checkPermissionsAndShowLocationPicker(name: String, item: GridBottomSheetItem)
+        fun add(atomicCondition: AtomicCondition, isFirst: Boolean)
     }
 
     interface Presenter : BasePresenter,
                           PlusButtonCallback,
                           PickerDialogCallback,
                           FenceItemCallback,
-                          ConditionItem.Callback {
+                          AtomicConditionItem.Callback {
 
         fun onMenuItemClick(itemId: Int): Boolean
         fun provideFenceChoices(): List<Section<*>>
         fun onPlacePicked(placeName: String, item: GridBottomSheetItem, latLng: LatLng)
-
     }
 }

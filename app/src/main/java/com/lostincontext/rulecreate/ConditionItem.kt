@@ -9,7 +9,7 @@ import com.lostincontext.databinding.ItemConditionBinding
 class ConditionItem constructor(val callback: Callback,
                                 val position: Int,
                                 val condition: Condition,
-                                val scribe: RuleCreateFragment.Scribe) :
+                                scribe: RuleCreateFragment.Scribe) :
         Item<ItemConditionBinding>() {
 
     val text: CharSequence = scribe.describeCondition(condition)

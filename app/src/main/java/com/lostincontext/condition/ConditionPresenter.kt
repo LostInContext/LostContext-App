@@ -14,36 +14,29 @@ import com.lostincontext.data.rules.FenceVM
 import com.lostincontext.data.rules.HeadphoneFenceVM
 import com.lostincontext.data.rules.LocationFenceVM
 import com.lostincontext.data.rulesV2.AtomicCondition
-import com.lostincontext.data.rulesV2.Condition
-import com.lostincontext.rulecreate.ConditionItem
 import com.lostincontext.ruledetails.RuleDetailsPresenter
 import com.lostincontext.ruledetails.items.FenceItem
 import java.util.*
 import javax.inject.Inject
 
 
-class ConditionPresenter// todo fetch saved state here
+class ConditionPresenter
 @Inject internal constructor(private val view: ConditionContract.View, icicle: Bundle?,
                              private val locationRepository: LocationRepository,
                              private val awareness: Awareness) : ConditionContract.Presenter {
 
 
-    private val items = ArrayList<ConditionItem>()
+    private val items = ArrayList<AtomicCondition>()
 
     init {
-        if (icicle != null) {
-            // todo fetch saved state here
-        }
+        icicle?.let {  /* todo fetch saved state here */ }
     }
 
     override fun start() {
-        view.setItems(items)
-
+        //view.setItems(items)
     }
 
-    override fun onLinkClick(item: FenceItem) {
-        toggleLink(item)
-    }
+    override fun onLinkClick(item: FenceItem) = toggleLink(item)
 
     fun toggleLink(item: FenceItem) {
 //        when (item.link) {
@@ -112,6 +105,9 @@ class ConditionPresenter// todo fetch saved state here
 
                 val atomicCondition = AtomicCondition(getFenceVMForPick(item),
                                                       AtomicCondition.Modifier.NONE)
+                items.add(atomicCondition)
+                view.add(atomicCondition, items.size == 1)
+
                 //              val conditionItem = ConditionItem(this,
                 //                                              items.size,
                 //                                            Condition(listOf(atomicCondition)),"")
@@ -175,13 +171,12 @@ class ConditionPresenter// todo fetch saved state here
 
     }
 
-    override fun onDeleteButtonClick(condition: Condition) {
-        //todo
+    override fun onDeleteButtonClick(atomic: AtomicCondition) {
+
     }
 
-    override fun onConditionClick(condition: Condition) {
-        //todo
-    }
+    override fun onToggleClick(atomic: AtomicCondition) {
 
+    }
 
 }
