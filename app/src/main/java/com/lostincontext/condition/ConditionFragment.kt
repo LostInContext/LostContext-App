@@ -149,7 +149,7 @@ class ConditionFragment : Fragment(), ConditionContract.View {
             if (requestCode == LOCATION_PICKER_REQUEST_CODE
                     && resultCode == Activity.RESULT_OK
                     && !TextUtils.isEmpty(savedPlaceName)) {
-                val place = PlacePicker.getPlace(context, data!!)
+                val place = PlacePicker.getPlace(context, data)
                 val latLng = place.latLng
                 presenter.onPlacePicked(savedPlaceName!!, savedGridBottomSheetItem!!, latLng)
             } else if (requestCode == PLAY_SERVICES_REQUEST_CODE
