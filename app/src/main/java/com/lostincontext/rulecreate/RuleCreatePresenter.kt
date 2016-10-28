@@ -16,15 +16,11 @@ class RuleCreatePresenter : RuleCreateContract.Presenter {
                                  icicle: Bundle?) {
 
         this.view = view
-
-        if (icicle != null) {
-            playlist = icicle.getParcelable(KEY_PLAYLIST)
-        }
-
+        icicle?.let { playlist = icicle.getParcelable(KEY_PLAYLIST) }
     }
 
     override fun start() {
-        if (playlist != null) view.setPlaylist(playlist)
+        playlist?.let { view.setPlaylist(playlist) }
     }
 
     override fun saveState(outState: Bundle) {
@@ -41,7 +37,6 @@ class RuleCreatePresenter : RuleCreateContract.Presenter {
     }
 
     override fun onMenuItemClick(itemId: Int): Boolean {
-
         return false
     }
 
@@ -54,6 +49,6 @@ class RuleCreatePresenter : RuleCreateContract.Presenter {
 
 
     companion object {
-        const val KEY_PLAYLIST = "PlaylistRuleCreatePresenter";
+        const val KEY_PLAYLIST = "PlaylistRuleCreatePresenter"
     }
 }
