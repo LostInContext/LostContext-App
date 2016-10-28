@@ -14,20 +14,15 @@ object UsersContract {
     interface View : BaseView<Presenter> {
 
         fun setUsers(users: List<User>)
-
         fun setContentState(state: StatefulAdapter.ContentState)
-        fun  openPlaylistsScreen(user: User)
-
+        fun openPlaylistsScreen(user: User)
     }
 
     interface Presenter : BasePresenter,
                           EmptyListCallback,
                           UserViewHolder.Callback {
 
-
         fun onUserSearch(query: CharSequence)
         fun saveState(outState: Bundle)
-
-
     }
 }

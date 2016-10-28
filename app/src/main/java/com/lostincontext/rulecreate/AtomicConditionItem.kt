@@ -24,7 +24,7 @@ class AtomicConditionItem constructor(val callback: Callback,
         viewBinding.viewModel = this
     }
 
-    override fun getLayout() = R.layout.item_condition
+    override fun getLayout() = R.layout.item_atomic_condition
 
 
     fun getModifierRes(): Int {

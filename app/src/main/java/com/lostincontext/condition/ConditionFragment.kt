@@ -24,7 +24,10 @@ import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.condition.pick.GridBottomSheetItem
+import com.lostincontext.data.rules.FenceNamer
+import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.databinding.ConditionScreenFragmentBinding
+import com.lostincontext.rulecreate.AtomicConditionItem
 import com.lostincontext.rulecreate.ConditionItem
 import com.lostincontext.ruledetails.ConditionPresenterModule
 import com.lostincontext.ruledetails.PickerDialogFragment
@@ -42,10 +45,12 @@ class ConditionFragment : Fragment(), ConditionContract.View {
 
     private lateinit var adapter: GroupAdapter
 
+    private lateinit var namer: FenceNamer
+
     private var savedPlaceName: String? = null
     private var savedGridBottomSheetItem: GridBottomSheetItem? = null
     private val group: UpdatingGroup = UpdatingGroup()
-    private var items: ArrayList<ConditionItem> = ArrayList()
+    private var items: ArrayList<AtomicConditionItem> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +63,8 @@ class ConditionFragment : Fragment(), ConditionContract.View {
                 .awarenessModule(AwarenessModule(activity as BaseActivity))
                 .build()
                 .inject(this)
+
+        namer = FenceNamer(context)
 
         val manager = fragmentManager
         val pickerFragment = manager.findFragmentByTag(PickerDialogFragment.TAG) as PickerDialogFragment?
@@ -86,6 +93,7 @@ class ConditionFragment : Fragment(), ConditionContract.View {
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
         adapter = GroupAdapter()
+        adapter.add(group)
 
 
         binding.plusButton.callback = presenter
@@ -97,6 +105,16 @@ class ConditionFragment : Fragment(), ConditionContract.View {
                                                                34) // todo condition number
 
         return binding.root
+    }
+
+    override fun add(atomicCondition: AtomicCondition, isFirst: Boolean) {
+        logD(TAG) {"add : $atomicCondition, is first ? $isFirst"}
+        val item = AtomicConditionItem(presenter,
+                                       atomicCondition,
+                                       isFirst,
+                                       namer)
+        items.add(item)
+        group.update(items)
     }
 
     override fun displayFenceChoice() {
@@ -111,14 +129,6 @@ class ConditionFragment : Fragment(), ConditionContract.View {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onMenuItemClick(item.itemId)
-
-    override fun notifyItemInserted(item: ConditionItem) {
-        group.update(items)
-    }
-
-    override fun notifyItemChanged(item: ConditionItem, position: Int, payload: Any) {
-        adapter.notifyItemChanged(group.getPosition(item), payload)
-    }
 
     override fun checkPermissionsAndShowLocationPicker(name: String, item: GridBottomSheetItem) {
         savedPlaceName = name
@@ -136,12 +146,6 @@ class ConditionFragment : Fragment(), ConditionContract.View {
         }
     }
 
-
-    override fun setItems(items: ArrayList<ConditionItem>) {
-        this.items = items
-        group.update(items)
-        adapter.add(group)
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -211,9 +215,7 @@ class ConditionFragment : Fragment(), ConditionContract.View {
         private val PLAY_SERVICES_REQUEST_CODE = 9004
 
         private val FINE_LOCATION_ARRAY = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-        fun newInstance(): ConditionFragment {
-            return ConditionFragment()
-        }
+        fun newInstance(): ConditionFragment = ConditionFragment()
     }
 }
 

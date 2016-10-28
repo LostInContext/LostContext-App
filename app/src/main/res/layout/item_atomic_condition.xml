@@ -30,6 +30,7 @@
             android:onClick="@{() -> callback.onToggleClick(viewModel.atomic)}"
             android:paddingStart="16dp"
             android:text="@{viewModel.modifierRes}"
+            android:textAllCaps="true"
             android:textColor="?colorAccent"
             android:textSize="14dp"
             app:layout_constraintLeft_toLeftOf="parent"
