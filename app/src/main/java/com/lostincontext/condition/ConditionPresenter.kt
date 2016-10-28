@@ -2,6 +2,7 @@ package com.lostincontext.condition
 
 import android.os.Bundle
 import com.google.android.gms.maps.model.LatLng
+import com.lostincontext.BR
 import com.lostincontext.R
 import com.lostincontext.awareness.Awareness
 import com.lostincontext.commons.list.Section
@@ -15,7 +16,6 @@ import com.lostincontext.data.rules.HeadphoneFenceVM
 import com.lostincontext.data.rules.LocationFenceVM
 import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.ruledetails.RuleDetailsPresenter
-import com.lostincontext.ruledetails.items.FenceItem
 import java.util.*
 import javax.inject.Inject
 
@@ -36,25 +36,22 @@ class ConditionPresenter
         //view.setItems(items)
     }
 
-    override fun onLinkClick(item: FenceItem) = toggleLink(item)
-
-    fun toggleLink(item: FenceItem) {
-//        when (item.link) {
-//            AtomicCondition.Modifier.NONE -> item.link = FenceItem.Link.AND
-//            AtomicCondition.Modifier.NOT -> item.link = FenceItem.Link.AND_NOT
-//            FenceItem.Link.AND_NOT -> item.link = FenceItem.Link.OR_NOT
-//            FenceItem.Link.OR_NOT -> item.link = FenceItem.Link.AND
-//            FenceItem.Link.WHEN -> throw  RuntimeException("unexpected")
-//        }
-//        view.notifyItemChanged(items.indexOf(item), RuleDetailsContract.LINK_CHANGED)
-    }
-
     override fun onPlusButtonClick() = view.displayFenceChoice()
 
     override fun onMenuItemClick(itemId: Int): Boolean {
         return true
     }
 
+    override fun onDeleteButtonClick(atomic: AtomicCondition) {
+        items.remove(atomic)
+        view.remove(atomic)
+    }
+
+    override fun onToggleClick(atomic: AtomicCondition) {
+        atomic.toggle()
+    }
+
+    //region fence pick dialog
     override fun provideFenceChoices(): List<Section<*>> {
         val choices = arrayListOf(GridBottomSheetItem("Walking",
                                                       R.drawable.ic_walk_24,
@@ -105,14 +102,8 @@ class ConditionPresenter
 
                 val atomicCondition = AtomicCondition(getFenceVMForPick(item),
                                                       AtomicCondition.Modifier.NONE)
-                items.add(atomicCondition)
-                view.add(atomicCondition, items.size == 1)
+                addCondition(atomicCondition)
 
-                //              val conditionItem = ConditionItem(this,
-                //                                              items.size,
-                //                                            Condition(listOf(atomicCondition)),"")
-                //        items.add(conditionItem)
-                //      view.notifyItemInserted(conditionItem)
             }
 
             RuleDetailsPresenter.Picker.HOME,
@@ -165,18 +156,15 @@ class ConditionPresenter
         val fenceVM = LocationFenceVM(locationModel.placeName, locationModel.getLatLng())
 
         val atomicCondition = AtomicCondition(fenceVM)
-        //   val conditionItem = ConditionItem(this, items.size, Condition(listOf(atomicCondition)), "")
-        //   items.add(conditionItem)
-        //   view.notifyItemInserted(conditionItem)
+        addCondition(atomicCondition)
 
     }
 
-    override fun onDeleteButtonClick(atomic: AtomicCondition) {
-
+    private fun addCondition(atomicCondition: AtomicCondition) {
+        items.add(atomicCondition)
+        view.add(atomicCondition, items.size == 1)
     }
 
-    override fun onToggleClick(atomic: AtomicCondition) {
-
-    }
+    //endregion
 
 }

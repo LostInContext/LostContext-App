@@ -28,7 +28,6 @@ import com.lostincontext.data.rules.FenceNamer
 import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.databinding.ConditionScreenFragmentBinding
 import com.lostincontext.rulecreate.AtomicConditionItem
-import com.lostincontext.rulecreate.ConditionItem
 import com.lostincontext.ruledetails.ConditionPresenterModule
 import com.lostincontext.ruledetails.PickerDialogFragment
 import com.lostincontext.utils.logD
@@ -107,8 +106,14 @@ class ConditionFragment : Fragment(), ConditionContract.View {
         return binding.root
     }
 
+    override fun remove(atomic: AtomicCondition) {
+        val item = items.find { it.atomic == atomic }
+        items.remove(item)
+        group.update(items)
+    }
+
     override fun add(atomicCondition: AtomicCondition, isFirst: Boolean) {
-        logD(TAG) {"add : $atomicCondition, is first ? $isFirst"}
+        logD(TAG) { "add : $atomicCondition, is first ? $isFirst" }
         val item = AtomicConditionItem(presenter,
                                        atomicCondition,
                                        isFirst,
