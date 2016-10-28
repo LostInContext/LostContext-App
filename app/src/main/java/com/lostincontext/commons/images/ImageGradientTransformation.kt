@@ -14,6 +14,10 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.lostincontext.R
 import com.lostincontext.utils.getColorSafe
 
+/**
+ * Allows a protection gradient on top of an image so that it can be displayed with some white content
+ * on top
+ */
 class ImageGradientTransformation(val context: Context) : BitmapTransformation(context) {
 
     val resources: Resources = context.resources
@@ -32,6 +36,8 @@ class ImageGradientTransformation(val context: Context) : BitmapTransformation(c
                                                intArrayOf(R.attr.actionBarSize))
         actionBarSize = a.getDimensionPixelSize(0, 0)
 
+        a.recycle()
+
     }
 
     override fun transform(pool: BitmapPool,
@@ -41,8 +47,7 @@ class ImageGradientTransformation(val context: Context) : BitmapTransformation(c
 
         val result = getBitmapForTransformation(pool,
                                                 toTransform.width,
-                                                toTransform.height,
-                                                toTransform)
+                                                toTransform.height)
         val canvas = Canvas(result)
 
         canvas.drawBitmap(toTransform, 0f, 0f, paint)
@@ -56,19 +61,17 @@ class ImageGradientTransformation(val context: Context) : BitmapTransformation(c
         return result
     }
 
-
+    /**
+     * in order to avoid banding, we use a bitmap in ARGB_8888 mode
+     */
     private fun getBitmapForTransformation(pool: BitmapPool,
                                            width: Int,
-                                           height: Int,
-                                           baseBitmap: Bitmap): Bitmap {
-        val toReuse = pool.get(width, height, getSafeConfig(baseBitmap))
+                                           height: Int): Bitmap {
+        val toReuse = pool.get(width, height, Bitmap.Config.ARGB_8888)
         if (toReuse != null) return toReuse
-        return Bitmap.createBitmap(width, height, getSafeConfig(baseBitmap))
+        return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
     }
 
-    private fun getSafeConfig(bitmap: Bitmap): Bitmap.Config {
-        return /*if (bitmap.config != null) bitmap.config else*/ Bitmap.Config.ARGB_8888
-    }
 
     override fun getId() = "GradientTr-LostContext"
 }
