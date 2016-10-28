@@ -19,6 +19,7 @@ class FenceNamer(val context: Context) {
     val notTemplate: String by lazy { resources.getString(R.string.not_x) }
 
 
+    @Suppress("UNUSED_PARAMETER")
     fun composite(compositeFenceVM: CompositeFenceVM): CharSequence {
         throw UnsupportedOperationException("not supported")
         // composites should not use named directly but call the scribe instead
@@ -55,6 +56,7 @@ class FenceNamer(val context: Context) {
     }
 
 
+    @Suppress("UNUSED_PARAMETER")
     fun time(timeFenceVM: TimeFenceVM): CharSequence {
         throw UnsupportedOperationException("not implemented yet")
     }
