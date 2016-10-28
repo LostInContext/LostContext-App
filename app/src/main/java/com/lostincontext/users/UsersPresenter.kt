@@ -8,32 +8,35 @@ import com.lostincontext.data.user.repo.UserRepository
 import com.lostincontext.utils.logD
 import javax.inject.Inject
 
-class UsersPresenter : UsersContract.Presenter {
+class UsersPresenter @Inject internal constructor(private val view: UsersContract.View,
+                                                  private val usersRepository: UserRepository,
+                                                  icicle: Bundle?)
+    : UsersContract.Presenter {
 
 
-    private val view: UsersContract.View
-    private val usersRepository: UserRepository
+    private var query: CharSequence? = null
 
-    @Inject internal constructor(view: UsersContract.View,
-                                 usersRepository: UserRepository,
-                                 icicle: Bundle?) {
-        this.view = view
-        this.usersRepository = usersRepository
-
+    init {
+        icicle?.let { query = it.getCharSequence(KEY_QUERY) }
+        logD(TAG) {"icicle : $icicle" }
     }
 
     override fun start() {
-
+        logD(TAG) { "query : $query" }
+        query?.let {
+            onUserSearch(it)
+        }
     }
 
+    override fun saveState(outState: Bundle) = outState.putCharSequence(KEY_QUERY, query)
 
-    override fun onItemClick(user: User) {
-        view.openPlaylistsScreen(user)
-    }
+
+    override fun onItemClick(user: User) = view.openPlaylistsScreen(user)
 
 
     override fun onUserSearch(query: CharSequence) {
         logD(TAG) { "onUserSearch : $query" }
+        this.query = query
         usersRepository.queryUsers(query.toString(),
                                    {
                                        if (it.users != null) view.setUsers(it.users)
@@ -45,12 +48,13 @@ class UsersPresenter : UsersContract.Presenter {
     }
 
     override fun onRefreshButtonClick() {
-
     }
 
     companion object {
         private val TAG: String = UsersPresenter::class.java.simpleName
+        const private val KEY_QUERY = "queryUsersPresenter"
     }
+
 
 }
 

@@ -1,5 +1,6 @@
 package com.lostincontext.users
 
+import android.os.Bundle
 import com.lostincontext.commons.BasePresenter
 import com.lostincontext.commons.BaseView
 import com.lostincontext.commons.list.EmptyListCallback
@@ -25,6 +26,7 @@ object UsersContract {
 
 
         fun onUserSearch(query: CharSequence)
+        fun saveState(outState: Bundle)
 
 
     }
