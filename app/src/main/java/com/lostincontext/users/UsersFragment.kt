@@ -7,11 +7,9 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.gms.location.places.ui.PlacePicker
 import com.lostincontext.R
 import com.lostincontext.application.LostApplication
 import com.lostincontext.commons.list.StatefulAdapter
@@ -51,12 +49,6 @@ class UsersFragment : Fragment(), UsersContract.View {
                                                                       false)
 
 
-        if (savedInstanceState != null) {
-            val savedQuery = savedInstanceState.getString(KEY_SEARCH,
-                                                          "")
-            binding.userInputEditText.setText(savedQuery)
-        }
-
         val recyclerView = binding.recyclerView
 
         val layoutManager = LinearLayoutManager(context)
@@ -71,10 +63,14 @@ class UsersFragment : Fragment(), UsersContract.View {
         return binding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        presenter.start()
+    }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(KEY_SEARCH,
-                           binding.userInputEditText.text.toString())
+        presenter.saveState(outState)
         super.onSaveInstanceState(outState)
     }
 
@@ -109,13 +105,6 @@ class UsersFragment : Fragment(), UsersContract.View {
     //endregion
 
     companion object {
-
-        private const val KEY_SEARCH = "user_query"
-
-        private val TAG = UsersFragment::class.java.simpleName
-
-        fun newInstance(): UsersFragment {
-            return UsersFragment()
-        }
+        fun newInstance(): UsersFragment = UsersFragment()
     }
 }
