@@ -19,12 +19,12 @@ interface ConditionContract {
         fun displayFenceChoice()
         fun checkPermissionsAndShowLocationPicker(name: String, item: GridBottomSheetItem)
         fun add(atomicCondition: AtomicCondition, isFirst: Boolean)
+        fun remove(atomic: AtomicCondition)
     }
 
     interface Presenter : BasePresenter,
                           PlusButtonCallback,
                           PickerDialogCallback,
-                          FenceItemCallback,
                           AtomicConditionItem.Callback {
 
         fun onMenuItemClick(itemId: Int): Boolean
