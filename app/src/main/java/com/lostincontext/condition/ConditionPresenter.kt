@@ -14,7 +14,7 @@ import com.lostincontext.data.rules.FenceVM
 import com.lostincontext.data.rules.HeadphoneFenceVM
 import com.lostincontext.data.rules.LocationFenceVM
 import com.lostincontext.data.rulesV2.AtomicCondition
-import com.lostincontext.ruledetails.RuleDetailsPresenter
+import com.lostincontext.ruledetails.RuleDetailsPresenter.Picker
 import java.util.*
 import javax.inject.Inject
 
@@ -32,7 +32,6 @@ class ConditionPresenter
     }
 
     override fun start() {
-        //view.setItems(items)
     }
 
     override fun onPlusButtonClick() = view.displayFenceChoice()
@@ -44,6 +43,37 @@ class ConditionPresenter
     override fun onDeleteButtonClick(atomic: AtomicCondition) {
         items.remove(atomic)
         view.remove(atomic)
+
+        val picker = getPickerForAtomic(atomic)
+
+        val find = choices.find { it.picker == picker }
+        find?.isPicked?.set(false)
+
+    }
+
+    private fun getPickerForAtomic(atomic: AtomicCondition): Picker {
+        val fence = atomic.fence
+
+        when (fence) {
+            is DetectedActivityFenceVM -> when (fence.type) {
+                DetectedActivityFenceVM.Type.RUNNING -> return Picker.RUN
+                DetectedActivityFenceVM.Type.WALKING -> return Picker.WALK
+                DetectedActivityFenceVM.Type.IN_VEHICLE -> return Picker.CAR
+                DetectedActivityFenceVM.Type.ON_BICYCLE -> return Picker.BIKE
+            }
+
+            is HeadphoneFenceVM -> when (fence.state) {
+                HeadphoneFenceVM.State.PLUGGED_IN -> return Picker.PLUG_IN
+                HeadphoneFenceVM.State.PLUGGED_OUT -> return Picker.PLUG_OUT
+            }
+
+            is LocationFenceVM -> when (fence.name) {
+                LocationFenceVM.HOME -> return Picker.HOME
+                LocationFenceVM.WORK -> return Picker.WORK
+            }
+
+        }
+        throw IllegalArgumentException("missing picker")
     }
 
     override fun onToggleClick(atomic: AtomicCondition) {
@@ -56,28 +86,28 @@ class ConditionPresenter
 
     val choices = arrayListOf(GridBottomSheetItem("Walking",
                                                   R.drawable.ic_walk_24,
-                                                  RuleDetailsPresenter.Picker.WALK),
+                                                  Picker.WALK),
                               GridBottomSheetItem("Running",
                                                   R.drawable.ic_run_24,
-                                                  RuleDetailsPresenter.Picker.RUN),
+                                                  Picker.RUN),
                               GridBottomSheetItem("On bicycle",
                                                   R.drawable.ic_bike_24,
-                                                  RuleDetailsPresenter.Picker.BIKE),
+                                                  Picker.BIKE),
                               GridBottomSheetItem("In vehicle",
                                                   R.drawable.ic_car_24,
-                                                  RuleDetailsPresenter.Picker.CAR),
+                                                  Picker.CAR),
                               GridBottomSheetItem("Plugged in",
                                                   R.drawable.ic_headset_24,
-                                                  RuleDetailsPresenter.Picker.PLUG_IN),
+                                                  Picker.PLUG_IN),
                               GridBottomSheetItem("Plugged out",
                                                   R.drawable.ic_headset_24,
-                                                  RuleDetailsPresenter.Picker.PLUG_OUT),
+                                                  Picker.PLUG_OUT),
                               GridBottomSheetItem("At home",
                                                   R.drawable.ic_home_24,
-                                                  RuleDetailsPresenter.Picker.HOME),
+                                                  Picker.HOME),
                               GridBottomSheetItem("At work",
                                                   R.drawable.ic_work_24,
-                                                  RuleDetailsPresenter.Picker.WORK))
+                                                  Picker.WORK))
 
     val fencesSection = BottomSheetItemSection("Add a rule…", choices)
     val choicesList = Arrays.asList<Section<*>>(fencesSection)
@@ -96,12 +126,12 @@ class ConditionPresenter
     override fun onGridBottomSheetItemClick(item: GridBottomSheetItem) {
         when (item.picker) {
 
-            RuleDetailsPresenter.Picker.WALK,
-            RuleDetailsPresenter.Picker.RUN,
-            RuleDetailsPresenter.Picker.BIKE,
-            RuleDetailsPresenter.Picker.CAR,
-            RuleDetailsPresenter.Picker.PLUG_IN,
-            RuleDetailsPresenter.Picker.PLUG_OUT -> {
+            Picker.WALK,
+            Picker.RUN,
+            Picker.BIKE,
+            Picker.CAR,
+            Picker.PLUG_IN,
+            Picker.PLUG_OUT -> {
 
                 val atomicCondition = AtomicCondition(getFenceVMForPick(item),
                                                       AtomicCondition.Modifier.NONE)
@@ -109,33 +139,33 @@ class ConditionPresenter
 
             }
 
-            RuleDetailsPresenter.Picker.HOME,
-            RuleDetailsPresenter.Picker.WORK -> handleLocationItemClick(item)
+            Picker.HOME,
+            Picker.WORK -> handleLocationItemClick(item)
         }
     }
 
     private fun getFenceVMForPick(pick: GridBottomSheetItem): FenceVM {
         when (pick.picker) {
 
-            RuleDetailsPresenter.Picker.WALK ->
+            Picker.WALK ->
                 return DetectedActivityFenceVM(DetectedActivityFenceVM.Type.WALKING,
                                                DetectedActivityFenceVM.State.DURING)
 
-            RuleDetailsPresenter.Picker.RUN ->
+            Picker.RUN ->
                 return DetectedActivityFenceVM(DetectedActivityFenceVM.Type.RUNNING,
                                                DetectedActivityFenceVM.State.DURING)
 
-            RuleDetailsPresenter.Picker.BIKE ->
+            Picker.BIKE ->
                 return DetectedActivityFenceVM(DetectedActivityFenceVM.Type.ON_BICYCLE,
                                                DetectedActivityFenceVM.State.DURING)
 
-            RuleDetailsPresenter.Picker.CAR ->
+            Picker.CAR ->
                 return DetectedActivityFenceVM(DetectedActivityFenceVM.Type.IN_VEHICLE,
                                                DetectedActivityFenceVM.State.DURING)
 
-            RuleDetailsPresenter.Picker.PLUG_IN -> return HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_IN)
+            Picker.PLUG_IN -> return HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_IN)
 
-            RuleDetailsPresenter.Picker.PLUG_OUT -> return HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_OUT)
+            Picker.PLUG_OUT -> return HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_OUT)
 
             else -> throw RuntimeException("surprise !")
         }
