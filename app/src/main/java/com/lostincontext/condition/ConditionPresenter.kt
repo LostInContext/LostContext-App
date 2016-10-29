@@ -51,36 +51,39 @@ class ConditionPresenter
         atomic.toggle()
     }
 
+
     //region fence pick dialog
+
+    val choices = arrayListOf(GridBottomSheetItem("Walking",
+                                                  R.drawable.ic_walk_24,
+                                                  RuleDetailsPresenter.Picker.WALK),
+                              GridBottomSheetItem("Running",
+                                                  R.drawable.ic_run_24,
+                                                  RuleDetailsPresenter.Picker.RUN),
+                              GridBottomSheetItem("On bicycle",
+                                                  R.drawable.ic_bike_24,
+                                                  RuleDetailsPresenter.Picker.BIKE),
+                              GridBottomSheetItem("In vehicle",
+                                                  R.drawable.ic_car_24,
+                                                  RuleDetailsPresenter.Picker.CAR),
+                              GridBottomSheetItem("Plugged in",
+                                                  R.drawable.ic_headset_24,
+                                                  RuleDetailsPresenter.Picker.PLUG_IN),
+                              GridBottomSheetItem("Plugged out",
+                                                  R.drawable.ic_headset_24,
+                                                  RuleDetailsPresenter.Picker.PLUG_OUT),
+                              GridBottomSheetItem("At home",
+                                                  R.drawable.ic_home_24,
+                                                  RuleDetailsPresenter.Picker.HOME),
+                              GridBottomSheetItem("At work",
+                                                  R.drawable.ic_work_24,
+                                                  RuleDetailsPresenter.Picker.WORK))
+
+    val fencesSection = BottomSheetItemSection("Add a rule…", choices)
+    val choicesList = Arrays.asList<Section<*>>(fencesSection)
+
     override fun provideFenceChoices(): List<Section<*>> {
-        val choices = arrayListOf(GridBottomSheetItem("Walking",
-                                                      R.drawable.ic_walk_24,
-                                                      RuleDetailsPresenter.Picker.WALK),
-                                  GridBottomSheetItem("Running",
-                                                      R.drawable.ic_run_24,
-                                                      RuleDetailsPresenter.Picker.RUN),
-                                  GridBottomSheetItem("On bicycle",
-                                                      R.drawable.ic_bike_24,
-                                                      RuleDetailsPresenter.Picker.BIKE),
-                                  GridBottomSheetItem("In vehicle",
-                                                      R.drawable.ic_car_24,
-                                                      RuleDetailsPresenter.Picker.CAR),
-                                  GridBottomSheetItem("Plugged in",
-                                                      R.drawable.ic_headset_24,
-                                                      RuleDetailsPresenter.Picker.PLUG_IN),
-                                  GridBottomSheetItem("Plugged out",
-                                                      R.drawable.ic_headset_24,
-                                                      RuleDetailsPresenter.Picker.PLUG_OUT),
-                                  GridBottomSheetItem("At home",
-                                                      R.drawable.ic_home_24,
-                                                      RuleDetailsPresenter.Picker.HOME),
-                                  GridBottomSheetItem("At work",
-                                                      R.drawable.ic_work_24,
-                                                      RuleDetailsPresenter.Picker.WORK))
-
-        val fencesSection = BottomSheetItemSection("Add a rule…", choices)
-
-        return Arrays.asList<Section<*>>(fencesSection)
+        return choicesList
     }
 
     override fun onPlacePicked(placeName: String, item: GridBottomSheetItem, latLng: LatLng) {
@@ -102,7 +105,7 @@ class ConditionPresenter
 
                 val atomicCondition = AtomicCondition(getFenceVMForPick(item),
                                                       AtomicCondition.Modifier.NONE)
-                addCondition(atomicCondition)
+                addCondition(atomicCondition, item)
 
             }
 
@@ -156,11 +159,13 @@ class ConditionPresenter
         val fenceVM = LocationFenceVM(locationModel.placeName, locationModel.getLatLng())
 
         val atomicCondition = AtomicCondition(fenceVM)
-        addCondition(atomicCondition)
+        addCondition(atomicCondition, item)
 
     }
 
-    private fun addCondition(atomicCondition: AtomicCondition) {
+    private fun addCondition(atomicCondition: AtomicCondition,
+                             item: GridBottomSheetItem) {
+        item.isPicked.set(true)
         items.add(atomicCondition)
         view.add(atomicCondition, items.size == 1)
     }
