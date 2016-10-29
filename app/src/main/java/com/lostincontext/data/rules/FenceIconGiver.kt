@@ -32,8 +32,7 @@ class FenceIconGiver {
             DetectedActivityFenceVM.Type.IN_VEHICLE -> icons.add(R.drawable.ic_car_24)
             DetectedActivityFenceVM.Type.RUNNING -> icons.add(R.drawable.ic_run_24)
             DetectedActivityFenceVM.Type.ON_BICYCLE -> icons.add(R.drawable.ic_bike_24)
-            DetectedActivityFenceVM.Type.WALKING,
-            DetectedActivityFenceVM.Type.ON_FOOT -> icons.add(R.drawable.ic_walk_24)
+            DetectedActivityFenceVM.Type.WALKING-> icons.add(R.drawable.ic_walk_24)
         }
     }
 

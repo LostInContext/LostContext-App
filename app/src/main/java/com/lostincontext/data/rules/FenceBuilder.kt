@@ -100,7 +100,6 @@ class FenceBuilder {
             DetectedActivityFenceVM.Type.WALKING -> type = DetectedActivity.WALKING
             DetectedActivityFenceVM.Type.IN_VEHICLE -> type = DetectedActivity.IN_VEHICLE
             DetectedActivityFenceVM.Type.ON_BICYCLE -> type = DetectedActivity.ON_BICYCLE
-            DetectedActivityFenceVM.Type.ON_FOOT -> type = DetectedActivity.ON_FOOT
             DetectedActivityFenceVM.Type.RUNNING -> type = DetectedActivity.RUNNING
         }
 
