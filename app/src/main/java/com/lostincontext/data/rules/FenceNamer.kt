@@ -31,7 +31,6 @@ class FenceNamer(val context: Context) {
             DetectedActivityFenceVM.Type.WALKING -> resources.getString(R.string.walking)
             DetectedActivityFenceVM.Type.IN_VEHICLE -> resources.getString(R.string.in_vehicle)
             DetectedActivityFenceVM.Type.ON_BICYCLE -> resources.getString(R.string.on_bike)
-            DetectedActivityFenceVM.Type.ON_FOOT -> resources.getString(R.string.on_foot)
         }
 
         return applyStyle(text)

@@ -11,7 +11,6 @@ data class DetectedActivityFenceVM(val type: Type,
         WALKING,
         IN_VEHICLE,
         ON_BICYCLE,
-        ON_FOOT
     }
 
     enum class State {
