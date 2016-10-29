@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#b30e6a</color>
     <color name="colorAccent">#ef008c</color>
 
-    <color name="ripple_dark">#33ffffff</color>
+    <color name="ripple_dark">#55ffffff</color>
     <color name="ripple_light">#1f000000</color>
 
 
