@@ -31,6 +31,7 @@ import java.util.*
 import java.util.EnumSet.of
 import javax.inject.Inject
 
+// todo delete this class
 class RuleDetailsPresenter : RuleDetailsContract.Presenter,
                              GoogleApiClient.ConnectionCallbacks,
                              GoogleApiClient.OnConnectionFailedListener {
@@ -116,7 +117,6 @@ class RuleDetailsPresenter : RuleDetailsContract.Presenter,
         PLUG_OUT,
         HOME,
         WORK,
-        PLAYLIST
     }
 
     override fun provideFenceChoices(): List<Section<*>> {
@@ -151,7 +151,7 @@ class RuleDetailsPresenter : RuleDetailsContract.Presenter,
 
         val playlistPickers = arrayListOf(GridBottomSheetItem("Playlist",
                                                               R.drawable.ic_music_note_24,
-                                                              Picker.PLAYLIST))
+                                                              Picker.WORK)) // PLAYLIST
 
         val mediaPickSection = BottomSheetItemSection("Pick a playlist", playlistPickers)
 
@@ -179,7 +179,7 @@ class RuleDetailsPresenter : RuleDetailsContract.Presenter,
             RuleDetailsPresenter.Picker.HOME,
             RuleDetailsPresenter.Picker.WORK -> handleLocationItemClick(item)
 
-            RuleDetailsPresenter.Picker.PLAYLIST -> view.pickAPlaylist()
+        //  RuleDetailsPresenter.Picker.PLAYLIST -> view.pickAPlaylist()
         }
     }
 
