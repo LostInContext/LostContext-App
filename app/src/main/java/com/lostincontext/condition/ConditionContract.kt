@@ -9,7 +9,6 @@ import com.lostincontext.condition.pick.PickerDialogCallback
 import com.lostincontext.condition.pick.PlusButtonCallback
 import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.rulecreate.AtomicConditionItem
-import com.lostincontext.ruledetails.items.FenceItemCallback
 
 
 interface ConditionContract {
@@ -20,6 +19,7 @@ interface ConditionContract {
         fun checkPermissionsAndShowLocationPicker(name: String, item: GridBottomSheetItem)
         fun add(atomicCondition: AtomicCondition, isFirst: Boolean)
         fun remove(atomic: AtomicCondition)
+        fun notifyChange(atomic: AtomicCondition)
     }
 
     interface Presenter : BasePresenter,

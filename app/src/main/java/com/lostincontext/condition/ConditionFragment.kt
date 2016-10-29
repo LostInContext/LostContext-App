@@ -122,6 +122,11 @@ class ConditionFragment : Fragment(), ConditionContract.View {
         group.update(items)
     }
 
+    override fun notifyChange(atomic: AtomicCondition) {
+        val position = items.indexOfFirst { it.atomic == atomic }
+        group.notifyItemChanged(position)
+    }
+
     override fun displayFenceChoice() {
         val picker = PickerDialogFragment.newInstance()
         picker.registerCallback(presenter)
