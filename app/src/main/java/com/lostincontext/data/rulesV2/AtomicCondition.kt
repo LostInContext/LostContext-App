@@ -6,7 +6,7 @@ import com.lostincontext.data.rulesV2.AtomicCondition.Modifier.NONE
 import com.lostincontext.data.rulesV2.AtomicCondition.Modifier.NOT
 
 
-class AtomicCondition(val fence: FenceVM, var modifier: Modifier = Modifier.NONE) {
+data class AtomicCondition(val fence: FenceVM, var modifier: Modifier = Modifier.NONE) {
 
     enum class Modifier { NONE, NOT }
 
@@ -17,7 +17,6 @@ class AtomicCondition(val fence: FenceVM, var modifier: Modifier = Modifier.NONE
             NOT -> NONE
         }
     }
-
 
     fun getModifiedFence(): FenceVM {
         when (modifier) {
