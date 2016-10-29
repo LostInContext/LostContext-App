@@ -22,9 +22,10 @@
         android:layout_height="64dp">
 
         <TextView
-            android:id="@+id/position"
+            android:id="@+id/when"
             android:layout_width="88dp"
             android:layout_height="64dp"
+            android:background="?selectableItemBackground"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
             android:onClick="@{() -> callback.onToggleClick(viewModel.atomic)}"
@@ -48,8 +49,8 @@
             android:text="@{viewModel.name}"
             android:textColor="#000000"
             android:textSize="14sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/position"
-            app:layout_constraintLeft_toRightOf="@+id/position"
+            app:layout_constraintBaseline_toBaselineOf="@+id/when"
+            app:layout_constraintLeft_toRightOf="@+id/when"
             app:layout_constraintRight_toLeftOf="@+id/clear"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlSymmetry"
