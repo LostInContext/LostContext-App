@@ -4,6 +4,8 @@ import com.genius.groupie.Item
 import com.lostincontext.R
 import com.lostincontext.data.rules.FenceNamer
 import com.lostincontext.data.rulesV2.AtomicCondition
+import com.lostincontext.data.rulesV2.AtomicCondition.Modifier.NONE
+import com.lostincontext.data.rulesV2.AtomicCondition.Modifier.NOT
 import com.lostincontext.databinding.ItemAtomicConditionBinding
 
 
@@ -30,13 +32,13 @@ class AtomicConditionItem constructor(val callback: Callback,
     fun getModifierRes(): Int {
         if (isFirst) {
             when (atomic.modifier) {
-                AtomicCondition.Modifier.NONE -> return R.string.`when`
-                AtomicCondition.Modifier.NOT -> return R.string.when_not
+                NONE -> return R.string.`when`
+                NOT -> return R.string.when_not
             }
         } else {
             when (atomic.modifier) {
-                AtomicCondition.Modifier.NONE -> return R.string.and
-                AtomicCondition.Modifier.NOT -> return R.string.and_not
+                NONE -> return R.string.and
+                NOT -> return R.string.and_not
             }
         }
     }

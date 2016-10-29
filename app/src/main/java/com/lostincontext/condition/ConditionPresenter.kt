@@ -2,7 +2,6 @@ package com.lostincontext.condition
 
 import android.os.Bundle
 import com.google.android.gms.maps.model.LatLng
-import com.lostincontext.BR
 import com.lostincontext.R
 import com.lostincontext.awareness.Awareness
 import com.lostincontext.commons.list.Section
@@ -49,6 +48,7 @@ class ConditionPresenter
 
     override fun onToggleClick(atomic: AtomicCondition) {
         atomic.toggle()
+        view.notifyChange(atomic)
     }
 
 

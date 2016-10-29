@@ -23,12 +23,13 @@
 
         <TextView
             android:id="@+id/when"
-            android:layout_width="88dp"
+            android:layout_width="96dp"
             android:layout_height="64dp"
             android:background="?selectableItemBackground"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
             android:onClick="@{() -> callback.onToggleClick(viewModel.atomic)}"
+            android:paddingEnd="8dp"
             android:paddingStart="16dp"
             android:text="@{viewModel.modifierRes}"
             android:textAllCaps="true"
@@ -37,7 +38,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlSymmetry,SpUsage"
-            tools:text="WHEN NOT" />
+            tools:text="when not" />
 
         <TextView
             android:id="@+id/textView"
@@ -45,7 +46,7 @@
             android:layout_height="64dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
-            android:paddingStart="16dp"
+            android:paddingStart="8dp"
             android:text="@{viewModel.name}"
             android:textColor="#000000"
             android:textSize="14sp"
