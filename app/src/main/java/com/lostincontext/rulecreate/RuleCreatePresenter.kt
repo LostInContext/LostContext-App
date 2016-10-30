@@ -3,12 +3,15 @@ package com.lostincontext.rulecreate
 import android.os.Bundle
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rulesV2.Condition
+import java.util.*
 import javax.inject.Inject
 
 class RuleCreatePresenter : RuleCreateContract.Presenter {
 
 
     var playlist: Playlist? = null
+
+    private val items = ArrayList<Condition>()
 
     private val view: RuleCreateContract.View
 
@@ -27,7 +30,7 @@ class RuleCreatePresenter : RuleCreateContract.Presenter {
         outState.putParcelable(KEY_PLAYLIST, playlist)
     }
 
-    override fun onPlusButtonClick() = view.pickACondition()
+    override fun onPlusButtonClick() = view.pickACondition(items.size + 1)
 
     override fun onPlaylistPickClick() = view.pickAPlaylist()
 

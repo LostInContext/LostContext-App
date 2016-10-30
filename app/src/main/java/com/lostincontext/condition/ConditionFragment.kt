@@ -28,6 +28,7 @@ import com.lostincontext.data.rules.FenceNamer
 import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.databinding.ConditionScreenFragmentBinding
 import com.lostincontext.rulecreate.AtomicConditionItem
+import com.lostincontext.rulecreate.RuleCreateContract
 import com.lostincontext.ruledetails.ConditionPresenterModule
 import com.lostincontext.ruledetails.PickerDialogFragment
 import com.lostincontext.utils.logD
@@ -46,6 +47,8 @@ class ConditionFragment : Fragment(), ConditionContract.View {
 
     private lateinit var namer: FenceNamer
 
+    private var conditionIndex: Int = 1
+
     private var savedPlaceName: String? = null
     private var savedGridBottomSheetItem: GridBottomSheetItem? = null
     private val group: UpdatingGroup = UpdatingGroup()
@@ -54,6 +57,11 @@ class ConditionFragment : Fragment(), ConditionContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
+
+        conditionIndex = activity.intent.getIntExtra(RuleCreateContract.EXTRA_INDEX,
+                                                     conditionIndex)
 
         // Create the presenter
         DaggerConditionComponent.builder()
@@ -73,6 +81,7 @@ class ConditionFragment : Fragment(), ConditionContract.View {
         }
 
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -101,7 +110,7 @@ class ConditionFragment : Fragment(), ConditionContract.View {
 
         val activity: AppCompatActivity = activity as AppCompatActivity
         activity.supportActionBar?.title = resources.getString(R.string.condition_title,
-                                                               34) // todo condition number
+                                                               conditionIndex)
 
         return binding.root
     }
@@ -134,7 +143,7 @@ class ConditionFragment : Fragment(), ConditionContract.View {
         picker.show(fragmentManager, PickerDialogFragment.TAG)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.condition_menu, menu)
     }
 

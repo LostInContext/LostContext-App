@@ -45,7 +45,7 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
 
     private lateinit var adapter: GroupAdapter
 
-    private var playlist:Playlist? = null
+    private var playlist: Playlist? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -175,9 +175,10 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onMenuItemClick(item.itemId)
 
 
-    override fun pickACondition() {
+    override fun pickACondition(index: Int) {
         val intent = Intent(this.context, ConditionActivity::class.java)
-        startActivity(intent)
+        intent.putExtra(RuleCreateContract.EXTRA_INDEX, index)
+        startActivityForResult(intent, CONDITION_REQUEST_CODE)
     }
 
     override fun pickAPlaylist() {
@@ -187,8 +188,8 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (data != null && requestCode == RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE
-                && resultCode == Activity.RESULT_OK) {
+        if (data == null) return
+        if (requestCode == RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val playlist = data.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
             presenter.onPlaylistPicked(playlist)
         }
@@ -204,7 +205,8 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
     companion object {
         val TAG: String = RuleCreateFragment::class.java.name
         fun newInstance(): RuleCreateFragment = RuleCreateFragment()
-        val PLAYLIST_PICKER_REQUEST_CODE = 9001
+        const val PLAYLIST_PICKER_REQUEST_CODE = 9001
+        const val CONDITION_REQUEST_CODE = 9002
     }
 
     inner class OnScrollListener : RecyclerView.OnScrollListener() {

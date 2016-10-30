@@ -9,7 +9,7 @@ import com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder
 
 object RuleCreateContract {
     interface View : BaseView<Presenter> {
-        fun pickACondition()
+        fun pickACondition(index: Int)
         fun pickAPlaylist()
         fun setPlaylist(playlist: Playlist?)
 
@@ -25,4 +25,8 @@ object RuleCreateContract {
         fun onPlaylistPicked(playlist: Playlist)
 
     }
+
+
+    const val EXTRA_INDEX  = "index"
+
 }
