@@ -57,7 +57,7 @@ class PlaylistJsonAdapter {
         val json = PlaylistJson(playlist.id,
                                 playlist.title,
                                 encodedCover,
-                                playlist.creator)
+                                playlist.author)
         return json
     }
 

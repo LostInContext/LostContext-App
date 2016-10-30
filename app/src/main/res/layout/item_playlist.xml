@@ -67,7 +67,7 @@
                     android:lines="1"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
-                    android:text="@{playlist.creator.name}"
+                    android:text="@{playlist.author.name}"
                     tools:text="some comment" />
 
             </LinearLayout>
