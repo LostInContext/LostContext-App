@@ -116,16 +116,17 @@ class ConditionFragment : Fragment(), ConditionContract.View {
         return binding.root
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        presenter.saveState(outState)
+        super.onSaveInstanceState(outState)
+    }
+
     override fun setupCondition(condition: Condition) {
         val returnIntent = Intent()
         returnIntent.putExtra(EXTRA_CONDITION, condition)
         activity.setResult(Activity.RESULT_OK, returnIntent)
-    }
-
-    override fun remove(atomic: AtomicCondition) {
-        val item = items.find { it.atomic == atomic }
-        items.remove(item)
-        group.update(items)
+        val atomics = condition.atomics
+        atomics.forEachIndexed { i, item -> add(item, i == 0) }
     }
 
     override fun add(atomicCondition: AtomicCondition, isFirst: Boolean) {
@@ -136,6 +137,17 @@ class ConditionFragment : Fragment(), ConditionContract.View {
                                        namer)
         items.add(item)
         group.update(items)
+    }
+
+    override fun remove(atomic: AtomicCondition) {
+        val item = items.find { it.atomic == atomic }
+        items.remove(item)
+        group.update(items)
+        if (items.isNotEmpty()) {
+            items[0].isFirst = true
+            group.notifyItemChanged(0)
+        }
+
     }
 
     override fun notifyChange(atomic: AtomicCondition) {

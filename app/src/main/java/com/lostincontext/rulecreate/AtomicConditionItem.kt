@@ -11,7 +11,7 @@ import com.lostincontext.databinding.ItemAtomicConditionBinding
 
 class AtomicConditionItem constructor(val callback: Callback,
                                       val atomic: AtomicCondition,
-                                      val isFirst: Boolean,
+                                      var isFirst: Boolean,
                                       val namer: FenceNamer) :
         Item<ItemAtomicConditionBinding>() {
 
