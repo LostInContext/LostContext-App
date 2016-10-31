@@ -26,6 +26,7 @@ import com.lostincontext.commons.BaseActivity
 import com.lostincontext.condition.pick.GridBottomSheetItem
 import com.lostincontext.data.rules.FenceNamer
 import com.lostincontext.data.rulesV2.AtomicCondition
+import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.databinding.ConditionScreenFragmentBinding
 import com.lostincontext.rulecreate.AtomicConditionItem
 import com.lostincontext.rulecreate.RuleCreateContract
@@ -113,6 +114,12 @@ class ConditionFragment : Fragment(), ConditionContract.View {
                                                                conditionIndex)
 
         return binding.root
+    }
+
+    override fun setupCondition(condition: Condition) {
+        val returnIntent = Intent()
+        returnIntent.putExtra(EXTRA_CONDITION, condition)
+        activity.setResult(Activity.RESULT_OK, returnIntent)
     }
 
     override fun remove(atomic: AtomicCondition) {
