@@ -14,24 +14,38 @@ import com.lostincontext.data.rules.FenceVM
 import com.lostincontext.data.rules.HeadphoneFenceVM
 import com.lostincontext.data.rules.LocationFenceVM
 import com.lostincontext.data.rulesV2.AtomicCondition
+import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.ruledetails.RuleDetailsPresenter.Picker
 import java.util.*
 import javax.inject.Inject
 
 
 class ConditionPresenter
-@Inject internal constructor(private val view: ConditionContract.View, icicle: Bundle?,
+@Inject internal constructor(private val view: ConditionContract.View,
+                             icicle: Bundle?,
                              private val locationRepository: LocationRepository,
                              private val awareness: Awareness) : ConditionContract.Presenter {
 
 
-    private val items = ArrayList<AtomicCondition>()
+    private var items: MutableList<AtomicCondition>
+    private var condition: Condition
 
     init {
-        icicle?.let {  /* todo fetch saved state here */ }
+        if (icicle == null) {
+            items = ArrayList()
+            condition = Condition(items)
+        } else {
+            condition = icicle.getParcelable(KEY_CONDITION)
+            items = condition.atomics
+        }
     }
 
     override fun start() {
+        view.setupCondition(condition)
+    }
+
+    override fun saveState(outState: Bundle) {
+        outState.putParcelable(KEY_CONDITION, condition)
     }
 
     override fun onPlusButtonClick() = view.displayFenceChoice()
@@ -202,4 +216,8 @@ class ConditionPresenter
 
     //endregion
 
+
+    companion object {
+        const val KEY_CONDITION = "condition_conditionPresenter"
+    }
 }

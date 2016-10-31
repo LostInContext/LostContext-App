@@ -1,6 +1,6 @@
 package com.lostincontext.rulecreate
 
-import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
@@ -19,19 +19,15 @@ import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.condition.ConditionActivity
+import com.lostincontext.condition.EXTRA_CONDITION
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rules.DetectedActivityFenceVM
-import com.lostincontext.data.rules.DetectedActivityFenceVM.State.DURING
-import com.lostincontext.data.rules.DetectedActivityFenceVM.Type.RUNNING
-import com.lostincontext.data.rules.DetectedActivityFenceVM.Type.WALKING
 import com.lostincontext.data.rules.FenceNamer
-import com.lostincontext.data.rules.HeadphoneFenceVM
 import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.databinding.RuleCreateScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsContract
-import com.lostincontext.ruledetails.RuleDetailsFragment
 import com.lostincontext.users.UsersActivity
+import com.lostincontext.utils.logD
 import java.util.*
 import javax.inject.Inject
 
@@ -44,6 +40,11 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
     private lateinit var playlistItem: PlaylistItem
 
     private lateinit var adapter: GroupAdapter
+
+    private lateinit var scribe: Scribe
+
+    private val items = ArrayList<ConditionItem>()
+    private val group = UpdatingGroup()
 
     private var playlist: Playlist? = null
 
@@ -79,35 +80,11 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
 
         playlistItem = PlaylistItem(context, presenter)
         adapter.add(playlistItem)
-
-        val group: UpdatingGroup = UpdatingGroup()
-
-
-        val items: ArrayList<ConditionItem> = ArrayList()
-
-
-        val scribe = Scribe(context)
-
-        val condition = Condition(listOf(AtomicCondition(DetectedActivityFenceVM(RUNNING, DURING)),
-                                         AtomicCondition(HeadphoneFenceVM(HeadphoneFenceVM.State.PLUGGED_IN))))
-        val item = ConditionItem(presenter,
-                                 1,
-                                 condition,
-                                 scribe)
-        items.add(item)
-
-        val condition2 = Condition(listOf(AtomicCondition(DetectedActivityFenceVM(WALKING,
-                                                                                  DURING))))
-        val item2 = ConditionItem(presenter, 2, condition2, scribe)
-
-        items.add(item2)
-
-        group.update(items)
         adapter.add(group)
-
 
         recyclerView.adapter = adapter
 
+        scribe = Scribe(context)
         val onScrollListener = OnScrollListener()
 
         onScrollListener.listener = binding.scrimLayout
@@ -189,9 +166,17 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data == null) return
-        if (requestCode == RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val playlist = data.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
-            presenter.onPlaylistPicked(playlist)
+        when {
+            requestCode == PLAYLIST_PICKER_REQUEST_CODE && resultCode == RESULT_OK -> {
+                val playlist = data.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
+                presenter.onPlaylistPicked(playlist)
+            }
+            requestCode == CONDITION_REQUEST_CODE && resultCode == RESULT_OK -> {
+                val condition = data.getParcelableExtra<Condition>(EXTRA_CONDITION)
+                logD(TAG) { "received condition : $condition" }
+                items.add(ConditionItem(presenter, items.size + 1, condition, scribe))
+                group.update(items)
+            }
         }
 
     }
