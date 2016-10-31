@@ -2,7 +2,10 @@ package com.lostincontext.data.rules
 
 
 import com.google.android.gms.awareness.fence.AwarenessFence
+import nz.bradcampbell.paperparcel.PaperParcel
+import nz.bradcampbell.paperparcel.PaperParcelable
 
+@PaperParcel
 class TimeFenceVM(val state: State,
                   val starting: Long,
                   val ending: Long) : FenceVM {
@@ -27,5 +30,9 @@ class TimeFenceVM(val state: State,
         IN_THURSDAY_INTERVAL,
         IN_FRIDAY_INTERVAL,
         IN_SATURDAY_INTERVAL
+    }
+
+    companion object {
+        @JvmField val CREATOR = PaperParcelable.Creator(TimeFenceVM::class.java)
     }
 }

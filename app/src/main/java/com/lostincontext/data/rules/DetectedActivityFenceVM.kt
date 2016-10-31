@@ -2,7 +2,10 @@ package com.lostincontext.data.rules
 
 
 import com.google.android.gms.awareness.fence.AwarenessFence
+import nz.bradcampbell.paperparcel.PaperParcel
+import nz.bradcampbell.paperparcel.PaperParcelable
 
+@PaperParcel
 data class DetectedActivityFenceVM(val type: Type,
                                    val state: State) : FenceVM {
 
@@ -25,5 +28,9 @@ data class DetectedActivityFenceVM(val type: Type,
                           icons: MutableList<Int>) = iconGiver.detectedActivity(this, icons)
 
     override fun name(fenceNamer: FenceNamer) = fenceNamer.detectedActivity(this)
+
+    companion object {
+      @JvmField val CREATOR = PaperParcelable.Creator(DetectedActivityFenceVM::class.java)
+    }
 
 }

@@ -1,4 +1,11 @@
 package com.lostincontext.data.rulesV2
 
+import nz.bradcampbell.paperparcel.PaperParcel
+import nz.bradcampbell.paperparcel.PaperParcelable
 
-data class Condition(val atomics: List<AtomicCondition>)
+@PaperParcel
+data class Condition(val atomics: List<AtomicCondition>) : PaperParcelable {
+    companion object {
+        @JvmField val CREATOR = PaperParcelable.Creator(Condition::class.java)
+    }
+}

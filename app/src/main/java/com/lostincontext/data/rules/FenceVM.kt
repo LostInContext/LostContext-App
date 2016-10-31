@@ -1,10 +1,9 @@
 package com.lostincontext.data.rules
 
-import android.support.annotation.DrawableRes
-
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo
 import com.google.android.gms.awareness.fence.AwarenessFence
+import nz.bradcampbell.paperparcel.PaperParcelable
 
 /**
  * Representation of an [com.google.android.gms.awareness.fence.AwarenessFence].
@@ -20,12 +19,12 @@ import com.google.android.gms.awareness.fence.AwarenessFence
               JsonSubTypes.Type(value = NotFenceVM::class, name = "notRule"),
               JsonSubTypes.Type(value = LocationFenceVM::class, name = "location"),
               JsonSubTypes.Type(value = TimeFenceVM::class, name = "time"))
-interface FenceVM {
+interface FenceVM : PaperParcelable {
 
     fun build(builder: FenceBuilder): AwarenessFence
 
     fun giveIcon(iconGiver: FenceIconGiver,
                  icons: MutableList<Int>)
 
-    fun name(fenceNamer : FenceNamer) : CharSequence
+    fun name(fenceNamer: FenceNamer): CharSequence
 }

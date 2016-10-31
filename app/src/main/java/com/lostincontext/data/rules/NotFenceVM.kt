@@ -2,7 +2,10 @@ package com.lostincontext.data.rules
 
 
 import com.google.android.gms.awareness.fence.AwarenessFence
+import nz.bradcampbell.paperparcel.PaperParcel
+import nz.bradcampbell.paperparcel.PaperParcelable
 
+@PaperParcel
 data class NotFenceVM(val fenceVM: FenceVM) : FenceVM {
 
 
@@ -12,4 +15,8 @@ data class NotFenceVM(val fenceVM: FenceVM) : FenceVM {
                           icons: MutableList<Int>) = iconGiver.not(this, icons)
 
     override fun name(fenceNamer: FenceNamer) = fenceNamer.not(this)
+
+    companion object {
+        @JvmField val CREATOR = PaperParcelable.Creator(NotFenceVM::class.java)
+    }
 }
