@@ -3,8 +3,11 @@ package com.lostincontext.data.rules
 import android.support.annotation.StringDef
 import com.google.android.gms.awareness.fence.AwarenessFence
 import com.google.android.gms.maps.model.LatLng
+import nz.bradcampbell.paperparcel.PaperParcel
+import nz.bradcampbell.paperparcel.PaperParcelable
 import kotlin.annotation.AnnotationRetention.SOURCE
 
+@PaperParcel
 data class LocationFenceVM(val state: State,
                            val latitude: Double,
                            val longitude: Double,
@@ -28,23 +31,21 @@ data class LocationFenceVM(val state: State,
     @StringDef(HOME, WORK)
     annotation class LocationName
 
+    @Transient
     val dwellTimeMillis: Long = 10000 //10 seconds
 
 
-    override fun build(builder: FenceBuilder): AwarenessFence {
-        return builder.location(this)
-    }
+    override fun build(builder: FenceBuilder): AwarenessFence = builder.location(this)
 
     override fun giveIcon(iconGiver: FenceIconGiver,
-                          icons: MutableList<Int>) {
-        return iconGiver.location(this, icons)
-    }
+                          icons: MutableList<Int>) = iconGiver.location(this, icons)
 
     override fun name(fenceNamer: FenceNamer) = fenceNamer.location(this)
 
     companion object {
+        @JvmField val CREATOR = PaperParcelable.Creator(LocationFenceVM::class.java)
         const val HOME = "HOME"
         const val WORK = "WORK"
-
     }
+
 }
