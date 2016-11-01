@@ -44,7 +44,7 @@
                 android:lines="1"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:text="@{rule.key}"
+                android:text="@{rule.playlist.title}"
                 tools:text="rule name" />
 
             <LinearLayout
