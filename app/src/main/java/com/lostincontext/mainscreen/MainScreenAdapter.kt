@@ -8,7 +8,7 @@ import com.lostincontext.commons.list.EmptyListCallback
 import com.lostincontext.commons.list.StatefulAdapter
 import com.lostincontext.commons.list.StatefulAdapter.ContentState.LOADING
 import com.lostincontext.commons.list.ViewHolder
-import com.lostincontext.data.rules.Rule
+import com.lostincontext.data.rulesV2.Rule
 
 
 class MainScreenAdapter(private val emptyListCallback: EmptyListCallback) : StatefulAdapter(LOADING) {
@@ -55,7 +55,7 @@ class MainScreenAdapter(private val emptyListCallback: EmptyListCallback) : Stat
 
     fun setRules(rules: List<Rule>) {
         this.rules = rules
-        if (rules.size == 0)
+        if (rules.isEmpty())
             setCurrentState(StatefulAdapter.ContentState.EMPTY)
         else
             setCurrentState(StatefulAdapter.ContentState.CONTENT, true)

@@ -280,7 +280,7 @@ class RuleDetailsPresenter : RuleDetailsContract.Presenter,
         awareness.updateFence(builder.build()).setResultCallback(object : ResultCallbacks<Status>() {
             override fun onSuccess(status: Status) {
                 logD(TAG) { "updateFence.onSuccess: " + status.statusMessage }
-                rulesRepository.saveRule(rule)
+              //  rulesRepository.saveRule(rule)
                 view.finishActivity()
             }
 

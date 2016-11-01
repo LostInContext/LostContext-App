@@ -3,6 +3,7 @@ package com.lostincontext.rulecreate
 import android.os.Bundle
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rulesV2.Condition
+import com.lostincontext.data.rulesV2.Rule
 import com.lostincontext.utils.logD
 import java.util.*
 import javax.inject.Inject
@@ -15,24 +16,32 @@ class RuleCreatePresenter @Inject constructor(private val view: RuleCreateContra
 
     private val items: ArrayList<Condition>
 
+    private val id: String
+
     init {
-        if (icicle == null) items = ArrayList<Condition>()
-        else {
+        if (icicle == null) {
+            items = ArrayList<Condition>()
+            id = UUID.randomUUID().toString()
+        } else {
             items = icicle.getParcelableArrayList(KEY_CONDITIONS)
             playlist = icicle.getParcelable(KEY_PLAYLIST)
+            id = icicle.getString(KEY_UNIQUE_ID)
         }
     }
 
     override fun start() {
-        playlist?.let { view.setPlaylist(playlist) }
+        playlist?.let {
+            view.setPlaylist(playlist)
+            view.setup(Rule(items, playlist!!, id))
+        }
         view.setConditions(items)
-        logD("fbl") { "items : $items" }
-
+        logD(TAG) { "items : $items" }
     }
 
     override fun saveState(outState: Bundle) {
         outState.putParcelable(KEY_PLAYLIST, playlist)
         outState.putParcelableArrayList(KEY_CONDITIONS, items)
+        outState.putString(KEY_UNIQUE_ID, id)
     }
 
     override fun onPlusButtonClick() = view.pickACondition(items.size + 1)
@@ -41,11 +50,13 @@ class RuleCreatePresenter @Inject constructor(private val view: RuleCreateContra
 
     override fun onConditionAdded(condition: Condition) {
         items.add(condition)
+        playlist?.let { view.setup(Rule(items, playlist!!, id)) }
     }
 
     override fun onPlaylistPicked(playlist: Playlist) {
         this.playlist = playlist
         view.setPlaylist(playlist)
+        view.setup(Rule(items, playlist, id))
     }
 
     override fun onMenuItemClick(itemId: Int): Boolean {
@@ -63,8 +74,10 @@ class RuleCreatePresenter @Inject constructor(private val view: RuleCreateContra
 
 
     companion object {
-        const val KEY_PLAYLIST = "PlaylistRuleCreatePresenter"
-        const val KEY_CONDITIONS = "ConditionsRuleCreatePresenter"
+        const val KEY_PLAYLIST = "Playlist-RuleCreatePresenter"
+        const val KEY_CONDITIONS = "Conditions-RuleCreatePresenter"
+        const val KEY_UNIQUE_ID = "id-RuleCreatePresenter"
+        private val TAG: String = RuleCreatePresenter::class.java.simpleName
     }
 
 

@@ -5,7 +5,7 @@ import android.util.Log
 
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.lostincontext.data.rules.Rule
+import com.lostincontext.data.rulesV2.Rule
 
 import java.io.IOException
 import java.util.ArrayList
@@ -29,7 +29,7 @@ class RulesRepository
 
     fun saveRule(rule: Rule) {
         try {
-            val name : String= rule.name
+            val name : String= rule.key
             saveToPrefs(name, serialize(rule))
             addToRulesList(name)
         } catch (e: JsonProcessingException) {

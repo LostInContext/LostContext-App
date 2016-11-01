@@ -1,16 +1,14 @@
 package com.lostincontext.rulecreate
 
+import android.app.Activity
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.view.*
 import com.genius.groupie.GroupAdapter
 import com.genius.groupie.UpdatingGroup
@@ -18,14 +16,16 @@ import com.lostincontext.R
 import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
+import com.lostincontext.condition.CONDITION_REQUEST_CODE
 import com.lostincontext.condition.ConditionActivity
 import com.lostincontext.condition.EXTRA_CONDITION
+import com.lostincontext.condition.PLAYLIST_PICKER_REQUEST_CODE
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rules.FenceNamer
-import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.data.rulesV2.Condition
+import com.lostincontext.data.rulesV2.Rule
 import com.lostincontext.databinding.RuleCreateScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsContract
+import com.lostincontext.rulecreate.RuleCreateContract.EXTRA_RULE
 import com.lostincontext.users.UsersActivity
 import com.lostincontext.utils.logD
 import java.util.*
@@ -99,42 +99,6 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
 
     }
 
-
-    class Scribe(val context: Context) {
-
-        val resources: Resources = context.resources
-        val theme: Resources.Theme = context.theme
-
-        fun describeCondition(condition: Condition): CharSequence {
-            val description = resources.getString(R.string.when_x)
-            return TextUtils.expandTemplate(description,
-                                            describeAtomicConditions(condition.atomics))
-
-        }
-
-        fun describeAtomicConditions(conditions: List<AtomicCondition>): CharSequence {
-            val namer = FenceNamer(context)
-
-            val template = resources.getString(R.string.x_and_y)
-
-            when (conditions.size) {
-                0 -> return ""
-                1 -> return conditions[0].fence.name(namer)
-                else ->
-                    return conditions.fold("" as CharSequence) { s, atomic ->
-                        if (s.isEmpty()) atomic.fence.name(namer)
-                        else TextUtils.expandTemplate(template,
-                                                      s,
-                                                      atomic.fence.name(namer))
-                    }
-            }
-
-
-        }
-
-    }
-
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         presenter.start()
@@ -150,6 +114,29 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = presenter.onMenuItemClick(item.itemId)
+
+    override fun setup(rule: Rule) {
+        logD(TAG) {"setup : $rule"}
+        val returnIntent = Intent()
+        returnIntent.putExtra(EXTRA_RULE, rule)
+        activity.setResult(Activity.RESULT_OK, returnIntent)
+    }
+
+    override fun setPlaylist(playlist: Playlist?) {
+        playlistItem.playlist = playlist
+        binding.playlist = playlist
+    }
+
+    override fun setConditions(conditions: List<Condition>) {
+        conditions.forEachIndexed { i, condition ->
+            val conditionItem = ConditionItem(presenter,
+                                              items,
+                                              condition,
+                                              scribe)
+            items.add(conditionItem)
+        }
+        group.update(items)
+    }
 
 
     override fun pickACondition(index: Int) {
@@ -189,28 +176,9 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
         items.forEachIndexed { i, item -> group.notifyItemChanged(i) }
     }
 
-    override fun setPlaylist(playlist: Playlist?) {
-        playlistItem.playlist = playlist
-        binding.playlist = playlist
-    }
-
-    override fun setConditions(conditions: List<Condition>) {
-        conditions.forEachIndexed { i, condition ->
-            val conditionItem = ConditionItem(presenter,
-                                              items,
-                                              condition,
-                                              scribe)
-            items.add(conditionItem)
-        }
-        group.update(items)
-    }
-
-
     companion object {
         val TAG: String = RuleCreateFragment::class.java.name
         fun newInstance(): RuleCreateFragment = RuleCreateFragment()
-        const val PLAYLIST_PICKER_REQUEST_CODE = 9001
-        const val CONDITION_REQUEST_CODE = 9002
     }
 
     inner class OnScrollListener : RecyclerView.OnScrollListener() {

@@ -1,4 +1,4 @@
-package com.lostincontext.rulecreate
+package com.lostincontext.condition
 
 import com.genius.groupie.Item
 import com.lostincontext.R

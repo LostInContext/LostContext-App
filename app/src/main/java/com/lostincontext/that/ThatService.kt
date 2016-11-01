@@ -4,7 +4,7 @@ import android.app.IntentService
 import android.content.Intent
 import com.google.android.gms.awareness.fence.FenceState
 import com.lostincontext.application.LostApplication
-import com.lostincontext.data.rules.Rule
+import com.lostincontext.data.rulesV2.Rule
 import com.lostincontext.utils.displayNotification
 import com.lostincontext.utils.logD
 import com.lostincontext.utils.logI
@@ -24,7 +24,7 @@ class ThatService : IntentService(ThatService.TAG) {
             when (fenceState.currentState) {
                 FenceState.TRUE -> {
                     logI(TAG) { "Rule verified" }
-                    displayNotification(this, rule.name, rule.playlist)
+                    displayNotification(this, rule.key, rule.playlist)
                 }
 
                 FenceState.FALSE -> logI(TAG) { "Rule NOT verified" }

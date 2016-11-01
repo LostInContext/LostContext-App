@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.lostincontext.rulecreate.AtomicConditionItem" />
+            type="com.lostincontext.condition.AtomicConditionItem" />
 
         <variable
             name="callback"
-            type="com.lostincontext.rulecreate.AtomicConditionItem.Callback" />
+            type="com.lostincontext.condition.AtomicConditionItem.Callback" />
 
 
     </data>

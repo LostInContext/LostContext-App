@@ -28,7 +28,7 @@ import com.lostincontext.data.rules.FenceNamer
 import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.databinding.ConditionScreenFragmentBinding
-import com.lostincontext.rulecreate.AtomicConditionItem
+import com.lostincontext.condition.AtomicConditionItem
 import com.lostincontext.rulecreate.RuleCreateContract
 import com.lostincontext.ruledetails.ConditionPresenterModule
 import com.lostincontext.ruledetails.PickerDialogFragment
