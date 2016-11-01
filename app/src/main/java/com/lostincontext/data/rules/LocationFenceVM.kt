@@ -43,9 +43,9 @@ data class LocationFenceVM(val state: State,
     override fun name(fenceNamer: FenceNamer) = fenceNamer.location(this)
 
     companion object {
+        const val HOME = "home"
+        const val WORK = "work"
         @JvmField val CREATOR = PaperParcelable.Creator(LocationFenceVM::class.java)
-        const val HOME = "HOME"
-        const val WORK = "WORK"
     }
 
 }

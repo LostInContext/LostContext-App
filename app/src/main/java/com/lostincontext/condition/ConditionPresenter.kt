@@ -15,6 +15,7 @@ import com.lostincontext.data.rules.HeadphoneFenceVM
 import com.lostincontext.data.rules.LocationFenceVM
 import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.data.rulesV2.Condition
+import com.lostincontext.ruledetails.RuleDetailsPresenter
 import com.lostincontext.ruledetails.RuleDetailsPresenter.Picker
 import java.util.*
 import javax.inject.Inject
@@ -187,7 +188,12 @@ class ConditionPresenter
     }
 
     private fun handleLocationItemClick(item: GridBottomSheetItem) {
-        val name = item.picker.name
+        val name = when (item.picker) {
+
+            RuleDetailsPresenter.Picker.HOME -> LocationFenceVM.HOME
+            RuleDetailsPresenter.Picker.WORK -> LocationFenceVM.WORK
+            else -> throw IllegalArgumentException("not a location")
+        }
         locationRepository.getLocation(name, object : LocationRepository.LocationCallback {
             override fun onLocationFetched(locationModel: LocationModel) {
                 addLocationFence(item, locationModel)
