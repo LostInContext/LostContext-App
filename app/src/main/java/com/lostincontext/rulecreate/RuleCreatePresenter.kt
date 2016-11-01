@@ -57,6 +57,8 @@ class RuleCreatePresenter @Inject constructor(private val view: RuleCreateContra
     }
 
     override fun onDeleteButtonClick(condition: Condition) {
+        items.remove(condition)
+        view.remove(condition)
     }
 
 

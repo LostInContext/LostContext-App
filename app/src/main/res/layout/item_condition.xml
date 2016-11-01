@@ -27,7 +27,7 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
             android:paddingStart="16dp"
-            android:text="@{@string/position(viewModel.position)}"
+            android:text="@{@string/position(viewModel.displayPosition)}"
             android:textColor="?colorAccent"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"

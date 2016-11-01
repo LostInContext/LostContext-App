@@ -14,6 +14,7 @@ object RuleCreateContract {
         fun pickAPlaylist()
         fun setPlaylist(playlist: Playlist?)
         fun setConditions(conditions: List<Condition>)
+        fun remove(condition: Condition)
 
     }
 

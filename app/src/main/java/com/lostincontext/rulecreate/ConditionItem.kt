@@ -7,7 +7,7 @@ import com.lostincontext.databinding.ItemConditionBinding
 
 
 class ConditionItem constructor(val callback: Callback,
-                                val position: Int,
+                                val list: List<ConditionItem>,
                                 val condition: Condition,
                                 scribe: RuleCreateFragment.Scribe) :
         Item<ItemConditionBinding>() {
@@ -30,5 +30,9 @@ class ConditionItem constructor(val callback: Callback,
     }
 
     override fun getLayout() = R.layout.item_condition
+
+    fun getDisplayPosition(): Int {
+        return list.indexOf(this) + 1
+    }
 
 }
