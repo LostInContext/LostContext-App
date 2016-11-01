@@ -49,8 +49,12 @@ class RuleCreatePresenter @Inject constructor(private val view: RuleCreateContra
     override fun onPlaylistPickClick() = view.pickAPlaylist()
 
     override fun onConditionAdded(condition: Condition) {
+        logD(TAG) { "onConditionAdded : $condition" }
+        if (condition.atomics.isEmpty()) return // should we maybe display something ?
+
         items.add(condition)
         playlist?.let { view.setup(Rule(items, playlist!!, id)) }
+        view.setConditions(items)
     }
 
     override fun onPlaylistPicked(playlist: Playlist) {

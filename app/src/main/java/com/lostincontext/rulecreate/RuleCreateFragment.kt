@@ -128,6 +128,7 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
     }
 
     override fun setConditions(conditions: List<Condition>) {
+        items.clear()
         conditions.forEachIndexed { i, condition ->
             val conditionItem = ConditionItem(presenter,
                                               items,
@@ -161,8 +162,6 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
             requestCode == CONDITION_REQUEST_CODE && resultCode == RESULT_OK -> {
                 val condition = data.getParcelableExtra<Condition>(EXTRA_CONDITION)
                 logD(TAG) { "received condition : $condition" }
-                items.add(ConditionItem(presenter, items, condition, scribe))
-                group.update(items)
                 presenter.onConditionAdded(condition)
             }
         }
