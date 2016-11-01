@@ -174,12 +174,19 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
             requestCode == CONDITION_REQUEST_CODE && resultCode == RESULT_OK -> {
                 val condition = data.getParcelableExtra<Condition>(EXTRA_CONDITION)
                 logD(TAG) { "received condition : $condition" }
-                items.add(ConditionItem(presenter, items.size + 1, condition, scribe))
+                items.add(ConditionItem(presenter, items, condition, scribe))
                 group.update(items)
                 presenter.onConditionAdded(condition)
             }
         }
 
+    }
+
+    override fun remove(condition: Condition) {
+        val item = items.find { it.condition == condition }
+        items.remove(item)
+        group.update(items)
+        items.forEachIndexed { i, item -> group.notifyItemChanged(i) }
     }
 
     override fun setPlaylist(playlist: Playlist?) {
@@ -190,7 +197,7 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
     override fun setConditions(conditions: List<Condition>) {
         conditions.forEachIndexed { i, condition ->
             val conditionItem = ConditionItem(presenter,
-                                              i + 1,
+                                              items,
                                               condition,
                                               scribe)
             items.add(conditionItem)
