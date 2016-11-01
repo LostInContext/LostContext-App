@@ -31,11 +31,6 @@
             android:theme="@style/AppTheme.Scrim" />
 
         <activity
-            android:name=".ruledetails.RuleDetailsActivity"
-            android:parentActivityName=".rulecreate.RuleCreateActivity"
-            android:theme="@style/RuleDetailsTheme" />
-
-        <activity
             android:name=".condition.ConditionActivity"
             android:parentActivityName=".rulecreate.RuleCreateActivity" />
 
