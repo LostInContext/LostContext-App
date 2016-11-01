@@ -5,6 +5,7 @@ import com.lostincontext.commons.BasePresenter
 import com.lostincontext.commons.BaseView
 import com.lostincontext.condition.pick.PlusButtonCallback
 import com.lostincontext.data.playlist.Playlist
+import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder
 
 object RuleCreateContract {
@@ -12,6 +13,7 @@ object RuleCreateContract {
         fun pickACondition(index: Int)
         fun pickAPlaylist()
         fun setPlaylist(playlist: Playlist?)
+        fun setConditions(conditions: List<Condition>)
 
     }
 
@@ -23,10 +25,10 @@ object RuleCreateContract {
         fun onMenuItemClick(itemId: Int): Boolean
         fun saveState(outState: Bundle)
         fun onPlaylistPicked(playlist: Playlist)
-
+        fun onConditionAdded(condition: Condition)
     }
 
 
-    const val EXTRA_INDEX  = "index"
+    const val EXTRA_INDEX = "index"
 
 }

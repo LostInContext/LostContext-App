@@ -176,6 +176,7 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
                 logD(TAG) { "received condition : $condition" }
                 items.add(ConditionItem(presenter, items.size + 1, condition, scribe))
                 group.update(items)
+                presenter.onConditionAdded(condition)
             }
         }
 
@@ -184,6 +185,17 @@ class RuleCreateFragment : Fragment(), RuleCreateContract.View {
     override fun setPlaylist(playlist: Playlist?) {
         playlistItem.playlist = playlist
         binding.playlist = playlist
+    }
+
+    override fun setConditions(conditions: List<Condition>) {
+        conditions.forEachIndexed { i, condition ->
+            val conditionItem = ConditionItem(presenter,
+                                              i + 1,
+                                              condition,
+                                              scribe)
+            items.add(conditionItem)
+        }
+        group.update(items)
     }
 
 
