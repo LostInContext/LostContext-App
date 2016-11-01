@@ -18,14 +18,12 @@ class UsersPresenter @Inject internal constructor(private val view: UsersContrac
 
     init {
         icicle?.let { query = it.getCharSequence(KEY_QUERY) }
-        logD(TAG) {"icicle : $icicle" }
+        logD(TAG) { "icicle : $icicle" }
     }
 
     override fun start() {
         logD(TAG) { "query : $query" }
-        query?.let {
-            onUserSearch(it)
-        }
+        query?.let { onUserSearch(it) }
     }
 
     override fun saveState(outState: Bundle) = outState.putCharSequence(KEY_QUERY, query)

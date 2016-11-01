@@ -18,8 +18,7 @@ import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget
 import com.lostincontext.commons.list.ViewHolder
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rules.FenceIconGiver
-import com.lostincontext.data.rules.Rule
+import com.lostincontext.data.rulesV2.Rule
 import com.lostincontext.databinding.ItemRuleBinding
 import com.lostincontext.utils.animateBackgroundColor
 import com.lostincontext.utils.animateTextColor
@@ -91,7 +90,7 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
                 .into(target)
 
         val icons = ArrayList<Int>()
-        rule.fenceVM.giveIcon(FenceIconGiver(), icons)
+       /* rule.fenceVM.giveIcon(FenceIconGiver(), icons)
         if (!icons.isEmpty()) {
             if (icons.size >= 3) {
                 binding.ic3.setImageResource(icons[2])
@@ -101,7 +100,7 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
             }
             binding.ic1.setImageResource(icons[0])
 
-        }
+        }*/
     }
 
     //region requestListener

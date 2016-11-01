@@ -1,5 +1,7 @@
 package com.lostincontext.data.rulesV2
 
+import com.google.android.gms.awareness.fence.AwarenessFence
+import com.lostincontext.data.rules.FenceBuilder
 import nz.bradcampbell.paperparcel.PaperParcel
 import nz.bradcampbell.paperparcel.PaperParcelable
 
@@ -8,4 +10,12 @@ data class Condition(val atomics: MutableList<AtomicCondition>) : PaperParcelabl
     companion object {
         @JvmField val CREATOR = PaperParcelable.Creator(Condition::class.java)
     }
+
+
+    fun buildAwarenessFence(builder: FenceBuilder): AwarenessFence {
+        val fences = atomics.map { it.getModifiedFence().build(builder) }
+        return AwarenessFence.or(fences)
+    }
+
+
 }

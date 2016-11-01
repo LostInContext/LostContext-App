@@ -6,7 +6,7 @@
 
         <variable
             name="rule"
-            type="com.lostincontext.data.rules.Rule" />
+            type="com.lostincontext.data.rulesV2.Rule" />
 
         <variable
             name="callback"
@@ -44,7 +44,7 @@
                 android:lines="1"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:text="@{rule.name}"
+                android:text="@{rule.key}"
                 tools:text="rule name" />
 
             <LinearLayout

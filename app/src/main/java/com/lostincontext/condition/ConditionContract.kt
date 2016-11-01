@@ -10,10 +10,8 @@ import com.lostincontext.condition.pick.PickerDialogCallback
 import com.lostincontext.condition.pick.PlusButtonCallback
 import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.data.rulesV2.Condition
-import com.lostincontext.rulecreate.AtomicConditionItem
+import com.lostincontext.condition.AtomicConditionItem
 
-
-const val EXTRA_CONDITION = "condition"
 
 interface ConditionContract {
 
@@ -40,3 +38,7 @@ interface ConditionContract {
     }
 
 }
+
+const val EXTRA_CONDITION = "condition"
+const val PLAYLIST_PICKER_REQUEST_CODE = 9001
+const val CONDITION_REQUEST_CODE = 9002

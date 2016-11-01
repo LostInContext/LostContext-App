@@ -2,13 +2,16 @@ package com.lostincontext.mainscreen
 
 
 import android.os.Bundle
-
+import com.google.android.gms.awareness.fence.FenceUpdateRequest
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.ResultCallbacks
+import com.google.android.gms.common.api.Status
 import com.lostincontext.awareness.Awareness
-import com.lostincontext.data.rules.Rule
+import com.lostincontext.data.rules.FenceBuilder
 import com.lostincontext.data.rules.repo.RulesRepository
-
+import com.lostincontext.data.rulesV2.Rule
+import com.lostincontext.utils.logD
 import javax.inject.Inject
 
 
@@ -17,12 +20,16 @@ class MainScreenPresenter
 constructor(private val view: MainScreenContract.View,
             private val awareness: Awareness,
             private val rulesRepository: RulesRepository)
-: MainScreenContract.Presenter,
-  GoogleApiClient.ConnectionCallbacks,
-  GoogleApiClient.OnConnectionFailedListener {
+    : MainScreenContract.Presenter,
+      GoogleApiClient.ConnectionCallbacks,
+      GoogleApiClient.OnConnectionFailedListener {
 
 
     override fun start() {
+        refreshRules()
+    }
+
+    private fun refreshRules() {
         rulesRepository.getRules(object : RulesRepository.LoadTasksCallback {
             override fun onTasksLoaded(rules: List<Rule>) {
                 view.setRules(rules)
@@ -46,6 +53,31 @@ constructor(private val view: MainScreenContract.View,
         view.openRuleCreationScreen()
     }
 
+    override fun onRuleInput(rule: com.lostincontext.data.rulesV2.Rule) {
+        logD(TAG) { "onRuleInput : $rule" }
+
+        val fenceBuilder = FenceBuilder()
+        val builder = FenceUpdateRequest.Builder()
+
+        builder.addFence(rule.key,
+                         rule.buildAwarenessFence(fenceBuilder),
+                         view.getPendingIntentFor(rule.playlist))
+
+        awareness.updateFence(builder.build()).setResultCallback(object : ResultCallbacks<Status>() {
+            override fun onSuccess(status: Status) {
+                logD(TAG) { "updateFence.onSuccess: " + status.statusMessage }
+                rulesRepository.saveRule(rule)
+                refreshRules()
+            }
+
+            override fun onFailure(status: Status) {
+                //view.showSnack(EnumSet.of(RuleDetailsContract.RuleErrors.SAVE_ERROR))
+            }
+        })
+
+
+    }
+
 
     //endregion
 
@@ -61,6 +93,10 @@ constructor(private val view: MainScreenContract.View,
 
     override fun onRefreshButtonClick() {
 
+    }
+
+    companion object {
+        private val TAG: String = MainScreenPresenter::class.java.simpleName
     }
 }
 
