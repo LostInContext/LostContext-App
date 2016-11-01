@@ -15,6 +15,7 @@ import com.lostincontext.data.rules.HeadphoneFenceVM
 import com.lostincontext.data.rules.LocationFenceVM
 import com.lostincontext.data.rulesV2.AtomicCondition
 import com.lostincontext.data.rulesV2.Condition
+import com.lostincontext.utils.logD
 import java.util.*
 import javax.inject.Inject
 
@@ -62,7 +63,13 @@ class ConditionPresenter
     override fun onPlusButtonClick() = view.displayFenceChoice()
 
     override fun onMenuItemClick(itemId: Int): Boolean {
-        return true
+        when (itemId) {
+            R.id.action_delete -> {
+                logD(TAG) { "delete" }
+                return true
+            }
+        }
+        return false
     }
 
     override fun onDeleteButtonClick(atomic: AtomicCondition) {
@@ -235,5 +242,6 @@ class ConditionPresenter
 
     companion object {
         const val KEY_CONDITION = "condition_conditionPresenter"
+        val TAG: String = ConditionPresenter::class.java.simpleName
     }
 }
