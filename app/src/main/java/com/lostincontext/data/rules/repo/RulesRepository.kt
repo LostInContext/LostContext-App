@@ -2,15 +2,12 @@ package com.lostincontext.data.rules.repo
 
 import android.content.SharedPreferences
 import android.util.Log
-
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.lostincontext.data.rulesV2.Rule
-
+import com.lostincontext.utils.logD
 import java.io.IOException
-import java.util.ArrayList
-import java.util.HashSet
-
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -29,7 +26,7 @@ class RulesRepository
 
     fun saveRule(rule: Rule) {
         try {
-            val name : String= rule.key
+            val name: String = rule.key
             saveToPrefs(name, serialize(rule))
             addToRulesList(name)
         } catch (e: JsonProcessingException) {
@@ -38,12 +35,23 @@ class RulesRepository
 
     }
 
+    fun deleteRule(rule: Rule) {
+        try {
+            val key: String = rule.key
+
+            removeFromRulesList(key)
+            deleteFromPrefs(key)
+        } catch (e: JsonProcessingException) {
+            Log.e(TAG, "delete: ", e)
+        }
+    }
+
     @Throws(IOException::class)
     fun getRule(name: String): Rule = deserialize(loadFromPrefs(name))
 
 
     fun getRules(callback: LoadTasksCallback) {
-        val rulesNames = rulesNames
+        val rulesNames = getRuleNames()
         val rules = ArrayList<Rule>(rulesNames.size)
         try {
             for (ruleName in rulesNames) {
@@ -63,7 +71,7 @@ class RulesRepository
     }
 
     fun clearAllRules() {
-        val rulesNames = rulesNames
+        val rulesNames = getRuleNames()
         val editor = preferences.edit()
         for (ruleName in rulesNames) {
             editor.remove(ruleName)
@@ -75,7 +83,7 @@ class RulesRepository
     //region rules manipulation
 
     private fun addToRulesList(name: String) {
-        val rulesNames = rulesNames
+        val rulesNames = getRuleNames()
 
         rulesNames.add(name)
 
@@ -84,16 +92,26 @@ class RulesRepository
         editor.apply()
     }
 
-    private val rulesNames: MutableSet<String>
-        get() {
-            var rulesNames = preferences.getStringSet(RULES_KEY, null)
-            if (rulesNames == null) {
-                rulesNames = HashSet<String>()
-            } else {
-                rulesNames = HashSet(rulesNames)
-            }
-            return rulesNames
+    private fun removeFromRulesList(key: String) {
+        val rulesNames = getRuleNames()
+
+        rulesNames.remove(key)
+
+        val editor = preferences.edit()
+        editor.putStringSet(RULES_KEY, rulesNames)
+        editor.apply()
+    }
+
+
+    fun getRuleNames() : MutableSet<String> {
+        var rulesNames = preferences.getStringSet(RULES_KEY, null)
+        if (rulesNames == null) {
+            rulesNames = HashSet<String>()
+        } else {
+            rulesNames = HashSet(rulesNames)
         }
+        return rulesNames
+    }
 
     //endregion
 
@@ -105,7 +123,16 @@ class RulesRepository
         editor.putString(title, json)
         editor.apply()
 
-        Log.i(TAG, "saving: " + json)
+        logD(TAG) { "saving : $json" }
+    }
+
+    private fun deleteFromPrefs(key: String) {
+        val editor = preferences.edit()
+        editor.remove(key)
+        editor.apply()
+
+        logD(TAG) { "deletion : $key" }
+
     }
 
     private fun loadFromPrefs(title: String): String {
@@ -132,7 +159,6 @@ class RulesRepository
     companion object {
 
         private val RULES_KEY = "rules_Key_prefs"
-
 
         private val TAG = RulesRepository::class.java.simpleName
     }

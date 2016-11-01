@@ -1,7 +1,6 @@
 package com.lostincontext.mainscreen
 
 import android.app.PendingIntent
-
 import com.lostincontext.commons.BasePresenter
 import com.lostincontext.commons.BaseView
 import com.lostincontext.commons.list.EmptyListCallback
@@ -17,9 +16,12 @@ interface MainScreenContract {
         fun openRuleCreationScreen()
         fun setRules(rules: List<Rule>)
         fun getPendingIntentFor(playlist: Playlist): PendingIntent
+        fun goToPlaylist(playlist: Playlist)
     }
 
-    interface Presenter : BasePresenter, EmptyListCallback {
+    interface Presenter : BasePresenter,
+                          MainScreenViewHolder.Callback,
+                          EmptyListCallback {
 
         fun onFabClicked()
         fun onRuleInput(rule: Rule)

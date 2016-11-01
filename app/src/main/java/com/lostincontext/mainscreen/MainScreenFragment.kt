@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.lostincontext.PlaylistLauncher
 import com.lostincontext.R
 import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
@@ -19,7 +20,6 @@ import com.lostincontext.commons.list.StatefulAdapter.ContentState
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rulesV2.Rule
 import com.lostincontext.databinding.MainScreenFragmentBinding
-import com.lostincontext.playlists.PlaylistsContract
 import com.lostincontext.rulecreate.RuleCreateActivity
 import com.lostincontext.rulecreate.RuleCreateContract.EXTRA_RULE
 import com.lostincontext.that.ThatService
@@ -66,7 +66,7 @@ class MainScreenFragment : Fragment(), MainScreenContract.View {
         val space = resources.getDimensionPixelSize(R.dimen.grid_spacing)
         recyclerView.addItemDecoration(SpacesItemDecoration(space, span))
 
-        adapter = MainScreenAdapter(presenter)
+        adapter = MainScreenAdapter(presenter, presenter)
 
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -98,6 +98,12 @@ class MainScreenFragment : Fragment(), MainScreenContract.View {
                                         intent,
                                         0)
     }
+
+    override fun goToPlaylist(playlist: Playlist) {
+        val launcher = PlaylistLauncher()
+        launcher.launchPlaylist(context, playlist, false)
+    }
+
 
 
     override fun openRuleCreationScreen() {
