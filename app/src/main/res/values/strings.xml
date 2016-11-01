@@ -39,4 +39,7 @@
     <string name="on_foot">on foot</string>
     <string name="headphones_in">headphones in</string>
     <string name="headphones_out">headphones out</string>
+    <string name="at_loc">at %1$s</string>
+    <string name="home">home</string>
+    <string name="work">work</string>
 </resources>

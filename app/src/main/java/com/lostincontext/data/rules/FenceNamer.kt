@@ -46,7 +46,12 @@ class FenceNamer(val context: Context) {
     }
 
     fun location(locationFenceVM: LocationFenceVM): CharSequence {
-        return applyStyle(locationFenceVM.name)
+        val name = when (locationFenceVM.name) {
+            LocationFenceVM.WORK -> resources.getString(R.string.work)
+            LocationFenceVM.HOME -> resources.getString(R.string.home)
+            else -> throw IllegalArgumentException("unknown location")
+        }
+        return applyStyle(resources.getString(R.string.at_loc, name))
     }
 
     fun not(notFenceVM: NotFenceVM): CharSequence {
