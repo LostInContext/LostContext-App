@@ -7,11 +7,13 @@ import com.lostincontext.R
 import com.lostincontext.commons.images.ImageGradientTransformation
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.databinding.ItemPlaylistEditScreenBinding
-import com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder
 
-class PlaylistItem(context: Context, val callback: PlaylistInEditScreenViewHolder.Callback) :
-        Item<ItemPlaylistEditScreenBinding>() {
+class PlaylistItem(context: Context,
+                   val callback: Callback) : Item<ItemPlaylistEditScreenBinding>() {
 
+    interface Callback {
+        fun onPlaylistPickClick()
+    }
 
     var playlist: Playlist? = null
         set(value) {

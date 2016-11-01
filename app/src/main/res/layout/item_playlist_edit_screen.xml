@@ -15,7 +15,7 @@
 
         <variable
             name="callback"
-            type="com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder.Callback" />
+            type="com.lostincontext.rulecreate.PlaylistItem.Callback" />
 
     </data>
 

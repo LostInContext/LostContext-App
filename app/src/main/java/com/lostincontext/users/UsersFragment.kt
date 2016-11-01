@@ -13,12 +13,12 @@ import android.view.ViewGroup
 import com.lostincontext.R
 import com.lostincontext.application.LostApplication
 import com.lostincontext.commons.list.StatefulAdapter
+import com.lostincontext.condition.PLAYLIST_PICKER_REQUEST_CODE
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.user.User
 import com.lostincontext.databinding.UsersScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsActivity
 import com.lostincontext.playlists.PlaylistsContract
-import com.lostincontext.ruledetails.RuleDetailsFragment
 import javax.inject.Inject
 
 class UsersFragment : Fragment(), UsersContract.View {
@@ -85,13 +85,13 @@ class UsersFragment : Fragment(), UsersContract.View {
     override fun openPlaylistsScreen(user: User) {
         val intent = Intent(this.context, PlaylistsActivity::class.java)
         intent.putExtra(PlaylistsContract.EXTRA_USER_ID, user.id)
-        startActivityForResult(intent, RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE)
+        startActivityForResult(intent, PLAYLIST_PICKER_REQUEST_CODE)
     }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (data != null && requestCode == RuleDetailsFragment.PLAYLIST_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (data != null && requestCode == PLAYLIST_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val playlist = data.getParcelableExtra<Playlist>(PlaylistsContract.EXTRA_PLAYLIST)
             val returnIntent = Intent()
             returnIntent.putExtra(PlaylistsContract.EXTRA_PLAYLIST, playlist)
