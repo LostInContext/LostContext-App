@@ -27,13 +27,12 @@ class Scribe(val context: Context) {
 
         when (conditions.size) {
             0 -> return ""
-            1 -> return conditions[0].fence.name(namer)
             else ->
                 return conditions.fold("" as CharSequence) { s, atomic ->
-                    if (s.isEmpty()) atomic.fence.name(namer)
+                    if (s.isEmpty()) atomic.getModifiedFence().name(namer)
                     else TextUtils.expandTemplate(template,
                                                   s,
-                                                  atomic.fence.name(namer))
+                                                  atomic.getModifiedFence().name(namer))
                 }
         }
 
