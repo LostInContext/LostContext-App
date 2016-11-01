@@ -17,5 +17,10 @@ data class Condition(val atomics: MutableList<AtomicCondition>) : PaperParcelabl
         return AwarenessFence.or(fences)
     }
 
+    fun validate(): Boolean {
+        if (atomics.isEmpty()) return false
+        return true
+    }
+
 
 }

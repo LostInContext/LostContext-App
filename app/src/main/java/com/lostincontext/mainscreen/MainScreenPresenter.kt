@@ -2,6 +2,7 @@ package com.lostincontext.mainscreen
 
 
 import android.os.Bundle
+import com.google.android.gms.awareness.fence.AwarenessFence
 import com.google.android.gms.awareness.fence.FenceUpdateRequest
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -59,8 +60,12 @@ constructor(private val view: MainScreenContract.View,
         val fenceBuilder = FenceBuilder()
         val builder = FenceUpdateRequest.Builder()
 
+        val buildAwarenessFence: AwarenessFence? = rule.buildAwarenessFence(fenceBuilder)
+
+        if (buildAwarenessFence == null) logD(TAG) { "invalid fence, abort" }
+
         builder.addFence(rule.key,
-                         rule.buildAwarenessFence(fenceBuilder),
+                         buildAwarenessFence,
                          view.getPendingIntentFor(rule.playlist))
 
         awareness.updateFence(builder.build()).setResultCallback(object : ResultCallbacks<Status>() {

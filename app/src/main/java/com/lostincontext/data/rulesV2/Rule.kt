@@ -15,9 +15,17 @@ data class Rule(val conditions: List<Condition>,
     }
 
 
-    fun buildAwarenessFence(builder: FenceBuilder): AwarenessFence {
+    fun buildAwarenessFence(builder: FenceBuilder): AwarenessFence? {
+        if (!validateFence()) return null
+
         val fences = conditions.map { it.buildAwarenessFence(builder) }
         return AwarenessFence.or(fences)
+    }
+
+    fun validateFence(): Boolean {
+        if (conditions.isEmpty()) return false
+        conditions.forEach { if (!it.validate()) return false }
+        return true
     }
 
 }
