@@ -7,7 +7,6 @@ import com.lostincontext.condition.pick.PlusButtonCallback
 import com.lostincontext.data.playlist.Playlist
 import com.lostincontext.data.rulesV2.Condition
 import com.lostincontext.data.rulesV2.Rule
-import com.lostincontext.ruledetails.items.PlaylistInEditScreenViewHolder
 
 object RuleCreateContract {
     interface View : BaseView<Presenter> {
@@ -22,7 +21,7 @@ object RuleCreateContract {
 
     interface Presenter : BasePresenter,
                           PlusButtonCallback,
-                          PlaylistInEditScreenViewHolder.Callback,
+                          PlaylistItem.Callback,
                           ConditionItem.Callback {
 
         fun onMenuItemClick(itemId: Int): Boolean

@@ -3,7 +3,6 @@ package com.lostincontext.rulecreate
 import android.os.Bundle
 import com.lostincontext.R
 import com.lostincontext.commons.BaseActivity
-import com.lostincontext.ruledetails.RuleDetailsFragment
 import com.lostincontext.utils.addFragmentToActivity
 
 
