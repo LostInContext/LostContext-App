@@ -18,7 +18,6 @@ private val NOTIFICATION_ID = 0
 
 
 fun displayNotification(context: Context,
-                        fenceName: String,
                         playlist: Playlist) {
     val intent = Intent(context,
                         PlayReceiver::class.java)
@@ -30,7 +29,7 @@ fun displayNotification(context: Context,
                                              0)
 
     val n = NotificationCompat.Builder(context)
-            .setContentTitle("LostContext : $fenceName is verified")
+            .setContentTitle("${playlist.title} is ready to start")
             .setContentText("Launch playlist?")
             .setSmallIcon(R.drawable.ic_music_note_24)
             .setContentIntent(pIntent)
