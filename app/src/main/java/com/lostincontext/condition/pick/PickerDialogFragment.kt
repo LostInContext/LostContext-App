@@ -61,6 +61,7 @@ class PickerDialogFragment : BottomSheetDialogFragment(), PickerDialogCallback {
     }
 
     override fun onGridBottomSheetItemClick(item: GridBottomSheetItem) {
+        if(item.isPicked.get()) return
         dismiss()
         callback!!.onGridBottomSheetItemClick(item)
     }
