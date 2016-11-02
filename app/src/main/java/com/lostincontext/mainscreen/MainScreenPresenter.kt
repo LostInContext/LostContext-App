@@ -10,9 +10,9 @@ import com.google.android.gms.common.api.ResultCallbacks
 import com.google.android.gms.common.api.Status
 import com.lostincontext.awareness.Awareness
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rules.FenceBuilder
-import com.lostincontext.data.rules.repo.RulesRepository
-import com.lostincontext.data.rulesV2.Rule
+import com.lostincontext.data.fences.FenceBuilder
+import com.lostincontext.data.rule.repo.RulesRepository
+import com.lostincontext.data.rule.Rule
 import com.lostincontext.utils.logD
 import com.lostincontext.utils.logE
 import com.lostincontext.utils.logW
@@ -59,7 +59,7 @@ constructor(private val view: MainScreenContract.View,
         view.openRuleCreationScreen()
     }
 
-    override fun onRuleInput(rule: com.lostincontext.data.rulesV2.Rule) {
+    override fun onRuleInput(rule: Rule) {
         logD(TAG) { "onRuleInput : $rule" }
 
         val fenceBuilder = FenceBuilder()

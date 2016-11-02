@@ -1,4 +1,4 @@
-package com.lostincontext.data.rules
+package com.lostincontext.data.fences
 
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonTypeInfo

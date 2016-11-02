@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.maps.model.LatLng
 import com.lostincontext.data.location.LocationModel
-import com.lostincontext.data.rules.LocationFenceVM
+import com.lostincontext.data.fences.LocationFenceVM
 
 import java.io.IOException
 

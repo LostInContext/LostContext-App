@@ -8,8 +8,8 @@ import com.lostincontext.commons.list.Section
 import com.lostincontext.condition.pick.GridBottomSheetItem
 import com.lostincontext.condition.pick.PickerDialogCallback
 import com.lostincontext.condition.pick.PlusButtonCallback
-import com.lostincontext.data.rulesV2.AtomicCondition
-import com.lostincontext.data.rulesV2.Condition
+import com.lostincontext.data.rule.AtomicCondition
+import com.lostincontext.data.rule.Condition
 import com.lostincontext.condition.AtomicConditionItem
 
 

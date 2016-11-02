@@ -5,7 +5,7 @@ import com.lostincontext.commons.BasePresenter
 import com.lostincontext.commons.BaseView
 import com.lostincontext.commons.list.EmptyListCallback
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rulesV2.Rule
+import com.lostincontext.data.rule.Rule
 
 
 interface MainScreenContract {

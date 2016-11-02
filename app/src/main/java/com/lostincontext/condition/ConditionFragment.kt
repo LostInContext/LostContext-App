@@ -24,9 +24,9 @@ import com.lostincontext.application.LostApplication
 import com.lostincontext.awareness.AwarenessModule
 import com.lostincontext.commons.BaseActivity
 import com.lostincontext.condition.pick.GridBottomSheetItem
-import com.lostincontext.data.rules.FenceNamer
-import com.lostincontext.data.rulesV2.AtomicCondition
-import com.lostincontext.data.rulesV2.Condition
+import com.lostincontext.data.fences.FenceNamer
+import com.lostincontext.data.rule.AtomicCondition
+import com.lostincontext.data.rule.Condition
 import com.lostincontext.databinding.ConditionScreenFragmentBinding
 import com.lostincontext.rulecreate.RuleCreateContract
 import com.lostincontext.condition.pick.PickerDialogFragment

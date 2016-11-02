@@ -1,4 +1,4 @@
-package com.lostincontext.data.rules
+package com.lostincontext.data.fences
 
 import android.content.Context
 import android.content.res.Resources

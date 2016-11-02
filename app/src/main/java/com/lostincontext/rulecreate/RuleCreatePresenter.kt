@@ -2,8 +2,8 @@ package com.lostincontext.rulecreate
 
 import android.os.Bundle
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rulesV2.Condition
-import com.lostincontext.data.rulesV2.Rule
+import com.lostincontext.data.rule.Condition
+import com.lostincontext.data.rule.Rule
 import com.lostincontext.utils.logD
 import java.util.*
 import javax.inject.Inject

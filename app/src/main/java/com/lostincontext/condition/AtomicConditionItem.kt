@@ -2,10 +2,10 @@ package com.lostincontext.condition
 
 import com.genius.groupie.Item
 import com.lostincontext.R
-import com.lostincontext.data.rules.FenceNamer
-import com.lostincontext.data.rulesV2.AtomicCondition
-import com.lostincontext.data.rulesV2.AtomicCondition.Modifier.NONE
-import com.lostincontext.data.rulesV2.AtomicCondition.Modifier.NOT
+import com.lostincontext.data.fences.FenceNamer
+import com.lostincontext.data.rule.AtomicCondition
+import com.lostincontext.data.rule.AtomicCondition.Modifier.NONE
+import com.lostincontext.data.rule.AtomicCondition.Modifier.NOT
 import com.lostincontext.databinding.ItemAtomicConditionBinding
 
 
