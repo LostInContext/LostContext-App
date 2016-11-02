@@ -10,7 +10,7 @@ import com.lostincontext.commons.list.StatefulAdapter
 import com.lostincontext.commons.list.StatefulAdapter.ContentState.CONTENT
 import com.lostincontext.commons.list.StatefulAdapter.ContentState.LOADING
 import com.lostincontext.commons.list.ViewHolder
-import com.lostincontext.data.rulesV2.Rule
+import com.lostincontext.data.rule.Rule
 
 
 class MainScreenAdapter(private val emptyListCallback: EmptyListCallback,

@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.res.Resources
 import android.text.TextUtils
 import com.lostincontext.R
-import com.lostincontext.data.rules.FenceNamer
-import com.lostincontext.data.rulesV2.AtomicCondition
-import com.lostincontext.data.rulesV2.Condition
+import com.lostincontext.data.fences.FenceNamer
+import com.lostincontext.data.rule.AtomicCondition
+import com.lostincontext.data.rule.Condition
 
 class Scribe(val context: Context) {
 

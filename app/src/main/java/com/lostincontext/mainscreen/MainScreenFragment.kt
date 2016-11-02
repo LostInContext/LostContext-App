@@ -18,7 +18,7 @@ import com.lostincontext.commons.BaseActivity
 import com.lostincontext.commons.list.SpacesItemDecoration
 import com.lostincontext.commons.list.StatefulAdapter.ContentState
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rulesV2.Rule
+import com.lostincontext.data.rule.Rule
 import com.lostincontext.databinding.MainScreenFragmentBinding
 import com.lostincontext.rulecreate.RuleCreateActivity
 import com.lostincontext.rulecreate.RuleCreateContract.EXTRA_RULE

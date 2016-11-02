@@ -1,4 +1,4 @@
-package com.lostincontext.data.rules
+package com.lostincontext.data.fences
 
 import android.support.annotation.StringDef
 import com.google.android.gms.awareness.fence.AwarenessFence

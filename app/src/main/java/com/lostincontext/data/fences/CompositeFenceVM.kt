@@ -1,4 +1,4 @@
-package com.lostincontext.data.rules
+package com.lostincontext.data.fences
 
 import com.google.android.gms.awareness.fence.AwarenessFence
 import nz.bradcampbell.paperparcel.PaperParcel

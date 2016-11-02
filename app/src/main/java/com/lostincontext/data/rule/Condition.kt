@@ -1,7 +1,7 @@
-package com.lostincontext.data.rulesV2
+package com.lostincontext.data.rule
 
 import com.google.android.gms.awareness.fence.AwarenessFence
-import com.lostincontext.data.rules.FenceBuilder
+import com.lostincontext.data.fences.FenceBuilder
 import nz.bradcampbell.paperparcel.PaperParcel
 import nz.bradcampbell.paperparcel.PaperParcelable
 

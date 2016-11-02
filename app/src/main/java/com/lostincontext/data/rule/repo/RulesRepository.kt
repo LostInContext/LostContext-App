@@ -1,10 +1,10 @@
-package com.lostincontext.data.rules.repo
+package com.lostincontext.data.rule.repo
 
 import android.content.SharedPreferences
 import android.util.Log
 import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.lostincontext.data.rulesV2.Rule
+import com.lostincontext.data.rule.Rule
 import com.lostincontext.utils.logD
 import java.io.IOException
 import java.util.*

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="rule"
-            type="com.lostincontext.data.rulesV2.Rule" />
+            type="com.lostincontext.data.rule.Rule" />
 
         <variable
             name="callback"
@@ -22,8 +21,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
-        android:onLongClick="@{() -> callback.onRuleLongClick(rule)}"
         android:longClickable="true"
+        android:onLongClick="@{() -> callback.onRuleLongClick(rule)}"
         android:outlineProvider="bounds"
         android:stateListAnimator="@animator/lift_on_touch">
 
@@ -55,8 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_title"
                 android:layout_marginTop="5dp"
-                android:paddingStart="16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="16dp">
 
                 <ImageView
                     android:id="@+id/ic_1"

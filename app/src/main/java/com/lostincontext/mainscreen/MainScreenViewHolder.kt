@@ -17,7 +17,7 @@ import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget
 import com.lostincontext.commons.list.ViewHolder
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rulesV2.Rule
+import com.lostincontext.data.rule.Rule
 import com.lostincontext.databinding.ItemRuleBinding
 import com.lostincontext.utils.animateBackgroundColor
 import com.lostincontext.utils.animateTextColor

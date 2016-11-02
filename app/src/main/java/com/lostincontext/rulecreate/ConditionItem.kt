@@ -2,7 +2,7 @@ package com.lostincontext.rulecreate
 
 import com.genius.groupie.Item
 import com.lostincontext.R
-import com.lostincontext.data.rulesV2.Condition
+import com.lostincontext.data.rule.Condition
 import com.lostincontext.databinding.ItemConditionBinding
 
 

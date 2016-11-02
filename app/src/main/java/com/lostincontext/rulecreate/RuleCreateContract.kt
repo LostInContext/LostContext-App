@@ -5,8 +5,8 @@ import com.lostincontext.commons.BasePresenter
 import com.lostincontext.commons.BaseView
 import com.lostincontext.condition.pick.PlusButtonCallback
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rulesV2.Condition
-import com.lostincontext.data.rulesV2.Rule
+import com.lostincontext.data.rule.Condition
+import com.lostincontext.data.rule.Rule
 
 object RuleCreateContract {
     interface View : BaseView<Presenter> {

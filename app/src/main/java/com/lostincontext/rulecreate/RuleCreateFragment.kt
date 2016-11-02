@@ -21,8 +21,8 @@ import com.lostincontext.condition.ConditionActivity
 import com.lostincontext.condition.EXTRA_CONDITION
 import com.lostincontext.condition.PLAYLIST_PICKER_REQUEST_CODE
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rulesV2.Condition
-import com.lostincontext.data.rulesV2.Rule
+import com.lostincontext.data.rule.Condition
+import com.lostincontext.data.rule.Rule
 import com.lostincontext.databinding.RuleCreateScreenFragmentBinding
 import com.lostincontext.playlists.PlaylistsContract
 import com.lostincontext.rulecreate.RuleCreateContract.EXTRA_RULE
