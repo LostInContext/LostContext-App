@@ -11,7 +11,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$android_build_tools_version"
+        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version_internal"
     }
 }
@@ -50,6 +50,8 @@ ext {
     glideVersion = '3.7.0'
     jacksonVersion = '2.8.2'
     kotlinVersion = kotlin_version_internal
+    retrofitVersion = '2.1.0'
+    moshiVersion = '1.2.0'
 
     // Testing
     jUnitVersion = '4.12'
