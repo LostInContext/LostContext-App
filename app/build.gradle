@@ -74,7 +74,7 @@ dependencies {
 
     // Play Services
     compile "com.google.android.gms:play-services-base:$rootProject.playServicesVersion"
-    compile "com.google.android.gms:play-services-contextmanager:$rootProject.playServicesVersion"
+    compile "com.google.android.gms:play-services-awareness:$rootProject.playServicesVersion"
 
     // Dagger
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"

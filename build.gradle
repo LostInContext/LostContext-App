@@ -37,7 +37,7 @@ ext {
 
     // App dependencies
     supportLibraryVersion = '24.2.1'
-    playServicesVersion = '9.4.0'
+    playServicesVersion = '9.6.1'
     dataBindingVersion = android_build_tools_version
     daggerVersion = '2.7'
     javaxAnnotationsVersion = '10.0-b28'
