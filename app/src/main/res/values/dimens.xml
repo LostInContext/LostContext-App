@@ -8,4 +8,6 @@
     <dimen name="when_width">110dp</dimen>
     <dimen name="btn_horizontal_inset">4dp</dimen>
     <dimen name="btn_horizontal_padding">8dp</dimen>
+    <dimen name="plus_button_height">48dp</dimen>
+    <dimen name="scrim_anim_pivot">48dp</dimen>
 </resources>

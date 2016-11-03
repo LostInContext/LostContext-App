@@ -7,43 +7,50 @@
 
         <variable
             name="callback"
-            type="com.lostincontext.ruledetails.pick.PickerDialogCallback" />
+            type="com.lostincontext.condition.pick.PickerDialogCallback" />
 
         <variable
             name="item"
-            type="com.lostincontext.ruledetails.pick.GridBottomSheetItem" />
+            type="com.lostincontext.condition.pick.GridBottomSheetItem" />
 
     </data>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> callback.onGridBottomSheetItemClick(item)}"
+        android:layout_height="120dp"
         android:background="?selectableItemBackground"
-        >
+        android:onClick="@{() -> callback.onGridBottomSheetItemClick(item)}">
 
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_above="@+id/text"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:background="@{item.isPicked ? @drawable/background_fence_picked : @drawable/background_fence}"
             android:outlineProvider="background"
-            android:tint="#757575"
+            android:scaleType="center"
+            android:tint="@{item.isPicked ?  @color/picker_picked : @color/picker}"
             app:resource="@{item.drawableRes}"
-            tools:src="@drawable/ic_run_24" />
+            tools:background="@drawable/background_fence"
+            tools:src="@drawable/ic_run_24"
+            tools:tint="@color/picker" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/text"
-            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/icon"
-            android:layout_marginTop="8dp"
-            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
             android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center_horizontal"
             android:text="@{item.name}"
+            android:textColor="#4a4a4a"
+            android:textSize="14sp"
             tools:text="description" />
 
     </RelativeLayout>

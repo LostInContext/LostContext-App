@@ -11,25 +11,25 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.animation.ViewPropertyAnimation
 import com.bumptech.glide.request.target.Target
-import com.lostincontext.PlaylistLauncher
 import com.lostincontext.R
 import com.lostincontext.commons.images.palette.PaletteBitmap
 import com.lostincontext.commons.images.palette.PaletteBitmapTranscoder
 import com.lostincontext.commons.images.palette.PaletteImageViewTarget
 import com.lostincontext.commons.list.ViewHolder
 import com.lostincontext.data.playlist.Playlist
-import com.lostincontext.data.rules.FenceIconGiver
-import com.lostincontext.data.rules.Rule
+import com.lostincontext.data.rule.Rule
 import com.lostincontext.databinding.ItemRuleBinding
 import com.lostincontext.utils.animateBackgroundColor
 import com.lostincontext.utils.animateTextColor
 import java.util.*
 
-class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(binding.root),
-                                                                   RequestListener<Playlist?, PaletteBitmap> {
+class MainScreenViewHolder(private val binding: ItemRuleBinding,
+                           private val callback: Callback) : ViewHolder(binding.root),
+                                                             RequestListener<Playlist?, PaletteBitmap> {
 
     interface Callback {
         fun onPlaylistCoverClick(playlist: Playlist)
+        fun onRuleLongClick(rule: Rule) : Boolean
     }
 
     private val target: PaletteImageViewTarget
@@ -71,13 +71,7 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
     fun bindTo(rule: Rule) {
 
         binding.rule = rule
-        binding.callback = object : MainScreenViewHolder.Callback {
-            override fun onPlaylistCoverClick(playlist: Playlist) {
-                val launcher = PlaylistLauncher()
-                launcher.launchPlaylist(binding.root.context, playlist, false)
-            }
-        }
-
+        binding.callback = callback
 
         binding.textBackground.setBackgroundColor(defaultBackgroundColor)
         binding.itemTitle.setTextColor(defaultTextColor)
@@ -90,18 +84,18 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
                 .listener(this)
                 .into(target)
 
-        val icons = ArrayList<Int>()
+        /* val icons = ArrayList<Int>()
         rule.fenceVM.giveIcon(FenceIconGiver(), icons)
-        if (!icons.isEmpty()) {
-            if (icons.size >= 3) {
-                binding.ic3.setImageResource(icons[2])
-            }
-            if (icons.size >= 2) {
-                binding.ic2.setImageResource(icons[1])
-            }
-            binding.ic1.setImageResource(icons[0])
+         if (!icons.isEmpty()) {
+             if (icons.size >= 3) {
+                 binding.ic3.setImageResource(icons[2])
+             }
+             if (icons.size >= 2) {
+                 binding.ic2.setImageResource(icons[1])
+             }
+             binding.ic1.setImageResource(icons[0])
 
-        }
+         }*/
     }
 
     //region requestListener
@@ -154,9 +148,10 @@ class MainScreenViewHolder(private val binding: ItemRuleBinding) : ViewHolder(bi
     companion object {
 
         fun create(layoutInflater: LayoutInflater,
-                   parent: ViewGroup): MainScreenViewHolder {
+                   parent: ViewGroup,
+                   callback: Callback): MainScreenViewHolder {
             val binding = ItemRuleBinding.inflate(layoutInflater, parent, false)
-            return MainScreenViewHolder(binding)
+            return MainScreenViewHolder(binding, callback)
         }
 
         private fun getSwatch(palette: Palette): Palette.Swatch? {

@@ -6,7 +6,7 @@
 
         <variable
             name="rule"
-            type="com.lostincontext.data.rules.Rule" />
+            type="com.lostincontext.data.rule.Rule" />
 
         <variable
             name="callback"
@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
+        android:longClickable="true"
+        android:onLongClick="@{() -> callback.onRuleLongClick(rule)}"
         android:outlineProvider="bounds"
         android:stateListAnimator="@animator/lift_on_touch">
 
@@ -44,7 +46,7 @@
                 android:lines="1"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:text="@{rule.name}"
+                android:text="@{rule.playlist.title}"
                 tools:text="rule name" />
 
             <LinearLayout
@@ -52,8 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_title"
                 android:layout_marginTop="5dp"
-                android:paddingStart="16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingStart="16dp">
 
                 <ImageView
                     android:id="@+id/ic_1"

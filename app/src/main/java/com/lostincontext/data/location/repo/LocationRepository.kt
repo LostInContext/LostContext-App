@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.maps.model.LatLng
 import com.lostincontext.data.location.LocationModel
+import com.lostincontext.data.fences.LocationFenceVM
 
 import java.io.IOException
 
@@ -37,7 +38,7 @@ constructor(@Named("location") private val preferences: SharedPreferences,
 
     }
 
-    fun getLocation(name: String, callback: LocationCallback) {
+    fun getLocation(@LocationFenceVM.LocationName name: String, callback: LocationCallback) {
         val json = loadFromPrefs(name)
         if (json.isEmpty()) callback.onLocationLoadFailed(name)
         try {

@@ -41,7 +41,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="68dp"
-                android:layout_toStartOf="@+id/deezer_logo"
+                android:layout_toStartOf="@+id/play_icon"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -63,19 +63,18 @@
                     style="@style/itemInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:ellipsize="end"
                     android:lines="1"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
-                    android:text="@{playlist.creator}"
+                    android:text="@{playlist.author.name}"
                     tools:text="some comment" />
 
             </LinearLayout>
 
 
             <ImageView
-                android:id="@+id/deezer_logo"
+                android:id="@+id/play_icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_alignParentEnd="true"

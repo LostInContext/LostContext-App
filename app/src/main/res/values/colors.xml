@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#ef008c</color>
+    <color name="colorPrimaryDark">#b30e6a</color>
+    <color name="colorAccent">#ef008c</color>
+
+    <color name="ripple_dark">#55ffffff</color>
+    <color name="ripple_light">#1f000000</color>
 
 
     <color name="playlist_text_default_background">#9E9E9E</color>
@@ -10,4 +13,12 @@
     <color name="deezer_logo_bottom">#cccccc</color>
     <color name="playlist_icon_default_color">#E9E9E9</color>
     <color name="lost_radio_button_color">#E9E9E9</color>
+    <color name="background_playlist_pick_button">#99000000</color>
+    <color name="scrim_from">#3d000000</color>
+    <color name="placeholder_playlist">#454545</color>
+    <color name="fence">#000000</color>
+    <color name="image_protection">#3d000000</color>
+
+    <color name="picker">#ffffff</color>
+    <color name="picker_picked">#4a4a4a</color>
 </resources>

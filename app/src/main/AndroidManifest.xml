@@ -23,9 +23,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".playlists.PlaylistsActivity" />
+        <activity android:name=".users.UsersActivity" />
+
         <activity
-            android:name=".ruledetails.RuleDetailsActivity"
-            android:theme="@style/RuleDetailsTheme" />
+            android:name=".rulecreate.RuleCreateActivity"
+            android:parentActivityName=".mainscreen.MainActivity"
+            android:theme="@style/AppTheme.Scrim" />
+
+        <activity
+            android:name=".condition.ConditionActivity"
+            android:parentActivityName=".rulecreate.RuleCreateActivity" />
 
         <receiver android:name=".that.PlayReceiver">
             <intent-filter>

@@ -5,13 +5,11 @@
 
         <variable
             name="callback"
-            type="com.lostincontext.ruledetails.pick.PlusButtonCallback" />
+            type="com.lostincontext.condition.pick.PlusButtonCallback" />
     </data>
 
-    <android.support.v7.widget.AppCompatImageButton
-        style="@style/Base.Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+    <TextView
+        style="@style/BottomButton"
         android:onClick="@{ () -> callback.onPlusButtonClick()}"
-        android:src="@drawable/ic_plus_16" />
+        android:text="@string/add_condition" />
 </layout>

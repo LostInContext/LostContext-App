@@ -2,14 +2,29 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="RuleDetailsTheme" parent="AppTheme">
+
+    <style name="AppTheme.Scrim" parent="AppTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="RuleDetailsTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="actionButtonStyle">@style/ActionButtonStyle</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/background_light</item>
+        <item name="android:colorBackground">@android:color/background_light</item>
+
     </style>
 
     <style name="ActionButtonStyle" parent="Base.Widget.AppCompat.Button.Borderless" />
@@ -22,10 +37,47 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="playlistPickButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@drawable/background_playlist_pick_button</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BottomButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/background_bottom_button</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+    <style name="LostToolbar" parent="Widget.AppCompat.Toolbar">
+        <!-- Define custom attributes here -->
+    </style>
+
+    <style name="PlayText">
+        <item name="android:background">#eeeeee</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
     <declare-styleable name="LostRadioButton">
-
         <attr name="src" format="reference" />
         <attr name="selected_color" format="color" />
     </declare-styleable>
+
+
 </resources>

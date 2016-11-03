@@ -11,5 +11,5 @@ import dagger.Component
            dependencies = arrayOf(ApplicationComponent::class))
 interface PlaylistsComponent {
 
-    fun inject(activity: PlaylistsActivity)
+    fun inject(fragment: PlaylistsFragment)
 }

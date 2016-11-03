@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="playlist"
+            type="com.lostincontext.data.playlist.Playlist" />
+
+    </data>
+
+    <com.lostincontext.rulecreate.ScrimCoordinatorLayout
+        android:id="@+id/scrimLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ruledetails.RuleCreateActivity">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/plus_button"
+            android:layout_marginBottom="@dimen/plus_button_height"
+            android:fitsSystemWindows="true" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:title="@{playlist.title}"
+            app:navigationIcon="?homeAsUpIndicator"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <include
+            android:id="@+id/plus_button"
+            layout="@layout/item_plus_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/plus_button_height"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom" />
+
+    </com.lostincontext.rulecreate.ScrimCoordinatorLayout>
+</layout>

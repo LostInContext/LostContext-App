@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.lostincontext.rulecreate.ConditionItem" />
+
+        <variable
+            name="callback"
+            type="com.lostincontext.rulecreate.ConditionItem.Callback" />
+
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="44dp"
+            android:layout_height="64dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:text="@{@string/position(viewModel.displayPosition)}"
+            android:textColor="?colorAccent"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry"
+            tools:text="1." />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:text="@{viewModel.text}"
+            android:textColor="#979797"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/position"
+            app:layout_constraintLeft_toRightOf="@+id/position"
+            app:layout_constraintRight_toLeftOf="@+id/clear"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry"
+            tools:text="when something" />
+
+        <ImageView
+            android:id="@+id/clear"
+            android:layout_width="56dp"
+            android:layout_height="64dp"
+            android:scaleType="center"
+            android:onClick="@{()-> callback.onDeleteButtonClick(viewModel.condition)}"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_clear_24"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</layout>
