@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "157373572105",
+    "firebase_url": "https://magiccontext-a95d9.firebaseio.com",
+    "project_id": "magiccontext-a95d9",
+    "storage_bucket": "magiccontext-a95d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157373572105:android:e9c67b565a1abdf9",
+        "android_client_info": {
+          "package_name": "com.lostincontext"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157373572105-jfmatio0u98gahg7vcu9kjc69ajst20o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAopq8klIjMhasnJE5FBAUCgwntO6ZKKpU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -76,6 +76,9 @@ dependencies {
     compile "com.google.android.gms:play-services-base:$rootProject.playServicesVersion"
     compile "com.google.android.gms:play-services-awareness:$rootProject.playServicesVersion"
 
+    // Firebase
+    compile "com.google.firebase:firebase-crash:$rootProject.firebaseVersion"
+
     // Dagger
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
     provided "org.glassfish:javax.annotation:$rootProject.javaxAnnotationsVersion"
